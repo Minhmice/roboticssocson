@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "achievements": "Thành tích",
+    "community": "Cộng đồng",
+    "sponsorship": "Tài trợ",
+    "budget": "Ngân sách",
+    "contact": "Liên hệ",
+    "sponsorButton": "Tài trợ ngay"
+  },
+  "hero": {
+    "badge": "Robotics Sóc Sơn • Hanoi"
+  },
+  "metrics": {
+    "badge": "Highlights",
+    "title": "Thành tựu & Dấu ấn",
+    "subtitle": "Một vài con số thể hiện hành trình và ảnh hưởng cộng đồng."
+  },
+  "partners": {
+    "badge": "Partners",
+    "title": "Đối tác & Giải đấu",
+    "subtitle": "Những đơn vị đồng hành và sân chơi mà chúng tôi tham gia.",
+    "disclaimer": "* Logos are placeholders for positioning and do not imply endorsement."
+  },
+  "cta": {
+    "title": "Sự ủng hộ của bạn tạo nên khác biệt",
+    "subtitle": "Your support powers the next generation of innovators.",
+    "button": "Tài trợ ngay",
+    "contact": "Liên hệ / Contact"
+  },
+  "footer": {
+    "taglineMain": "Dynamic - Creative - Driven to Discover",
+    "taglineSub": "Năng động - Sáng tạo - Không ngừng khám phá",
+    "quickLinks": "Quick Links",
+    "contact": "Liên hệ",
+    "followUs": "Theo dõi",
+    "copyright": "© 2025 Robotics Sóc Sơn. All rights reserved.",
+    "developed": "Developed with Next.js, Tailwind CSS, and shadcn/ui"
+  },
+  "about": {
+    "badge": "About Us",
+    "title": "Về Đội / About Us",
+    "subtitle": "Đội Robotics Sóc Sơn - Phát triển STEM qua sáng tạo và tinh thần đồng đội",
+    "missionTitle": "Sứ mệnh của chúng tôi / Our Mission",
+    "teamPhoto": "Ảnh đội / Team Photo",
+    "teamTitle": "Đội ngũ / Our Team"
+  },
+  "achievements": {
+    "badge": "Achievements",
+    "title": "Thành Tích / Achievements",
+    "subtitle": "Những dấu ấn của đội qua các mùa giải"
+  },
+  "community": {
+    "badge": "Community",
+    "title": "Cộng Đồng / Community",
+    "subtitle": "Hoạt động và tác động của đội trong cộng đồng",
+    "inviteUs": "Mời chúng tôi đến sự kiện của bạn",
+    "inviteUsSubtitle": "Tổ chức sự kiện STEM hoặc muốn hợp tác với đội? Hãy liên hệ!"
+  },
+  "sponsorship": {
+    "badge": "Sponsorship",
+    "title": "Tài Trợ / Sponsorship",
+    "subtitle": "Đồng hành cùng chúng tôi và nhận được quyền lợi",
+    "benefitsTitle": "Quyền Lợi / Benefits",
+    "tiersTitle": "Gói Tài Trợ / Sponsorship Tiers"
+  },
+  "budget": {
+    "badge": "Budget",
+    "title": "Ngân Sách / Budget",
+    "subtitle": "Phân bổ kinh phí cho mùa giải FTC 2024-2025",
+    "total": "Tổng cộng / Total",
+    "transparency": "Minh bạch & Chuyên nghiệp",
+    "item": "Hạng mục",
+    "qty": "Số lượng"
+  },
+  "contact": {
+    "badge": "Contact",
+    "title": "Liên Hệ / Contact",
+    "subtitle": "Hãy liên hệ với chúng tôi để tài trợ hoặc hợp tác",
+    "formTitle": "Gửi tin nhắn / Send Message",
+    "infoTitle": "Thông tin liên hệ / Contact Info",
+    "name": "Họ tên / Name",
+    "email": "Email",
+    "company": "Công ty / Company",
+    "phone": "Số điện thoại / Phone",
+    "message": "Tin nhắn / Message",
+    "submit": "Gửi / Submit",
+    "infoSubtitle": "Liên hệ qua email hoặc Telegram để thảo luận về tài trợ hoặc hợp tác."
+  }
+}

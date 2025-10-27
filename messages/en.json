@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "achievements": "Achievements",
+    "community": "Community",
+    "sponsorship": "Sponsorship",
+    "budget": "Budget",
+    "contact": "Contact",
+    "sponsorButton": "Become a Sponsor"
+  },
+  "hero": {
+    "badge": "Robotics Sóc Sơn • Hanoi"
+  },
+  "metrics": {
+    "badge": "Highlights",
+    "title": "Achievements & Impact",
+    "subtitle": "A few numbers that summarize our journey and community impact."
+  },
+  "partners": {
+    "badge": "Partners",
+    "title": "Partners & Competitions",
+    "subtitle": "Our collaborators and arenas.",
+    "disclaimer": "* Logos are placeholders for positioning and do not imply endorsement."
+  },
+  "cta": {
+    "title": "Your support powers the next generation of innovators",
+    "subtitle": "Hỗ trợ của bạn tiếp sức cho thế hệ đổi mới tiếp theo",
+    "button": "Become a Sponsor",
+    "contact": "Contact / Liên hệ"
+  },
+  "footer": {
+    "taglineMain": "Dynamic - Creative - Driven to Discover",
+    "taglineSub": "Năng động - Sáng tạo - Không ngừng khám phá",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "followUs": "Follow Us",
+    "copyright": "© 2025 Robotics Sóc Sơn. All rights reserved.",
+    "developed": "Developed with Next.js, Tailwind CSS, and shadcn/ui"
+  },
+  "about": {
+    "badge": "About Us",
+    "title": "About Us / Về Đội",
+    "subtitle": "Robotics Soc Son - Empowering STEM through creativity and teamwork",
+    "missionTitle": "Our Mission / Sứ mệnh của chúng tôi",
+    "teamPhoto": "Team Photo / Ảnh đội",
+    "teamTitle": "Our Team / Đội ngũ"
+  },
+  "achievements": {
+    "badge": "Achievements",
+    "title": "Achievements / Thành Tích",
+    "subtitle": "Our team's journey and milestones"
+  },
+  "community": {
+    "badge": "Community",
+    "title": "Community / Cộng Đồng",
+    "subtitle": "Our activities and community impact",
+    "inviteUs": "Invite us to your event",
+    "inviteUsSubtitle": "Organizing a STEM event or want to partner with us? Reach out!"
+  },
+  "sponsorship": {
+    "badge": "Sponsorship",
+    "title": "Sponsorship / Tài Trợ",
+    "subtitle": "Join us and receive exclusive benefits",
+    "benefitsTitle": "Benefits / Quyền Lợi",
+    "tiersTitle": "Sponsorship Tiers / Gói Tài Trợ"
+  },
+  "budget": {
+    "badge": "Budget",
+    "title": "Budget / Ngân Sách",
+    "subtitle": "FTC 2024-2025 season budget breakdown",
+    "total": "Total / Tổng cộng",
+    "transparency": "Transparency & Professionalism",
+    "item": "Item",
+    "qty": "Qty"
+  },
+  "contact": {
+    "badge": "Contact",
+    "title": "Contact / Liên Hệ",
+    "subtitle": "Reach out to sponsor or collaborate with us",
+    "formTitle": "Send Message / Gửi tin nhắn",
+    "infoTitle": "Contact Info / Thông tin liên hệ",
+    "name": "Name / Họ tên",
+    "email": "Email",
+    "company": "Company / Công ty",
+    "phone": "Phone / Số điện thoại",
+    "message": "Message / Tin nhắn",
+    "submit": "Submit / Gửi",
+    "infoSubtitle": "Contact us via email or Telegram to discuss sponsorship or collaboration."
+  }
+}
