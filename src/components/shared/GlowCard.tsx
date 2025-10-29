@@ -17,7 +17,7 @@ export const GlowCard: React.FC<GlowCardProps> = ({
       className={cn(
         "rounded-2xl border border-slate-800 bg-slate-900/50 p-6 backdrop-blur-sm transition-all duration-300",
         hover &&
-          "shadow-[0_0_12px_rgba(34,211,238,0.25)] hover:shadow-[0_0_20px_rgba(34,211,238,0.45)] hover:border-cyan-500/50",
+          "shadow-[0_0_12px_rgba(34,211,238,0.25)] hover:shadow-[0_0_20px_rgba(34,211,238,0.45)] hover:border-cyan-500/50 hover:scale-105 transition-all duration-300 ease-in-out",
         className
       )}
     >
@@ -25,12 +25,3 @@ export const GlowCard: React.FC<GlowCardProps> = ({
     </div>
   );
 };
-
-/**
- * Usage example:
- * 
- * <GlowCard>
- *   <p className="text-slate-300">Card content here</p>
- * </GlowCard>
- */
-

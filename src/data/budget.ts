@@ -1,6 +1,7 @@
 /**
  * Budget data for FTC 2024-2025 season
- * From Dự trù kinh phí.txt
+ * From Dự trù kinh phí.txt and Sponsorship2.md
+ * Total: 13 items, ~2,989 USD (~78M VNĐ)
  */
 
 export interface BudgetItem {
@@ -92,6 +93,30 @@ export const budgetItems: readonly BudgetItem[] = [
     totalUsd: 32,
     totalVnd: 832000,
     link: "https://www.gobilda.com/1310-series-hyper-hub-5mm-hex-bore/",
+  },
+  {
+    name: "Lệ phí đăng ký FTC Vietnam",
+    qty: 1,
+    unitPrice: 200,
+    totalUsd: 200,
+    totalVnd: 5200000,
+    link: "",
+  },
+  {
+    name: "Vật tư bổ sung, in 3D, công cụ",
+    qty: 1,
+    unitPrice: 300,
+    totalUsd: 300,
+    totalVnd: 7800000,
+    link: "",
+  },
+  {
+    name: "Hoạt động cộng đồng & truyền thông",
+    qty: 1,
+    unitPrice: 500,
+    totalUsd: 500,
+    totalVnd: 13000000,
+    link: "",
   },
 ] as const;
 

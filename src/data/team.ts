@@ -1,6 +1,7 @@
 /**
  * Team roster for About page
- * Current team members with roles
+ * Current team members with roles from Sponsorship2.md
+ * 14 members total: 1 Captain, 1 Vice Captain, 12 Members
  */
 
 export type TeamMember = { 
@@ -10,14 +11,19 @@ export type TeamMember = {
 };
 
 export const team: readonly TeamMember[] = [
-  { name: "Nguyễn Minh Nam", role: "Team Leader — Coding" },
-  { name: "Mầu Tuấn Kiệt", role: "Engineering" },
-  { name: "Lê Khắc Huy", role: "Engineering" },
-  { name: "Vương Thị Như Quỳnh", role: "Engineering" },
-  { name: "Nguyễn Phan Trà My", role: "Media — Design" },
-  { name: "Vũ Hải Anh", role: "Engineering" },
-  { name: "Lê Quang Trình", role: "Coding" },
-  { name: "Nguyễn Ngọc Thảo", role: "Media — Design" },
-  { name: "Nguyễn Bảo Chi", role: "Media — Design" },
+  { name: "Lê Quang Trình", role: "Captain" },
+  { name: "Đoàn Thị Thuỳ Ngân", role: "Vice Captain" },
+  { name: "Võ Danh Sơn", role: "Member" },
+  { name: "Phạm Đức Vinh", role: "Member" },
+  { name: "Phùng An Phong", role: "Member" },
+  { name: "Đoàn Dũng", role: "Member" },
+  { name: "Nguyễn Hồng Hà", role: "Member" },
+  { name: "Cao Linh Hương", role: "Member" },
+  { name: "Trần Minh Hiếu", role: "Member" },
+  { name: "Nguyễn Anh Duy", role: "Member" },
+  { name: "Vũ Hải Anh", role: "Member" },
+  { name: "Nguyễn Đoàn Duy Phong", role: "Member" },
+  { name: "Nguyễn Ngọc Thảo", role: "Member" },
+  { name: "Đỗ Ngô Thiện Nhân", role: "Member" },
 ] as const;
 

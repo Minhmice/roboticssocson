@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className="dark scroll-smooth">
+    <html lang="vi" className="scroll-smooth dark" data-theme="dark">
       <body className={`${inter.variable} antialiased`}>
         <LanguageProvider>
           <Navbar />
