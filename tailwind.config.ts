@@ -9,6 +9,15 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/data/**/*.{ts,tsx}",
+  ],
+  safelist: [
+    "col-span-1",
+    "col-span-2",
+    "md:col-span-1",
+    "md:col-span-2",
+    "md:row-span-1",
+    "md:row-span-2",
   ],
   theme: {
     extend: {

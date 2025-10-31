@@ -32,6 +32,7 @@ export const LogoStrip: React.FC<LogoStripProps> = ({ logos, className }) => {
                 alt={logo.alt}
                 width={120}
                 height={60}
+                sizes="(max-width: 640px) 80px, (max-width: 1024px) 100px, 120px"
                 className="h-auto max-h-16 w-auto opacity-70 hover:opacity-100"
               />
             </a>
@@ -41,6 +42,7 @@ export const LogoStrip: React.FC<LogoStripProps> = ({ logos, className }) => {
               alt={logo.alt}
               width={120}
               height={60}
+              sizes="(max-width: 640px) 80px, (max-width: 1024px) 100px, 120px"
               className="h-auto max-h-16 w-auto opacity-70"
             />
           )}

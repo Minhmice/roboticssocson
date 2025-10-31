@@ -88,6 +88,10 @@
     color: var(--text-primary);
     font-feature-settings: "rlig" 1, "calt" 1;
     transition: background-color 0.3s ease-out, color 0.3s ease-out;
+    overflow-x: hidden;
+  }
+  html {
+    overflow-x: hidden;
   }
 }
 
@@ -109,23 +113,6 @@
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #334155;
-  }
-
-  /* Scroll snap utilities */
-  .scroll-snap-y {
-    scroll-snap-type: y mandatory;
-  }
-
-  .scroll-snap-start {
-    scroll-snap-align: start;
-  }
-
-  .scroll-snap-center {
-    scroll-snap-align: center;
-  }
-
-  .scroll-snap-end {
-    scroll-snap-align: end;
   }
 
   .scroll-smooth {
@@ -151,7 +138,6 @@
     animation: pulse-glow 3s ease-in-out infinite;
   }
 
-  /* Subtle gradient overlay for hero */
   @keyframes gradient-shift {
     0% {
       background-position: 0% 50%;
@@ -197,5 +183,130 @@
       linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
     background-size: 50px 50px;
     pointer-events: none;
+  }
+
+  /* Glass Button Styles */
+  .glass-button-wrap {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+  }
+
+  /* Override border-radius khi có rounded-xl class */
+  .glass-button-wrap.rounded-xl .glass-button,
+  .glass-button-wrap.rounded-xl .glass-button-shadow {
+    border-radius: 0.75rem !important; /* rounded-xl */
+  }
+
+  .glass-button {
+    all: unset;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    border: 1px solid;
+    border-radius: 9999px;
+    border-color: rgba(56, 189, 248, 0.2); /* primary color with opacity */
+    background: rgba(56, 189, 248, 0.1); /* primary with low opacity */
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    color: var(
+      --primary
+    ) !important; /* Use primary color for text - force override */
+    transition: background 0.3s ease-in-out, border-color 0.3s ease-in-out,
+      transform 0.3s ease-in-out, color 0.3s ease-in-out,
+      box-shadow 0.3s ease-in-out;
+  }
+
+  .glass-button:hover {
+    background: rgba(56, 189, 248, 0.25);
+    border-color: rgba(56, 189, 248, 0.4);
+    transform: scale(1.08);
+    color: var(--primary) !important;
+    box-shadow: 0 6px 24px 0 rgba(56, 189, 248, 0.25),
+      0 1.5px 4px 0 rgba(56, 189, 248, 0.12);
+    transition: background 0.3s ease-in-out, border-color 0.3s ease-in-out,
+      transform 0.3s ease-in-out, color 0.3s ease-in-out,
+      box-shadow 0.3s ease-in-out;
+  }
+
+  .glass-button:active {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .glass-button-text {
+    position: relative;
+    z-index: 1;
+    color: inherit;
+  }
+
+  .glass-button-shadow {
+    position: absolute;
+    inset: -2px;
+    z-index: 0;
+    background: radial-gradient(
+      circle at 50% 0%,
+      rgba(56, 189, 248, 0.3) 0%,
+      transparent 50%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .glass-button-wrap:hover .glass-button-shadow {
+    opacity: 1;
+  }
+
+  /* Border Progression Animation for Feature List */
+  .feature-list-item {
+    position: relative;
+  }
+
+  .feature-list-item::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(
+      from 0deg,
+      rgba(56, 189, 248, 0.8),
+      rgba(56, 189, 238, 0.5),
+      rgba(56, 189, 248, 0.2),
+      rgba(56, 189, 248, 0.8)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: border-rotate 3s linear infinite;
+  }
+
+  .feature-list-item:has(:focus-visible)::before,
+  .feature-list-item.border-active::before {
+    opacity: 1;
+  }
+
+  @keyframes border-rotate {
+    0% {
+      background: conic-gradient(
+        from 0deg,
+        rgba(56, 189, 248, 0.8),
+        rgba(56, 189, 238, 0.5),
+        rgba(56, 189, 248, 0.2),
+        rgba(56, 189, 248, 0.8)
+      );
+    }
+    100% {
+      background: conic-gradient(
+        from 360deg,
+        rgba(56, 189, 248, 0.8),
+        rgba(56, 189, 238, 0.5),
+        rgba(56, 189, 248, 0.2),
+        rgba(56, 189, 248, 0.8)
+      );
+    }
   }
 }

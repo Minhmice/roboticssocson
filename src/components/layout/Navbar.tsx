@@ -1,6 +1,6 @@
 "use client";
 
-import { Globe } from "lucide-react";
+import { Globe, X, Menu } from "lucide-react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -14,37 +14,101 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu when clicking outside or on a link
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
-    { label: t("nav.about"), href: "/about" },
-    { label: t("nav.achievements"), href: "/achievements" },
-    { label: t("nav.community"), href: "/community" },
-    { label: t("nav.sponsorship"), href: "/sponsorship" },
-    { label: t("nav.budget"), href: "/budget" },
-    { label: t("nav.contact"), href: "/contact" },
+    {
+      label: t("nav.about"),
+      href: "#about-first",
+      sectionId: "about-first",
+      isAnchor: true,
+    },
+    {
+      label: t("nav.achievements"),
+      href: "#achievements",
+      sectionId: "achievements",
+      isAnchor: true,
+    },
+    {
+      label: t("nav.budget"),
+      href: "#budget-section",
+      sectionId: "budget-section",
+      isAnchor: true,
+    },
+    {
+      label: t("nav.sponsorship"),
+      href: "#why-sponsor",
+      sectionId: "why-sponsor",
+      isAnchor: true,
+    },
+    { label: t("nav.contact"), href: "/contact", isAnchor: false },
   ];
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 80; // Navbar height + some padding
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const handleLinkClick = (
+    link: (typeof navLinks)[0],
+    e: React.MouseEvent<HTMLAnchorElement>
+  ) => {
+    if (link.isAnchor) {
+      e.preventDefault();
+      setMobileMenuOpen(false);
+      scrollToSection(link.sectionId!);
+    } else {
+      // Regular link, just close mobile menu
+      setMobileMenuOpen(false);
+    }
+  };
 
   return (
     <nav
       className={cn(
-        "sticky top-0 z-50 w-full border-b border-slate-800/50 bg-black/40 backdrop-blur-md transition-shadow duration-300",
+        "fixed top-0 left-0 right-0 z-50 w-full border-b border-border bg-background/40 backdrop-blur-md transition-shadow duration-300",
         scrolled && "shadow-[0_0_20px_rgba(0,0,0,0.5)]",
         className
       )}
     >
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+      <div className="container mx-auto flex h-14 sm:h-16 items-center justify-between px-4 md:px-6">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2">
-          <Globe className="h-6 w-6 text-cyan-500" />
-          <span className="text-lg font-bold text-slate-100">
+        <a
+          href="/"
+          className="flex items-center gap-1.5 sm:gap-2"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+          <span className="text-base sm:text-lg font-bold text-foreground">
             Robotics Sóc Sơn
           </span>
         </a>
@@ -55,52 +119,83 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-slate-400 transition-colors hover:text-cyan-400"
+              onClick={(e) => handleLinkClick(link, e)}
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary cursor-pointer"
             >
               {link.label}
             </a>
           ))}
         </div>
 
-        {/* Right side: Language + CTA */}
-        <div className="flex items-center gap-3">
-          <LanguageToggle />
+        {/* Right side: Language + CTA (Desktop) */}
+        <div className="hidden md:flex md:items-center md:gap-3">
           <CTAButton
             label={t("nav.sponsorButton")}
             variant="primary"
-            href="/sponsorship"
-            className="hidden md:inline-flex"
+            href="#why-sponsor"
+            onClick={(e) => {
+              e?.preventDefault();
+              scrollToSection("why-sponsor");
+            }}
           />
+          <LanguageToggle className="ml-auto" />
+        </div>
+
+        {/* Right side: Language (Mobile) */}
+        <div className="flex md:hidden items-center gap-3 ml-auto">
+          <LanguageToggle />
         </div>
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-slate-400 hover:text-cyan-400"
+          className="md:hidden text-muted-foreground hover:text-primary transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           aria-label="Toggle menu"
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          {mobileMenuOpen ? (
+            <X className="h-5 w-5 sm:h-6 sm:w-6" />
+          ) : (
+            <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
+          )}
         </button>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md">
+          <div className="container mx-auto px-4 py-4 space-y-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleLinkClick(link, e)}
+                className="flex items-center px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-primary hover:bg-muted rounded-lg min-h-[44px] cursor-pointer"
+              >
+                {link.label}
+              </a>
+            ))}
+            <div className="pt-2 border-t border-border">
+              <CTAButton
+                label={t("nav.sponsorButton")}
+                variant="primary"
+                href="#why-sponsor"
+                className="w-full justify-center min-h-[44px]"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  scrollToSection("why-sponsor");
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
 
 /**
  * Usage example:
- * 
+ *
  * <Navbar />
  */
-

@@ -22,11 +22,13 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
       )}
     >
       <Icon className="mb-4 h-16 w-16 text-slate-600" />
-      <p className="text-sm text-slate-500">
+      <p className="text-sm text-slate-500 font-medium">
         {type === "image" ? "Placeholder Image" : "Placeholder Video"}
       </p>
       {caption && (
-        <p className="mt-2 text-xs italic text-slate-600">{caption}</p>
+        <p className="mt-2 text-xs italic text-slate-400">
+          {type === "image" ? `Ảnh: ${caption}` : `Video: ${caption}`}
+        </p>
       )}
     </div>
   );

@@ -38,10 +38,10 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
       ref={containerRef}
     >
       <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
-        <h2 className="text-2xl md:text-5xl mb-4 text-slate-100 max-w-4xl font-bold">
+        <h2 className="text-3xl md:text-7xl mb-4 text-slate-100 max-w-2xl font-bold">
           Hành trình thi đấu của chúng em
         </h2>
-        <p className="text-slate-400 text-base md:text-lg max-w-2xl">
+        <p className="text-slate-400 text-base md:text-2xl max-w-3xl">
           Từ những ngày đầu thành lập đến những thành tích đáng tự hào trong các cuộc thi robotics.
         </p>
       </div>
@@ -50,10 +50,10 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         {data.map((item, index) => (
           <div
             key={index}
-            className="flex justify-start pt-10 md:pt-40 md:gap-10"
+            className="flex justify-start pb-10 md:pb-40"
           >
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-12 absolute left-3 md:left-3 w-12 rounded-full bg-slate-900 border-2 border-cyan-500 flex items-center justify-center">
+              <div className="h-12 absolute left-2 md:left-2 w-12 rounded-full bg-slate-900 border-2 border-cyan-500 flex items-center justify-center">
                 <div className="h-6 w-6 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600" />
               </div>
               <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-cyan-400">

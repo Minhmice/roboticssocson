@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
@@ -8,6 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -28,6 +29,12 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,10 +42,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" className="scroll-smooth dark" data-theme="dark">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased overflow-x-hidden`}>
         <LanguageProvider>
           <Navbar />
-          <main className="relative overflow-hidden">
+          <main className="relative overflow-x-hidden pt-16">
             {children}
           </main>
           <Footer />

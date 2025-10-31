@@ -72,27 +72,27 @@ function AchievementContent({
     <div ref={ref} className="space-y-6">
       {/* Achievement Header */}
       <motion.div
-        className="flex items-center gap-4 mb-6"
+        className="flex items-center gap-4"
         initial={{ opacity: 0, x: -20 }}
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="h-16 w-16 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 flex items-center justify-center shadow-lg">
+        <div className="h-16 w-16 rounded-xl bg-primary/20 flex items-center justify-center shadow-lg border bg-primary">
           {index === 0 ? (
-            <Trophy className="h-8 w-8 text-white" />
+            <Trophy className="h-8 w-8 text-primary-foreground" />
           ) : index === 1 ? (
-            <Award className="h-8 w-8 text-white" />
+            <Award className="h-8 w-8 text-primary-foreground" />
           ) : (
-            <Medal className="h-8 w-8 text-white" />
+            <Medal className="h-8 w-8 text-primary-foreground" />
           )}
         </div>
         <div>
-          <h4 className="text-2xl font-bold text-slate-100 mb-2">
+          <h4 className="text-2xl font-bold text-foreground mb-2">
             {getField(achievement, "title")}
           </h4>
           <Badge
             variant="outline"
-            className="text-cyan-400 border-cyan-500/20 text-lg px-4 py-2"
+            className="text-primary border-primary/30 text-lg px-4 py-2"
           >
             {achievement.rank}
           </Badge>
@@ -101,7 +101,7 @@ function AchievementContent({
 
       {/* Description */}
       <motion.p
-        className="text-slate-300 text-lg leading-relaxed mb-6"
+        className="text-muted-foreground text-lg leading-relaxed"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
@@ -118,17 +118,14 @@ function AchievementContent({
           }
           transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
         >
-          <Badge
-            variant="secondary"
-            className="bg-slate-800 text-slate-300 text-base px-4 py-2 mb-6"
-          >
+          <Badge variant="secondary" className="text-base px-4 py-2 mb-6">
             {achievement.participants}
           </Badge>
         </motion.div>
       )}
 
       {/* Image Grid with staggered animations */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6">
         {images.map((image, imageIndex) => (
           <motion.div
             key={imageIndex}

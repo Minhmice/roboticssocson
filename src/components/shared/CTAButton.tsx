@@ -6,7 +6,7 @@ interface CTAButtonProps {
   variant?: "primary" | "secondary" | "ghost";
   icon?: LucideIcon;
   href?: string;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
   className?: string;
 }
 
@@ -18,18 +18,18 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   onClick,
   className,
 }) => {
-  const baseStyles = "px-6 py-3 rounded-xl font-medium transition-all duration-300";
+  const baseStyles = "px-6 py-3 rounded-xl font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
   
   const variants = {
-    primary: "bg-cyan-500 text-slate-900 hover:bg-cyan-400 hover:shadow-[0_0_16px_rgba(34,211,238,0.5)] focus:ring-2 focus:ring-cyan-500",
-    secondary: "border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 focus:ring-2 focus:ring-cyan-500",
-    ghost: "text-cyan-400 hover:bg-cyan-950/30 hover:text-cyan-300 focus:ring-2 focus:ring-cyan-500",
+    primary: "bg-cyan-500 text-slate-900 hover:bg-cyan-400 hover:shadow-[0_0_16px_rgba(34,211,238,0.5)] active:bg-cyan-600",
+    secondary: "border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 active:bg-cyan-500/20",
+    ghost: "text-cyan-400 hover:bg-cyan-950/30 hover:text-cyan-300 active:bg-cyan-950/50",
   };
 
   const content = (
-    <span className="flex items-center gap-2">
-      {Icon && <Icon className="h-4 w-4" />}
-      {label}
+    <span className="flex items-center justify-center gap-2">
+      {Icon && <Icon className="h-4 w-4 flex-shrink-0" />}
+      <span>{label}</span>
     </span>
   );
 
@@ -48,6 +48,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   return (
     <button
       onClick={onClick}
+      type="button"
       className={cn(baseStyles, variants[variant], className)}
     >
       {content}
