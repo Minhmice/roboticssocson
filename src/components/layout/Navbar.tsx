@@ -1,6 +1,7 @@
 "use client";
 
-import { Globe, X, Menu } from "lucide-react";
+import Image from "next/image";
+import { X, Menu } from "lucide-react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -107,7 +108,13 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
           className="flex items-center gap-1.5 sm:gap-2"
           onClick={() => setMobileMenuOpen(false)}
         >
-          <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+          <Image
+            src="/Logo.svg"
+            alt="Robotics Sóc Sơn Logo"
+            width={20}
+            height={20}
+            className="object-contain sm:w-6 sm:h-6"
+          />
           <span className="text-base sm:text-lg font-bold text-foreground">
             Robotics Sóc Sơn
           </span>

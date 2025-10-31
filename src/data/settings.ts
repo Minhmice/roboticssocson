@@ -5,11 +5,11 @@
 
 export const brand = "Robotics Sóc Sơn" as const;
 
-export const domain = "roboticssocson.com" as const;
+export const domain = "roboticssocson.minhmice.com" as const;
 
 export const sponsorEmail = "sponsor@roboticssocson.com" as const;
 
-export const pitchPdfUrl = "{{PITCH_PDF_URL}}" as const;
+export const pitchPdfUrl = "/Logo.svg" as const;
 
 export type Socials = {
   readonly facebook: string;
