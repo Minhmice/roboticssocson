@@ -8,6 +8,8 @@ interface CTAButtonProps {
   href?: string;
   onClick?: (e?: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
   className?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export const CTAButton: React.FC<CTAButtonProps> = ({
@@ -17,6 +19,8 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   href,
   onClick,
   className,
+  type = "button",
+  disabled = false,
 }) => {
   const baseStyles = "px-6 py-3 rounded-xl font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
   
@@ -48,8 +52,14 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      type="button"
-      className={cn(baseStyles, variants[variant], className)}
+      type={type}
+      disabled={disabled}
+      className={cn(
+        baseStyles,
+        variants[variant],
+        disabled && "opacity-50 cursor-not-allowed",
+        className
+      )}
     >
       {content}
     </button>

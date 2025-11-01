@@ -10,7 +10,7 @@ export interface TeamMember {
   readonly bio?: string;
 }
 
-export const missionData = {
+export const aboutMissionData = {
   mission_vi: "Phát triển năng lực khoa học – kỹ thuật của học sinh thông qua trải nghiệm thực tiễn, đồng thời lan tỏa tinh thần STEM đến cộng đồng học sinh tại Sóc Sơn và khu vực lân cận.",
   mission_en: "Develop students' scientific and technical abilities through hands-on experience, while promoting the spirit of STEM within the student community in Sóc Sơn and surrounding areas.",
   values: ["Năng động / Dynamic", "Sáng tạo / Creative", "Không ngừng khám phá / Driven to Discover"],

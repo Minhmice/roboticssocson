@@ -26,7 +26,7 @@ export default function PartnersSection() {
         <AnimatedSection className="mt-10">
           <div className="bg-slate-900/30 backdrop-blur-sm border border-slate-800 rounded-3xl p-8 md:p-12">
             <LogoStrip 
-              logos={partnerLogos as any} 
+              logos={partnerLogos} 
             />
           </div>
           

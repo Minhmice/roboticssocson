@@ -8,7 +8,7 @@ interface Logo {
 }
 
 interface LogoStripProps {
-  logos: Logo[];
+  logos: readonly Logo[];
   className?: string;
 }
 

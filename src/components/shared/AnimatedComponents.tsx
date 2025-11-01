@@ -14,9 +14,9 @@ interface AnimatedComponentProps {
 // Base animation configuration
 const animationConfig = {
   once: false,
-  margin: "0px 0px -50px 0px",
+  margin: "0px 0px -50px 0px" as const,
   amount: 0.3,
-};
+} as const;
 
 const transitionConfig = {
   duration: 0.7,

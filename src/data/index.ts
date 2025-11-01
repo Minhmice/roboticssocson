@@ -13,4 +13,5 @@ export * from "./mission";
 export * from "./sponsorship";
 export * from "./aboutFTC";
 export * from "./aboutFIRST";
+export * from "./logos";
 
