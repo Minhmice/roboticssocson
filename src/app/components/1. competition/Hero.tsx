@@ -70,7 +70,7 @@ export default function Hero() {
     const timeoutId = setTimeout(() => {
       // Fade out trước khi đổi chữ
       setIsTransitioning(true);
-      
+
       // Sau khi fade out xong (300ms), đổi chữ và fade in lại
       transitionTimeoutRef.current = setTimeout(() => {
         if (currentWordIndex === animatedWords.length - 1) {
@@ -81,7 +81,7 @@ export default function Hero() {
         setIsTransitioning(false);
       }, 300);
     }, 3000); // Tổng thời gian hiển thị mỗi từ
-    
+
     return () => {
       clearTimeout(timeoutId);
       if (transitionTimeoutRef.current) {
@@ -163,12 +163,12 @@ export default function Hero() {
               <CTAButton
                 label={getField(heroData, "cta_primary")}
                 variant="primary"
-                href="/contact"
+                href="https://m.me/roboticssocson"
                 className="flex-1 text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 min-h-[44px] w-full"
                 aria-label="Contact for sponsorship"
               />
             </div>
-            <div className="flex flex-1 w-full sm:w-auto">
+            <div className="flex flex-1 w-full sm:w-aut o">
               <CTAButton
                 label={getField(heroData, "cta_secondary")}
                 variant="secondary"

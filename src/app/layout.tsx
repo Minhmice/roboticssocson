@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     "robotics, FIRST Tech Challenge, FTC, STEM, Sóc Sơn, Hanoi, sponsorship, innovation",
   authors: [{ name: "Robotics Sóc Sơn" }],
   icons: {
-    icon: "/Logo.svg",
-    shortcut: "/Logo.svg",
-    apple: "/Logo.svg",
+    icon: "/Logo/RBS Logo.svg",
+    shortcut: "/Logo/RBS Logo.svg",
+    apple: "/Logo/RBS Logo.svg",
   },
   openGraph: {
     title: "RBS - Sponsorship Site",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Robotics Sóc Sơn",
     images: [
       {
-        url: "/Logo.svg",
+        url: "/Logo/RBS Logo.svg",
         width: 637,
         height: 483,
         alt: "Robotics Sóc Sơn Logo",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Robotics Sóc Sơn",
     description: "Empower the next generation of innovators.",
-    images: ["/Logo.svg"],
+    images: ["/Logo/RBS Logo.svg"],
   },
 };
 

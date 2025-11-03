@@ -4,11 +4,12 @@
  */
 
 import type { ImageGalleryLayout } from "@/components/shared/ImageGallery";
-import { Clock, Target, Box, Users, Award } from "lucide-react";
+import { Clock, Target, Box, Users, Award, PersonStanding } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 
 export interface FTCFeatureImage {
   readonly caption: string;
+  readonly src?: string;
 }
 
 export interface FTCFeature {
@@ -59,10 +60,12 @@ export const ftcFeatures: readonly FTCFeature[] = [
       "Season starts with kickoff on September 6, 2025. Robots must meet high technical standards to compete.",
     iconColor: "text-yellow-400",
     bgColor: "bg-yellow-900/20",
-    imageLayout: "2",
+    imageLayout: "1",
     images: [
-      { caption: "DECODE™ 2025-2026 Season" },
-      { caption: "Competition Field" },
+      { 
+        caption: "DECODE™ 2025-2026 Season",
+        src: "/Images/About FTC/Image 1.1.jpg"
+      },
     ],
   },
   {
@@ -75,8 +78,9 @@ export const ftcFeatures: readonly FTCFeature[] = [
       "Robotics competition for students from grade 7 to 12, where teams (max 15 members) design, build, program and operate robots.",
     iconColor: "text-cyan-400",
     bgColor: "bg-cyan-900/20",
-    imageLayout: "1",
-    images: [{ caption: "Cuộc thi Robotics Khối 7-12" }],
+    imageLayout: "2",
+    images: [{ caption: "Cuộc thi Robotics Khối 7-12", src: "/Images/About FTC/2.1.jpg" },
+    { caption: "Cuộc thi Robotics Khối 7-12", src: "/Images/About FTC/2.2.jpg" }],
   },
   {
     icon: Box,
@@ -88,10 +92,12 @@ export const ftcFeatures: readonly FTCFeature[] = [
       "Robot must fit in an 18x18x18 inch cube at match start, then can expand within Competition Manual limits.",
     iconColor: "text-blue-400",
     bgColor: "bg-blue-900/20",
-    imageLayout: "2",
+    imageLayout: "4",
     images: [
-      { caption: "Robot 18x18x18 inch - Front view" },
-      { caption: "Robot 18x18x18 inch - Side view" },
+      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.1.jpg" },
+      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.2.jpg" },
+      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.3.jpg" },
+      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.4.jpg" },
     ],
   },
   {
@@ -104,12 +110,9 @@ export const ftcFeatures: readonly FTCFeature[] = [
       "Teams compete in alliance model, fostering collaboration and teamwork skills.",
     iconColor: "text-purple-400",
     bgColor: "bg-purple-900/20",
-    imageLayout: "4",
+    imageLayout: "1",
     images: [
-      { caption: "Alliance Team 1" },
-      { caption: "Alliance Team 2" },
-      { caption: "Collaboration" },
-      { caption: "Teamwork" },
+      { caption: "Mô hình liên minh - Alliance Model", src: "/Images/About FTC/4.1.jpg" },
     ],
   },
   {
@@ -123,7 +126,9 @@ export const ftcFeatures: readonly FTCFeature[] = [
     iconColor: "text-green-400",
     bgColor: "bg-green-900/20",
     imageLayout: "1",
-    images: [{ caption: "Technical & Design Skills" }],
+    images: [
+      { caption: "Technical & Design Skills", src: "/Images/About FTC/5.1.jpg" }
+    ],
   },
 ] as const;
 
@@ -134,7 +139,12 @@ export const ftcStats: readonly FTCStat[] = [
     value: "15",
     icon: Users,
   },
-  { label_vi: "Khối", label_en: "Grades", value: "7-12", icon: Box },
+  {
+    label_vi: "Học sinh khối",
+    label_en: "Grades",
+    value: "7-12",
+    icon: PersonStanding,
+  },
   {
     label_vi: "Kích thước robot",
     label_en: "Robot Size",
@@ -148,4 +158,3 @@ export const ftcStats: readonly FTCStat[] = [
     icon: Clock,
   },
 ] as const;
-

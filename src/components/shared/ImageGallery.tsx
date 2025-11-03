@@ -63,6 +63,7 @@ export function ImageGallery({
         <motion.div variants={itemVariants} className="w-full">
           <MediaPlaceholder
             type="image"
+            src={galleryImages[0]?.src}
             caption={galleryImages[0]?.caption}
             className={cn("h-48 md:h-56 w-full object-cover rounded-xl")}
           />
@@ -83,6 +84,7 @@ export function ImageGallery({
           <motion.div key={idx} variants={itemVariants}>
             <MediaPlaceholder
               type="image"
+              src={img.src}
               caption={img.caption}
               className="h-40 md:h-48 w-full object-cover rounded-xl"
             />
@@ -104,6 +106,7 @@ export function ImageGallery({
           <motion.div key={idx} variants={itemVariants}>
             <MediaPlaceholder
               type="image"
+              src={img.src}
               caption={img.caption}
               className="h-16 sm:h-24 md:h-32 w-full object-cover rounded-xl"
             />

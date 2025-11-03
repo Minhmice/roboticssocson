@@ -63,26 +63,6 @@ export const whySponsorCards: readonly WhySponsorCard[] = [
       "Đồng hành cùng Robotics Sóc Sơn, doanh nghiệp sẽ nhận được cơ hội tăng cường nhận diện thương hiệu trong cộng đồng giáo dục STEM và robotics. Các quyền lợi bao gồm:",
     intro_en:
       "By partnering with Robotics Sóc Sơn, your organization will gain opportunities to enhance brand recognition within the STEM and robotics education community. Key benefits include:",
-  },
-  // Card 3
-  {
-    id: "community-engagement",
-    type: "two-col",
-    icon: "Users",
-    title_vi: "Cộng đồng và ảnh hưởng địa phương",
-    title_en: "Community Engagement",
-    content_vi:
-      "Hỗ trợ Robotics Sóc Sơn giúp doanh nghiệp tiếp cận trực tiếp cộng đồng học sinh và giáo viên địa phương, đồng thời thúc đẩy phong trào STEM và đổi mới sáng tạo trong khu vực. Hỗ trợ đội của chúng tôi đồng nghĩa với việc đầu tư vào giáo dục địa phương và truyền cảm hứng cho thế hệ trẻ Sóc Sơn theo đuổi công nghệ và đổi mới sáng tạo.",
-    content_en:
-      "Supporting Robotics Sóc Sơn allows your organization to engage directly with local students and educators, while promoting STEM education and innovation within the community. Supporting our team means investing in local education and inspiring young minds in the Sóc Sơn community to pursue technology and innovation.",
-  },
-  // Card 4
-  {
-    id: "brand-benefits",
-    type: "benefits-list",
-    icon: "Award",
-    title_vi: "Quyền lợi",
-    title_en: "Benefits",
     benefits: [
       {
         text_vi: "Logo xuất hiện trên robot thi đấu và banner của đội",
@@ -114,7 +94,19 @@ export const whySponsorCards: readonly WhySponsorCard[] = [
       },
     ],
   },
-  // Card 5
+  // Card 3
+  {
+    id: "community-engagement",
+    type: "two-col",
+    icon: "Users",
+    title_vi: "Cộng đồng và ảnh hưởng địa phương",
+    title_en: "Community Engagement",
+    content_vi:
+      "Hỗ trợ Robotics Sóc Sơn giúp doanh nghiệp tiếp cận trực tiếp cộng đồng học sinh và giáo viên địa phương, đồng thời thúc đẩy phong trào STEM và đổi mới sáng tạo trong khu vực. Hỗ trợ đội của chúng em đồng nghĩa với việc đầu tư vào giáo dục địa phương và truyền cảm hứng cho thế hệ trẻ Sóc Sơn theo đuổi công nghệ và đổi mới sáng tạo.",
+    content_en:
+      "Supporting Robotics Sóc Sơn allows your organization to engage directly with local students and educators, while promoting STEM education and innovation within the community. Supporting our team means investing in local education and inspiring young minds in the Sóc Sơn community to pursue technology and innovation.",
+  },
+  // Card 3
   {
     id: "transparency",
     type: "full",
@@ -139,14 +131,14 @@ export interface WhySponsorHeader {
 }
 
 export const whySponsorHeader: WhySponsorHeader = {
-  badge_vi: "Benefits",
+  badge_vi: "Quyền lợi",
   badge_en: "Benefits",
   title_vi: "Lý do nên tài trợ",
   title_en: "Why sponsor us?",
   subtitle_vi:
-    "Đầu tư vào giáo dục STEM, tạo impact bền vững cho thế hệ trẻ Việt Nam",
+    "Đầu tư vào giáo dục STEM, tạo giá trị bền vững cho thế hệ trẻ Việt Nam",
   subtitle_en:
-    "Invest in STEM education, create lasting impact for Vietnam's youth",
+    "Invest in STEM education, create lasting value for Vietnam's youth",
 } as const;
 
 // ========== Sponsorship Section Data ==========

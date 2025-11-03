@@ -1,19 +1,44 @@
 import { Image as ImageIcon, Video } from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface MediaPlaceholderProps {
   type: "image" | "video";
+  src?: string;
   caption?: string;
   className?: string;
 }
 
 export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
   type,
+  src,
   caption,
   className,
 }) => {
   const Icon = type === "image" ? ImageIcon : Video;
 
+  // If src is provided, render the actual image/video
+  if (src && type === "image") {
+    return (
+      <div className={cn("relative h-full w-full", className)}>
+        <Image
+          src={src}
+          alt={caption || "Image"}
+          fill
+          className="object-cover rounded-2xl"
+        />
+        {caption && (
+          <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-4 py-2 rounded-b-2xl">
+            <p className="text-xs italic text-white text-center">
+              {caption}
+            </p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Default placeholder
   return (
     <div
       className={cn(

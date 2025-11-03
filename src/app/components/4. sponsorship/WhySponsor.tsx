@@ -103,12 +103,24 @@ export default function WhySponsorSection() {
                           {locale === "vi" ? card.title_vi : card.title_en}
                         </h3>
                         {card.intro_vi && card.intro_en && (
-                          <p className="text-muted-foreground text-base">
+                          <p className="text-muted-foreground text-base mb-3">
                             {locale === "vi" ? card.intro_vi : card.intro_en}
                           </p>
                         )}
+                        {card.benefits && card.benefits.length > 0 && (
+                          <div className="space-y-2">
+                            {card.benefits.map((benefit, idx) => (
+                              <div key={idx} className="flex items-start gap-3">
+                                <Award className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                                <p className="text-base text-muted-foreground leading-relaxed">
+                                  {locale === "vi" ? benefit.text_vi : benefit.text_en}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                         {card.content_vi && card.content_en && (
-                          <p className="text-muted-foreground text-base leading-relaxed">
+                          <p className="text-muted-foreground text-base leading-relaxed mt-3">
                             {locale === "vi" ? card.content_vi : card.content_en}
                           </p>
                         )}

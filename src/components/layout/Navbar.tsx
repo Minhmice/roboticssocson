@@ -62,7 +62,12 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
       sectionId: "why-sponsor",
       isAnchor: true,
     },
-    { label: t("nav.contact"), href: "/contact", isAnchor: false },
+    {
+      label: t("nav.contact"),
+      href: "https://m.me/roboticssocson",
+      target: "_blank",
+      isAnchor: false,
+    },
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -109,11 +114,12 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
           onClick={() => setMobileMenuOpen(false)}
         >
           <Image
-            src="/Logo.svg"
+            src="/Logo/RBS Logo.svg"
             alt="Robotics Sóc Sơn Logo"
             width={20}
             height={20}
             className="object-contain sm:w-6 sm:h-6"
+            priority
           />
           <span className="text-base sm:text-lg font-bold text-foreground">
             Robotics Sóc Sơn
@@ -136,15 +142,15 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
 
         {/* Right side: Language + CTA (Desktop) */}
         <div className="hidden md:flex md:items-center md:gap-3">
-          <CTAButton
-            label={t("nav.sponsorButton")}
-            variant="primary"
-            href="#why-sponsor"
-            onClick={(e) => {
-              e?.preventDefault();
-              scrollToSection("why-sponsor");
-            }}
-          />
+        <CTAButton
+                label={t("nav.sponsorButton")}
+                variant="primary"
+                href="https://m.me/roboticssocson"
+                className="w-full justify-center min-h-[44px]"
+                // Cho phép click mở link ngay lập tức, không preventDefault
+                onClick={undefined}
+                rel="noopener noreferrer"
+              />
           <LanguageToggle className="ml-auto" />
         </div>
 
@@ -186,12 +192,10 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
               <CTAButton
                 label={t("nav.sponsorButton")}
                 variant="primary"
-                href="#why-sponsor"
+                href="https://m.me/roboticssocson"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full justify-center min-h-[44px]"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  scrollToSection("why-sponsor");
-                }}
               />
             </div>
           </div>
@@ -200,9 +204,3 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
     </nav>
   );
 };
-
-/**
- * Usage example:
- *
- * <Navbar />
- */

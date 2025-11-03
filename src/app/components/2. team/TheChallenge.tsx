@@ -35,14 +35,14 @@ export default function TheChallengeSection() {
           badge="Challenge"
           title={
             locale === "vi"
-              ? "Thách thức: 15 sinh viên tài năng, ngân sách hạn hẹp"
-              : "The Challenge: 15 talented students, limited budget"
+              ? "Thách thức: 15 trái tim nhiệt huyết, gặp phải rào cản tài chính"
+              : "The Challenge: 15 passionate hearts, caught in financial constraints"
           }
           subtitle={
             locale === "vi"
-              ? "Chúng em đã chứng minh tiềm năng qua 4 giải đấu. Bây giờ cần sự hỗ trợ để tiếp tục."
-              : "We've proven our potential through 4 competitions. Now we need support to continue."
-          }
+              ? "Bốn mùa khẳng định – một tương lai cần vun đắp."
+              : "Four seasons of affirmation – a future that needs nurturing."
+            }
           align="center"
         />
 

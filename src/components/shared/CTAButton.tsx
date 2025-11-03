@@ -10,6 +10,8 @@ interface CTAButtonProps {
   className?: string;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  target?: "_blank" | "_self" | "_parent" | "_top";
+  rel?: string;
 }
 
 export const CTAButton: React.FC<CTAButtonProps> = ({
@@ -21,6 +23,8 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   className,
   type = "button",
   disabled = false,
+  target,
+  rel,
 }) => {
   const baseStyles = "px-6 py-3 rounded-xl font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
   
@@ -41,6 +45,8 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
     return (
       <a
         href={href}
+        target={target}
+        rel={rel || (target === "_blank" ? "noopener noreferrer" : undefined)}
         className={cn(baseStyles, variants[variant], className)}
         onClick={onClick}
       >

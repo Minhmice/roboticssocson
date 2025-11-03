@@ -54,19 +54,22 @@ function AchievementContent({
       opacity: 1,
       y: 0,
       transition: {
-        delay: i * 0.2,
+        delay: i * 0.1,
         duration: 0.6,
         ease: "easeOut" as const,
       },
     }),
   };
 
-  const images = [
-    { caption: "Robot thi đấu", delay: 0 },
-    { caption: "Đội thi", delay: 1 },
-    { caption: "Giải thưởng", delay: 2 },
-    { caption: "Hoạt động", delay: 3 },
+  // Sử dụng images từ achievement data hoặc fallback về default images
+  const defaultImages = [
+    { src: undefined, caption: "Robot thi đấu" },
+    { src: undefined, caption: "Đội thi" },
+    { src: undefined, caption: "Giải thưởng" },
+    { src: undefined, caption: "Hoạt động" },
   ];
+
+  const images = achievement.images || defaultImages;
 
   return (
     <div ref={ref} className="space-y-6">
@@ -137,6 +140,7 @@ function AchievementContent({
             <GlowCard className="p-0 overflow-hidden">
               <MediaPlaceholder
                 type="image"
+                src={image.src}
                 caption={image.caption}
                 className="h-40 md:h-60 w-full object-cover"
               />

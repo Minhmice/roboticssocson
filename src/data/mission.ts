@@ -18,6 +18,7 @@ export type MissionItem = {
   icon?: string; // Icon name for Lucide icons
   caption_vi?: string;
   caption_en?: string;
+  src?: string; // Image source path
   color?: string; // Gradient color classes
   bgColor?: string; // Background color on hover
   animation?: string;
@@ -51,6 +52,7 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Hoạt động đội",
     caption_en: "Robotics Sóc Sơn - Team activities",
+    src: "/Mission/Image (1).JPG",
   },
   // Vision - Medium text card
   {
@@ -80,6 +82,7 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Thiết kế và lắp ráp",
     caption_en: "Robotics Sóc Sơn - Design and assembly",
+    src: "/Mission/Image (2).JPG",
   },
   // Image 3
   {
@@ -91,6 +94,7 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Làm việc nhóm",
     caption_en: "Robotics Sóc Sơn - Team collaboration",
+    src: "/Mission/Image (3).JPG",
   },
   // Core Value 1 - Dynamic
   {
@@ -137,6 +141,7 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Thử nghiệm robot",
     caption_en: "Robotics Sóc Sơn - Robot testing",
+    src: "/Mission/Image (4).JPG",
   },
   // Core Value 3 - Discovery
   {
@@ -167,5 +172,30 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Thành tích và giải thưởng",
     caption_en: "Robotics Sóc Sơn - Achievements and awards",
+    src: "/Mission/Image (5).JPG",
+  },
+  // Image 6
+  {
+    type: "image",
+    id: "image-6",
+    mobileSpan: "col-span-1",
+    span: "md:col-span-2 md:row-span-1",
+    mobileHeight: "h-[200px]",
+    height: "md:h-[215px]",
+    caption_vi: "Robotics Sóc Sơn - Hoạt động đội",
+    caption_en: "Robotics Sóc Sơn - Team activities",
+    src: "/Mission/Image (6).JPG",
+  },
+  // Image 7
+  {
+    type: "image",
+    id: "image-7",
+    mobileSpan: "col-span-1",
+    span: "md:col-span-2 md:row-span-1",
+    mobileHeight: "h-[200px]",
+    height: "md:h-[215px]",
+    caption_vi: "Robotics Sóc Sơn - Làm việc nhóm",
+    caption_en: "Robotics Sóc Sơn - Team collaboration",
+    src: "/Mission/Image (7).JPG",
   },
 ] as const;

@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Globe } from "lucide-react";
+import Image from "next/image";
 import {
   firstHeader,
   firstInfoCard,
@@ -24,13 +25,9 @@ export default function AboutFIRSTSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <SectionHeader
           badge={firstHeader.badge}
-          title={
-            locale === "vi" ? firstHeader.title_vi : firstHeader.title_en
-          }
+          title={locale === "vi" ? firstHeader.title_vi : firstHeader.title_en}
           subtitle={
-            locale === "vi"
-              ? firstHeader.subtitle_vi
-              : firstHeader.subtitle_en
+            locale === "vi" ? firstHeader.subtitle_vi : firstHeader.subtitle_en
           }
           align="center"
         />
@@ -41,8 +38,15 @@ export default function AboutFIRSTSection() {
           <BentoCard className="md:col-span-2 md:h-[400px]">
             <div className="space-y-6 h-full flex flex-col">
               <div className="flex items-center gap-3">
-                <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center">
-                  <Globe className="h-6 w-6 text-primary" />
+                <div className="h-16 w-28 rounded-lg bg-white/10 flex items-center justify-center p-2">
+                  <Image
+                    src="/Logo/FIRST Logo.svg"
+                    alt="FIRST Logo"
+                    width={165}
+                    height={99}
+                    className="object-contain h-full w-full"
+                    priority
+                  />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">
                   {locale === "vi"
@@ -78,6 +82,7 @@ export default function AboutFIRSTSection() {
           <AnimatedImageCard className="md:col-span-1 md:h-[400px]">
             <MediaPlaceholder
               type="image"
+              src="/Images/About First/Image 1.jpg"
               caption={
                 locale === "vi"
                   ? firstImages[0].caption_vi
@@ -88,12 +93,13 @@ export default function AboutFIRSTSection() {
           </AnimatedImageCard>
 
           <AnimatedImageCard className="md:col-span-1 md:h-[450px]">
-            <MediaPlaceholder
+          <MediaPlaceholder
               type="image"
+              src="/Images/About First/Image 2.jpg"
               caption={
                 locale === "vi"
-                  ? firstImages[1].caption_vi
-                  : firstImages[1].caption_en
+                  ? firstImages[0].caption_vi
+                  : firstImages[0].caption_en
               }
               className="h-full w-full object-cover"
             />
@@ -140,9 +146,11 @@ export default function AboutFIRSTSection() {
 
           {/* Row 3: 3 hình ảnh ngang hàng */}
           <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4 md:h-[350px]">
+            {/* Ảnh 3 */}
             <AnimatedImageCard className="h-[220px] md:h-full">
               <MediaPlaceholder
                 type="image"
+                src="/Images/About First/Image 3.jpg"
                 caption={
                   locale === "vi"
                     ? firstImages[2].caption_vi
@@ -151,9 +159,11 @@ export default function AboutFIRSTSection() {
                 className="h-full w-full object-cover"
               />
             </AnimatedImageCard>
+            {/* Ảnh 4 */}
             <AnimatedImageCard className="h-[220px] md:h-full">
               <MediaPlaceholder
                 type="image"
+                src="/Images/About First/Image 4.jpg"
                 caption={
                   locale === "vi"
                     ? firstImages[3].caption_vi
@@ -162,9 +172,11 @@ export default function AboutFIRSTSection() {
                 className="h-full w-full object-cover"
               />
             </AnimatedImageCard>
+            {/* Ảnh 5 */}
             <AnimatedImageCard className="h-[220px] md:h-full">
               <MediaPlaceholder
                 type="image"
+                src="/Images/About First/Image 5.jpg"
                 caption={
                   locale === "vi"
                     ? firstImages[4].caption_vi

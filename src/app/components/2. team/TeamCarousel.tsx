@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import {
-  AnimatedCard,
-} from "@/components/shared/AnimatedComponents";
+import { AnimatedCard } from "@/components/shared/AnimatedComponents";
 import { MemberCard } from "@/components/ui/member-card";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { teamCarouselData } from "@/data/team";
@@ -81,8 +79,8 @@ export default function TeamCarouselSection() {
           }
           subtitle={
             locale === "vi"
-              ? "14 thành viên tài năng với niềm đam mê robotics và STEM"
-              : "14 talented members passionate about robotics and STEM"
+              ? "15 thành viên tài năng với niềm đam mê robotics và STEM"
+              : "15 talented members passionate about robotics and STEM"
           }
           align="center"
         />
@@ -90,7 +88,7 @@ export default function TeamCarouselSection() {
         <AnimatedCard>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-center">
             <div>
-              <p className="text-2xl font-bold text-cyan-400">14</p>
+              <p className="text-2xl font-bold text-cyan-400">15</p>
               <p className="text-sm text-slate-400">
                 {locale === "vi" ? "Thành viên" : "Members"}
               </p>
@@ -133,7 +131,7 @@ export default function TeamCarouselSection() {
                       .map((member, memberIndex) => {
                         const globalIndex =
                           slideIndex * itemsPerView + memberIndex;
-                        
+
                         return (
                           <div
                             key={globalIndex}
@@ -144,6 +142,7 @@ export default function TeamCarouselSection() {
                               name={member.name}
                               role={mapRole(member.role)}
                               image={member.image}
+                              src={member.src}
                               classInfo={member.classInfo}
                               tags={member.tags}
                               slogan={member.slogan}

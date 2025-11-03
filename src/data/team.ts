@@ -14,6 +14,7 @@ export type TeamCarouselMember = {
     | "Coding"
     | "Media - Design";
   image?: string; // Ảnh cover, nếu undefined sẽ dùng MediaPlaceholder
+  src?: string; // Link ảnh trong public folder, ví dụ: "/Images/Team/le-quang-trinh.jpg"
   slogan?: string; // Slogan của thành viên
   classInfo?: string; // Năm sinh hoặc năm tham gia, ví dụ: "2007" hoặc "Class of 2025"
   tags?: string[]; // Hashtags, ví dụ: ["#Leadership", "#FTC2026", "#STEM"]
@@ -26,6 +27,7 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Lê Quang Trình",
     role: "Captain",
     image: undefined, // Dùng MediaPlaceholder
+    src: "/Images/Teams/Trình.jpg",
     slogan: "Dẫn dắt đội đến thành công",
     classInfo: "Class of 2025",
     tags: ["#Leadership", "#FTC2026", "#STEM"],
@@ -36,6 +38,7 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Đoàn Thị Thuỳ Ngân",
     role: "Vice Captain",
     image: undefined,
+    src: "/Images/Teams/Ngân.jpg",
     slogan: "Chuyên sâu về kỹ thuật robot và phát triển kỹ năng STEM",
     classInfo: "Class of 2025",
     tags: ["#Leadership", "#FTC2026", "#STEM"],
@@ -46,7 +49,8 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Võ Danh Sơn",
     role: "Member",
     image: undefined,
-    slogan: "Engineering enthusiast, passionate about robotics",
+    src: "/Images/Teams/Sơn.jpg",
+    slogan: "Đóng góp cho đội Robotics",
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
@@ -55,6 +59,7 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Phạm Đức Vinh",
     role: "Member",
     image: undefined,
+    src: "/Images/Teams/Vinh.jpg",
     slogan: "Đóng góp cho đội Robotics",
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
@@ -64,6 +69,7 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Phùng An Phong",
     role: "Member",
     image: undefined,
+    src: "/Images/Teams/An Phong.jpg",
     slogan: "Đóng góp cho đội Robotics",
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
@@ -73,6 +79,7 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Đoàn Dũng",
     role: "Member",
     image: undefined,
+    src: "/Images/Teams/Dũng.jpg",
     slogan: "Đóng góp cho đội Robotics",
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
@@ -82,6 +89,7 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Nguyễn Hồng Hà",
     role: "Member",
     image: undefined,
+    src: "/Images/Teams/Hà.jpg",
     slogan: "Đóng góp cho đội Robotics",
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
@@ -91,6 +99,7 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Cao Linh Hương",
     role: "Member",
     image: undefined,
+    src: "/Images/Teams/Linh Hương.jpg",
     slogan: "Đóng góp cho đội Robotics",
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
@@ -109,15 +118,7 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Nguyễn Anh Duy",
     role: "Member",
     image: undefined,
-    slogan: "Đóng góp cho đội Robotics",
-    classInfo: "Class of 2026",
-    tags: ["#FTC2026", "#STEM", "#Innovation"],
-  },
-
-  {
-    name: "Vũ Hải Anh",
-    role: "Member",
-    image: undefined,
+    src: "/Images/Teams/Anh Duy.jpg",
     slogan: "Đóng góp cho đội Robotics",
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
@@ -127,6 +128,7 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Nguyễn Đoàn Duy Phong",
     role: "Member",
     image: undefined,
+    src: "/Images/Teams/Duy Phong.jpg",
     slogan: "Đóng góp cho đội Robotics",
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
@@ -136,6 +138,7 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Nguyễn Ngọc Thảo",
     role: "Member",
     image: undefined,
+    src: "/Images/Teams/Thảo.jpg",
     slogan: "Đóng góp cho đội Robotics",
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],

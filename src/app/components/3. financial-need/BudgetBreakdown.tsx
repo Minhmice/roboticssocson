@@ -64,8 +64,8 @@ export default function BudgetBreakdownSection() {
           }
           subtitle={
             locale === "vi"
-              ? "Chúng em minh bạch về cách sử dụng mọi đồng tài trợ để tạo impact lớn nhất"
-              : "We are transparent about how every sponsorship dollar is used for maximum impact"
+              ? "Chúng em cam kết minh bạch trong việc sử dụng mọi nguồn tài trợ, nhằm tạo ra tác động tích cực và bền vững nhất."
+              : "We commit to transparency in using every sponsorship dollar for maximum positive impact and sustainability."
           }
           align="center"
         />

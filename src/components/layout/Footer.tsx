@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 mb-3 sm:mb-4">
               <Image
-                src="/Logo.svg"
+                src="/Logo/RBS Logo.svg"
                 alt="Robotics Sóc Sơn Logo"
                 width={28}
                 height={28}

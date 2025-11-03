@@ -219,6 +219,7 @@ export default function MissionSection() {
                   <div className="relative h-full w-full">
                     <MediaPlaceholder
                       type="image"
+                      src={item.src}
                       caption={
                         locale === "vi"
                           ? item.caption_vi || ""

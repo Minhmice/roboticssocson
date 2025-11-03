@@ -27,7 +27,7 @@ export default function AboutFTCSection() {
 
     slideshowTimeoutRef.current = setTimeout(() => {
       setActiveIndex((prev) => (prev + 1) % ftcFeatures.length);
-    }, 2000);
+    }, 5000);
 
     return () => {
       if (slideshowTimeoutRef.current) {
@@ -183,6 +183,7 @@ export default function AboutFTCSection() {
                             layout={feature.imageLayout || "1"}
                             images={feature.images.map((img) => ({
                               caption: img.caption,
+                              src: img.src,
                             }))}
                           />
                           {/* Image Count */}

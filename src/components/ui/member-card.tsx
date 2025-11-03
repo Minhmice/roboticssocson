@@ -27,7 +27,8 @@ type Role =
 export interface MemberCardProps {
   name: string;
   role: Role | string;
-  image?: string; // ảnh nền lớn trong card (cover image)
+  image?: string; // ảnh nền lớn trong card (cover image) - deprecated, dùng src
+  src?: string; // link ảnh trong public folder, ví dụ: "/Images/Team/le-quang-trinh.jpg"
   slogan?: string;
   classInfo?: string; // ví dụ: "2007" hoặc "Born 2008"
   tags?: string[]; // hashtag phía dưới
@@ -52,14 +53,18 @@ export function MemberCard({
   name,
   role,
   image,
+  src,
   slogan,
   classInfo,
   tags = ["#FTC2026", "#STEM", "#Innovation"],
   href,
-  logoSrc = "/Logo.svg",
+  logoSrc = "/Logo/RBS Logo.svg",
   className,
   showButton = true,
 }: MemberCardProps) {
+  // Ưu tiên src, sau đó mới đến image
+  const imageSrc = src || image;
+
   return (
     <Card
       className={cn(
@@ -70,9 +75,9 @@ export function MemberCard({
       )}
     >
       {/* Cover image - Full card */}
-      {image ? (
+      {imageSrc ? (
         <Image
-          src={image}
+          src={imageSrc}
           alt={`${name} cover`}
           fill
           className="object-cover"

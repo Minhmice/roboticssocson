@@ -57,20 +57,20 @@ export const firstImpactCard = {
     {
       icon: Users,
       value: "1M+",
-      label_vi: "học sinh toàn cầu",
-      label_en: "students worldwide",
+      label_vi: "hơn 1 triệu học sinh toàn cầu tham gia",
+      label_en: "over 1 million students worldwide participate",
     },
     {
       icon: GraduationCap,
       value: "$80M+",
-      label_vi: "học bổng đại học",
-      label_en: "university scholarships",
+      label_vi: "80 triệu đôla học bổng đại học",
+      label_en: "$80 million in university scholarships",
     },
     {
       icon: Rocket,
       value: "Thousands",
-      label_vi: "đội thi toàn cầu",
-      label_en: "teams globally",
+      label_vi: "hàng nghìn đội thi trên toàn cầu",
+      label_en: "thousands of teams globally",
     },
   ] as readonly FIRSTImpactItem[],
   footer_vi:
