@@ -64,7 +64,7 @@ export const ftcFeatures: readonly FTCFeature[] = [
     images: [
       { 
         caption: "DECODE™ 2025-2026 Season",
-        src: "/Images/About FTC/Image 1.1.jpg"
+        src: "/Images/About FTC/1.1.jpg"
       },
     ],
   },

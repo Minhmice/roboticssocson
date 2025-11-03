@@ -82,7 +82,7 @@ export default function AboutFIRSTSection() {
           <AnimatedImageCard className="md:col-span-1 md:h-[400px]">
             <MediaPlaceholder
               type="image"
-              src="/Images/About First/Image 1.jpg"
+              src="/Images/About First/1.jpg"
               caption={
                 locale === "vi"
                   ? firstImages[0].caption_vi
@@ -95,7 +95,7 @@ export default function AboutFIRSTSection() {
           <AnimatedImageCard className="md:col-span-1 md:h-[450px]">
           <MediaPlaceholder
               type="image"
-              src="/Images/About First/Image 2.jpg"
+              src="/Images/About First/2.jpg"
               caption={
                 locale === "vi"
                   ? firstImages[0].caption_vi
@@ -150,7 +150,7 @@ export default function AboutFIRSTSection() {
             <AnimatedImageCard className="h-[220px] md:h-full">
               <MediaPlaceholder
                 type="image"
-                src="/Images/About First/Image 3.jpg"
+                src="/Images/About First/3.jpg"
                 caption={
                   locale === "vi"
                     ? firstImages[2].caption_vi
@@ -163,7 +163,7 @@ export default function AboutFIRSTSection() {
             <AnimatedImageCard className="h-[220px] md:h-full">
               <MediaPlaceholder
                 type="image"
-                src="/Images/About First/Image 4.jpg"
+                src="/Images/About First/4.jpg"
                 caption={
                   locale === "vi"
                     ? firstImages[3].caption_vi
@@ -176,7 +176,7 @@ export default function AboutFIRSTSection() {
             <AnimatedImageCard className="h-[220px] md:h-full">
               <MediaPlaceholder
                 type="image"
-                src="/Images/About First/Image 5.jpg"
+                src="/Images/About First/5.jpg"
                 caption={
                   locale === "vi"
                     ? firstImages[4].caption_vi
