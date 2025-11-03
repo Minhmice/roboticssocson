@@ -6,9 +6,14 @@ import { cn } from "@/lib/utils";
 
 export type ImageGalleryLayout = "1" | "2" | "4";
 
+export type ImageGalleryItem = {
+  caption?: string;
+  src?: string;
+};
+
 interface ImageGalleryProps {
   layout?: ImageGalleryLayout;
-  images?: Array<{ caption?: string; src?: string }>;
+  images?: Array<ImageGalleryItem>;
   className?: string;
 }
 
@@ -18,13 +23,14 @@ export function ImageGallery({
   className,
 }: ImageGalleryProps) {
   // Default images nếu không có
-  const defaultImages = Array.from({ length: parseInt(layout) }).map(
-    (_, i) => ({
-      caption: `Image ${i + 1}`,
-    })
-  );
+  const defaultImages: ImageGalleryItem[] = Array.from({
+    length: parseInt(layout),
+  }).map((_, i) => ({
+    caption: `Image ${i + 1}`,
+    src: undefined,
+  }));
 
-  const displayImages = images || defaultImages;
+  const displayImages: ImageGalleryItem[] = images || defaultImages;
 
   // Limit số lượng ảnh theo layout
   const maxImages = parseInt(layout);
@@ -64,7 +70,7 @@ export function ImageGallery({
           <MediaPlaceholder
             type="image"
             src={galleryImages[0]?.src}
-            caption={galleryImages[0]?.caption}
+            caption={galleryImages[0]?.caption || ""}
             className={cn("h-48 md:h-56 w-full object-cover rounded-xl")}
           />
         </motion.div>
@@ -85,7 +91,7 @@ export function ImageGallery({
             <MediaPlaceholder
               type="image"
               src={img.src}
-              caption={img.caption}
+              caption={img.caption || ""}
               className="h-40 md:h-48 w-full object-cover rounded-xl"
             />
           </motion.div>
@@ -107,7 +113,7 @@ export function ImageGallery({
             <MediaPlaceholder
               type="image"
               src={img.src}
-              caption={img.caption}
+              caption={img.caption || ""}
               className="h-16 sm:h-24 md:h-32 w-full object-cover rounded-xl"
             />
           </motion.div>

@@ -6,7 +6,7 @@ import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTranslatedData } from "@/hooks/useTranslatedData";
-import { achievements } from "@/data/achievements";
+import { achievements, type AchievementImage } from "@/data/achievements";
 import { Trophy, Award, Medal } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
@@ -62,14 +62,15 @@ function AchievementContent({
   };
 
   // Sử dụng images từ achievement data hoặc fallback về default images
-  const defaultImages = [
+  const defaultImages: Array<{ src?: string; caption: string }> = [
     { src: undefined, caption: "Robot thi đấu" },
     { src: undefined, caption: "Đội thi" },
     { src: undefined, caption: "Giải thưởng" },
     { src: undefined, caption: "Hoạt động" },
   ];
 
-  const images = achievement.images || defaultImages;
+  const images: readonly AchievementImage[] | Array<{ src?: string; caption: string }> =
+    achievement.images || defaultImages;
 
   return (
     <div ref={ref} className="space-y-6">
@@ -129,7 +130,7 @@ function AchievementContent({
 
       {/* Image Grid with staggered animations */}
       <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-        {images.map((image, imageIndex) => (
+        {images.map((image: AchievementImage | { src?: string; caption: string }, imageIndex: number) => (
           <motion.div
             key={imageIndex}
             variants={imageVariants}
