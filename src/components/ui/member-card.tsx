@@ -64,6 +64,18 @@ export function MemberCard({
 }: MemberCardProps) {
   // Ưu tiên src, sau đó mới đến image
   const imageSrc = src || image;
+  
+  // Encode URL để xử lý ký tự đặc biệt (dấu tiếng Việt)
+  // Chỉ encode filename (phần cuối), giữ nguyên path
+  const encodedImageSrc = imageSrc
+    ? (() => {
+        const lastSlashIndex = imageSrc.lastIndexOf("/");
+        if (lastSlashIndex === -1) return encodeURIComponent(imageSrc);
+        const path = imageSrc.substring(0, lastSlashIndex + 1);
+        const filename = imageSrc.substring(lastSlashIndex + 1);
+        return path + encodeURIComponent(filename);
+      })()
+    : undefined;
 
   return (
     <Card
@@ -75,14 +87,15 @@ export function MemberCard({
       )}
     >
       {/* Cover image - Full card */}
-      {imageSrc ? (
+      {encodedImageSrc ? (
         <Image
-          src={imageSrc}
+          src={encodedImageSrc}
           alt={`${name} cover`}
           fill
           className="object-cover"
           priority
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 350px"
+          unoptimized={imageSrc?.includes("Hương") || imageSrc?.includes("Dũng") || imageSrc?.includes("Hà")}
         />
       ) : (
         <div className="absolute inset-0">

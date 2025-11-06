@@ -19,13 +19,24 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
 
   // If src is provided, render the actual image/video
   if (src && type === "image") {
+    // Encode URL để xử lý ký tự đặc biệt (dấu tiếng Việt)
+    // Chỉ encode filename (phần cuối), giữ nguyên path
+    const encodedSrc = (() => {
+      const lastSlashIndex = src.lastIndexOf("/");
+      if (lastSlashIndex === -1) return encodeURIComponent(src);
+      const path = src.substring(0, lastSlashIndex + 1);
+      const filename = src.substring(lastSlashIndex + 1);
+      return path + encodeURIComponent(filename);
+    })();
+
     return (
       <div className={cn("relative h-full w-full", className)}>
         <Image
-          src={src}
+          src={encodedSrc}
           alt={caption || "Image"}
           fill
           className="object-cover rounded-2xl"
+          unoptimized={src.includes("Hương") || src.includes("Dũng") || src.includes("Hà") || /[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ]/.test(src)}
         />
         {caption && (
           <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-4 py-2 rounded-b-2xl">
