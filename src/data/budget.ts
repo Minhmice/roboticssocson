@@ -108,10 +108,10 @@ export const budgetItems: readonly BudgetItem[] = [
 const calculatedUsd = budgetItems.reduce((sum, item) => sum + item.totalUsd, 0);
 const calculatedVnd = budgetItems.reduce((sum, item) => sum + item.totalVnd, 0);
 
-// Funded amount (currently 15% of total budget)
+// Funded amount (currently 20% of total budget)
 // 15% of calculatedUsd = ~466.575 USD
-const fundedUsd = calculatedUsd * 0.15;
-const fundedVnd = calculatedVnd * 0.15;
+const fundedUsd = calculatedUsd * 0.20;
+const fundedVnd = calculatedVnd * 0.20;
 
 export const fundedAmount = {
   usd: fundedUsd,
