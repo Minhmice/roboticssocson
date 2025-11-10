@@ -23,10 +23,7 @@ const transitionConfig = {
   ease: "easeOut" as const,
 };
 
-/**
- * AnimatedCard - Wrapper cho GlowCard với fade in/out animation
- * Animation: opacity + y movement (từ dưới lên)
- */
+
 export function AnimatedCard({
   children,
   className,

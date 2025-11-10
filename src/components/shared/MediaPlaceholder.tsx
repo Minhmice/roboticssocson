@@ -18,15 +18,37 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
   const Icon = type === "image" ? ImageIcon : Video;
 
   // If src is provided, render the actual image/video
-  if (src && type === "image") {
-    // Encode URL để xử lý ký tự đặc biệt (dấu tiếng Việt)
-    // Chỉ encode filename (phần cuối), giữ nguyên path
+  if (src && src.trim() && type === "image") {
+    // Xử lý URL: normalize và encode filename nếu cần
     const encodedSrc = (() => {
-      const lastSlashIndex = src.lastIndexOf("/");
-      if (lastSlashIndex === -1) return encodeURIComponent(src);
-      const path = src.substring(0, lastSlashIndex + 1);
-      const filename = src.substring(lastSlashIndex + 1);
-      return path + encodeURIComponent(filename);
+      const trimmedSrc = src.trim();
+      
+      // Nếu là đường dẫn tuyệt đối (http/https) hoặc data URL, giữ nguyên
+      if (trimmedSrc.startsWith("http") || trimmedSrc.startsWith("data:")) {
+        return trimmedSrc;
+      }
+      
+      // Normalize: đảm bảo đường dẫn bắt đầu bằng "/"
+      let normalizedSrc = trimmedSrc;
+      if (!normalizedSrc.startsWith("/")) {
+        normalizedSrc = "/" + normalizedSrc;
+      }
+      
+      // Chỉ encode filename nếu có ký tự đặc biệt hoặc dấu tiếng Việt
+      const lastSlashIndex = normalizedSrc.lastIndexOf("/");
+      if (lastSlashIndex === -1) return normalizedSrc;
+      
+      const path = normalizedSrc.substring(0, lastSlashIndex + 1);
+      const filename = normalizedSrc.substring(lastSlashIndex + 1);
+      
+      // Chỉ encode nếu filename có ký tự đặc biệt, dấu tiếng Việt, hoặc khoảng trắng
+      const hasSpecialChars = /[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ\s()]/.test(filename);
+      
+      if (hasSpecialChars) {
+        return path + encodeURIComponent(filename);
+      }
+      
+      return normalizedSrc;
     })();
 
     return (
