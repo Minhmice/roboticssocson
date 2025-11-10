@@ -11,6 +11,9 @@ import { Trophy, Award, Medal } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { achievementsHeader } from "@/data/achievements";
+import { SectionHeader } from "@/components/shared/SectionHeader";
+import { AnimatedSection } from "@/components/shared/AnimatedComponents";
 
 export default function AchievementsSection() {
   const { locale } = useLanguage();
@@ -24,13 +27,33 @@ export default function AchievementsSection() {
         achievement={achievement}
         index={index}
         getField={getField}
+        locale={locale}
       />
     ),
   }));
 
   return (
-    <section id="achievements" className="relative min-h-screen">
-      <Timeline data={timelineData} />
+    <section id="achievements" className="relative py-12 sm:py-16 md:py-24">
+      <AnimatedSection>
+        <SectionHeader
+          title={
+            locale === "vi"
+              ? achievementsHeader.title_vi
+              : achievementsHeader.title_en
+          }
+          subtitle={
+            locale === "vi"
+              ? achievementsHeader.description_vi
+              : achievementsHeader.description_en
+          }
+          badge="Achievements"
+          align="center"
+        />
+      </AnimatedSection>
+
+      <div className="mt-12">
+        <Timeline data={timelineData} />
+      </div>
     </section>
   );
 }
@@ -40,10 +63,12 @@ function AchievementContent({
   achievement,
   index,
   getField,
+  locale,
 }: {
   achievement: any;
   index: number;
   getField: any;
+  locale: string;
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -69,7 +94,9 @@ function AchievementContent({
     { src: undefined, caption: "Hoạt động" },
   ];
 
-  const images: readonly AchievementImage[] | Array<{ src?: string; caption: string }> =
+  const images:
+    | readonly AchievementImage[]
+    | Array<{ src?: string; caption: string }> =
     achievement.images || defaultImages;
 
   return (
@@ -98,7 +125,7 @@ function AchievementContent({
             variant="outline"
             className="text-primary border-primary/30 text-lg px-4 py-2"
           >
-            {achievement.rank}
+            {locale === "vi" ? achievement.rank_vi : achievement.rank_en}
           </Badge>
         </div>
       </motion.div>
@@ -130,24 +157,29 @@ function AchievementContent({
 
       {/* Image Grid with staggered animations */}
       <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-        {images.map((image: AchievementImage | { src?: string; caption: string }, imageIndex: number) => (
-          <motion.div
-            key={imageIndex}
-            variants={imageVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            custom={imageIndex}
-          >
-            <GlowCard className="p-0 overflow-hidden">
-              <MediaPlaceholder
-                type="image"
-                src={image.src}
-                caption={image.caption}
-                className="h-40 md:h-60 w-full object-cover"
-              />
-            </GlowCard>
-          </motion.div>
-        ))}
+        {images.map(
+          (
+            image: AchievementImage | { src?: string; caption: string },
+            imageIndex: number
+          ) => (
+            <motion.div
+              key={imageIndex}
+              variants={imageVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              custom={imageIndex}
+            >
+              <GlowCard className="p-0 overflow-hidden">
+                <MediaPlaceholder
+                  type="image"
+                  src={image.src}
+                  caption={image.caption}
+                  className="h-40 md:h-60 w-full object-cover"
+                />
+              </GlowCard>
+            </motion.div>
+          )
+        )}
       </div>
     </div>
   );
