@@ -4,11 +4,11 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { GlowCard } from "./GlowCard";
 
-interface AnimatedComponentProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "children" | "className"> {
+interface AnimatedComponentProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  onClick?: () => void;
 }
 
 // Base animation configuration
@@ -28,7 +28,8 @@ export function AnimatedCard({
   children,
   className,
   delay = 0,
-}: Omit<AnimatedComponentProps, "ref">) {
+  onClick,
+}: AnimatedComponentProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
@@ -39,6 +40,7 @@ export function AnimatedCard({
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ ...transitionConfig, delay }}
+      onClick={onClick}
     >
       <GlowCard className="h-full">{children}</GlowCard>
     </motion.div>
@@ -53,7 +55,7 @@ export function AnimatedImageCard({
   children,
   className,
   delay = 0,
-}: Omit<AnimatedComponentProps, "ref">) {
+}: AnimatedComponentProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
@@ -78,7 +80,7 @@ export function AnimatedSection({
   children,
   className,
   delay = 0,
-}: Omit<AnimatedComponentProps, "ref">) {
+}: AnimatedComponentProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
@@ -103,7 +105,7 @@ export function AnimatedGrid({
   children,
   className,
   staggerDelay = 0.1,
-}: Omit<AnimatedComponentProps, "ref"> & { staggerDelay?: number }) {
+}: AnimatedComponentProps & { staggerDelay?: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
@@ -147,7 +149,7 @@ export function AnimatedText({
   className,
   direction = "left",
   delay = 0,
-}: Omit<AnimatedComponentProps, "ref"> & { direction?: "left" | "right" }) {
+}: AnimatedComponentProps & { direction?: "left" | "right" }) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
@@ -174,7 +176,7 @@ export function AnimatedIcon({
   children,
   className,
   delay = 0,
-}: Omit<AnimatedComponentProps, "ref">) {
+}: AnimatedComponentProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
