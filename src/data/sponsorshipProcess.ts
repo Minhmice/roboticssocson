@@ -431,15 +431,5 @@ export const sponsorshipTerms: SponsorshipTerms = {
 } as const;
 
 // ========== Page Headers ==========
-
-export const sponsorPageHeader = {
-  badge_vi: "Quy trình",
-  badge_en: "Process",
-  title_vi: "Quy trình & Điều khoản tài trợ",
-  title_en: "Sponsorship Process & Terms",
-  subtitle_vi:
-    "Hướng dẫn chi tiết từng bước để doanh nghiệp và cá nhân có thể đồng hành cùng Robotics Sóc Sơn một cách dễ dàng và minh bạch.",
-  subtitle_en:
-    "Detailed step-by-step guide for businesses and individuals to partner with Robotics Sóc Sơn easily and transparently.",
-} as const;
+// Note: sponsorPageHeader is now defined in sponsorPage.ts
 

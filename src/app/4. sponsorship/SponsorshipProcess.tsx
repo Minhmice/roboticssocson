@@ -202,11 +202,15 @@ export default function SponsorshipProcessSection() {
                 </p>
               ))}
             </div>
-            <CTAButton href={closingSection.cta?.link || "/sponsor"}>
-              {locale === "vi"
-                ? closingSection.cta?.text_vi
-                : closingSection.cta?.text_en}
-            </CTAButton>
+            <CTAButton
+              label={
+                locale === "vi"
+                  ? closingSection.cta?.text_vi || ""
+                  : closingSection.cta?.text_en || ""
+              }
+              href={closingSection.cta?.link || "/sponsor"}
+              variant="primary"
+            />
           </div>
         </AnimatedCard>
       </div>
