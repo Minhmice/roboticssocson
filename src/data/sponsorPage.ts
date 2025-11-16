@@ -159,7 +159,7 @@ export const bankInfo: BankInfo = {
   note_format_en: "Full name - Support Robotics Soc Son",
 };
 
-export const qrPlaceholder = "{QR_IMAGE_PLACEHOLDER}";
+export const qrCodeImage = "/Images/QR CODE/QR CODE.jpg";
 
 export const googleFormLinks = {
   vi: "https://docs.google.com/forms/d/e/1FAIpQLSfyAMqpRlcGSSkXJfquSx7YwDHQkav1vxBnwWuPFKF9MI3Bvw/viewform",

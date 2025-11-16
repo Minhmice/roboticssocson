@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatedCard } from "@/components/shared/AnimatedComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,6 @@ import {
   Heart,
   CheckCircle2,
   ExternalLink,
-  QrCode,
   ArrowLeft,
   Download,
   Sparkles,
@@ -25,7 +25,7 @@ import {
   corporateStepInfo,
   personalStepInfo,
   bankInfo,
-  qrPlaceholder,
+  qrCodeImage,
   googleFormLinks,
 } from "@/data/sponsorPage";
 
@@ -54,12 +54,13 @@ export default function SponsorPage() {
   };
 
   const handleDownloadQR = () => {
-    // Placeholder for QR download functionality
-    alert(
-      locale === "vi"
-        ? "Chức năng tải QR code sẽ được triển khai sau"
-        : "QR code download feature coming soon"
-    );
+    // Download QR code image
+    const link = document.createElement("a");
+    link.href = qrCodeImage;
+    link.download = "QR-Code-Robotics-Soc-Son.jpg";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -344,12 +345,16 @@ export default function SponsorPage() {
                 <div className="grid md:grid-cols-2 gap-6 mb-6 px-6 sm:px-8">
                   {/* QR Code - Left Side */}
                   <div className="flex flex-col">
-                    <div className="flex-1 flex items-center justify-center p-6 rounded-lg bg-muted/30 border-2 border-dashed border-border">
+                    <div className="flex-1 flex items-center justify-center p-6 rounded-lg bg-white">
                       <div className="text-center">
-                        <QrCode className="w-40 h-40 sm:w-48 sm:h-48 mx-auto text-muted-foreground mb-4" />
-                        <p className="text-sm text-muted-foreground">
-                          {qrPlaceholder}
-                        </p>
+                        <Image
+                          src={qrCodeImage}
+                          alt="QR Code - Robotics Sóc Sơn"
+                          width={320}
+                          height={320}
+                          className="w-full max-w-[280px] sm:max-w-[320px] mx-auto rounded-lg"
+                          priority
+                        />
                       </div>
                     </div>
                   </div>
