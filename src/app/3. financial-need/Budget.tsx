@@ -23,8 +23,8 @@ export default function BudgetSection() {
           }
           subtitle={
             locale === "vi"
-              ? "13 hạng mục cần thiết cho robot thi đấu và hoạt động team"
-              : "13 essential items for competition robot and team activities"
+              ? "11 hạng mục cần thiết cho robot thi đấu và hoạt động team"
+              : "11 essential items for competition robot and team activities"
           }
           align="center"
         />

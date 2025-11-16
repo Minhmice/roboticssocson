@@ -15,3 +15,5 @@ export { BudgetTable } from "./BudgetTable";
 export { LanguageToggle } from "./LanguageToggle";
 export { ContactForm } from "./ContactForm";
 export { MediaPlaceholder } from "./MediaPlaceholder";
+export { Stepper } from "./Stepper";
+export { SponsorshipTabs } from "./SponsorshipTabs";

@@ -9,6 +9,7 @@ import MissionSection from "./2. team/Mission";
 import BudgetFundraisingSection from "./3. financial-need/BudgetFundraising";
 import BudgetBreakdownSection from "./3. financial-need/BudgetBreakdown";
 import WhySponsorSection from "./4. sponsorship/WhySponsor";
+import SponsorshipProcessSection from "./4. sponsorship/SponsorshipProcess";
 import FinalCTASection from "./shared/FinalCTA";
 import AchievementsSection from "./2. team/Achievements";
 import AboutSocSonHighSchool from "./2. team/AboutSocSonHighSchool";
@@ -27,6 +28,7 @@ export default function HomePage() {
       <BudgetFundraisingSection />
       <BudgetBreakdownSection />
       <WhySponsorSection />
+      <SponsorshipProcessSection />
       <FinalCTASection />
     </main>
   );

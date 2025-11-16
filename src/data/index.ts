@@ -11,6 +11,8 @@ export * from "./budget";
 export * from "./team";
 export * from "./mission";
 export * from "./sponsorship";
+export * from "./sponsorshipProcess";
+export * from "./sponsorPage";
 export * from "./aboutFTC";
 export * from "./aboutFIRST";
 export * from "./logos";

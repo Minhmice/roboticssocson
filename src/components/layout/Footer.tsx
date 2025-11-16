@@ -1,11 +1,36 @@
 "use client";
 
 import Image from "next/image";
-import { Globe, Mail, Send } from "lucide-react";
+import { Mail, Facebook } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { sponsorEmail, socials } from "@/data/settings";
 
 export const Footer: React.FC = () => {
   const { t } = useLanguage();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    sectionId?: string
+  ) => {
+    if (sectionId) {
+      e.preventDefault();
+      scrollToSection(sectionId);
+    }
+  };
 
   return (
     <footer className="border-t border-border bg-background/40 backdrop-blur-md">
@@ -40,15 +65,36 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-1.5 sm:space-y-2">
               {[
-                { label: t("nav.about"), href: "/about" },
-                { label: t("nav.achievements"), href: "/achievements" },
-                { label: t("nav.sponsorship"), href: "/sponsorship" },
-                { label: t("nav.contact"), href: "/contact" },
+                {
+                  label: t("nav.about"),
+                  href: "#about-first",
+                  sectionId: "about-first",
+                },
+                {
+                  label: t("nav.achievements"),
+                  href: "#achievements",
+                  sectionId: "achievements",
+                },
+                {
+                  label: t("nav.sponsorship"),
+                  href: "#why-sponsor",
+                  sectionId: "why-sponsor",
+                },
+                {
+                  label: t("nav.contact"),
+                  href: "https://m.me/roboticssocson",
+                  external: true,
+                },
               ].map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary flex items-center"
+                    onClick={(e) =>
+                      !link.external && handleLinkClick(e, link.sectionId)
+                    }
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                    className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary flex items-center cursor-pointer"
                   >
                     {link.label}
                   </a>
@@ -64,20 +110,20 @@ export const Footer: React.FC = () => {
             </h4>
             <div className="space-y-1.5 sm:space-y-2">
               <a
-                href="mailto:sponsor@roboticssocson.com"
+                href={`mailto:${sponsorEmail}`}
                 className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary"
               >
                 <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
-                <span className="break-all">sponsor@roboticssocson.com</span>
+                <span className="break-all">{sponsorEmail}</span>
               </a>
               <a
-                href="https://t.me/roboticssocson"
+                href={socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary"
               >
-                <Send className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
-                @roboticssocson
+                <Facebook className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
+                Facebook
               </a>
             </div>
           </div>

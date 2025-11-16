@@ -1,7 +1,7 @@
 /**
  * Budget data for FTC 2024-2025 season
  * From Dự trù kinh phí.txt and Sponsorship2.md
- * Total: 13 items, ~2,989 USD (~78M VNĐ)
+ * Total: 11 items, $2,879.5 USD (~74.8M VNĐ)
  */
 
 export interface BudgetItem {
@@ -110,8 +110,8 @@ const calculatedVnd = budgetItems.reduce((sum, item) => sum + item.totalVnd, 0);
 
 // Funded amount (currently 20% of total budget)
 // 15% of calculatedUsd = ~466.575 USD
-const fundedUsd = calculatedUsd * 0.20;
-const fundedVnd = calculatedVnd * 0.20;
+const fundedUsd = calculatedUsd * 0.2;
+const fundedVnd = calculatedVnd * 0.2;
 
 export const fundedAmount = {
   usd: fundedUsd,
@@ -155,8 +155,7 @@ export const budgetCategories: readonly BudgetCategory[] = [
     name_vi: "Công cụ & vật tư",
     name_en: "Tools & Materials",
     percentage: 8,
-    description_vi:
-      "In 3D, công cụ cơ khí, vật tư sửa chữa và bảo trì robot.",
+    description_vi: "In 3D, công cụ cơ khí, vật tư sửa chữa và bảo trì robot.",
     description_en:
       "3D printing, mechanical tools, repair and maintenance supplies.",
     icon: "Wrench",

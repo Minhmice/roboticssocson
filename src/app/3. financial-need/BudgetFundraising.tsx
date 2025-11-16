@@ -40,8 +40,8 @@ export default function BudgetFundraisingSection() {
           }
           subtitle={
             locale === "vi"
-              ? "Tất cả 13 linh kiện đều cần thiết cho robot thi đấu FTC 2025-2026"
-              : "All 13 components are essential for our FTC 2025-2026 competition robot"
+              ? "Tất cả 11 linh kiện đều cần thiết cho robot thi đấu FTC 2025-2026"
+              : "All 11 components are essential for our FTC 2025-2026 competition robot"
           }
           align="center"
         />

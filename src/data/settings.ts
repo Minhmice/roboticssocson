@@ -7,7 +7,7 @@ export const brand = "Robotics Sóc Sơn" as const;
 
 export const domain = "roboticssocson.minhmice.com" as const;
 
-export const sponsorEmail = "sponsor@roboticssocson.com" as const;
+export const sponsorEmail = "roboticssocson@gmail.com" as const;
 
 export const pitchPdfUrl = "/Logo.svg" as const;
 
@@ -19,7 +19,7 @@ export type Socials = {
 };
 
 export const socials: Socials = {
-  facebook: "{{FACEBOOK_URL}}",
+  facebook: "https://www.facebook.com/roboticssocson",
   youtube: "{{YOUTUBE_URL}}",
   tiktok: "{{TIKTOK_URL}}",
   github: "{{GITHUB_URL}}",

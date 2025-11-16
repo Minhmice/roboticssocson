@@ -62,12 +62,6 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
       sectionId: "why-sponsor",
       isAnchor: true,
     },
-    {
-      label: t("nav.contact"),
-      href: "https://m.me/roboticssocson",
-      target: "_blank",
-      isAnchor: false,
-    },
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -140,18 +134,23 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
           ))}
         </div>
 
-        {/* Right side: Language + CTA (Desktop) */}
-        <div className="hidden md:flex md:items-center md:gap-3">
-        <CTAButton
-                label={t("nav.sponsorButton")}
-                variant="primary"
-                href="https://m.me/roboticssocson"
-                className="w-full justify-center min-h-[44px]"
-                // Cho phép click mở link ngay lập tức, không preventDefault
-                onClick={undefined}
-                rel="noopener noreferrer"
-              />
-          <LanguageToggle className="ml-auto" />
+        {/* Right side: Language + CTA (Desktop, smaller button size) */}
+        <div className="hidden md:flex md:items-center md:gap-2">
+          <CTAButton
+            label={t("nav.sponsorButton")}
+            variant="primary"
+            href="/sponsor"
+            className="min-h-[30px]  py-1 text-sm"
+          />
+          <CTAButton
+            label={t("nav.contact")}
+            variant="secondary"
+            href="https://m.me/roboticssocson"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="min-h-[30px] py-1 text-sm"
+          />
+          <LanguageToggle />
         </div>
 
         {/* Right side: Language (Mobile) */}
@@ -188,10 +187,16 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
                 {link.label}
               </a>
             ))}
-            <div className="pt-2 border-t border-border">
+            <div className="pt-2 border-t border-border space-y-2">
               <CTAButton
                 label={t("nav.sponsorButton")}
                 variant="primary"
+                href="/sponsor"
+                className="w-full justify-center min-h-[44px]"
+              />
+              <CTAButton
+                label={t("nav.contact")}
+                variant="secondary"
                 href="https://m.me/roboticssocson"
                 target="_blank"
                 rel="noopener noreferrer"

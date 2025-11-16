@@ -22,7 +22,6 @@ export type TeamCarouselMember = {
 };
 
 export const teamCarouselData: readonly TeamCarouselMember[] = [
-  // Captain
   {
     name: "Lê Quang Trình",
     role: "Captain",
@@ -32,8 +31,6 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     classInfo: "Class of 2025",
     tags: ["#Leadership", "#FTC2026", "#STEM"],
   },
-
-  // Vice Captain
   {
     name: "Đoàn Thị Thuỳ Ngân",
     role: "Vice Captain",
@@ -43,8 +40,6 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     classInfo: "Class of 2025",
     tags: ["#Leadership", "#FTC2026", "#STEM"],
   },
-
-  // Members
   {
     name: "Võ Danh Sơn",
     role: "Member",
@@ -54,7 +49,6 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
-
   {
     name: "Phạm Đức Vinh",
     role: "Member",
@@ -64,7 +58,6 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
-
   {
     name: "Phùng An Phong",
     role: "Member",
@@ -74,7 +67,6 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
-
   {
     name: "Đoàn Dũng",
     role: "Member",
@@ -84,7 +76,6 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
-
   {
     name: "Nguyễn Hồng Hà",
     role: "Member",
@@ -94,7 +85,6 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
-
   {
     name: "Cao Linh Hương",
     role: "Member",
@@ -104,16 +94,15 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
-
   {
     name: "Trần Minh Hiếu",
     role: "Member",
     image: undefined,
+    src: "/Images/Teams/Hiếu.jpg",
     slogan: "Đóng góp cho đội Robotics",
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
-
   {
     name: "Nguyễn Anh Duy",
     role: "Member",
@@ -123,7 +112,6 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
-
   {
     name: "Nguyễn Đoàn Duy Phong",
     role: "Member",
@@ -148,6 +136,25 @@ export const teamCarouselData: readonly TeamCarouselMember[] = [
     name: "Đỗ Ngô Thiện Nhân",
     role: "Member",
     image: undefined,
+    src: "/Images/Teams/Thiện Nhân.jpg",
+    slogan: "Đóng góp cho đội Robotics",
+    classInfo: "Class of 2026",
+    tags: ["#FTC2026", "#STEM", "#Innovation"],
+  },
+  {
+    name: "Nguyễn Hoàng Anh",
+    role: "Member",
+    image: undefined,
+    src: "/Images/Teams/Hoàng Anh.jpg",
+    slogan: "Đóng góp cho đội Robotics",
+    classInfo: "Class of 2026",
+    tags: ["#FTC2026", "#STEM", "#Innovation"],
+  },
+  {
+    name: "Nguyễn Thành Đạt",
+    role: "Member",
+    image: undefined,
+    src: "/Images/Teams/Đạt.jpg",
     slogan: "Đóng góp cho đội Robotics",
     classInfo: "Class of 2026",
     tags: ["#FTC2026", "#STEM", "#Innovation"],

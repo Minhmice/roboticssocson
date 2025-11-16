@@ -161,9 +161,9 @@ export default function Hero() {
           <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center w-full sm:w-auto">
             <div className="flex flex-1 w-full sm:w-auto">
               <CTAButton
-                label={getField(heroData, "cta_primary")}
+                label={t("nav.sponsorButton")}
                 variant="primary"
-                href="https://m.me/roboticssocson"
+                href="/sponsor"
                 className="flex-1 text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 min-h-[44px] w-full"
                 aria-label="Contact for sponsorship"
               />

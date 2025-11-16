@@ -3,8 +3,8 @@
 import { CTAButton } from "@/components/shared/CTAButton";
 import { AnimatedSection } from "@/components/shared/AnimatedComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { sponsorEmail } from "@/data/settings";
-import { Mail, Send, Download } from "lucide-react";
+import { sponsorEmail, socials } from "@/data/settings";
+import { Mail, Facebook, Download } from "lucide-react";
 
 export default function FinalCTASection() {
   const { locale } = useLanguage();
@@ -37,7 +37,7 @@ export default function FinalCTASection() {
             <CTAButton
               label={locale === "vi" ? "Tài trợ ngay" : "Become a Sponsor"}
               variant="primary"
-              href="https://m.me/roboticssocson"
+              href="/sponsor"
               className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 min-h-[44px]"
               aria-label="Contact for sponsorship"
             />
@@ -63,12 +63,19 @@ export default function FinalCTASection() {
               <Mail className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
               <span className="break-all">{sponsorEmail}</span>
             </a>
-            <p className="text-xs sm:text-sm">
-              {locale === "vi"
-                ? "Hoặc liên hệ qua Telegram"
-                : "Or contact via Telegram"}
-              : <span className="text-cyan-400 ml-1">@roboticssocson</span>
-            </p>
+            <a
+              href={socials.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-cyan-400 transition-colors min-h-[44px] text-sm sm:text-base"
+            >
+              <Facebook className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+              <span>
+                {locale === "vi"
+                  ? "Theo dõi chúng em trên Facebook"
+                  : "Follow us on Facebook"}
+              </span>
+            </a>
           </div>
         </AnimatedSection>
       </div>
