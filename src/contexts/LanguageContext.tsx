@@ -57,6 +57,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   };
 
   const t = (key: string): string => {
+    if (!key || typeof key !== "string") return "";
+    if (!messages || Object.keys(messages).length === 0) return key;
+    
     const keys = key.split(".");
     let value: Record<string, unknown> | string = messages;
     for (const k of keys) {

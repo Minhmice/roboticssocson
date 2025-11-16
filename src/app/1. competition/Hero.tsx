@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { AuroraBackground } from "@/components/ui/aurora-background";
@@ -17,6 +17,7 @@ import { GlassButton } from "@/components/ui/glass-button";
  * Key prop để force remount khi text thay đổi
  */
 function AnimatedTextWithChars({ text }: { text: string }) {
+  if (!text || typeof text !== "string") return null;
   const chars = text.split("");
 
   return (
@@ -56,12 +57,20 @@ export default function Hero() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const transitionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const animatedWords = getField(
-    heroData,
-    "animatedWords"
-  ) as unknown as readonly string[];
+  const animatedWordsRaw = getField(heroData, "animatedWords");
+  const animatedWords = useMemo(
+    () =>
+      Array.isArray(animatedWordsRaw)
+        ? animatedWordsRaw
+        : locale === "vi"
+          ? heroData.animatedWords_vi
+          : heroData.animatedWords_en,
+    [animatedWordsRaw, locale]
+  );
 
   useEffect(() => {
+    if (!animatedWords || animatedWords.length === 0) return;
+    
     const timeoutId = setTimeout(() => {
       // Fade out trước khi đổi chữ
       setIsTransitioning(true);
@@ -83,7 +92,7 @@ export default function Hero() {
         clearTimeout(transitionTimeoutRef.current);
       }
     };
-  }, [currentWordIndex, animatedWords.length]);
+  }, [currentWordIndex, animatedWords]);
 
   return (
     <AuroraBackground className="bg-background text-foreground">
