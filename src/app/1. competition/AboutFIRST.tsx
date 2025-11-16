@@ -193,7 +193,13 @@ export default function AboutFIRSTSection() {
 }
 
 // Animated Bento Card component
-function BentoCard({ children, className, ...props }: any) {
+function BentoCard({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: false,
@@ -208,7 +214,6 @@ function BentoCard({ children, className, ...props }: any) {
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      {...props}
     >
       <GlowCard className="h-full">{children}</GlowCard>
     </motion.div>
@@ -216,7 +221,13 @@ function BentoCard({ children, className, ...props }: any) {
 }
 
 // Animated Image Card component
-function AnimatedImageCard({ children, className, ...props }: any) {
+function AnimatedImageCard({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: false,
@@ -231,7 +242,6 @@ function AnimatedImageCard({ children, className, ...props }: any) {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      {...props}
     >
       <GlowCard className="h-full p-0 overflow-hidden">{children}</GlowCard>
     </motion.div>

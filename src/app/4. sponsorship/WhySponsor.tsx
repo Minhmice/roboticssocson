@@ -12,7 +12,10 @@ import {
 } from "lucide-react";
 import { whySponsorCards, whySponsorHeader } from "@/data/sponsorship";
 
-const iconMap: Record<string, React.ComponentType<any>> = {
+const iconMap: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
   GraduationCap,
   Megaphone,
   Users,

@@ -3,18 +3,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { CTAButton } from "@/components/shared/CTAButton";
-import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
 import { AuroraBackground } from "@/components/ui/aurora-background";
-import {
-  AnimatedSection,
-  AnimatedText,
-} from "@/components/shared/AnimatedComponents";
+import { AnimatedText } from "@/components/shared/AnimatedComponents";
 import { heroData } from "@/data/hero";
 import { pitchPdfUrl } from "@/data/settings";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTranslatedData } from "@/hooks/useTranslatedData";
-import { cn } from "@/lib/utils";
-import { Download, Award, Users, Trophy } from "lucide-react";
+import { Download, Award } from "lucide-react";
 import { GlassButton } from "@/components/ui/glass-button";
 
 /**

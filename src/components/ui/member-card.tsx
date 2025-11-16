@@ -6,13 +6,7 @@ import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Link as LinkIcon,
-  User as UserIcon,
-  Wrench,
-  Code2,
-  PenTool,
-} from "lucide-react";
+// import { User as UserIcon, Wrench, Code2, PenTool } from "lucide-react";
 import Link from "next/link";
 import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
 
@@ -38,16 +32,17 @@ export interface MemberCardProps {
   showButton?: boolean;
 }
 
-const roleIcon = (role: string) => {
-  const r = role.toLowerCase();
-  if (r.includes("engineer") || r.includes("engineering"))
-    return <Wrench className="h-4 w-4" />;
-  if (r.includes("coding") || r.includes("developer") || r.includes("dev"))
-    return <Code2 className="h-4 w-4" />;
-  if (r.includes("media") || r.includes("design"))
-    return <PenTool className="h-4 w-4" />;
-  return <UserIcon className="h-4 w-4" />;
-};
+// Utility function for role icons (currently unused but kept for future use)
+// const roleIcon = (role: string) => {
+//   const r = role.toLowerCase();
+//   if (r.includes("engineer") || r.includes("engineering"))
+//     return <Wrench className="h-4 w-4" />;
+//   if (r.includes("coding") || r.includes("developer") || r.includes("dev"))
+//     return <Code2 className="h-4 w-4" />;
+//   if (r.includes("media") || r.includes("design"))
+//     return <PenTool className="h-4 w-4" />;
+//   return <UserIcon className="h-4 w-4" />;
+// };
 
 export function MemberCard({
   name,

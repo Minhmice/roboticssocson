@@ -19,7 +19,7 @@ export const MagicCard: React.FC<MagicCardProps> = ({
   children,
   className,
   gradientOpacity = 0.5,
-  duration = 1.5,
+  // duration = 1.5, // Unused for now
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);

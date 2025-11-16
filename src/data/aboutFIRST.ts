@@ -3,7 +3,7 @@
  * Includes all bilingual content (Vietnamese and English)
  */
 
-import { Users, GraduationCap, Rocket, Globe } from "lucide-react";
+import { Users, GraduationCap, Rocket } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 
 export interface FIRSTImpactItem {

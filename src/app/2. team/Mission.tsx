@@ -9,7 +9,10 @@ import { useEffect, useRef, useState } from "react";
 import { missionData } from "@/data/mission";
 
 // Icon mapping
-const iconMap: Record<string, React.ComponentType<any>> = {
+const iconMap: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
   Target,
   Rocket,
   Heart,

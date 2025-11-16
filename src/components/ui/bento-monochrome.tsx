@@ -5,6 +5,7 @@ import {
   LayoutGrid,
   Activity,
   Layers,
+  type LucideIcon,
 } from "lucide-react";
 
 function FeaturesSectionMinimal() {
@@ -218,7 +219,7 @@ function BentoItem({
     title: string;
     blurb: string;
     meta?: string;
-    icon: React.ComponentType<any>;
+    icon: LucideIcon;
     animation: string;
   };
   span?: string;

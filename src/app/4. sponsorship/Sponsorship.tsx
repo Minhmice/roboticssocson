@@ -2,9 +2,6 @@
 
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedCard, AnimatedGrid } from "@/components/shared/AnimatedComponents";
-import { GlowCard } from "@/components/shared/GlowCard";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { benefits } from "@/data/sponsorship";
 import { CTAButton } from "@/components/shared/CTAButton";

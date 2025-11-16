@@ -53,7 +53,7 @@ export const ContactForm: React.FC = () => {
 
       {submitted && (
         <div className="mb-6 rounded-lg bg-green-950/50 border border-green-500/30 p-4 text-green-400">
-          Thank you! We'll get back to you soon.
+          Thank you! We&apos;ll get back to you soon.
         </div>
       )}
 

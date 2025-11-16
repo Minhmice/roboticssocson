@@ -4,11 +4,11 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { GlowCard } from "./GlowCard";
 
-interface AnimatedComponentProps {
+interface AnimatedComponentProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "children" | "className"> {
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  [key: string]: any;
 }
 
 // Base animation configuration
@@ -28,8 +28,7 @@ export function AnimatedCard({
   children,
   className,
   delay = 0,
-  ...props
-}: AnimatedComponentProps) {
+}: Omit<AnimatedComponentProps, "ref">) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
@@ -40,7 +39,6 @@ export function AnimatedCard({
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ ...transitionConfig, delay }}
-      {...props}
     >
       <GlowCard className="h-full">{children}</GlowCard>
     </motion.div>
@@ -55,8 +53,7 @@ export function AnimatedImageCard({
   children,
   className,
   delay = 0,
-  ...props
-}: AnimatedComponentProps) {
+}: Omit<AnimatedComponentProps, "ref">) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
@@ -67,7 +64,6 @@ export function AnimatedImageCard({
       initial={{ opacity: 0, scale: 0.9 }}
       animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
       transition={{ ...transitionConfig, delay }}
-      {...props}
     >
       <GlowCard className="h-full p-0 overflow-hidden">{children}</GlowCard>
     </motion.div>
@@ -82,8 +78,7 @@ export function AnimatedSection({
   children,
   className,
   delay = 0,
-  ...props
-}: AnimatedComponentProps) {
+}: Omit<AnimatedComponentProps, "ref">) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
@@ -94,7 +89,6 @@ export function AnimatedSection({
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ ...transitionConfig, delay }}
-      {...props}
     >
       {children}
     </motion.div>
@@ -109,8 +103,7 @@ export function AnimatedGrid({
   children,
   className,
   staggerDelay = 0.1,
-  ...props
-}: AnimatedComponentProps & { staggerDelay?: number }) {
+}: Omit<AnimatedComponentProps, "ref"> & { staggerDelay?: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
@@ -129,9 +122,8 @@ export function AnimatedGrid({
           },
         },
       }}
-      {...props}
     >
-      {React.Children.map(children, (child, index) => (
+      {React.Children.map(children, (child) => (
         <motion.div
           variants={{
             hidden: { opacity: 0, y: 30 },
@@ -155,8 +147,7 @@ export function AnimatedText({
   className,
   direction = "left",
   delay = 0,
-  ...props
-}: AnimatedComponentProps & { direction?: "left" | "right" }) {
+}: Omit<AnimatedComponentProps, "ref"> & { direction?: "left" | "right" }) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
@@ -169,7 +160,6 @@ export function AnimatedText({
       initial={{ opacity: 0, x: xValue }}
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: xValue }}
       transition={{ ...transitionConfig, delay }}
-      {...props}
     >
       {children}
     </motion.div>
@@ -184,8 +174,7 @@ export function AnimatedIcon({
   children,
   className,
   delay = 0,
-  ...props
-}: AnimatedComponentProps) {
+}: Omit<AnimatedComponentProps, "ref">) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
 
@@ -200,7 +189,6 @@ export function AnimatedIcon({
           : { opacity: 0, rotate: -180, scale: 0.5 }
       }
       transition={{ ...transitionConfig, delay }}
-      {...props}
     >
       {children}
     </motion.div>

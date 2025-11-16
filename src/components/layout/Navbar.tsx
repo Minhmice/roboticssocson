@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { X, Menu } from "lucide-react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
@@ -102,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
     >
       <div className="container mx-auto flex h-14 sm:h-16 items-center justify-between px-4 md:px-6">
         {/* Logo */}
-        <a
+        <Link
           href="/"
           className="flex items-center gap-1.5 sm:gap-2"
           onClick={() => setMobileMenuOpen(false)}
@@ -118,7 +119,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
           <span className="text-base sm:text-lg font-bold text-foreground">
             Robotics Sóc Sơn
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex md:items-center md:gap-6">

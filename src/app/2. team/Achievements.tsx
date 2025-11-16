@@ -5,7 +5,6 @@ import { GlowCard } from "@/components/shared/GlowCard";
 import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useTranslatedData } from "@/hooks/useTranslatedData";
 import { achievements, type AchievementImage } from "@/data/achievements";
 import { Trophy, Award, Medal } from "lucide-react";
 import { motion } from "framer-motion";
@@ -17,7 +16,6 @@ import { AnimatedSection } from "@/components/shared/AnimatedComponents";
 
 export default function AchievementsSection() {
   const { locale } = useLanguage();
-  const { getField } = useTranslatedData();
 
   // Transform achievements data for Timeline component
   const timelineData = achievements.map((achievement, index) => ({
@@ -26,7 +24,6 @@ export default function AchievementsSection() {
       <AchievementContent
         achievement={achievement}
         index={index}
-        getField={getField}
         locale={locale}
       />
     ),
@@ -62,12 +59,10 @@ export default function AchievementsSection() {
 function AchievementContent({
   achievement,
   index,
-  getField,
   locale,
 }: {
-  achievement: any;
+  achievement: (typeof achievements)[number];
   index: number;
-  getField: any;
   locale: string;
 }) {
   const ref = useRef(null);
@@ -119,7 +114,7 @@ function AchievementContent({
         </div>
         <div>
           <h4 className="text-2xl font-bold text-foreground mb-2">
-            {getField(achievement, "title")}
+            {locale === "vi" ? achievement.title_vi : achievement.title_en}
           </h4>
           <Badge
             variant="outline"
@@ -137,7 +132,9 @@ function AchievementContent({
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
       >
-        {getField(achievement, "description")}
+        {locale === "vi"
+          ? achievement.description_vi
+          : achievement.description_en}
       </motion.p>
 
       {/* Participants */}

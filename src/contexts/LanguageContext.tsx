@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 type Locale = "vi" | "en";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Messages = Record<string, any>;
 
 interface LanguageContextType {
@@ -17,7 +18,7 @@ const LanguageContext = createContext<LanguageContextType | null>(null);
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("vi");
   const [messages, setMessages] = useState<Messages>({});
-  const [isChanging, setIsChanging] = useState(false);
+  const [, setIsChanging] = useState(false);
 
   // Load locale from localStorage on mount
   useEffect(() => {
@@ -57,12 +58,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const t = (key: string): string => {
     const keys = key.split(".");
-    let value: any = messages;
+    let value: Record<string, unknown> | string = messages;
     for (const k of keys) {
-      value = value?.[k];
+      if (typeof value === "object" && value !== null) {
+        value = value[k] as Record<string, unknown> | string;
+      }
       if (value === undefined) break;
     }
-    return value || key;
+    return typeof value === "string" ? value : key;
   };
 
   return (

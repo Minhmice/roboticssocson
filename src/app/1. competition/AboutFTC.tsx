@@ -3,17 +3,12 @@
 import { useState, useRef, useEffect } from "react";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { GlowCard } from "@/components/shared/GlowCard";
-import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
-import {
-  ImageGallery,
-  type ImageGalleryLayout,
-} from "@/components/shared/ImageGallery";
+import { ImageGallery } from "@/components/shared/ImageGallery";
 import { GlassButton } from "@/components/ui/glass-button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { ftcFeatures, ftcStats, ftcHeader } from "@/data/aboutFTC";
-import { Users, Box, Target, Clock } from "lucide-react";
 
 export default function AboutFTCSection() {
   const { locale } = useLanguage();
@@ -249,7 +244,13 @@ export default function AboutFTCSection() {
 }
 
 // Animated Card component
-function AnimatedCard({ children, className, ...props }: any) {
+function AnimatedCard({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: false,
@@ -264,7 +265,6 @@ function AnimatedCard({ children, className, ...props }: any) {
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      {...props}
     >
       <GlowCard className="h-full">{children}</GlowCard>
     </motion.div>

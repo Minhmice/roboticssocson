@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
-  sponsorPageHeader,
   sponsorStepLabels,
   sponsorOptions,
   corporateStepInfo,
@@ -136,7 +135,7 @@ export default function SponsorPage() {
               {sponsorOptions.map((option) => {
                 const isCorporate = option.type === "corporate";
                 const Icon = isCorporate ? Building2 : Heart;
-                const colorClass = isCorporate ? "primary" : "chart-2";
+                // const colorClass = isCorporate ? "primary" : "chart-2";
 
                 return (
                   <AnimatedCard

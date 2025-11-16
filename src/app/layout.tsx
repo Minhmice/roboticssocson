@@ -13,6 +13,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:4000"
+  ),
   title: "RBS - Sponsorship Site",
   description:
     "Empower the next generation of innovators. High school robotics team from Hanoi competing in FIRST Tech Challenge.",

@@ -14,11 +14,7 @@ import {
   Camera,
   ArrowRight,
 } from "lucide-react";
-import {
-  budgetCategories,
-  getCategoryAmount,
-  budgetTotal,
-} from "@/data/budget";
+import { budgetCategories, getCategoryAmount } from "@/data/budget";
 
 // Icon map for lucide-react icons
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -76,7 +72,7 @@ export default function BudgetBreakdownSection() {
           staggerDelay={0.1}
         >
           {categories.map((category, idx) => {
-            const Icon = category.Icon;
+            // const Icon = category.Icon;
             return (
               <AnimatedCard key={idx} className="h-full">
                 <div className="h-full flex flex-col">

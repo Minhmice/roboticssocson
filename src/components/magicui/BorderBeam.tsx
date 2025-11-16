@@ -4,7 +4,7 @@
  */
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 interface BorderBeamProps {
@@ -27,15 +27,15 @@ export const BorderBeam: React.FC<BorderBeamProps> = ({
   delay = 0,
 }) => {
   const spanRef = useRef<HTMLSpanElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  // const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     if (spanRef.current) {
-      const rect = spanRef.current.getBoundingClientRect();
-      setDimensions({
-        width: rect.width,
-        height: rect.height,
-      });
+      // const rect = spanRef.current.getBoundingClientRect();
+      // setDimensions({
+      //   width: rect.width,
+      //   height: rect.height,
+      // });
     }
   }, []);
 

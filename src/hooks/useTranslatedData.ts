@@ -12,12 +12,13 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export function useTranslatedData() {
   const { locale } = useLanguage();
 
-  const getField = <T extends Record<string, any>>(
+  const getField = <T extends Record<string, unknown>>(
     obj: T,
     fieldPrefix: string
   ): string => {
     const key = `${fieldPrefix}_${locale}`;
-    return obj[key] || obj[`${fieldPrefix}_vi`] || "";
+    const value = obj[key] ?? obj[`${fieldPrefix}_vi`] ?? "";
+    return typeof value === "string" ? value : "";
   };
 
   return { getField, locale };
