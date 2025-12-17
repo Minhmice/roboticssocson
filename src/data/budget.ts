@@ -4,7 +4,8 @@
  */
 
 export interface BudgetItem {
-  readonly name: string;
+  readonly name_vi: string;
+  readonly name_en: string;
   readonly qty: number;
   readonly unitPrice: number;
   readonly totalUsd: number;
@@ -14,7 +15,8 @@ export interface BudgetItem {
 
 export const budgetItems: readonly BudgetItem[] = [
   {
-    name: "DUO Control Bundle",
+    name_vi: "DUO Control Bundle (bộ điều khiển DUO)",
+    name_en: "DUO Control Bundle",
     qty: 1,
     unitPrice: 650,
     totalUsd: 650,
@@ -22,7 +24,8 @@ export const budgetItems: readonly BudgetItem[] = [
     link: "https://www.revrobotics.com/rev-35-2709/",
   },
   {
-    name: "REV Robotics Expansion Hub",
+    name_vi: "REV Robotics Expansion Hub (tăng cường hub)",
+    name_en: "REV Robotics Expansion Hub",
     qty: 1,
     unitPrice: 200,
     totalUsd: 200,
@@ -30,7 +33,8 @@ export const budgetItems: readonly BudgetItem[] = [
     link: "https://www.revrobotics.com/rev-31-1153/",
   },
   {
-    name: "FTC Starter Kit (2025-2026 Season)",
+    name_vi: "FTC Starter Kit (mùa giải 2025-2026)",
+    name_en: "FTC Starter Kit (2025-2026 Season)",
     qty: 1,
     unitPrice: 637.5,
     totalUsd: 637.5,
@@ -38,7 +42,8 @@ export const budgetItems: readonly BudgetItem[] = [
     link: "https://www.gobilda.com/ftc-starter-kit-2025-2026-season",
   },
   {
-    name: "Strafer® Chassis Kit (104mm GripForce™ Mecanum Wheels)",
+    name_vi: "Strafer® Chassis Kit (bộ khung GripForce™ với bánh xe Mecanum 104mm)",
+    name_en: "Strafer® Chassis Kit (GripForce™ chassis with 104mm Mecanum wheels)",
     qty: 1,
     unitPrice: 525,
     totalUsd: 525,
@@ -46,7 +51,8 @@ export const budgetItems: readonly BudgetItem[] = [
     link: "https://www.gobilda.com/strafer-chassis-kit-104mm-gripforce-mecanum-wheels/",
   },
   {
-    name: "4-Bar Odometry Pod X2",
+    name_vi: "4-Bar Odometry Pod (POD đo vị trí)",
+    name_en: "4-Bar Odometry Pod",
     qty: 2,
     unitPrice: 75,
     totalUsd: 150,
@@ -54,7 +60,8 @@ export const budgetItems: readonly BudgetItem[] = [
     link: "https://www.gobilda.com/4-bar-odometry-pod-32mm-wheel/",
   },
   {
-    name: "Lệ phí thi",
+    name_vi: "Lệ phí đăng ký & sự kiện",
+    name_en: "Registration & Event Fees",
     qty: 1,
     unitPrice: 200,
     totalUsd: 200,

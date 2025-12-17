@@ -105,7 +105,7 @@ export default function BudgetFundraisingSection() {
                         className="border-t border-border hover:bg-card/30 transition-colors relative"
                       >
                         <td className="px-3 py-2.5 sm:px-4 sm:py-3 text-[11px] sm:text-xs md:text-sm text-foreground sticky left-0 bg-background z-[20] shadow-[2px_0_4px_rgba(0,0,0,0.1)] min-w-[140px] sm:min-w-[160px] max-w-[200px]">
-                          <span className="line-clamp-2">{item.name}</span>
+                          <span className="line-clamp-2">{locale === "vi" ? item.name_vi : item.name_en}</span>
                         </td>
                         <td className="px-2 sm:px-3 md:px-4 py-2.5 sm:py-3 text-center text-[11px] sm:text-xs md:text-sm text-muted-foreground whitespace-nowrap relative z-0">
                           {item.qty}

@@ -63,7 +63,7 @@ export default function BudgetSection() {
                       className="border-t border-border hover:bg-card/30 transition-colors"
                     >
                       <td className="px-4 py-3 text-sm text-foreground sticky left-0 bg-background">
-                        {item.name}
+                        {locale === "vi" ? item.name_vi : item.name_en}
                       </td>
                       <td className="px-4 py-3 text-center text-sm text-muted-foreground">
                         {item.qty}
