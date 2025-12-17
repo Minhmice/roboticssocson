@@ -1,6 +1,6 @@
 /**
  * Budget data for FTC 2025-2026 season
- * Total: 6 items, $2,362.5 USD (~61.9M VNĐ)
+ * Total: 7 items, $2,362.5 USD (~61.9M VNĐ)
  */
 
 export interface BudgetItem {
@@ -66,6 +66,15 @@ export const budgetItems: readonly BudgetItem[] = [
     unitPrice: 200,
     totalUsd: 200,
     totalVnd: 5000000,
+    link: "",
+  },
+  {
+    name_vi: "Vật tư bổ sung, in 3D và các công cụ cơ khí",
+    name_en: "Additional Materials, 3D Printing & Mechanical Tools",
+    qty: 1,
+    unitPrice: 300,
+    totalUsd: 300,
+    totalVnd: 7800000,
     link: "",
   },
 ] as const;
