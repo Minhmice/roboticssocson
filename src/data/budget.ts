@@ -1,6 +1,6 @@
 /**
  * Budget data for FTC 2025-2026 season
- * Total: 5 items, $2,162.5 USD (~56.9M VNĐ)
+ * Total: 6 items, $2,362.5 USD (~61.9M VNĐ)
  */
 
 export interface BudgetItem {
@@ -52,6 +52,14 @@ export const budgetItems: readonly BudgetItem[] = [
     totalUsd: 150,
     totalVnd: 3953609,
     link: "https://www.gobilda.com/4-bar-odometry-pod-32mm-wheel/",
+  },
+  {
+    name: "Lệ phí thi",
+    qty: 1,
+    unitPrice: 200,
+    totalUsd: 200,
+    totalVnd: 5000000,
+    link: "",
   },
 ] as const;
 
