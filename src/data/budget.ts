@@ -1,7 +1,6 @@
 /**
- * Budget data for FTC 2024-2025 season
- * From Dự trù kinh phí.txt and Sponsorship2.md
- * Total: 11 items, $2,879.5 USD (~74.8M VNĐ)
+ * Budget data for FTC 2025-2026 season
+ * Total: 5 items, $2,162.5 USD (~56.9M VNĐ)
  */
 
 export interface BudgetItem {
@@ -19,88 +18,40 @@ export const budgetItems: readonly BudgetItem[] = [
     qty: 1,
     unitPrice: 650,
     totalUsd: 650,
-    totalVnd: 16900000,
+    totalVnd: 17116665,
     link: "https://www.revrobotics.com/rev-35-2709/",
-  },
-  {
-    name: "FTC Starter Kit V3.1",
-    qty: 1,
-    unitPrice: 695,
-    totalUsd: 695,
-    totalVnd: 18070000,
-    link: "https://www.revrobotics.com/rev-45-3529/",
   },
   {
     name: "REV Robotics Expansion Hub",
     qty: 1,
-    unitPrice: 275,
-    totalUsd: 275,
-    totalVnd: 7150000,
+    unitPrice: 200,
+    totalUsd: 200,
+    totalVnd: 5266666,
     link: "https://www.revrobotics.com/rev-31-1153/",
   },
   {
-    name: "FTC Sensor Bundle",
+    name: "FTC Starter Kit (2025-2026 Season)",
     qty: 1,
-    unitPrice: 180,
-    totalUsd: 180,
-    totalVnd: 4680000,
-    link: "https://www.revrobotics.com/rev-45-1885/",
+    unitPrice: 637.5,
+    totalUsd: 637.5,
+    totalVnd: 16787499,
+    link: "https://www.gobilda.com/ftc-starter-kit-2025-2026-season",
   },
   {
-    name: "Servo Bundle",
+    name: "Strafer® Chassis Kit (104mm GripForce™ Mecanum Wheels)",
     qty: 1,
-    unitPrice: 327.5,
-    totalUsd: 327.5,
-    totalVnd: 8515000,
-    link: "https://www.revrobotics.com/rev-45-1892/",
+    unitPrice: 525,
+    totalUsd: 525,
+    totalVnd: 13824998,
+    link: "https://www.gobilda.com/strafer-chassis-kit-104mm-gripforce-mecanum-wheels/",
   },
   {
-    name: "Through Bore Encoder",
-    qty: 1,
-    unitPrice: 48,
-    totalUsd: 48,
-    totalVnd: 1248000,
-    link: "https://www.revrobotics.com/rev-11-1271/",
-  },
-  {
-    name: "UltraPlanetary Gearbox Kit & HD Hex motor",
-    qty: 3,
-    unitPrice: 50,
+    name: "4-Bar Odometry Pod X2",
+    qty: 2,
+    unitPrice: 75,
     totalUsd: 150,
-    totalVnd: 3900000,
-    link: "https://www.revrobotics.com/rev-41-1600/",
-  },
-  {
-    name: "Core Hex Motor",
-    qty: 1,
-    unitPrice: 32,
-    totalUsd: 32,
-    totalVnd: 832000,
-    link: "https://www.revrobotics.com/rev-41-1300/",
-  },
-  {
-    name: "Mecanum Wheel (104mm, 40A Durometer Rollers) Set 4 bánh",
-    qty: 1,
-    unitPrice: 190,
-    totalUsd: 190,
-    totalVnd: 4940000,
-    link: "https://www.gobilda.com/gripforce-mecanum-wheel-set-o104mm-40a-durometer-rollers/",
-  },
-  {
-    name: "1310 Series Hyper Hub (5mm Hex Bore)",
-    qty: 4,
-    unitPrice: 8,
-    totalUsd: 32,
-    totalVnd: 832000,
-    link: "https://www.gobilda.com/1310-series-hyper-hub-5mm-hex-bore/",
-  },
-  {
-    name: "Vật tư bổ sung, in 3D, công cụ",
-    qty: 1,
-    unitPrice: 300,
-    totalUsd: 300,
-    totalVnd: 7800000,
-    link: "",
+    totalVnd: 3953609,
+    link: "https://www.gobilda.com/4-bar-odometry-pod-32mm-wheel/",
   },
 ] as const;
 
