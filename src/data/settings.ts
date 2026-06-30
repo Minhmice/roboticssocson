@@ -20,9 +20,9 @@ export type Socials = {
 
 export const socials: Socials = {
   facebook: "https://www.facebook.com/roboticssocson",
-  youtube: "{{YOUTUBE_URL}}",
-  tiktok: "{{TIKTOK_URL}}",
-  github: "{{GITHUB_URL}}",
+  youtube: "",
+  tiktok: "",
+  github: "",
 } as const;
 
 export type Palette = {

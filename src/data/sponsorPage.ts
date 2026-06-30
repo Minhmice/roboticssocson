@@ -146,6 +146,7 @@ export const personalStepInfo: SponsorStepInfo = {
 export const bankInfo: BankInfo = {
   bank_label_vi: "Ngân hàng",
   bank_label_en: "Bank",
+  // TODO: Replace placeholders with real bank details before go-live
   bank_name: "[Tên ngân hàng]",
   account_label_vi: "Số tài khoản",
   account_label_en: "Account Number",

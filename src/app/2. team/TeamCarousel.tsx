@@ -32,13 +32,8 @@ export default function TeamCarouselSection() {
   }, []);
 
   const totalSlides = Math.ceil(teamCarouselData.length / itemsPerView);
-
-  // Reset currentIndex when totalSlides changes
-  useEffect(() => {
-    if (currentIndex >= totalSlides) {
-      setCurrentIndex(0);
-    }
-  }, [totalSlides, currentIndex]);
+  const safeIndex =
+    totalSlides === 0 ? 0 : Math.min(currentIndex, totalSlides - 1);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
@@ -118,7 +113,7 @@ export default function TeamCarouselSection() {
           <div className="overflow-hidden py-6 rounded-2xl">
             <div
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              style={{ transform: `translateX(-${safeIndex * 100}%)` }}
             >
               {Array.from({ length: totalSlides }).map((_, slideIndex) => (
                 <div key={slideIndex} className="min-w-full">
@@ -188,7 +183,7 @@ export default function TeamCarouselSection() {
                 }}
                 className={cn(
                   "h-2 rounded-full transition-all",
-                  idx === currentIndex
+                  idx === safeIndex
                     ? "w-8 bg-cyan-500"
                     : "w-2 bg-slate-800 hover:bg-slate-700"
                 )}

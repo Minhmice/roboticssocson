@@ -65,8 +65,8 @@ export default function MissionSection() {
     // On mobile, show immediately; on desktop, wait for intersection
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
-      setSectionVisible(true);
-      return;
+      const frameId = requestAnimationFrame(() => setSectionVisible(true));
+      return () => cancelAnimationFrame(frameId);
     }
 
     const node = sectionRef.current;

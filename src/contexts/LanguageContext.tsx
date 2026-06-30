@@ -15,18 +15,17 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
+function getInitialLocale(): Locale {
+  if (typeof window === "undefined") return "vi";
+  const saved = localStorage.getItem("locale");
+  if (saved === "vi" || saved === "en") return saved;
+  return "vi";
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("vi");
+  const [locale, setLocaleState] = useState<Locale>(getInitialLocale);
   const [messages, setMessages] = useState<Messages>({});
   const [, setIsChanging] = useState(false);
-
-  // Load locale from localStorage on mount
-  useEffect(() => {
-    const saved = localStorage.getItem("locale") as Locale;
-    if (saved && (saved === "vi" || saved === "en")) {
-      setLocaleState(saved);
-    }
-  }, []);
 
   // Load messages dynamically
   useEffect(() => {

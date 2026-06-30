@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Mail, Facebook } from "lucide-react";
+import { Mail } from "lucide-react";
+import { FacebookIcon } from "@/components/shared/FacebookIcon";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { sponsorEmail, socials } from "@/data/settings";
 
@@ -122,7 +123,7 @@ export const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary"
               >
-                <Facebook className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
+                <FacebookIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
                 Facebook
               </a>
             </div>

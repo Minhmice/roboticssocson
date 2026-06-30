@@ -4,7 +4,8 @@ import { CTAButton } from "@/components/shared/CTAButton";
 import { AnimatedSection } from "@/components/shared/AnimatedComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { sponsorEmail, socials } from "@/data/settings";
-import { Mail, Facebook, Download } from "lucide-react";
+import { Mail, Download } from "lucide-react";
+import { FacebookIcon } from "@/components/shared/FacebookIcon";
 
 export default function FinalCTASection() {
   const { locale } = useLanguage();
@@ -69,7 +70,7 @@ export default function FinalCTASection() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 hover:text-cyan-400 transition-colors min-h-[44px] text-sm sm:text-base"
             >
-              <Facebook className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+              <FacebookIcon className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
               <span>
                 {locale === "vi"
                   ? "Theo dõi chúng em trên Facebook"
