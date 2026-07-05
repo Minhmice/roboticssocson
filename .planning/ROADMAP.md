@@ -105,7 +105,7 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 **Goal:** Wire homepage teaser, navbar/footer course links, registration CTAs, pathname-aware anchors, and full verification.
 
 **Mode:** mvp  
-**Status:** Not planned yet  
+**Status:** Complete  
 **UI hint:** yes
 
 **Requirements:** TEAS-01, TEAS-02, NAV-02, NAV-03, NAV-04, REG-01, REG-02, QUAL-02, QUAL-03
@@ -113,19 +113,27 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 **Depends on:**
 
 - Phase 4 complete `/course` page
-- `src/components/layout/Navbar.tsx`, `Footer.tsx`, `src/app/page.tsx`
-- Google Form URLs in `courseRegistration.ts` (or inline form fallback)
-- `docs/course/ACCEPTANCE_CRITERIA.md` manual checklist
+- `src/components/layout/Navbar.tsx`, `Footer.tsx`, `HomePage.tsx`
+- `courseRegistration.ts` Google Form links (empty = disabled CTA + Messenger fallback)
 
 **Success Criteria:**
 
 1. `CourseTeaser` on `/` with CTA to `/course`; does not list 12 lessons.
 2. Navbar shows course link; on `/course`, anchors scroll to curriculum/projects/faq/register.
-3. Register section opens Google Form (vi/en) and/or validated inline form + Messenger link.
+3. Register section: Google Form primary + Messenger fallback + what-we-ask bullets.
 4. `npm run lint`, `npm run build`, `npm run check:assets` pass.
 5. `/`, `/sponsorship`, `/sponsor` regression check pass.
 
-**Plans:** Not planned yet — run `$gsd-plan-phase 5`.
+**Plans:** 3 plans in 2 waves
+
+| Wave | Plans | Objective |
+|------|-------|-----------|
+| 1 | 05-01, 05-02 | CourseTeaser + Navbar/Footer/scroll-spy |
+| 2 | 05-03 | CourseRegister + sticky CTA + verify |
+
+- `05-01-PLAN.md` — Homepage CourseTeaser
+- `05-02-PLAN.md` — Navbar, Footer, scroll-spy
+- `05-03-PLAN.md` — Register, sticky CTA, verification
 
 ---
 
@@ -145,15 +153,15 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 | PAGE-05 | 4 | Complete |
 | PAGE-06 | 4 | Complete |
 | DSGN-04 | 4 | Complete |
-| TEAS-01 | 5 | Pending |
-| TEAS-02 | 5 | Pending |
-| NAV-02 | 5 | Pending |
-| NAV-03 | 5 | Pending |
-| NAV-04 | 5 | Pending |
-| REG-01 | 5 | Pending |
-| REG-02 | 5 | Pending |
-| QUAL-02 | 5 | Pending |
-| QUAL-03 | 5 | Pending |
+| TEAS-01 | 5 | Complete |
+| TEAS-02 | 5 | Complete |
+| NAV-02 | 5 | Complete |
+| NAV-03 | 5 | Complete |
+| NAV-04 | 5 | Complete |
+| REG-01 | 5 | Complete |
+| REG-02 | 5 | Complete |
+| QUAL-02 | 5 | Complete |
+| QUAL-03 | 5 | Complete |
 
 **Coverage:** 18 / 18 v2.0 requirements mapped.
 

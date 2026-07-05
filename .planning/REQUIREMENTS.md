@@ -65,14 +65,14 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 ### Route & Navigation
 
 - [x] **NAV-01**: User can open dedicated course page at `/course`.
-- [ ] **NAV-02**: User can reach `/course` from Navbar link (vi/en label).
-- [ ] **NAV-03**: On `/course`, user can scroll to curriculum, projects, FAQ, and register sections via in-page anchors.
-- [ ] **NAV-04**: Navbar on `/course` does not expose broken CLB-only anchors (`#about-first`, etc.) without navigating home.
+- [x] **NAV-02**: User can reach `/course` from Navbar link (vi/en label).
+- [x] **NAV-03**: On `/course`, user can scroll to curriculum, projects, FAQ, and register sections via in-page anchors.
+- [x] **NAV-04**: Navbar on `/course` does not expose broken CLB-only anchors (`#about-first`, etc.) without navigating home.
 
 ### Homepage Teaser
 
-- [ ] **TEAS-01**: User on `/` sees course teaser with journey strip and CTA linking to `/course`.
-- [ ] **TEAS-02**: Teaser does not list all 12 lessons (summary only).
+- [x] **TEAS-01**: User on `/` sees course teaser with journey strip and CTA linking to `/course`.
+- [x] **TEAS-02**: Teaser does not list all 12 lessons (summary only).
 
 ### Course Page Content
 
@@ -90,8 +90,8 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 
 ### Registration
 
-- [ ] **REG-01**: User can request consultation via Google Form (locale vi/en URL) or inline form with client validation per DATA_CONTRACT.
-- [ ] **REG-02**: User can reach Messenger fallback (`https://m.me/roboticssocson`) from register section.
+- [x] **REG-01**: User can request consultation via Google Form (locale vi/en URL) or inline form with client validation per DATA_CONTRACT.
+- [x] **REG-02**: User can reach Messenger fallback (`https://m.me/roboticssocson`) from register section.
 
 ### Internationalization
 
@@ -100,8 +100,8 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 ### SEO & Quality
 
 - [x] **QUAL-01**: `/course` has dedicated `metadata` (title, description, Open Graph).
-- [ ] **QUAL-02**: `npm run lint`, `npm run build`, and `npm run check:assets` pass after implementation.
-- [ ] **QUAL-03**: `/`, `/sponsorship`, and `/sponsor` behavior unchanged (regression).
+- [x] **QUAL-02**: `npm run lint`, `npm run build`, and `npm run check:assets` pass after implementation.
+- [x] **QUAL-03**: `/`, `/sponsorship`, and `/sponsor` behavior unchanged (regression).
 
 ### Design (Implementation)
 
@@ -135,7 +135,7 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 | HOME-01 … ARCH-02 | Phase 2 | Complete |
 | DATA-01, DATA-02, NAV-01, QUAL-01, I18N-01 | Phase 3 | Complete |
 | PAGE-01 … PAGE-06, DSGN-04 | Phase 4 | Complete |
-| TEAS-01, TEAS-02, NAV-02, NAV-03, NAV-04, REG-01, REG-02, QUAL-02, QUAL-03 | Phase 5 | Pending |
+| TEAS-01, TEAS-02, NAV-02, NAV-03, NAV-04, REG-01, REG-02, QUAL-02, QUAL-03 | Phase 5 | Complete |
 
 **Coverage:** v2.0 — 18 requirements mapped across Phases 3–5. Unmapped: 0.
 
