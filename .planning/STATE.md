@@ -32,12 +32,16 @@ See: `.planning/PROJECT.md` (updated 2026-07-05)
 
 ## Current Phase
 
+### Phase 5: Integration, Teaser & Launch
+
+**Status:** Context gathered — ready for `$gsd-plan-phase 5`
+**Requirements:** TEAS-01..02, NAV-02..04, REG-01..02, QUAL-02..03
+
+**Plans:** Not planned yet
+
 ### Phase 4: Course Page Sections (Complete)
 
-**Status:** Phase 04 complete  
-**Plans:** 04-01 through 04-04 — all complete
-
-**Requirements:** PAGE-01..06, DSGN-04 — complete
+**Plans:** 04-01 through 04-04 — complete
 
 ### Phase 3: Course Data & Route Foundation (Complete)
 
@@ -57,13 +61,13 @@ See: `.planning/PROJECT.md` (updated 2026-07-05)
 
 ## Current Position
 
-Phase: 04 — COMPLETE  
-Plan: —  
-Status: Ready for Phase 5 planning/execution  
-Last activity: 2026-07-05 — Phase 04 executed
+Phase: 05 — CONTEXT GATHERED
+Plan: —
+Status: Ready for plan-phase
+Last activity: 2026-07-05 — Phase 05 discuss-phase
 
 ## Session
 
-**Last session:** 2026-07-05T11:00:00.000Z  
-**Stopped at:** Phase 4 complete — ready for Phase 5  
-**Resume file:** `.planning/phases/05-integration-teaser-launch/` or `$gsd-plan-phase 5`
+**Last session:** 2026-07-05T14:05:00.000Z
+**Stopped at:** Phase 5 context gathered
+**Resume file:** .planning/phases/05-integration-teaser-launch/05-CONTEXT.md
