@@ -29,7 +29,7 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 **Goal:** Add typed course data modules, `/course` route shell with layout metadata, and minimal hero — proving data contract and SEO before full sections.
 
 **Mode:** mvp  
-**Status:** Planned  
+**Status:** Complete  
 **UI hint:** yes
 
 **Requirements:** DATA-01, DATA-02, NAV-01, QUAL-01, I18N-01

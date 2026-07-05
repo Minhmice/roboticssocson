@@ -64,7 +64,7 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 
 ### Route & Navigation
 
-- [ ] **NAV-01**: User can open dedicated course page at `/course`.
+- [x] **NAV-01**: User can open dedicated course page at `/course`.
 - [ ] **NAV-02**: User can reach `/course` from Navbar link (vi/en label).
 - [ ] **NAV-03**: On `/course`, user can scroll to curriculum, projects, FAQ, and register sections via in-page anchors.
 - [ ] **NAV-04**: Navbar on `/course` does not expose broken CLB-only anchors (`#about-first`, etc.) without navigating home.
@@ -85,8 +85,8 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 
 ### Data Layer
 
-- [ ] **DATA-01**: Course content lives in typed `src/data/course*.ts` modules with `_vi`/`_en` fields.
-- [ ] **DATA-02**: Data shapes match `docs/course/DATA_CONTRACT.md` (Lesson, Project, FAQItem, Registration config).
+- [x] **DATA-01**: Course content lives in typed `src/data/course*.ts` modules with bilingual fields (`LocalizedText` for curriculum).
+- [x] **DATA-02**: Data shapes match `docs/course/DATA_CONTRACT.md` (Lesson, Project, FAQItem, Registration config).
 
 ### Registration
 
@@ -95,11 +95,11 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 
 ### Internationalization
 
-- [ ] **I18N-01**: Course surface respects site language toggle (vi/en) for data-driven copy and UI labels.
+- [x] **I18N-01**: Course surface respects site language toggle (vi/en) for data-driven copy and UI labels.
 
 ### SEO & Quality
 
-- [ ] **QUAL-01**: `/course` has dedicated `metadata` (title, description, Open Graph).
+- [x] **QUAL-01**: `/course` has dedicated `metadata` (title, description, Open Graph).
 - [ ] **QUAL-02**: `npm run lint`, `npm run build`, and `npm run check:assets` pass after implementation.
 - [ ] **QUAL-03**: `/`, `/sponsorship`, and `/sponsor` behavior unchanged (regression).
 
@@ -133,7 +133,7 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 |-------------|-------|--------|
 | CURR-01 … DSGN-03 | Phase 1 | Complete |
 | HOME-01 … ARCH-02 | Phase 2 | Complete |
-| DATA-01, DATA-02, NAV-01, QUAL-01, I18N-01 | Phase 3 | Pending |
+| DATA-01, DATA-02, NAV-01, QUAL-01, I18N-01 | Phase 3 | Complete |
 | PAGE-01 … PAGE-06, DSGN-04 | Phase 4 | Pending |
 | TEAS-01, TEAS-02, NAV-02, NAV-03, NAV-04, REG-01, REG-02, QUAL-02, QUAL-03 | Phase 5 | Pending |
 
