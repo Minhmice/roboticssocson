@@ -121,11 +121,11 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DATA-01 | 3 | Pending |
-| DATA-02 | 3 | Pending |
-| NAV-01 | 3 | Pending |
-| QUAL-01 | 3 | Pending |
-| I18N-01 | 3 | Pending |
+| DATA-01 | 3 | Complete |
+| DATA-02 | 3 | Complete |
+| NAV-01 | 3 | Complete |
+| QUAL-01 | 3 | Complete |
+| I18N-01 | 3 | Complete |
 | PAGE-01 | 4 | Pending |
 | PAGE-02 | 4 | Pending |
 | PAGE-03 | 4 | Pending |
