@@ -29,7 +29,7 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 **Goal:** Add typed course data modules, `/course` route shell with layout metadata, and minimal hero — proving data contract and SEO before full sections.
 
 **Mode:** mvp  
-**Status:** Not planned yet  
+**Status:** Planned  
 **UI hint:** yes
 
 **Requirements:** DATA-01, DATA-02, NAV-01, QUAL-01, I18N-01
@@ -42,12 +42,21 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 
 **Success Criteria:**
 
-1. `src/data/course*.ts` exports Lesson[], Project[], FAQItem[], registration config with `_vi`/`_en` fields.
+1. `src/data/course*.ts` exports Lesson[], Project[], FAQItem[], registration config with bilingual fields (`LocalizedText` for curriculum).
 2. `/course` route renders with `layout.tsx` metadata and `CourseHero` using `AuroraBackground` + data-driven copy.
 3. Language toggle switches hero copy between vi/en.
 4. `npm run build` passes with new route.
 
-**Plans:** Not planned yet — run `$gsd-plan-phase 3`.
+**Plans:** 3 plans in 2 waves
+
+| Wave | Plans | Objective |
+|------|-------|-----------|
+| 1 | 03-01, 03-02 | SEO registry + course static data layer (parallel) |
+| 2 *(blocked on Wave 1)* | 03-03 | `/course` route shell + `CourseHero` |
+
+- `03-01-PLAN.md` — SEO registry and course route metadata (QUAL-01)
+- `03-02-PLAN.md` — Course static data layer (DATA-01, DATA-02, I18N-01)
+- `03-03-PLAN.md` — Course route shell and hero (NAV-01, I18N-01)
 
 ---
 

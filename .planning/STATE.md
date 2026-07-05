@@ -3,11 +3,11 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Goal
 current_phase_name: defining requirements
-status: planning
-stopped_at: Phase 3 context gathered
-last_updated: "2026-07-05T08:48:48.381Z"
+status: ready to execute
+stopped_at: Phase 3 planned — ready to execute
+last_updated: "2026-07-05T09:00:00.000Z"
 last_activity: 2026-07-05
-last_activity_desc: Milestone v2.0 started
+last_activity_desc: Phase 3 planned (3 plans)
 progress:
   total_phases: 3
   completed_phases: 1
@@ -33,15 +33,15 @@ See: `.planning/PROJECT.md` (updated 2026-07-05)
 
 ### Phase 3: Course Data & Route Foundation
 
-**Status:** Not planned yet
-**Mode:** mvp
+**Status:** Ready to execute  
+**Mode:** mvp  
 **UI hint:** yes
 
 **Goal:** Add typed course data modules, `/course` route shell with layout metadata, and minimal hero.
 
 **Requirements:** DATA-01, DATA-02, NAV-01, QUAL-01, I18N-01
 
-**Plans:** 0 — run `$gsd-plan-phase 3`
+**Plans:** 3 plans in 2 waves — see `03-01-PLAN.md`, `03-02-PLAN.md`, `03-03-PLAN.md`
 
 ### Previous Milestone (v1.0 — Complete)
 
@@ -88,7 +88,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-05)
 
 Phase: Not started (defining requirements)
 Plan: —
-Status: Defining requirements
+Status: Ready to execute
 Last activity: 2026-07-05 — Milestone v2.0 started
 
 ## Session
