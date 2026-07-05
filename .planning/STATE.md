@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Goal
-current_phase: 03
-status: completed
-stopped_at: Phase 4 context gathered
-last_updated: "2026-07-05T09:30:40.374Z"
+current_phase: 04
+status: planned
+stopped_at: Phase 4 planned — ready for execute
+last_updated: "2026-07-05T10:35:00.000Z"
 last_activity: 2026-07-05
-last_activity_desc: Phase 03 marked complete
+last_activity_desc: Phase 04 planned (4 plans, 3 waves)
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 6
+  total_plans: 10
   completed_plans: 6
   percent: 50
-current_phase_name: defining requirements
+current_phase_name: course-page-sections
 ---
 
 # Project State
@@ -32,17 +32,23 @@ See: `.planning/PROJECT.md` (updated 2026-07-05)
 
 ## Current Phase
 
-### Phase 3: Course Data & Route Foundation
+### Phase 4: Course Page Sections
 
-**Status:** Phase 03 complete
+**Status:** Planned — ready for `$gsd-execute-phase 4`
 **Mode:** mvp  
 **UI hint:** yes
 
-**Goal:** Add typed course data modules, `/course` route shell with layout metadata, and minimal hero.
+**Goal:** Implement all PRD content sections on `/course` (problem through FAQ).
+
+**Requirements:** PAGE-01, PAGE-02, PAGE-03, PAGE-04, PAGE-05, PAGE-06, DSGN-04
+
+**Plans:** 4 plans in 3 waves — see `04-01` through `04-04-PLAN.md`
+
+### Phase 3: Course Data & Route Foundation (Complete)
 
 **Requirements:** DATA-01, DATA-02, NAV-01, QUAL-01, I18N-01
 
-**Plans:** 3 plans in 2 waves — see `03-01-PLAN.md`, `03-02-PLAN.md`, `03-03-PLAN.md`
+**Plans:** 03-01, 03-02, 03-03 — complete
 
 ### Previous Milestone (v1.0 — Complete)
 
@@ -87,13 +93,13 @@ See: `.planning/PROJECT.md` (updated 2026-07-05)
 
 ## Current Position
 
-Phase: 03 — COMPLETE
-Plan: —
-Status: Phase 03 complete
-Last activity: 2026-07-05 — Phase 03 marked complete
+Phase: 04 — PLANNED
+Plan: 04-01 (Wave 1)
+Status: Ready for execute
+Last activity: 2026-07-05 — Phase 04 planned
 
 ## Session
 
-**Last session:** 2026-07-05T09:30:40.363Z
-**Stopped at:** Phase 4 context gathered
-**Resume file:** .planning/phases/04-course-page-sections/04-CONTEXT.md
+**Last session:** 2026-07-05T10:35:00.000Z
+**Stopped at:** Phase 4 planned — ready for execute
+**Resume file:** .planning/phases/04-course-page-sections/04-01-PLAN.md

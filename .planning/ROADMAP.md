@@ -65,7 +65,7 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 **Goal:** Implement all PRD content sections on `/course` (problem through FAQ) using shared components and static data.
 
 **Mode:** mvp  
-**Status:** Not planned yet  
+**Status:** Planned  
 **UI hint:** yes
 
 **Requirements:** PAGE-01, PAGE-02, PAGE-03, PAGE-04, PAGE-05, PAGE-06, DSGN-04
@@ -74,7 +74,8 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 
 - Phase 3 data modules and route shell
 - `docs/course/PRD.md` section copy
-- `GlowCard`, `SectionHeader`, `MediaPlaceholder`, optional `Timeline`
+- `GlowCard`, `SectionHeader`, `MediaPlaceholder`, `FadeInSection`
+- `.planning/phases/04-course-page-sections/04-CONTEXT.md`
 
 **Success Criteria:**
 
@@ -84,7 +85,18 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 4. UI matches dark arena tokens; responsive at 375px without horizontal overflow.
 5. Manual review: visitor understands course promise in ~30 seconds.
 
-**Plans:** Not planned yet — run `$gsd-plan-phase 4`.
+**Plans:** 4 plans in 3 waves
+
+| Wave | Plans | Objective |
+|------|-------|-----------|
+| 1 | 04-01 | Section data fill + FadeInSection helper |
+| 2 | 04-02, 04-03 | Narrative sections + curriculum/projects/CTA (parallel) |
+| 3 *(blocked on Wave 2)* | 04-04 | FAQ, register bridge, page composition + verify |
+
+- `04-01-PLAN.md` — Course section data and FadeIn helper (PAGE-02 data)
+- `04-02-PLAN.md` — Trust and narrative sections (PAGE-02, PAGE-05, DSGN-04)
+- `04-03-PLAN.md` — Curriculum, projects, mid-page CTA (PAGE-03, PAGE-04)
+- `04-04-PLAN.md` — FAQ, register bridge, page compose (PAGE-01, PAGE-06, DSGN-04)
 
 ---
 
