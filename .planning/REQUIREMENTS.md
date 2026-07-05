@@ -76,12 +76,12 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 
 ### Course Page Content
 
-- [ ] **PAGE-01**: User can read course hero (title, promise, badges, primary/secondary CTAs).
-- [ ] **PAGE-02**: User can read problem, solution, and outcomes sections.
-- [ ] **PAGE-03**: User can browse 12-lesson curriculum from static data with per-lesson detail (expand or equivalent).
-- [ ] **PAGE-04**: User can view two capstone project cards (smart bin, parking warning).
-- [ ] **PAGE-05**: User can read method, leveling, and AI usage sections.
-- [ ] **PAGE-06**: User can expand at least seven FAQ items.
+- [x] **PAGE-01**: User can read course hero (title, promise, badges, primary/secondary CTAs).
+- [x] **PAGE-02**: User can read problem, solution, and outcomes sections.
+- [x] **PAGE-03**: User can browse 12-lesson curriculum from static data with per-lesson detail (expand or equivalent).
+- [x] **PAGE-04**: User can view two capstone project cards (smart bin, parking warning).
+- [x] **PAGE-05**: User can read method, leveling, and AI usage sections.
+- [x] **PAGE-06**: User can expand at least seven FAQ items.
 
 ### Data Layer
 
@@ -105,7 +105,7 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 
 ### Design (Implementation)
 
-- [ ] **DSGN-04**: Course UI reuses site patterns (`SectionHeader`, `GlowCard`, `CTAButton`, `AuroraBackground`, dark tokens) — no separate light theme.
+- [x] **DSGN-04**: Course UI reuses site patterns (`SectionHeader`, `GlowCard`, `CTAButton`, `AuroraBackground`, dark tokens) — no separate light theme.
 
 ## v3 Requirements (Deferred)
 
@@ -134,7 +134,7 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 | CURR-01 … DSGN-03 | Phase 1 | Complete |
 | HOME-01 … ARCH-02 | Phase 2 | Complete |
 | DATA-01, DATA-02, NAV-01, QUAL-01, I18N-01 | Phase 3 | Complete |
-| PAGE-01 … PAGE-06, DSGN-04 | Phase 4 | Pending |
+| PAGE-01 … PAGE-06, DSGN-04 | Phase 4 | Complete |
 | TEAS-01, TEAS-02, NAV-02, NAV-03, NAV-04, REG-01, REG-02, QUAL-02, QUAL-03 | Phase 5 | Pending |
 
 **Coverage:** v2.0 — 18 requirements mapped across Phases 3–5. Unmapped: 0.

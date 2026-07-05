@@ -65,7 +65,7 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 **Goal:** Implement all PRD content sections on `/course` (problem through FAQ) using shared components and static data.
 
 **Mode:** mvp  
-**Status:** Planned  
+**Status:** Complete  
 **UI hint:** yes
 
 **Requirements:** PAGE-01, PAGE-02, PAGE-03, PAGE-04, PAGE-05, PAGE-06, DSGN-04
@@ -138,13 +138,13 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 | NAV-01 | 3 | Complete |
 | QUAL-01 | 3 | Complete |
 | I18N-01 | 3 | Complete |
-| PAGE-01 | 4 | Pending |
-| PAGE-02 | 4 | Pending |
-| PAGE-03 | 4 | Pending |
-| PAGE-04 | 4 | Pending |
-| PAGE-05 | 4 | Pending |
-| PAGE-06 | 4 | Pending |
-| DSGN-04 | 4 | Pending |
+| PAGE-01 | 4 | Complete |
+| PAGE-02 | 4 | Complete |
+| PAGE-03 | 4 | Complete |
+| PAGE-04 | 4 | Complete |
+| PAGE-05 | 4 | Complete |
+| PAGE-06 | 4 | Complete |
+| DSGN-04 | 4 | Complete |
 | TEAS-01 | 5 | Pending |
 | TEAS-02 | 5 | Pending |
 | NAV-02 | 5 | Pending |
