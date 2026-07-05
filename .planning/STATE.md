@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Goal
-current_phase: 04
-status: completed
-stopped_at: Phase 4 complete — ready for Phase 5
-last_updated: "2026-07-05T11:00:00.000Z"
+current_phase: 05
+status: context_gathered
+stopped_at: Phase 5 context gathered
+last_updated: "2026-07-05T14:05:00.000Z"
 last_activity: 2026-07-05
-last_activity_desc: Phase 04 executed and verified
+last_activity_desc: Phase 05 discuss-phase complete
 progress:
-  total_phases: 4
+  total_phases: 5
   completed_phases: 3
   total_plans: 10
   completed_plans: 10
   percent: 75
-current_phase_name: course-page-sections
+current_phase_name: integration-teaser-launch
 ---
 
 # Project State
@@ -56,6 +56,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-05)
 
 ### Roadmap Evolution
 
+- 2026-07-05: Phase 5 context gathered — teaser, nav, register, sticky CTA decisions.
 - 2026-07-05: Phase 4 planned and executed — full `/course` section stack shipped.
 - 2026-07-05: Phase 3 complete — data, SEO, hero.
 
