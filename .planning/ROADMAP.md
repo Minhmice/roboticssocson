@@ -170,14 +170,19 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 **Goal:** Integrate soft-STEM parent narrative (screen time, hands-on focus) into `/course` copy, FAQ, optional offer band, and homepage teaser — without changing section architecture or registration flow.
 
 **Mode:** content  
-**Status:** Context gathered  
+**Status:** Planned  
 **Depends on:** Phase 5
 
-**Plans:** 0 plans
+**Plans:** 3 plans in 2 waves
 
-Plans:
+| Wave | Plans | Objective |
+|------|-------|-----------|
+| 1 | 06-01 | Marketing data layer (hero, sections prose, FAQ, offer, teaser) |
+| 2 *(blocked on Wave 1)* | 06-02, 06-03 | Narrative UI + offer band + verification (parallel) |
 
-- [ ] TBD (run `$gsd-plan-phase 6` to break down)
+- `06-01-PLAN.md` — Marketing data layer
+- `06-02-PLAN.md` — Hero, Problem/Solution prose UI, teaser
+- `06-03-PLAN.md` — CourseOffer band, page compose, verify
 
 ---
 
