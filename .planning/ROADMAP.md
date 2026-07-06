@@ -165,6 +165,20 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 
 **Coverage:** 18 / 18 v2.0 requirements mapped.
 
+### Phase 6: Marketing copy integration — parent-facing screen-time narrative on /course
+
+**Goal:** Integrate soft-STEM parent narrative (screen time, hands-on focus) into `/course` copy, FAQ, optional offer band, and homepage teaser — without changing section architecture or registration flow.
+
+**Mode:** content  
+**Status:** Context gathered  
+**Depends on:** Phase 5
+
+**Plans:** 0 plans
+
+Plans:
+
+- [ ] TBD (run `$gsd-plan-phase 6` to break down)
+
 ---
 
 ## Historical Phases (v1.0)

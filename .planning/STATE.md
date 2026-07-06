@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Goal
-current_phase: 05
-status: completed
-stopped_at: Milestone v2.0 complete
-last_updated: "2026-07-05T14:25:00.000Z"
-last_activity: 2026-07-05
-last_activity_desc: Phase 05 executed — v2.0 course landing complete
+current_phase: 06
+status: in_progress
+stopped_at: Phase 06 context gathered
+last_updated: "2026-07-06T04:20:00.000Z"
+last_activity: 2026-07-06
+last_activity_desc: Phase 06 context gathered — marketing copy integration
 progress:
-  total_phases: 5
-  completed_phases: 4
+  total_phases: 6
+  completed_phases: 5
   total_plans: 13
   completed_plans: 13
   percent: 100
@@ -24,7 +24,13 @@ current_phase_name: integration-teaser-launch
 See: `.planning/PROJECT.md` (updated 2026-07-05)
 
 **Core value:** Prospective sponsors, students, and educators must quickly trust Robotics Sóc Sơn as a serious, hands-on STEM team with clear learning outcomes and credible execution.
-**Current focus:** Milestone v2.0 — **Complete**
+**Current focus:** Phase 6 — Marketing copy integration (v2.1 post-launch content)
+
+## Accumulated Context
+
+### Roadmap Evolution
+
+- Phase 6 added: Marketing copy integration — parent-facing screen-time narrative on /course
 
 ## Current Milestone
 
@@ -37,12 +43,12 @@ See: `.planning/PROJECT.md` (updated 2026-07-05)
 
 ## Current Position
 
-Phase: 05 — COMPLETE  
-Milestone v2.0: COMPLETE  
-Last activity: 2026-07-05 — Phase 05 executed
+Phase: 06 — CONTEXT GATHERED  
+Milestone v2.0: COMPLETE (Phase 6 extends course landing post-launch)  
+Last activity: 2026-07-06 — Phase 06 discuss complete
 
 ## Session
 
-**Last session:** 2026-07-05T14:25:00.000Z  
-**Stopped at:** Milestone v2.0 complete  
-**Resume file:** `.planning/05-SUMMARY.md` or manual UAT on `/` and `/course`
+**Last session:** 2026-07-06T04:20:00.000Z  
+**Stopped at:** Phase 06 context gathered  
+**Resume file:** `.planning/phases/06-marketing-copy-integration-parent-facing-screen-time-narrati/06-CONTEXT.md`
