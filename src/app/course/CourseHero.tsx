@@ -32,6 +32,10 @@ export default function CourseHero() {
               {getLocalized(courseHeroData.headline, locale)}
             </h1>
 
+            <p className="text-lg sm:text-xl text-foreground/90 max-w-[65ch] mx-auto lg:mx-0">
+              {getLocalized(courseHeroData.parentHook, locale)}
+            </p>
+
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-[65ch] mx-auto lg:mx-0">
               {getLocalized(courseHeroData.subtitle, locale)}
             </p>

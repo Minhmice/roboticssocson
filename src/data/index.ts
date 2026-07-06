@@ -22,4 +22,6 @@ export * from "./courseProjects";
 export * from "./courseFaq";
 export * from "./courseRegistration";
 export * from "./courseSections";
+export * from "./courseTeaser";
+export * from "./courseOffer";
 
