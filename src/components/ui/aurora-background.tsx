@@ -14,36 +14,33 @@ export const AuroraBackground = ({
   ...props
 }: AuroraBackgroundProps) => {
   return (
-      <div
-        className={cn(
-          "relative flex flex-col h-[100vh] items-center justify-center bg-background text-foreground transition-bg",
-          className
-        )}
-        {...props}
-      >
-        <div className="absolute inset-0 overflow-hidden">
-          <div
-            //   I'm sorry but this is what peak developer performance looks like // trigger warning
-            className={cn(
-              `
-            [--dark-gradient:repeating-linear-gradient(100deg,var(--black)_0%,var(--black)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--black)_16%)]
-            [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_10%,var(--indigo-300)_15%,var(--blue-300)_20%,var(--violet-200)_25%,var(--blue-400)_30%)]
+    <div
+      className={cn(
+        "relative isolate flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background text-foreground transition-colors",
+        className
+      )}
+      {...props}
+    >
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <div
+          className={cn(
+            `
+            [--dark-gradient:repeating-linear-gradient(100deg,var(--background)_0%,var(--background)_7%,transparent_10%,transparent_12%,var(--background)_16%)]
+            [--aurora:repeating-linear-gradient(100deg,var(--primary)_10%,var(--chart-2)_15%,var(--chart-1)_20%,color-mix(in_srgb,var(--foreground)_82%,var(--primary)_18%)_25%,var(--primary)_30%)]
             [background-image:var(--dark-gradient),var(--aurora)]
             [background-size:300%,_200%]
             [background-position:50%_50%,50%_50%]
-            filter blur-[10px]
-            after:content-[""] after:absolute after:inset-0 after:[background-image:var(--dark-gradient),var(--aurora)]
-            after:[background-size:200%,_100%] 
-            after:animate-aurora after:[background-attachment:fixed] after:mix-blend-difference
-            pointer-events-none
-            absolute -inset-[10px] opacity-50 will-change-transform`,
+            absolute -inset-[10px] opacity-40 blur-[10px] will-change-transform
+            after:absolute after:inset-0 after:content-[""] after:[background-image:var(--dark-gradient),var(--aurora)]
+            after:[background-size:200%,_100%]
+            after:animate-aurora after:[background-attachment:fixed] after:mix-blend-multiply after:opacity-40`,
 
-              showRadialGradient &&
-                `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
-            )}
-          ></div>
-        </div>
-        {children}
+            showRadialGradient &&
+              `[mask-image:radial-gradient(ellipse_at_50%_0%,black_10%,transparent_70%)]`
+          )}
+        />
       </div>
+      {children}
+    </div>
   );
 };

@@ -64,7 +64,7 @@ export const ftcFeatures: readonly FTCFeature[] = [
     images: [
       { 
         caption: "DECODE™ 2025-2026 Season",
-        src: "/Images/About FTC/1.1.jpg"
+        src: "/Images/About FTC/1.1.webp"
       },
     ],
   },
@@ -76,11 +76,11 @@ export const ftcFeatures: readonly FTCFeature[] = [
       "Giải robotics cho học sinh từ lớp 7 đến lớp 12, nơi các đội (tối đa 15 thành viên) thiết kế, chế tạo, lập trình và vận hành robot.",
     description_en:
       "Robotics competition for students from grade 7 to 12, where teams (max 15 members) design, build, program and operate robots.",
-    iconColor: "text-cyan-400",
-    bgColor: "bg-cyan-900/20",
+    iconColor: "text-primary",
+    bgColor: "bg-primary/5",
     imageLayout: "2",
-    images: [{ caption: "Cuộc thi Robotics Khối 7-12", src: "/Images/About FTC/2.1.jpg" },
-    { caption: "Cuộc thi Robotics Khối 7-12", src: "/Images/About FTC/2.2.jpg" }],
+    images: [{ caption: "Cuộc thi Robotics Khối 7-12", src: "/Images/About FTC/2.1.webp" },
+    { caption: "Cuộc thi Robotics Khối 7-12", src: "/Images/About FTC/2.2.webp" }],
   },
   {
     icon: Box,
@@ -94,10 +94,10 @@ export const ftcFeatures: readonly FTCFeature[] = [
     bgColor: "bg-blue-900/20",
     imageLayout: "4",
     images: [
-      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.1.jpg" },
-      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.2.jpg" },
-      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.3.jpg" },
-      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.4.jpg" },
+      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.1.webp" },
+      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.2.webp" },
+      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.3.webp" },
+      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.4.webp" },
     ],
   },
   {
@@ -112,7 +112,7 @@ export const ftcFeatures: readonly FTCFeature[] = [
     bgColor: "bg-purple-900/20",
     imageLayout: "1",
     images: [
-      { caption: "Mô hình liên minh - Alliance Model", src: "/Images/About FTC/4.1.jpg" },
+      { caption: "Mô hình liên minh - Alliance Model", src: "/Images/About FTC/4.1.webp" },
     ],
   },
   {
@@ -127,7 +127,7 @@ export const ftcFeatures: readonly FTCFeature[] = [
     bgColor: "bg-green-900/20",
     imageLayout: "1",
     images: [
-      { caption: "Technical & Design Skills", src: "/Images/About FTC/5.1.jpg" }
+      { caption: "Technical & Design Skills", src: "/Images/About FTC/5.1.webp" }
     ],
   },
 ] as const;

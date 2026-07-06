@@ -46,16 +46,16 @@ export const achievements: readonly Achievement[] = [
     participants: "66 đội",
     images: [
       {
-        src: "/Images/Achievements/VRC/IMG_0526.jpg",
+        src: "/Images/Achievements/VRC/IMG_0526.webp",
         caption: "Robot thi đấu",
       },
-      { src: "/Images/Achievements/VRC/IMG_0531.jpg", caption: "Đội thi" },
-      { src: "/Images/Achievements/VRC/IMG_0543.jpg", caption: "Hoạt động" },
-      { src: "/Images/Achievements/VRC/IMG_0660.jpg", caption: "Đội thi" },
-      { src: "/Images/Achievements/VRC/IMG_0663.jpg", caption: "Giải thưởng" },
-      { src: "/Images/Achievements/VRC/IMG_0664.jpg", caption: "Giải thưởng" },
-      { src: "/Images/Achievements/VRC/IMG_0665.jpg", caption: "Giải thưởng" },
-      { src: "/Images/Achievements/VRC/IMG_0688.jpg", caption: "Giải thưởng" },
+      { src: "/Images/Achievements/VRC/IMG_0531.webp", caption: "Đội thi" },
+      { src: "/Images/Achievements/VRC/IMG_0543.webp", caption: "Hoạt động" },
+      { src: "/Images/Achievements/VRC/IMG_0660.webp", caption: "Đội thi" },
+      { src: "/Images/Achievements/VRC/IMG_0663.webp", caption: "Giải thưởng" },
+      { src: "/Images/Achievements/VRC/IMG_0664.webp", caption: "Giải thưởng" },
+      { src: "/Images/Achievements/VRC/IMG_0665.webp", caption: "Giải thưởng" },
+      { src: "/Images/Achievements/VRC/IMG_0688.webp", caption: "Giải thưởng" },
     ] as const,
   },
   {
@@ -71,20 +71,20 @@ export const achievements: readonly Achievement[] = [
     competition: "VORC",
     images: [
       {
-        src: "/Images/Achievements/VORC/Image (1).jpg",
+        src: "/Images/Achievements/VORC/Image (1).webp",
         caption: "Robot thi đấu",
       },
-      { src: "/Images/Achievements/VORC/Image (2).jpg", caption: "Đội thi" },
-      { src: "/Images/Achievements/VORC/Image (3).jpg", caption: "Hoạt động" },
+      { src: "/Images/Achievements/VORC/Image (2).webp", caption: "Đội thi" },
+      { src: "/Images/Achievements/VORC/Image (3).webp", caption: "Hoạt động" },
       {
-        src: "/Images/Achievements/VORC/Image (4).jpg",
+        src: "/Images/Achievements/VORC/Image (4).webp",
         caption: "Giải thưởng",
       },
       {
-        src: "/Images/Achievements/VORC/Image (5).jpg",
+        src: "/Images/Achievements/VORC/Image (5).webp",
         caption: "Robot thi đấu",
       },
-      { src: "/Images/Achievements/VORC/Image (6).jpg", caption: "Đội thi" },
+      { src: "/Images/Achievements/VORC/Image (6).webp", caption: "Đội thi" },
     ] as const,
   },
   {
@@ -100,35 +100,35 @@ export const achievements: readonly Achievement[] = [
     competition: "FTC Vietnam",
     images: [
       {
-        src: "/Images/Achievements/FTC 2024-2025/Image  (1).jpg",
+        src: "/Images/Achievements/FTC 2024-2025/Image  (1).webp",
         caption: "Robot thi đấu",
       },
       {
-        src: "/Images/Achievements/FTC 2024-2025/Image  (2).jpg",
+        src: "/Images/Achievements/FTC 2024-2025/Image  (2).webp",
         caption: "Đội thi",
       },
       {
-        src: "/Images/Achievements/FTC 2024-2025/Image  (3).jpg",
+        src: "/Images/Achievements/FTC 2024-2025/Image  (3).webp",
         caption: "Hoạt động",
       },
       {
-        src: "/Images/Achievements/FTC 2024-2025/Image  (4).jpg",
+        src: "/Images/Achievements/FTC 2024-2025/Image  (4).webp",
         caption: "Giải thưởng",
       },
       {
-        src: "/Images/Achievements/FTC 2024-2025/Image  (5).jpg",
+        src: "/Images/Achievements/FTC 2024-2025/Image  (5).webp",
         caption: "Robot thi đấu",
       },
       {
-        src: "/Images/Achievements/FTC 2024-2025/Image  (6).jpg",
+        src: "/Images/Achievements/FTC 2024-2025/Image  (6).webp",
         caption: "Đội thi",
       },
       {
-        src: "/Images/Achievements/FTC 2024-2025/Image  (7).jpg",
+        src: "/Images/Achievements/FTC 2024-2025/Image  (7).webp",
         caption: "Hoạt động",
       },
       {
-        src: "/Images/Achievements/FTC 2024-2025/Image  (8).jpg",
+        src: "/Images/Achievements/FTC 2024-2025/Image  (8).webp",
         caption: "Giải thưởng",
       },
     ] as const,
@@ -146,27 +146,27 @@ export const achievements: readonly Achievement[] = [
     competition: "Motions In Fire",
     images: [
       {
-        src: "/Images/Achievements/Motion Fire/Image (1).jpg",
+        src: "/Images/Achievements/Motion Fire/Image (1).webp",
         caption: "Robot thi đấu",
       },
       {
-        src: "/Images/Achievements/Motion Fire/Image (2).jpg",
+        src: "/Images/Achievements/Motion Fire/Image (2).webp",
         caption: "Đội thi",
       },
       {
-        src: "/Images/Achievements/Motion Fire/Image (3).jpg",
+        src: "/Images/Achievements/Motion Fire/Image (3).webp",
         caption: "Hoạt động",
       },
       {
-        src: "/Images/Achievements/Motion Fire/Image (4).jpg",
+        src: "/Images/Achievements/Motion Fire/Image (4).webp",
         caption: "Giải thưởng",
       },
       {
-        src: "/Images/Achievements/Motion Fire/Image (5).jpg",
+        src: "/Images/Achievements/Motion Fire/Image (5).webp",
         caption: "Robot thi đấu",
       },
       {
-        src: "/Images/Achievements/Motion Fire/Image (6).jpg",
+        src: "/Images/Achievements/Motion Fire/Image (6).webp",
         caption: "Đội thi",
       },
     ] as const,

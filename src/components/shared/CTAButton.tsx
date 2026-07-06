@@ -26,12 +26,15 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   target,
   rel,
 }) => {
-  const baseStyles = "px-6 py-3 rounded-xl font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
-  
+  const baseStyles =
+    "px-6 py-3 rounded-xl font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+
   const variants = {
-    primary: "bg-cyan-500 text-slate-900 hover:bg-cyan-400 hover:shadow-[0_0_16px_rgba(34,211,238,0.5)] active:bg-cyan-600",
-    secondary: "border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 active:bg-cyan-500/20",
-    ghost: "text-cyan-400 hover:bg-cyan-950/30 hover:text-cyan-300 active:bg-cyan-950/50",
+    primary:
+      "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_4px_14px_rgba(37,99,235,0.25)] active:bg-primary/95",
+    secondary:
+      "border-2 border-primary text-primary hover:bg-primary/5 hover:border-primary/80 active:bg-primary/10",
+    ghost: "text-primary hover:bg-accent hover:text-primary active:bg-accent/80",
   };
 
   const content = (
@@ -64,22 +67,10 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
         baseStyles,
         variants[variant],
         disabled && "opacity-50 cursor-not-allowed",
-        className
+        className,
       )}
     >
       {content}
     </button>
   );
-};
-
-/**
- * Usage example:
- * 
- * <CTAButton 
- *   label="Trở thành Nhà Tài Trợ" 
- *   variant="primary"
- *   icon={Heart}
- *   onClick={() => console.log('Clicked')}
- * />
- */
-
+}

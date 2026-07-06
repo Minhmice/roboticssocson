@@ -24,15 +24,15 @@ export const PackageCard: React.FC<PackageCardProps> = ({
     <GlowCard
       className={cn(
         "h-full transition-all duration-300",
-        highlight && "border-cyan-500/50 shadow-[0_0_20px_rgba(34,211,238,0.35)] hover:scale-105",
+        highlight && "border-primary/40 shadow-[0_0_20px_rgba(37,99,235,0.35)] hover:scale-105",
         className
       )}
     >
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-2xl font-bold text-slate-100">{tier}</h3>
+          <h3 className="text-2xl font-bold text-foreground">{tier}</h3>
           {highlight && (
-            <span className="rounded-full bg-cyan-500/20 px-3 py-1 text-xs font-semibold text-cyan-400">
+            <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
               Popular
             </span>
           )}
@@ -40,7 +40,7 @@ export const PackageCard: React.FC<PackageCardProps> = ({
 
         {price && (
           <div className="mb-6">
-            <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-cyan-300 to-cyan-500">
+            <div className="text-3xl font-bold text-primary">
               {price}
             </div>
           </div>
@@ -49,8 +49,8 @@ export const PackageCard: React.FC<PackageCardProps> = ({
         <ul className="flex-1 space-y-3 mb-6">
           {benefits.map((benefit, index) => (
             <li key={index} className="flex items-start gap-3">
-              <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-cyan-500" />
-              <span className="text-sm text-slate-300">{benefit}</span>
+              <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+              <span className="text-sm text-muted-foreground">{benefit}</span>
             </li>
           ))}
         </ul>

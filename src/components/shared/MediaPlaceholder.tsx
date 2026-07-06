@@ -7,6 +7,7 @@ interface MediaPlaceholderProps {
   src?: string;
   caption?: string;
   className?: string;
+  sizes?: string;
 }
 
 export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
@@ -14,6 +15,7 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
   src,
   caption,
   className,
+  sizes = "100vw",
 }) => {
   const Icon = type === "image" ? ImageIcon : Video;
 
@@ -57,6 +59,7 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
           src={encodedSrc}
           alt={caption || "Image"}
           fill
+          sizes={sizes}
           className="object-cover rounded-2xl"
           unoptimized={src.includes("Hương") || src.includes("Dũng") || src.includes("Hà") || /[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ]/.test(src)}
         />
@@ -75,16 +78,16 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-700 bg-slate-900/30 p-12 transition-all duration-300 hover:border-cyan-500/50 hover:bg-slate-900/50 hover:shadow-[0_0_12px_rgba(34,211,238,0.25)]",
+        "flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-border bg-muted/50 p-12 transition-all duration-300 hover:border-primary/40 hover:bg-card hover:shadow-[0_0_12px_rgba(37,99,235,0.25)]",
         className
       )}
     >
-      <Icon className="mb-4 h-16 w-16 text-slate-600" />
-      <p className="text-sm text-slate-500 font-medium">
+      <Icon className="mb-4 h-16 w-16 text-muted-foreground" />
+      <p className="text-sm text-muted-foreground font-medium">
         {type === "image" ? "Placeholder Image" : "Placeholder Video"}
       </p>
       {caption && (
-        <p className="mt-2 text-xs italic text-slate-400">
+        <p className="mt-2 text-xs italic text-muted-foreground">
           {type === "image" ? `Ảnh: ${caption}` : `Video: ${caption}`}
         </p>
       )}

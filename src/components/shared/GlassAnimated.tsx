@@ -21,15 +21,15 @@ export const GlassAnimated = React.forwardRef<
       ref={ref}
       className={cn(
         "glass-animated relative transition-all duration-500 ease-in-out",
-        "group-hover:scale-[1.08] group-hover:shadow-[0_6px_24px_0_rgba(34,211,238,0.25),0_1.5px_4px_0_rgba(34,211,238,0.12)]",
+        "group-hover:scale-[1.08] group-hover:shadow-[0_6px_24px_0_rgba(37,99,235,0.25),0_1.5px_4px_0_rgba(37,99,235,0.12)]",
         // Animate border of child elements when parent group is hovered
-        "group-hover:[&>*]:border-cyan-500/50",
+        "group-hover:[&>*]:border-primary/40",
         className
       )}
       {...props}
     >
       {/* Glow effect shadow similar to glass-button-shadow */}
-      <div className="glass-animated-shadow absolute inset-[-2px] -z-10 rounded-full opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 pointer-events-none bg-[radial-gradient(ellipse_60%_120%_at_12%_0%,rgba(34,211,238,0.3),transparent_72%)]" />
+      <div className="glass-animated-shadow absolute inset-[-2px] -z-10 rounded-full opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 pointer-events-none bg-[radial-gradient(ellipse_60%_120%_at_12%_0%,rgba(37,99,235,0.3),transparent_72%)]" />
       {children}
     </div>
   );

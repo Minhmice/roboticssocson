@@ -62,11 +62,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" className="scroll-smooth dark" data-theme="dark">
-      <body className={`${inter.variable} antialiased overflow-x-hidden`}>
+      <body className={`${inter.variable} antialiased overflow-x-clip`}>
         <LanguageProvider>
           <DynamicMetadata />
           <Navbar />
-          <main className="relative overflow-x-hidden pt-16">{children}</main>
+          <main className="relative overflow-x-clip pt-16">{children}</main>
           <Footer />
         </LanguageProvider>
       </body>

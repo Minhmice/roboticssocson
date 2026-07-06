@@ -56,7 +56,7 @@ export default function SponsorPage() {
     // Download QR code image
     const link = document.createElement("a");
     link.href = qrCodeImage;
-    link.download = "QR-Code-Robotics-Soc-Son.jpg";
+    link.download = "QR-Code-Robotics-Soc-Son.webp";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

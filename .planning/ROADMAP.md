@@ -170,7 +170,7 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 **Goal:** Integrate soft-STEM parent narrative (screen time, hands-on focus) into `/course` copy, FAQ, optional offer band, and homepage teaser — without changing section architecture or registration flow.
 
 **Mode:** content  
-**Status:** Planned  
+**Status:** Complete  
 **Depends on:** Phase 5
 
 **Plans:** 3 plans in 2 waves
@@ -183,6 +183,23 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 - `06-01-PLAN.md` — Marketing data layer
 - `06-02-PLAN.md` — Hero, Problem/Solution prose UI, teaser
 - `06-03-PLAN.md` — CourseOffer band, page compose, verify
+
+### Phase 7: Light theme migration — white + blue tech palette across entire site
+
+**Goal:** Migrate entire site from dark arena + HUD cyan to light Stripe/Vercel-style white + tech blue (`#2563eb`). Update tokens, shared primitives, all routes, and DESIGN.md.
+
+**Mode:** ui  
+**Status:** Complete  
+**Depends on:** Phase 6
+
+**Success Criteria:**
+1. `:root` tokens in `globals.css` use light palette; body renders white with ink text.
+2. Shared primitives (`GlowCard`, `CTAButton`, `SectionHeader`) use semantic tokens / blue shadows.
+3. `/`, `/course`, `/sponsorship`, `/sponsor` free of dark hardcoded `slate-9`/`cyan` classes.
+4. `DESIGN.md` documents light theme north star.
+5. `npm run lint`, `npm run build`, `npm run check:assets` pass.
+
+**Plans:** Crafted inline via `/impeccable craft` (no separate plan files)
 
 ---
 

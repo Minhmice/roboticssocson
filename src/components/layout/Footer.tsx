@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { Mail } from "lucide-react";
 import { FacebookIcon } from "@/components/shared/FacebookIcon";
@@ -43,9 +44,10 @@ export const Footer: React.FC = () => {
               <Image
                 src="/Logo/RBS Logo.svg"
                 alt="Robotics Sóc Sơn Logo"
-                width={28}
-                height={28}
-                className="object-contain sm:w-8 sm:h-8"
+                width={637}
+                height={483}
+                className="h-7 w-auto object-contain sm:h-8"
+                sizes="32px"
               />
               <span className="text-lg sm:text-xl md:text-2xl font-bold text-foreground">
                 Robotics Sóc Sơn
@@ -77,9 +79,13 @@ export const Footer: React.FC = () => {
                   sectionId: "achievements",
                 },
                 {
+                  label: t("nav.course"),
+                  href: "/course",
+                  isRoute: true,
+                },
+                {
                   label: t("nav.sponsorship"),
-                  href: "#why-sponsor",
-                  sectionId: "why-sponsor",
+                  href: "/sponsorship",
                 },
                 {
                   label: t("nav.contact"),
@@ -88,17 +94,28 @@ export const Footer: React.FC = () => {
                 },
               ].map((link) => (
                 <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={(e) =>
-                      !link.external && handleLinkClick(e, link.sectionId)
-                    }
-                    target={link.external ? "_blank" : undefined}
-                    rel={link.external ? "noopener noreferrer" : undefined}
-                    className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary flex items-center cursor-pointer"
-                  >
-                    {link.label}
-                  </a>
+                  {link.isRoute ? (
+                    <Link
+                      href={link.href}
+                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary flex items-center"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      onClick={(e) =>
+                        link.sectionId
+                          ? handleLinkClick(e, link.sectionId)
+                          : undefined
+                      }
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
+                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary flex items-center cursor-pointer"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

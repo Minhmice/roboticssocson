@@ -73,7 +73,7 @@ export const ProgressWithLabel = React.forwardRef<
             width: `${Math.max(animatedPercentage, 15)}%`, // Minimum width for text visibility
           }}
         >
-          <span className="text-[10px] sm:text-xs font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap px-1.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
+          <span className="text-[10px] sm:text-xs font-semibold text-primary-foreground whitespace-nowrap px-1.5">
             {label}
             {showAmount && amount !== undefined && (
               <>

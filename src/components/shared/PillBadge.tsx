@@ -12,8 +12,8 @@ export const PillBadge: React.FC<PillBadgeProps> = ({
   className,
 }) => {
   const colorVariants = {
-    cyan: "bg-cyan-950/50 text-cyan-400",
-    gray: "bg-slate-800 text-slate-300",
+    cyan: "bg-primary/10 text-primary",
+    gray: "bg-muted text-muted-foreground",
     gold: "bg-yellow-950/50 text-yellow-400",
   };
 

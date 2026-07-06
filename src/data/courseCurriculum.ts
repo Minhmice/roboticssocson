@@ -2,6 +2,71 @@ import type { LocalizedText } from "@/lib/course/getLocalized";
 
 export type CoursePart = "scratch" | "hardware" | "capstone";
 
+export type CoursePartMeta = {
+  id: CoursePart;
+  label: LocalizedText;
+  description: LocalizedText;
+};
+
+export const coursePartOrder: readonly CoursePart[] = [
+  "scratch",
+  "hardware",
+  "capstone",
+] as const;
+
+export const coursePartMeta: readonly CoursePartMeta[] = [
+  {
+    id: "scratch",
+    label: { vi: "Scratch", en: "Scratch" },
+    description: {
+      vi: "Buổi 1–6 · Làm quen khối lệnh và logic cơ bản",
+      en: "Sessions 1–6 · Block logic and programming foundations",
+    },
+  },
+  {
+    id: "hardware",
+    label: { vi: "Phần cứng", en: "Hardware" },
+    description: {
+      vi: "Buổi 7–11 · Mạch điện, Arduino và cảm biến",
+      en: "Sessions 7–11 · Circuits, Arduino, and sensors",
+    },
+  },
+  {
+    id: "capstone",
+    label: { vi: "Dự án cuối", en: "Capstone" },
+    description: {
+      vi: "Buổi 12 · Tổng hợp lập trình và phần cứng",
+      en: "Session 12 · Combine programming and hardware",
+    },
+  },
+];
+
+export const curriculumFieldLabels = {
+  goal: { vi: "Mục tiêu", en: "Goal" },
+  primaryLevel: { vi: "Cấp 1", en: "Level 1" },
+  secondaryLevel: { vi: "Cấp 2", en: "Level 2" },
+  challenge: { vi: "Thử thách", en: "Challenge" },
+  detailsToggle: { vi: "Xem chi tiết", en: "Details" },
+  hideDetailsToggle: { vi: "Thu gọn", en: "Hide details" },
+  detailsAriaLabel: {
+    vi: "Xem chi tiết buổi {session}: {title}",
+    en: "Show details for session {session}: {title}",
+  },
+  hideDetailsAriaLabel: {
+    vi: "Thu gọn chi tiết buổi {session}: {title}",
+    en: "Hide details for session {session}: {title}",
+  },
+  phaseNavLabel: { vi: "Giai đoạn khóa học", en: "Course phases" },
+  progressLabel: {
+    vi: "Tiến độ buổi {current} trên {total}",
+    en: "Session {current} of {total}",
+  },
+  lessonsListLabel: {
+    vi: "Danh sách 12 buổi học",
+    en: "List of 12 sessions",
+  },
+} as const;
+
 export type CourseLesson = {
   id: number;
   part: CoursePart;
@@ -67,7 +132,7 @@ export const courseLessons: readonly CourseLesson[] = [
   {
     id: 3,
     part: "scratch",
-    title: { vi: "Vòng lặp forever", en: "Forever Loop" },
+    title: { vi: "Vòng lặp lặp mãi", en: "Forever Loop" },
     goal: {
       vi: "Dùng vòng lặp vô hạn để lặp hành động liên tục.",
       en: "Use a forever loop to repeat actions continuously.",
@@ -92,7 +157,7 @@ export const courseLessons: readonly CourseLesson[] = [
   {
     id: 4,
     part: "scratch",
-    title: { vi: "Repeat + animation", en: "Repeat + Animation" },
+    title: { vi: "Lặp lệnh + hoạt hình", en: "Repeat + Animation" },
     goal: {
       vi: "Dùng khối repeat để lặp số lần cố định và tạo animation.",
       en: "Use repeat blocks for fixed counts and simple animation.",
@@ -117,7 +182,7 @@ export const courseLessons: readonly CourseLesson[] = [
   {
     id: 5,
     part: "scratch",
-    title: { vi: "If/else + va chạm", en: "If/else + Collision" },
+    title: { vi: "Nhánh if/else + va chạm", en: "If/else + Collision" },
     goal: {
       vi: "Ra quyết định với if/else và phát hiện va chạm.",
       en: "Make decisions with if/else and detect collisions.",

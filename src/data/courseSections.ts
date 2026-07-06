@@ -9,8 +9,18 @@ export type CourseCard = {
 
 export type CourseSectionCopy = {
   title: LocalizedText;
+  titleLine2?: LocalizedText;
   subtitle: LocalizedText;
   badge?: LocalizedText;
+  progressLabel?: LocalizedText;
+  stepsListLabel?: LocalizedText;
+  stepAriaLabel?: LocalizedText;
+};
+
+export type CourseMethodPhase = {
+  id: string;
+  title: LocalizedText;
+  stepIds: string[];
 };
 
 export const courseSectionCopy = {
@@ -27,12 +37,16 @@ export const courseSectionCopy = {
   },
   solution: {
     title: {
-      vi: "Biến con thành người làm ra sản phẩm",
-      en: "Turn your child into a maker",
+      vi: "Biến con thành người",
+      en: "Turn your child",
+    },
+    titleLine2: {
+      vi: "làm ra sản phẩm",
+      en: "into a maker",
     },
     subtitle: {
-      vi: "Từ khối lệnh trực quan đến mạch Arduino — học sinh hiểu cách công nghệ hoạt động, không chỉ tiêu thụ nội dung.",
-      en: "From visual blocks to Arduino circuits — students understand how technology works, not just consume content.",
+      vi: "Thay vì chỉ tiêu thụ nội dung, con dùng khối lệnh Scratch và mBlock để hiểu cách công nghệ hoạt động — rồi đưa chương trình ra LED, cảm biến và robot thật.",
+      en: "Instead of only consuming content, your child uses Scratch and mBlock to see how technology works — then brings programs to real LEDs, sensors, and robots.",
     },
   },
   outcomes: {
@@ -47,14 +61,29 @@ export const courseSectionCopy = {
   },
   method: {
     title: {
-      vi: "Phương pháp mỗi buổi học",
-      en: "How each session works",
+      vi: "7 bước",
+      en: "7 steps",
+    },
+    titleLine2: {
+      vi: "mỗi buổi học",
+      en: "each session",
     },
     subtitle: {
-      vi: "Quy trình 7 bước giúp học sinh hiểu, làm theo, thử nghiệm và tự debug.",
-      en: "A 7-step flow to understand, follow along, experiment, and debug independently.",
+      vi: "Từ tình huống thực tế đến challenge — học sinh hiểu, làm theo, thử nghiệm và tự debug.",
+      en: "From real scenarios to challenge — understand, follow along, experiment, and debug independently.",
     },
-    badge: { vi: "Quy trình", en: "Method" },
+    progressLabel: {
+      vi: "Tiến độ quy trình buổi học: bước {current} trên {total}",
+      en: "Session flow progress: step {current} of {total}",
+    },
+    stepsListLabel: {
+      vi: "Quy trình bảy bước mỗi buổi học",
+      en: "Seven-step session flow",
+    },
+    stepAriaLabel: {
+      vi: "Bước {current} — {title}",
+      en: "Step {current} — {title}",
+    },
   },
   leveling: {
     title: {
@@ -74,6 +103,14 @@ export const courseSectionCopy = {
     subtitle: {
       vi: "AI là trợ lý học tập — không thay thế tư duy của học sinh.",
       en: "AI assists learning — it does not replace student thinking.",
+    },
+  },
+  curriculum: {
+    title: { vi: "Lộ trình", en: "12-session" },
+    titleLine2: { vi: "12 buổi", en: "curriculum" },
+    subtitle: {
+      vi: "Từ Scratch đến Arduino — mỗi buổi có mục tiêu, sản phẩm và thử thách riêng.",
+      en: "From Scratch to Arduino — each session has goals, products, and challenges.",
     },
   },
 } as const satisfies Record<string, CourseSectionCopy>;
@@ -133,6 +170,15 @@ export const courseProblemProse: LocalizedText = {
   vi: "Nhiều ứng dụng dùng phần thưởng bất ngờ — não quen nhịp độ nhanh và khó tập trung lâu. Khóa học chuyển năng lượng đó sang dự án thực: tìm lỗi mạch, chờ robot chạy, tự sửa code — rèn sự kiên nhẫn và tập trung sâu.",
   en: "Many apps use variable rewards — brains get used to fast pace and struggle with sustained focus. This course channels that energy into real projects: finding circuit errors, waiting for robots to run, fixing code — building patience and deep attention.",
 };
+
+export const courseProblemCapstone = {
+  icon: "Lightbulb",
+  title: {
+    vi: "Hệ quả với con",
+    en: "The impact on your child",
+  },
+  description: courseProblemProse,
+} as const;
 
 export const courseSolutionProse: LocalizedText = {
   vi: "Thay vì chỉ tiêu thụ nội dung, học sinh dùng khối lệnh Scratch và mBlock để hiểu cách công nghệ hoạt động — rồi đưa chương trình ra LED, cảm biến và robot thật. Máy tính là công cụ; phần lớn thời gian là tay, mắt và tư duy.",
@@ -277,9 +323,28 @@ export const courseOutcomeCards: CourseCard[] = [
   },
 ];
 
+export const courseMethodPhases: CourseMethodPhase[] = [
+  {
+    id: "phase-prepare",
+    title: { vi: "Chuẩn bị", en: "Prepare" },
+    stepIds: ["method-1", "method-2", "method-3"],
+  },
+  {
+    id: "phase-build",
+    title: { vi: "Thực hành", en: "Build" },
+    stepIds: ["method-4", "method-5"],
+  },
+  {
+    id: "phase-extend",
+    title: { vi: "Mở rộng", en: "Extend" },
+    stepIds: ["method-6", "method-7"],
+  },
+];
+
 export const courseMethodSteps: CourseCard[] = [
   {
     id: "method-1",
+    icon: "Lightbulb",
     title: { vi: "Tình huống thực tế", en: "Real-world scenario" },
     description: {
       vi: "Đặt bài toán gần gũi: đèn giao thông, thùng rác, cảnh báo xe.",
@@ -288,6 +353,7 @@ export const courseMethodSteps: CourseCard[] = [
   },
   {
     id: "method-2",
+    icon: "Workflow",
     title: { vi: "Flowchart", en: "Flowchart" },
     description: {
       vi: "Vẽ sơ đồ logic trước khi mở phần mềm.",
@@ -296,6 +362,7 @@ export const courseMethodSteps: CourseCard[] = [
   },
   {
     id: "method-3",
+    icon: "Presentation",
     title: { vi: "Demo", en: "Demo" },
     description: {
       vi: "Giáo viên/minh hoạ chạy mẫu để học sinh thấy kết quả mong đợi.",
@@ -304,6 +371,7 @@ export const courseMethodSteps: CourseCard[] = [
   },
   {
     id: "method-4",
+    icon: "ListChecks",
     title: { vi: "Làm theo", en: "Follow along" },
     description: {
       vi: "Học sinh lắp ráp hoặc code từng bước có hướng dẫn.",
@@ -312,6 +380,7 @@ export const courseMethodSteps: CourseCard[] = [
   },
   {
     id: "method-5",
+    icon: "Puzzle",
     title: { vi: "Biến thể", en: "Variations" },
     description: {
       vi: "Thay đổi tham số, màu, tốc độ — khám phá trong phạm vi an toàn.",
@@ -320,6 +389,7 @@ export const courseMethodSteps: CourseCard[] = [
   },
   {
     id: "method-6",
+    icon: "Bug",
     title: { vi: "Debug", en: "Debug" },
     description: {
       vi: "Đọc flowchart, kiểm tra dây, hỏi AI có hướng dẫn — tự sửa lỗi.",
@@ -328,6 +398,7 @@ export const courseMethodSteps: CourseCard[] = [
   },
   {
     id: "method-7",
+    icon: "Zap",
     title: { vi: "Challenge", en: "Challenge" },
     description: {
       vi: "Nhiệm vụ mở rộng theo cấp 1 hoặc cấp 2.",
@@ -409,3 +480,22 @@ export const courseAiClosingLine: LocalizedText = {
   vi: "Không dùng AI để làm hộ toàn bộ bài — AI chỉ hỗ trợ tư duy và kiểm tra.",
   en: "AI never does the whole assignment — it supports thinking and checking only.",
 };
+
+export const courseMidPageCta = {
+  headline: {
+    vi: "Sẵn sàng cho con bắt đầu?",
+    en: "Ready for your child to start?",
+  },
+  subtitle: {
+    vi: "Buổi tư vấn miễn phí giúp phụ huynh chọn lộ trình Scratch → Arduino phù hợp với con.",
+    en: "A free consultation helps you choose the right Scratch → Arduino path for your child.",
+  },
+  primaryCta: {
+    vi: "Đăng ký tư vấn",
+    en: "Book a consultation",
+  },
+  secondaryCta: {
+    vi: "Xem lại lộ trình",
+    en: "Review curriculum",
+  },
+} as const satisfies Record<string, LocalizedText>;

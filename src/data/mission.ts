@@ -39,8 +39,8 @@ export const missionData: readonly MissionItem[] = [
     mobileHeight: "min-h-[300px]",
     height: "md:h-[450px]",
     icon: "Target",
-    color: "from-cyan-500 to-cyan-600",
-    bgColor: "bg-cyan-900/20",
+    color: "from-primary to-primary/80",
+    bgColor: "bg-primary/5",
   },
   // Image 1
   {
@@ -52,7 +52,7 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Hoạt động đội",
     caption_en: "Robotics Sóc Sơn - Team activities",
-    src: "/Images/Mission/Image (1).JPG",
+    src: "/Images/Mission/Image (1).webp",
   },
   // Vision - Medium text card
   {
@@ -82,7 +82,7 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Thiết kế và lắp ráp",
     caption_en: "Robotics Sóc Sơn - Design and assembly",
-    src: "/Images/Mission/Image (2).JPG",
+    src: "/Images/Mission/Image (2).webp",
   },
   // Image 3
   {
@@ -94,7 +94,7 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Làm việc nhóm",
     caption_en: "Robotics Sóc Sơn - Team collaboration",
-    src: "/Images/Mission/Image (3).JPG",
+    src: "/Images/Mission/Image (3).webp",
   },
   // Core Value 1 - Dynamic
   {
@@ -127,8 +127,8 @@ export const missionData: readonly MissionItem[] = [
     mobileHeight: "min-h-[150px]",
     height: "md:h-[215px]",
     icon: "Rocket",
-    color: "from-cyan-500 to-cyan-600",
-    bgColor: "bg-cyan-900/20",
+    color: "from-primary to-primary/80",
+    bgColor: "bg-primary/5",
     animation: "bento2-pulse 4s ease-in-out infinite",
   },
   // Image 4
@@ -141,7 +141,7 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Thử nghiệm robot",
     caption_en: "Robotics Sóc Sơn - Robot testing",
-    src: "/Images/Mission/Image (4).JPG",
+    src: "/Images/Mission/Image (4).webp",
   },
   // Core Value 3 - Discovery
   {
@@ -172,7 +172,7 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Thành tích và giải thưởng",
     caption_en: "Robotics Sóc Sơn - Achievements and awards",
-    src: "/Images/Mission/Image (5).JPG",
+    src: "/Images/Mission/Image (5).webp",
   },
   // Image 6
   {
@@ -184,7 +184,7 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Hoạt động đội",
     caption_en: "Robotics Sóc Sơn - Team activities",
-    src: "/Images/Mission/Image (6).JPG",
+    src: "/Images/Mission/Image (6).webp",
   },
   // Image 7
   {
@@ -196,6 +196,6 @@ export const missionData: readonly MissionItem[] = [
     height: "md:h-[215px]",
     caption_vi: "Robotics Sóc Sơn - Làm việc nhóm",
     caption_en: "Robotics Sóc Sơn - Team collaboration",
-    src: "/Images/Mission/Image (7).JPG",
+    src: "/Images/Mission/Image (7).webp",
   },
 ] as const;

@@ -47,7 +47,7 @@ export const ContactForm: React.FC = () => {
 
   return (
     <GlowCard className="max-w-3xl">
-      <h2 className="mb-6 text-2xl font-bold text-slate-100">
+      <h2 className="mb-6 text-2xl font-bold text-foreground">
         Get in Touch
       </h2>
 
@@ -63,7 +63,7 @@ export const ContactForm: React.FC = () => {
           <div>
             <label
               htmlFor="name"
-              className="mb-2 block text-sm font-medium text-slate-300"
+              className="mb-2 block text-sm font-medium text-muted-foreground"
             >
               Name *
             </label>
@@ -74,13 +74,13 @@ export const ContactForm: React.FC = () => {
               required
               value={formData.name}
               onChange={handleChange}
-              className="bg-slate-800/50 border-slate-700 text-slate-100 focus:border-cyan-500 focus:ring-cyan-500"
+              className="bg-muted border-border text-foreground focus:border-primary focus:ring-ring"
             />
           </div>
           <div>
             <label
               htmlFor="company"
-              className="mb-2 block text-sm font-medium text-slate-300"
+              className="mb-2 block text-sm font-medium text-muted-foreground"
             >
               Company
             </label>
@@ -90,7 +90,7 @@ export const ContactForm: React.FC = () => {
               type="text"
               value={formData.company}
               onChange={handleChange}
-              className="bg-slate-800/50 border-slate-700 text-slate-100 focus:border-cyan-500 focus:ring-cyan-500"
+              className="bg-muted border-border text-foreground focus:border-primary focus:ring-ring"
             />
           </div>
         </div>
@@ -100,7 +100,7 @@ export const ContactForm: React.FC = () => {
           <div>
             <label
               htmlFor="email"
-              className="mb-2 block text-sm font-medium text-slate-300"
+              className="mb-2 block text-sm font-medium text-muted-foreground"
             >
               Email *
             </label>
@@ -111,13 +111,13 @@ export const ContactForm: React.FC = () => {
               required
               value={formData.email}
               onChange={handleChange}
-              className="bg-slate-800/50 border-slate-700 text-slate-100 focus:border-cyan-500 focus:ring-cyan-500"
+              className="bg-muted border-border text-foreground focus:border-primary focus:ring-ring"
             />
           </div>
           <div>
             <label
               htmlFor="phone"
-              className="mb-2 block text-sm font-medium text-slate-300"
+              className="mb-2 block text-sm font-medium text-muted-foreground"
             >
               Phone
             </label>
@@ -127,7 +127,7 @@ export const ContactForm: React.FC = () => {
               type="tel"
               value={formData.phone}
               onChange={handleChange}
-              className="bg-slate-800/50 border-slate-700 text-slate-100 focus:border-cyan-500 focus:ring-cyan-500"
+              className="bg-muted border-border text-foreground focus:border-primary focus:ring-ring"
             />
           </div>
         </div>
@@ -136,7 +136,7 @@ export const ContactForm: React.FC = () => {
         <div>
           <label
             htmlFor="message"
-            className="mb-2 block text-sm font-medium text-slate-300"
+            className="mb-2 block text-sm font-medium text-muted-foreground"
           >
             Message *
           </label>
@@ -147,7 +147,7 @@ export const ContactForm: React.FC = () => {
             rows={6}
             value={formData.message}
             onChange={handleChange}
-            className="bg-slate-800/50 border-slate-700 text-slate-100 focus:border-cyan-500 focus:ring-cyan-500 resize-none"
+            className="bg-muted border-border text-foreground focus:border-primary focus:ring-ring resize-none"
           />
         </div>
 

@@ -44,7 +44,7 @@ export default function CourseHero() {
               {courseHeroData.badges.map((badge) => (
                 <span
                   key={badge.vi}
-                  className="inline-flex items-center rounded-full border border-cyan-500/30 bg-cyan-950/30 px-3 py-1 text-xs sm:text-sm text-cyan-300"
+                  className="inline-flex items-center rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs sm:text-sm text-primary"
                 >
                   {getLocalized(badge, locale)}
                 </span>

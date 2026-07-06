@@ -17,13 +17,13 @@ export const Metric: React.FC<MetricProps> = ({
     <div className={`text-center ${className || ""}`}>
       {Icon && (
         <div className="mb-3 flex justify-center">
-          <Icon className="h-8 w-8 text-cyan-500" />
+          <Icon className="h-8 w-8 text-primary" />
         </div>
       )}
-      <div className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-cyan-300 to-cyan-500">
+      <div className="text-4xl md:text-5xl font-bold text-primary">
         {value}
       </div>
-      <div className="mt-2 text-sm font-medium text-slate-400">{label}</div>
+      <div className="mt-2 text-sm font-medium text-muted-foreground">{label}</div>
     </div>
   );
 };

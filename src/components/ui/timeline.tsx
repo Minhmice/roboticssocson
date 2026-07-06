@@ -29,14 +29,14 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   return (
     <div
-      className="w-full bg-slate-950 font-sans md:px-10"
+      className="w-full bg-background font-sans md:px-10"
       ref={containerRef}
     >
       <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
-        <h2 className="text-3xl md:text-7xl mb-4 text-slate-100 max-w-2xl font-bold">
+        <h2 className="text-3xl md:text-7xl mb-4 text-foreground max-w-2xl font-bold">
           Hành trình thi đấu của chúng em
         </h2>
-        <p className="text-slate-400 text-base md:text-2xl max-w-3xl">
+        <p className="text-muted-foreground text-base md:text-2xl max-w-3xl">
           Từ những ngày đầu thành lập đến những thành tích đáng tự hào trong các cuộc thi robotics.
         </p>
       </div>
@@ -48,16 +48,16 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             className="flex justify-start pb-10 md:pb-40"
           >
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-12 absolute left-2 md:left-2 w-12 rounded-full bg-slate-900 border-2 border-cyan-500 flex items-center justify-center">
-                <div className="h-6 w-6 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600" />
+              <div className="h-12 absolute left-2 md:left-2 w-12 rounded-full bg-card border-2 border-primary flex items-center justify-center">
+                <div className="h-6 w-6 rounded-full bg-gradient-to-r from-primary to-primary/70" />
               </div>
-              <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-cyan-400">
+              <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-primary">
                 {item.title}
               </h3>
             </div>
 
             <div className="relative pl-20 pr-4 md:pl-4 w-full">
-              <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-cyan-400">
+              <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-primary">
                 {item.title}
               </h3>
               {item.content}
@@ -68,14 +68,14 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           style={{
             height: height + "px",
           }}
-          className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-gradient-to-b from-transparent via-slate-700 to-transparent"
+          className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-gradient-to-b from-transparent via-border to-transparent"
         >
           <motion.div
             style={{
               height: heightTransform,
               opacity: opacityTransform,
             }}
-            className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-cyan-500 via-blue-500 to-transparent rounded-full"
+            className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-primary via-primary/60 to-transparent rounded-full"
           />
         </div>
       </div>

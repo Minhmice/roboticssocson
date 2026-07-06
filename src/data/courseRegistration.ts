@@ -37,8 +37,8 @@ export type CourseRegistrationConfig = {
 export const courseRegistrationConfig: CourseRegistrationConfig = {
   title_vi: "Đăng ký tư vấn khóa học",
   title_en: "Course consultation registration",
-  subtitle_vi: "Điền form hoặc nhắn Messenger — đội sẽ phản hồi trong 24–48 giờ.",
-  subtitle_en: "Fill the form or message us on Messenger — we reply within 24–48 hours.",
+  subtitle_vi: "Đăng ký qua Google Form hoặc nhắn Messenger — phản hồi trong 24–48 giờ.",
+  subtitle_en: "Register via Google Form or message us on Messenger — we reply within 24–48 hours.",
   submitLabel_vi: "Gửi đăng ký",
   submitLabel_en: "Submit registration",
   successMessage_vi: "Cảm ơn bạn! Chúng tôi sẽ liên hệ sớm.",

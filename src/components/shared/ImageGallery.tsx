@@ -15,12 +15,14 @@ interface ImageGalleryProps {
   layout?: ImageGalleryLayout;
   images?: Array<ImageGalleryItem>;
   className?: string;
+  sizes?: string;
 }
 
 export function ImageGallery({
   layout = "1",
   images,
   className,
+  sizes,
 }: ImageGalleryProps) {
   // Default images nếu không có
   const defaultImages: ImageGalleryItem[] = Array.from({
@@ -35,6 +37,11 @@ export function ImageGallery({
   // Limit số lượng ảnh theo layout
   const maxImages = parseInt(layout);
   const galleryImages = displayImages.slice(0, maxImages);
+  const imageSizes =
+    sizes ??
+    (layout === "1"
+      ? "(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 760px"
+      : "(max-width: 768px) 50vw, (max-width: 1280px) 30vw, 380px");
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -72,6 +79,7 @@ export function ImageGallery({
             src={galleryImages[0]?.src}
             caption={galleryImages[0]?.caption || ""}
             className={cn("h-48 md:h-56 w-full object-cover rounded-xl")}
+            sizes={imageSizes}
           />
         </motion.div>
       </motion.div>
@@ -93,6 +101,7 @@ export function ImageGallery({
               src={img.src}
               caption={img.caption || ""}
               className="h-40 md:h-48 w-full object-cover rounded-xl"
+              sizes={imageSizes}
             />
           </motion.div>
         ))}
@@ -115,6 +124,7 @@ export function ImageGallery({
               src={img.src}
               caption={img.caption || ""}
               className="h-16 sm:h-24 md:h-32 w-full object-cover rounded-xl"
+              sizes={imageSizes}
             />
           </motion.div>
         ))}

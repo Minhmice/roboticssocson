@@ -20,18 +20,18 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
       className={cn(
         "py-8 md:py-12",
         align === "center" && "text-center",
-        className
+        className,
       )}
     >
       {badge && (
-        <span className="inline-block rounded-full bg-cyan-950/50 px-3 py-1 text-xs font-medium text-cyan-400 mb-4">
+        <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-4">
           {badge}
         </span>
       )}
       <h2
         className={cn(
-          "text-3xl md:text-4xl lg:text-5xl font-bold text-slate-100",
-          align === "center" && "mx-auto"
+          "text-3xl md:text-4xl lg:text-5xl font-bold text-foreground text-balance",
+          align === "center" && "mx-auto",
         )}
       >
         {title}
@@ -39,8 +39,8 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
       {subtitle && (
         <p
           className={cn(
-            "mt-4 text-lg md:text-xl text-slate-400 max-w-2xl",
-            align === "center" && "mx-auto"
+            "mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl text-pretty",
+            align === "center" && "mx-auto",
           )}
         >
           {subtitle}
@@ -49,15 +49,3 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
     </div>
   );
 };
-
-/**
- * Usage example:
- * 
- * <SectionHeader 
- *   title="Thành Tích" 
- *   subtitle="Những dấu ấn của đội qua các mùa giải"
- *   badge="Achievements"
- *   align="center"
- * />
- */
-

@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-03T08:15:00.000Z",
+  "title": "Design System: Robotics Sóc Sơn",
+  "extensions": {
+    "colorMeta": {
+      "arena-black": {
+        "role": "neutral",
+        "displayName": "Arena Black",
+        "canonical": "oklch(16% 0.03 250)",
+        "tonalRamp": [
+          "oklch(16% 0.03 250)",
+          "oklch(22% 0.03 250)",
+          "oklch(28% 0.03 250)",
+          "oklch(34% 0.03 250)",
+          "oklch(42% 0.03 250)",
+          "oklch(52% 0.03 250)",
+          "oklch(65% 0.02 250)",
+          "oklch(92% 0.01 250)"
+        ]
+      },
+      "pit-slate": {
+        "role": "neutral",
+        "displayName": "Pit Slate",
+        "canonical": "oklch(22% 0.04 250)",
+        "tonalRamp": [
+          "oklch(16% 0.03 250)",
+          "oklch(20% 0.035 250)",
+          "oklch(22% 0.04 250)",
+          "oklch(28% 0.04 250)",
+          "oklch(35% 0.04 250)",
+          "oklch(45% 0.035 250)",
+          "oklch(60% 0.025 250)",
+          "oklch(90% 0.01 250)"
+        ]
+      },
+      "hud-cyan": {
+        "role": "primary",
+        "displayName": "HUD Cyan",
+        "canonical": "oklch(82% 0.14 195)",
+        "tonalRamp": [
+          "oklch(35% 0.10 195)",
+          "oklch(45% 0.12 195)",
+          "oklch(55% 0.13 195)",
+          "oklch(65% 0.14 195)",
+          "oklch(75% 0.14 195)",
+          "oklch(82% 0.14 195)",
+          "oklch(88% 0.12 195)",
+          "oklch(95% 0.06 195)"
+        ]
+      },
+      "signal-sky": {
+        "role": "primary",
+        "displayName": "Signal Sky",
+        "canonical": "oklch(78% 0.12 230)",
+        "tonalRamp": [
+          "oklch(35% 0.08 230)",
+          "oklch(45% 0.10 230)",
+          "oklch(55% 0.11 230)",
+          "oklch(65% 0.12 230)",
+          "oklch(72% 0.12 230)",
+          "oklch(78% 0.12 230)",
+          "oklch(85% 0.10 230)",
+          "oklch(94% 0.05 230)"
+        ]
+      },
+      "ice-text": {
+        "role": "neutral",
+        "displayName": "Ice Text",
+        "canonical": "oklch(91% 0.02 250)",
+        "tonalRamp": [
+          "oklch(25% 0.02 250)",
+          "oklch(35% 0.02 250)",
+          "oklch(45% 0.02 250)",
+          "oklch(55% 0.02 250)",
+          "oklch(65% 0.02 250)",
+          "oklch(75% 0.02 250)",
+          "oklch(85% 0.02 250)",
+          "oklch(91% 0.02 250)"
+        ]
+      },
+      "fog-text": {
+        "role": "neutral",
+        "displayName": "Fog Text",
+        "canonical": "oklch(68% 0.02 250)",
+        "tonalRamp": [
+          "oklch(30% 0.02 250)",
+          "oklch(40% 0.02 250)",
+          "oklch(50% 0.02 250)",
+          "oklch(58% 0.02 250)",
+          "oklch(65% 0.02 250)",
+          "oklch(68% 0.02 250)",
+          "oklch(78% 0.02 250)",
+          "oklch(90% 0.01 250)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headlines and animated word cycles only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles via SectionHeader."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs and feature lists; max 65–75ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Badges, nav links, pill labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "glow-cyan",
+        "value": "0 4px 14px 0 rgba(34,211,238,0.35)",
+        "purpose": "Primary CTA and highlighted card lift."
+      },
+      {
+        "name": "glow-cyan-lg",
+        "value": "0 8px 28px 0 rgba(34,211,238,0.5)",
+        "purpose": "GlowCard hover and strong CTA emphasis."
+      },
+      {
+        "name": "glow-card-rest",
+        "value": "0 0 12px rgba(34,211,238,0.25)",
+        "purpose": "GlowCard default resting glow."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Default 300ms state transitions on buttons and cards."
+      },
+      {
+        "name": "pulse-glow",
+        "value": "3s ease-in-out infinite",
+        "purpose": "Final CTA banner; disable under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary CTA Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main sponsor conversion action — Become a Sponsor, Contact.",
+      "html": "<button class=\"ds-btn-primary\">Become a Sponsor</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 12px 24px; border: none; border-radius: 12px; background: #22D3EE; color: #0f172a; font-family: Inter, sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.3s ease, box-shadow 0.3s ease; } .ds-btn-primary:hover { background: #06B6D4; box-shadow: 0 0 16px rgba(34,211,238,0.5); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px #0a111e, 0 0 0 4px #22D3EE; } .ds-btn-primary:active { background: #0891b2; }"
+    },
+    {
+      "name": "Secondary CTA Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Outlined sponsor action — Download Pitch, secondary paths.",
+      "html": "<button class=\"ds-btn-secondary\">Download Pitch</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 12px 24px; border: 2px solid #22D3EE; border-radius: 12px; background: transparent; color: #22D3EE; font-family: Inter, sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease; } .ds-btn-secondary:hover { background: rgba(34,211,238,0.1); border-color: #06B6D4; color: #67e8f9; } .ds-btn-secondary:focus-visible { outline: none; box-shadow: 0 0 0 2px #0a111e, 0 0 0 4px #22D3EE; }"
+    },
+    {
+      "name": "Glass Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Hero secondary action with backdrop blur and pill shape.",
+      "html": "<div class=\"ds-glass-wrap\"><button class=\"ds-glass-btn\"><span>View Achievements</span></button></div>",
+      "css": ".ds-glass-wrap { display: inline-flex; position: relative; } .ds-glass-btn { all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; border: 1px solid rgba(56,189,248,0.2); border-radius: 9999px; background: rgba(56,189,248,0.1); backdrop-filter: blur(12px) saturate(180%); -webkit-backdrop-filter: blur(12px) saturate(180%); color: #38bdf8; font-family: Inter, sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; } .ds-glass-btn:hover { background: rgba(56,189,248,0.25); border-color: rgba(56,189,248,0.4); transform: scale(1.05); box-shadow: 0 6px 24px rgba(56,189,248,0.25); } .ds-glass-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px #0a111e, 0 0 0 4px #38bdf8; }"
+    },
+    {
+      "name": "Glow Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Primary content container — achievements, packages, metrics.",
+      "html": "<div class=\"ds-glow-card\"><h3 class=\"ds-glow-card-title\">Top 4 National</h3><p class=\"ds-glow-card-body\">Vietnam Robotics Challenge 2024</p></div>",
+      "css": ".ds-glow-card { border-radius: 16px; border: 1px solid #1e293b; background: rgba(15,23,42,0.5); backdrop-filter: blur(4px); padding: 24px; transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; box-shadow: 0 0 12px rgba(34,211,238,0.25); } .ds-glow-card:hover { border-color: rgba(34,211,238,0.5); box-shadow: 0 0 20px rgba(34,211,238,0.45); transform: scale(1.02); } .ds-glow-card-title { margin: 0 0 8px; font-family: Inter, sans-serif; font-size: 1.5rem; font-weight: 700; color: #f1f5f9; } .ds-glow-card-body { margin: 0; font-family: Inter, sans-serif; font-size: 0.875rem; color: #cbd5e1; line-height: 1.6; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "card-surface",
+      "description": "Contact form fields on dark surfaces.",
+      "html": "<input class=\"ds-input\" type=\"email\" placeholder=\"your@company.com\" />",
+      "css": ".ds-input { display: flex; width: 100%; height: 36px; padding: 4px 12px; border: 1px solid #1f2937; border-radius: 8px; background: transparent; color: #e2e8f0; font-family: Inter, sans-serif; font-size: 0.875rem; transition: border-color 0.2s ease, box-shadow 0.2s ease; } .ds-input::placeholder { color: #9ca3af; } .ds-input:focus-visible { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 1px #38bdf8; } .ds-input:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Section Badge",
+      "kind": "chip",
+      "refersTo": "button-secondary",
+      "description": "Optional label above section headlines — one per SectionHeader.",
+      "html": "<span class=\"ds-section-badge\">Achievements</span>",
+      "css": ".ds-section-badge { display: inline-block; padding: 4px 12px; border-radius: 9999px; background: rgba(8,51,68,0.5); color: #22D3EE; font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.01em; }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "button-secondary",
+      "description": "Anchor navigation in fixed top bar.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link\" href=\"#achievements\">Achievements</a><a class=\"ds-nav-link ds-nav-link--active\" href=\"#sponsorship\">Sponsorship</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 24px; align-items: center; } .ds-nav-link { color: #94a3b8; font-family: Inter, sans-serif; font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s ease; } .ds-nav-link:hover, .ds-nav-link--active { color: #22D3EE; } .ds-nav-link:focus-visible { outline: none; border-radius: 4px; box-shadow: 0 0 0 2px #22D3EE; }"
+    },
+    {
+      "name": "Package Card Highlight",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Sponsorship tier with popular highlight and feature list.",
+      "html": "<div class=\"ds-package-card\"><div class=\"ds-package-header\"><h3 class=\"ds-package-tier\">Gold</h3><span class=\"ds-package-popular\">Popular</span></div><p class=\"ds-package-price\">$1,000 – $2,000</p><ul class=\"ds-package-list\"><li><svg class=\"ds-check\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M20 6L9 17l-5-5\"/></svg>Logo on robot</li></ul><button class=\"ds-btn-primary ds-package-cta\">Discuss</button></div>",
+      "css": ".ds-package-card { border-radius: 16px; border: 1px solid rgba(34,211,238,0.5); background: rgba(15,23,42,0.5); backdrop-filter: blur(4px); padding: 24px; box-shadow: 0 0 20px rgba(34,211,238,0.35); } .ds-package-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; } .ds-package-tier { margin: 0; font-family: Inter, sans-serif; font-size: 1.5rem; font-weight: 700; color: #f1f5f9; } .ds-package-popular { padding: 4px 12px; border-radius: 9999px; background: rgba(34,211,238,0.2); color: #22D3EE; font-size: 0.75rem; font-weight: 600; } .ds-package-price { margin: 0 0 24px; font-family: Inter, sans-serif; font-size: 1.875rem; font-weight: 700; color: #67e8f9; } .ds-package-list { list-style: none; margin: 0 0 24px; padding: 0; } .ds-package-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; font-size: 0.875rem; color: #cbd5e1; } .ds-check { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; color: #22D3EE; } .ds-package-cta { width: 100%; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Competition Floor",
+    "overview": "This system looks like standing on the FTC competition floor after lights dim — deep arena black, slate pit walls, and cyan HUD readouts cutting through the dark. Surfaces are minimal and functional; luminance is earned by interactive elements, metrics, and CTAs. Glass blur and soft glow signal \"live system\" without carnival neon.\n\nThe aesthetic serves a sponsorship pitch: sponsors should feel the team operates at competition grade, not in a classroom craft corner. Typography is bold and legible (Inter throughout). Motion echoes match-day focus — springy hero word cycles, hover scale on cards, pulse glow on final CTA — always subservient to content.\n\nExplicitly rejected: cartoonish kid-STEM palettes, SaaS cream landing templates, purple cyberpunk gradients, and decorative glass with no interaction purpose.",
+    "keyCharacteristics": [
+      "Drenched dark surfaces (#0a111e body, #0f172a cards) with cyan as the sole accent voice",
+      "Glow-based depth (cyan box-shadow) instead of heavy gray drop shadows",
+      "Inter single-family hierarchy — weight and size carry contrast, not font pairing",
+      "Signature components: CTAButton, GlowCard, GlassButton, aurora hero background",
+      "Bilingual section rhythm with centered SectionHeader blocks and anchor navigation"
+    ],
+    "rules": [
+      {
+        "name": "The One Signal Rule",
+        "body": "HUD Cyan appears on CTAs, active nav states, glow accents, and key metrics only. If everything glows, nothing is live.",
+        "section": "colors"
+      },
+      {
+        "name": "The Fog Floor Rule",
+        "body": "Muted text (#9ca3af) is for labels and supporting lines — not paragraph body on dark surfaces. Body copy stays Ice Text (#e2e8f0).",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight Ladder Rule",
+        "body": "Do not introduce a second sans family. Differentiate hierarchy with weight (400 → 700 → 900) and size steps only.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Surfaces are flat at rest. Cyan glow is a state response (hover, highlight, CTA), not ambient decoration on every container.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the arena black + pit slate + HUD cyan triad on every new section.",
+      "Do use CTAButton or GlassButton for sponsor-facing actions — min 44px height, visible focus-visible:ring-2 ring-cyan-500.",
+      "Do apply cyan glow only on hover, highlight, or primary CTA states.",
+      "Do use SectionHeader for section rhythm — title at headline scale, subtitle in fog text, optional badge (not an all-caps eyebrow on every block).",
+      "Do respect prefers-reduced-motion — replace spring hero animations and pulse-glow with instant or crossfade states.",
+      "Do maintain WCAG AA contrast: Ice Text on Arena Black for body, HUD Cyan only on large/bold UI chrome or dark fills."
+    ],
+    "donts": [
+      "Don't use cartoonish / kid-only STEM aesthetics — primary-color toy palettes, bubble fonts, clip-art robots. \"Cartoonish / kid-only STEM UI\" is an explicit anti-reference from PRODUCT.md.",
+      "Don't use gradient text (background-clip: text) on new components — existing PackageCard price gradient should not spread elsewhere.",
+      "Don't add colored side-stripe borders (border-left > 1px) on cards or callouts.",
+      "Don't default to glassmorphism on every surface — reserve blur for GlassButton, GlowCard, and intentional overlays.",
+      "Don't deploy the hero-metric template (big number + tiny label grids) as section scaffolding.",
+      "Don't put small all-caps tracked eyebrows above every section — one deliberate badge per SectionHeader is enough.",
+      "Don't let muted fog text (#9ca3af) carry paragraph-length body copy on #0a111e without a contrast check."
+    ]
+  }
+}

@@ -91,7 +91,7 @@ export const MagicCard: React.FC<MagicCardProps> = ({
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500"
         style={{
           opacity: isHovered ? gradientOpacity : 0,
-          background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(34,211,238,${gradientOpacity}), transparent 40%)`,
+          background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(37,99,235,${gradientOpacity}), transparent 40%)`,
         }}
       />
       {/* Content */}

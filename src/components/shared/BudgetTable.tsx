@@ -36,63 +36,63 @@ export const BudgetTable: React.FC<BudgetTableProps> = ({
   return (
     <div
       className={cn(
-        "overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/50",
+        "overflow-x-auto rounded-2xl border border-border bg-card",
         className
       )}
     >
       <table className="w-full">
-        <thead className="sticky top-0 border-b border-slate-800 bg-slate-900/90 backdrop-blur-sm">
+        <thead className="sticky top-0 border-b border-border bg-card backdrop-blur-sm">
           <tr>
-            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Item
             </th>
-            <th className="px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <th className="px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Qty
             </th>
-            <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               USD
             </th>
-            <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               VNĐ
             </th>
-            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Note
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-800">
+        <tbody className="divide-y divide-border">
           {items.map((item, index) => (
             <tr
               key={index}
-              className="transition-colors duration-200 hover:bg-slate-800/30"
+              className="transition-colors duration-200 hover:bg-muted"
             >
-              <td className="px-6 py-4 text-sm font-medium text-slate-200">
+              <td className="px-6 py-4 text-sm font-medium text-foreground">
                 {item.name}
               </td>
-              <td className="px-6 py-4 text-center text-sm text-slate-400">
+              <td className="px-6 py-4 text-center text-sm text-muted-foreground">
                 {item.qty || "-"}
               </td>
-              <td className="px-6 py-4 text-right text-sm text-slate-300">
+              <td className="px-6 py-4 text-right text-sm text-muted-foreground">
                 {item.usd ? formatUSD(item.usd) : "-"}
               </td>
-              <td className="px-6 py-4 text-right text-sm font-semibold text-cyan-400">
+              <td className="px-6 py-4 text-right text-sm font-semibold text-primary">
                 {formatVND(item.vnd)}
               </td>
-              <td className="px-6 py-4 text-sm text-slate-400">
+              <td className="px-6 py-4 text-sm text-muted-foreground">
                 {item.note || "-"}
               </td>
             </tr>
           ))}
         </tbody>
-        <tfoot className="sticky bottom-0 border-t-2 border-cyan-500/50 bg-slate-900/90 backdrop-blur-sm">
+        <tfoot className="sticky bottom-0 border-t-2 border-primary/40 bg-card backdrop-blur-sm">
           <tr>
             <td
               colSpan={4}
-              className="px-6 py-4 text-right text-lg font-bold text-cyan-400"
+              className="px-6 py-4 text-right text-lg font-bold text-primary"
             >
               Total: {formatVND(total)}
             </td>
-            <td className="px-6 py-4 text-sm text-slate-400"></td>
+            <td className="px-6 py-4 text-sm text-muted-foreground"></td>
           </tr>
         </tfoot>
       </table>

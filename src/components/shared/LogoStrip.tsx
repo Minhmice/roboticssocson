@@ -56,8 +56,8 @@ export const LogoStrip: React.FC<LogoStripProps> = ({ logos, className }) => {
  * Usage example:
  * 
  * <LogoStrip logos={[
- *   { src: "/logos/fpt.png", alt: "FPT University", href: "https://fpt.edu.vn" },
- *   { src: "/logos/ftc.png", alt: "FIRST Tech Challenge" },
+ *   { src: "/logos/fpt.webp", alt: "FPT University", href: "https://fpt.edu.vn" },
+ *   { src: "/logos/ftc.webp", alt: "FIRST Tech Challenge" },
  * ]} />
  */
 

@@ -36,13 +36,13 @@ export type Palette = {
 };
 
 export const palette: Palette = {
-  bg: "#0B1220",
-  surface: "#0F172A",
-  text: "#E2E8F0",
-  muted: "#94A3B8",
-  cyan: "#22D3EE",
-  cyanHover: "#06B6D4",
-  glowRGBA: "rgba(34,211,238,0.35)",
+  bg: "#FFFFFF",
+  surface: "#FFFFFF",
+  text: "#0F172A",
+  muted: "#64748B",
+  cyan: "#2563EB",
+  cyanHover: "#1D4ED8",
+  glowRGBA: "rgba(37,99,235,0.12)",
 } as const;
 
 /**

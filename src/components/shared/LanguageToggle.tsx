@@ -21,7 +21,7 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
         size="sm"
         className={cn(
           "rounded-lg transition-all",
-          locale === "vi" && "bg-cyan-500/10 text-cyan-400"
+          locale === "vi" && "bg-primary/10 text-primary"
         )}
       >
         VI
@@ -32,7 +32,7 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
         size="sm"
         className={cn(
           "rounded-lg transition-all",
-          locale === "en" && "bg-cyan-500/10 text-cyan-400"
+          locale === "en" && "bg-primary/10 text-primary"
         )}
       >
         EN

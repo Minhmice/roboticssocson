@@ -13,7 +13,7 @@ export default function CourseOffer() {
   }
 
   return (
-    <div className="bg-slate-900/50 border-y border-slate-800 py-12 md:py-16">
+    <div className="bg-card border-y border-border py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-center">
         <p className="text-xl sm:text-2xl font-semibold text-foreground mb-3">
           {getLocalized(courseOfferConfig.headline, locale)}

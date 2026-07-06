@@ -45,8 +45,8 @@ const config: Config = {
           "5": "var(--chart-5)",
         },
         cyan: {
-          500: "#22D3EE",
-          600: "#06B6D4",
+          500: "#2563eb",
+          600: "#1d4ed8",
         },
       },
       borderRadius: {
@@ -55,8 +55,10 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        "glow-cyan": "0 4px 14px 0 rgba(34,211,238,0.35)",
-        "glow-cyan-lg": "0 8px 28px 0 rgba(34,211,238,0.5)",
+        "glow-blue": "0 4px 14px 0 rgba(37,99,235,0.12)",
+        "glow-blue-lg": "0 8px 24px 0 rgba(37,99,235,0.18)",
+        "glow-cyan": "0 4px 14px 0 rgba(37,99,235,0.12)",
+        "glow-cyan-lg": "0 8px 24px 0 rgba(37,99,235,0.18)",
       },
       animation: {
         aurora: "aurora 60s linear infinite",

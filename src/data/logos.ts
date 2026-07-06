@@ -17,12 +17,12 @@ export const partnerLogos: readonly PartnerLogo[] = [
   // Add partner logos here
   // Example:
   // {
-  //   src: "/logos/fpt.png",
+  //   src: "/logos/fpt.webp",
   //   alt: "FPT University",
   //   href: "https://fpt.edu.vn",
   // },
   // {
-  //   src: "/logos/ftc.png",
+  //   src: "/logos/ftc.webp",
   //   alt: "FIRST Tech Challenge",
   //   href: "https://www.firstinspires.org",
   // },

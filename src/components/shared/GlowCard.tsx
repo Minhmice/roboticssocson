@@ -15,9 +15,9 @@ export const GlowCard: React.FC<GlowCardProps> = ({
   return (
     <div
       className={cn(
-        "group rounded-2xl border border-slate-800 bg-slate-900/50 p-6 backdrop-blur-sm transition-all duration-300",
+        "group rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300",
         hover &&
-          "shadow-[0_0_12px_rgba(34,211,238,0.25)] hover:shadow-[0_0_20px_rgba(34,211,238,0.45)] hover:border-cyan-500/50 hover:scale-105 transition-all duration-300 ease-in-out",
+          "hover:border-primary/30 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] hover:scale-[1.02] transition-all duration-300 ease-out",
         className,
       )}
     >
