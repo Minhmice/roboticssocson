@@ -1,0 +1,1 @@
+{"nodes": [{"id": "course_seo", "label": "course-seo.ts", "file_type": "code", "source_file": "src\\lib\\seo\\course-seo.ts", "source_location": "L1"}], "edges": [{"source": "course_seo", "target": "metadata", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "src\\lib\\seo\\course-seo.ts", "source_location": "L1", "weight": 1.0}]}

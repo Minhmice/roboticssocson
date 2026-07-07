@@ -1,0 +1,1 @@
+{"nodes": [{"id": "metric", "label": "Metric.tsx", "file_type": "code", "source_file": "src\\components\\shared\\Metric.tsx", "source_location": "L1"}], "edges": [{"source": "metric", "target": "lucide_react", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "src\\components\\shared\\Metric.tsx", "source_location": "L1", "weight": 1.0}]}

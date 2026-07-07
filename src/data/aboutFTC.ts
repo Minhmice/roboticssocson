@@ -58,8 +58,8 @@ export const ftcFeatures: readonly FTCFeature[] = [
       "Mùa giải bắt đầu kickoff 06/09/2025. Robot cần đáp ứng tiêu chuẩn kỹ thuật cao để thi đấu.",
     description_en:
       "Season starts with kickoff on September 6, 2025. Robots must meet high technical standards to compete.",
-    iconColor: "text-yellow-400",
-    bgColor: "bg-yellow-900/20",
+    iconColor: "text-primary",
+    bgColor: "bg-primary/[0.08]",
     imageLayout: "1",
     images: [
       { 
@@ -90,8 +90,8 @@ export const ftcFeatures: readonly FTCFeature[] = [
       'Robot phải lọt trong khối 18"×18"×18" khi xuất phát, sau đó có thể mở rộng theo giới hạn trong Competition Manual.',
     description_en:
       "Robot must fit in an 18x18x18 inch cube at match start, then can expand within Competition Manual limits.",
-    iconColor: "text-blue-400",
-    bgColor: "bg-blue-900/20",
+    iconColor: "text-primary",
+    bgColor: "bg-primary/[0.08]",
     imageLayout: "4",
     images: [
       { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.1.webp" },
@@ -108,8 +108,8 @@ export const ftcFeatures: readonly FTCFeature[] = [
       "Các đội thi đấu theo mô hình liên minh, tăng cường kỹ năng hợp tác và làm việc nhóm.",
     description_en:
       "Teams compete in alliance model, fostering collaboration and teamwork skills.",
-    iconColor: "text-purple-400",
-    bgColor: "bg-purple-900/20",
+    iconColor: "text-primary",
+    bgColor: "bg-primary/[0.08]",
     imageLayout: "1",
     images: [
       { caption: "Mô hình liên minh - Alliance Model", src: "/Images/About FTC/4.1.webp" },
@@ -123,8 +123,8 @@ export const ftcFeatures: readonly FTCFeature[] = [
       "Chương trình nhấn mạnh kỹ năng kỹ thuật, tư duy thiết kế, làm việc nhóm và tinh thần thi đấu công bằng.",
     description_en:
       "Program emphasizes technical skills, design thinking, teamwork and sportsmanship.",
-    iconColor: "text-green-400",
-    bgColor: "bg-green-900/20",
+    iconColor: "text-primary",
+    bgColor: "bg-primary/[0.08]",
     imageLayout: "1",
     images: [
       { caption: "Technical & Design Skills", src: "/Images/About FTC/5.1.webp" }

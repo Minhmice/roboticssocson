@@ -9,7 +9,8 @@ export const domain = "roboticssocson.minhmice.com" as const;
 
 export const sponsorEmail = "roboticssocson@gmail.com" as const;
 
-export const pitchPdfUrl = "/Logo.svg" as const;
+/** Reserved for a future public pitch PDF path under /public. */
+export const pitchPdfUrl: string | null = null;
 
 export type Socials = {
   readonly facebook: string;

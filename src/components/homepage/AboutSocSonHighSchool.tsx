@@ -1,12 +1,41 @@
 "use client";
 
 import Image from "next/image";
+import { GraduationCap } from "lucide-react";
+import type { ReactNode } from "react";
+import {
+  motion,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
 
-import { SectionHeader } from "@/components/shared/SectionHeader";
 import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef, useState } from "react";
+
+const EASE_OUT_QUART = [0.25, 1, 0.5, 1] as const;
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: EASE_OUT_QUART },
+  },
+};
+
+const galleryItem: Variants = {
+  hidden: { opacity: 0, scale: 0.98 },
+  visible: (index: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: EASE_OUT_QUART,
+      delay: index * 0.07,
+    },
+  }),
+};
 
 const galleryImagesData = [
   {
@@ -40,10 +69,16 @@ const logoImageData = {
 const contentData = {
   title_vi: "Trường THPT Sóc Sơn",
   title_en: "Sóc Sơn High School",
+  titleHighlight_vi: "Sóc Sơn",
+  titleHighlight_en: "Sóc Sơn",
   subtitle_vi: "Ngôi trường đồng hành và nuôi dưỡng những giấc mơ công nghệ",
   subtitle_en: "The school that accompanies and nurtures technology dreams",
+  subtitleHighlight_vi: "giấc mơ công nghệ",
+  subtitleHighlight_en: "technology dreams",
   badge_vi: "Giới thiệu",
   badge_en: "School Introduction",
+  heritage_vi: "Thành lập năm 1984 · Hơn 40 năm đồng hành cùng học sinh",
+  heritage_en: "Established 1984 · Over 40 years nurturing students",
   description_vi: [
     "Robotics Sóc Sơn là đội thi đến từ Trường Trung học Phổ thông Sóc Sơn, ngôi trường có bề dày hơn 40 năm xây dựng và phát triển tại huyện Sóc Sơn (cũ), thành phố Hà Nội.",
     "Trường được thành lập từ năm 1984, là một trong những đơn vị giáo dục tiêu biểu của khu vực ngoại thành Hà Nội, luôn chú trọng phát triển toàn diện cả kiến thức, kỹ năng và đạo đức cho học sinh.",
@@ -58,56 +93,106 @@ const contentData = {
   ],
 };
 
+const desktopGalleryLayout = [
+  { span: "col-span-2 row-span-2", sizes: "(max-width: 1280px) 50vw, 560px" },
+  { span: "col-span-2", sizes: "(max-width: 1280px) 50vw, 400px" },
+  { span: "col-span-2", sizes: "(max-width: 1280px) 50vw, 400px" },
+  { span: "col-span-4", sizes: "(max-width: 1280px) 100vw, 960px" },
+] as const;
+
+function highlightPhrase(text: string, phrase: string) {
+  const index = text.indexOf(phrase);
+  if (index === -1) return text;
+
+  return (
+    <>
+      {text.slice(0, index)}
+      <span className="text-primary">{phrase}</span>
+      {text.slice(index + phrase.length)}
+    </>
+  );
+}
+
+function GalleryFigure({
+  src,
+  caption,
+  className,
+  imageClassName,
+  sizes,
+}: {
+  src: string;
+  caption: string;
+  className?: string;
+  imageClassName?: string;
+  sizes: string;
+}) {
+  return (
+    <figure className={cn("min-w-0", className)}>
+      <div
+        className={cn(
+          "relative overflow-hidden rounded-xl border border-border bg-card shadow-[0_8px_24px_rgba(37,99,235,0.08)]",
+          imageClassName,
+        )}
+      >
+        <MediaPlaceholder
+          type="image"
+          src={src}
+          alt={caption}
+          flush
+          className="absolute inset-0 m-0"
+          sizes={sizes}
+        />
+      </div>
+      <figcaption className="mt-2.5 text-sm font-medium leading-snug text-foreground/75 text-pretty">
+        {caption}
+      </figcaption>
+    </figure>
+  );
+}
+
+function MotionWrap({
+  animated,
+  className,
+  children,
+  variants,
+  custom,
+}: {
+  animated: boolean;
+  className?: string;
+  children: ReactNode;
+  variants: Variants;
+  custom?: number;
+}) {
+  if (!animated) {
+    return <div className={className}>{children}</div>;
+  }
+
+  return (
+    <motion.div
+      className={className}
+      custom={custom}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      variants={variants}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/** Aspect grid for mobile gallery — first image full-width hero. */
+const mobileGalleryGrid = [
+  { colSpan: "col-span-2", aspect: "aspect-[4/3]" },
+  { colSpan: "col-span-1", aspect: "aspect-[5/4]" },
+  { colSpan: "col-span-1", aspect: "aspect-[5/4]" },
+  { colSpan: "col-span-2", aspect: "aspect-[16/9]" },
+] as const;
+
 export default function AboutSocSonHighSchool() {
   const { locale } = useLanguage();
-  const [sectionVisible, setSectionVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  // Add bento animations
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const id = "bento-school-animations";
-    if (document.getElementById(id)) return;
-    const style = document.createElement("style");
-    style.id = id;
-    style.innerHTML = `
-      @keyframes bento2-card {
-        0% { opacity: 0; transform: translate3d(0, 18px, 0) scale(0.96); }
-        100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-      }
-    `;
-    document.head.appendChild(style);
-    return () => {
-      style.remove();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!sectionRef.current || typeof window === "undefined") return;
-
-    // On mobile, show immediately; on desktop, wait for intersection
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) {
-      const frameId = requestAnimationFrame(() => setSectionVisible(true));
-      return () => cancelAnimationFrame(frameId);
-    }
-
-    const node = sectionRef.current;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setSectionVisible(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+  const prefersReducedMotion = useReducedMotion();
+  const animated = !prefersReducedMotion;
 
   const galleryImages = galleryImagesData.map((img) => ({
     src: img.src,
@@ -123,125 +208,177 @@ export default function AboutSocSonHighSchool() {
   const description =
     locale === "vi" ? contentData.description_vi : contentData.description_en;
 
+  const title =
+    locale === "vi" ? contentData.title_vi : contentData.title_en;
+  const titleHighlight =
+    locale === "vi"
+      ? contentData.titleHighlight_vi
+      : contentData.titleHighlight_en;
+  const subtitle =
+    locale === "vi" ? contentData.subtitle_vi : contentData.subtitle_en;
+  const subtitleHighlight =
+    locale === "vi"
+      ? contentData.subtitleHighlight_vi
+      : contentData.subtitleHighlight_en;
+  const badge = locale === "vi" ? contentData.badge_vi : contentData.badge_en;
+  const heritage =
+    locale === "vi" ? contentData.heritage_vi : contentData.heritage_en;
+
   return (
     <section
-      ref={sectionRef}
-      className="relative py-12 sm:py-16 md:py-24 translate-z-10"
+      id="about-school"
+      className="relative overflow-hidden py-16 sm:py-20 md:py-28"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <SectionHeader
-          title={locale === "vi" ? contentData.title_vi : contentData.title_en}
-          subtitle={
-            locale === "vi" ? contentData.subtitle_vi : contentData.subtitle_en
-          }
-          badge={locale === "vi" ? contentData.badge_vi : contentData.badge_en}
-          align="center"
-        />
+      {/* Section wash */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-muted"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-[radial-gradient(ellipse_85%_65%_at_75%_-15%,rgba(37,99,235,0.16),transparent)]"
+      />
 
-        {/* Bento Grid Layout */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 md:auto-rows-fr">
-          {galleryImages.map((img, idx) => {
-            const animationDelay = `${Math.max(idx * 0.1, 0)}s`;
-            return (
-              <BentoItem
-                key={idx}
-                span="col-span-2"
-                isVisible={sectionVisible}
-                animationDelay={animationDelay}
-                className="p-0 overflow-hidden rounded-2xl"
-                height="h-48 sm:h-56 md:h-64"
-              >
-                <div className="relative h-full w-full">
-                  <MediaPlaceholder
-                    type="image"
-                    src={img.src}
-                    caption={img.caption}
-                    className="h-full w-full m-0 rounded-2xl"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 560px"
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] lg:gap-12 xl:gap-14">
+          {/* ── text column ── */}
+          <MotionWrap animated={animated} variants={fadeUp}>
+            <div className="mx-auto max-w-xl space-y-8 text-center lg:mx-0 lg:max-w-none lg:text-left">
+              <header>
+                <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card px-4 py-1.5 text-sm font-medium text-primary shadow-sm">
+                  <GraduationCap className="h-3.5 w-3.5" aria-hidden />
+                  {badge}
+                </span>
+
+                <h2 className="text-balance text-[clamp(2.125rem,5vw,3.5rem)] font-bold leading-[1.08] tracking-[-0.025em] text-foreground">
+                  {highlightPhrase(title, titleHighlight)}
+                </h2>
+
+                <p className="mt-5 text-pretty text-[clamp(1.0625rem,1.8vw,1.3125rem)] leading-[1.55] text-foreground/80">
+                  {highlightPhrase(subtitle, subtitleHighlight)}
+                </p>
+
+                <p className="mt-4 text-sm font-semibold leading-relaxed text-foreground/70">
+                  {heritage}
+                </p>
+              </header>
+
+              {/* Logo + description block */}
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-white p-2 shadow-sm sm:h-[4.5rem] sm:w-[4.5rem]">
+                  <Image
+                    src={logoImage.src}
+                    alt={logoImage.caption}
+                    width={64}
+                    height={64}
+                    className="h-full w-full object-contain"
+                    priority
                   />
                 </div>
-              </BentoItem>
+
+                <div className="min-w-0 space-y-4 text-left">
+                  {description.map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className={cn(
+                        "max-w-[65ch] text-pretty leading-relaxed text-foreground/85",
+                        index === 0
+                          ? "text-base font-medium md:text-lg"
+                          : "text-sm md:text-base",
+                      )}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </MotionWrap>
+
+          {/* ── desktop bento gallery ── */}
+          <div className="hidden md:block">
+            <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[0_20px_56px_rgba(37,99,235,0.14)]">
+              <div className="grid grid-cols-4 grid-rows-[14rem_14rem_16rem] gap-1.5">
+                {galleryImages.map((img, idx) => {
+                  const layout = desktopGalleryLayout[idx];
+                  const figure = (
+                    <figure
+                      className={cn(
+                        "relative overflow-hidden bg-card",
+                        layout.span,
+                      )}
+                    >
+                      <MediaPlaceholder
+                        type="image"
+                        src={img.src}
+                        alt={img.caption}
+                        flush
+                        className="absolute inset-0 m-0"
+                        sizes={layout.sizes}
+                      />
+                      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-slate-900/85 via-slate-900/45 to-transparent px-4 pb-3 pt-10 text-sm font-medium text-white text-pretty">
+                        {img.caption}
+                      </figcaption>
+                    </figure>
+                  );
+
+                  if (!animated) {
+                    return (
+                      <div key={img.src} className="contents">
+                        {figure}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <motion.figure
+                      key={img.src}
+                      custom={idx}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, margin: "-40px" }}
+                      variants={galleryItem}
+                      className={cn(
+                        "relative overflow-hidden bg-card",
+                        layout.span,
+                      )}
+                    >
+                      <MediaPlaceholder
+                        type="image"
+                        src={img.src}
+                        alt={img.caption}
+                        flush
+                        className="absolute inset-0 m-0"
+                        sizes={layout.sizes}
+                      />
+                      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-slate-900/85 via-slate-900/45 to-transparent px-4 pb-3 pt-10 text-sm font-medium text-white text-pretty">
+                        {img.caption}
+                      </figcaption>
+                    </motion.figure>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── mobile gallery ── */}
+        <div className="mt-10 grid grid-cols-2 gap-3 md:hidden">
+          {galleryImages.map((img, idx) => {
+            const grid = mobileGalleryGrid[idx];
+            return (
+              <GalleryFigure
+                key={img.src}
+                src={img.src}
+                caption={img.caption}
+                className={grid.colSpan}
+                imageClassName={cn("aspect-auto", grid.aspect)}
+                sizes="(max-width: 768px) 100vw, 560px"
+              />
             );
           })}
-
-          <BentoItem
-            span="col-span-4"
-            isVisible={sectionVisible}
-            animationDelay="0.4s"
-            className={cn(
-              "group relative flex flex-col overflow-hidden rounded-xl md:rounded-2xl border border-border bg-card p-4 md:p-6 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] hover:border-primary/30 hover:scale-[1.02] md:h-full"
-            )}
-          >
-            <div className="absolute inset-0 -z-10 overflow-hidden rounded-xl sm:rounded-2xl">
-              <div className="absolute inset-0 bg-muted/50" />
-              <div className="absolute inset-0 opacity-40 bg-gradient-to-br from-primary to-primary/80" />
-            </div>
-
-            <div className="flex items-center gap-4 md:gap-6 mb-4 md:mb-6">
-              <div className="flex items-center justify-center rounded-full bg-white p-2 w-16 h-16 md:w-20 md:h-20 overflow-hidden flex-shrink-0 shadow-lg">
-                <Image
-                  src={logoImage.src}
-                  alt={logoImage.caption}
-                  width={64}
-                  height={64}
-                  className="h-full w-full object-contain"
-                  priority
-                />
-              </div>
-              <h3 className="text-xl md:text-2xl font-bold text-foreground">
-                {locale === "vi" ? contentData.title_vi : contentData.title_en}
-              </h3>
-            </div>
-
-            <div className="flex-1 space-y-3 md:space-y-4">
-              {description.map((paragraph, index) => (
-                <p
-                  key={index}
-                  className="text-sm md:text-base text-muted-foreground leading-relaxed"
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </BentoItem>
         </div>
       </div>
     </section>
-  );
-}
-
-interface BentoItemProps {
-  children: React.ReactNode;
-  span: string;
-  height?: string;
-  isVisible: boolean;
-  animationDelay: string;
-  className?: string;
-  style?: React.CSSProperties;
-}
-
-function BentoItem({
-  children,
-  span,
-  height,
-  isVisible,
-  animationDelay,
-  className,
-  style,
-}: BentoItemProps) {
-  return (
-    <article
-      className={cn(
-        "opacity-100 md:motion-safe:opacity-0",
-        isVisible &&
-          "md:motion-safe:animate-[bento2-card_0.8s_ease-out_forwards]",
-        span,
-        className,
-        height
-      )}
-      style={{ animationDelay, ...style }}
-    >
-      {children}
-    </article>
   );
 }

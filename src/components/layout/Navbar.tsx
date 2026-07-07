@@ -1,37 +1,18 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 import { usePathname } from "next/navigation";
 import { X, Menu } from "lucide-react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
-import {
-  NAV_SCROLL_OFFSET,
-  useCourseScrollSpy,
-} from "@/hooks/useCourseScrollSpy";
 import { cn } from "@/lib/utils";
 import { useState, useEffect, useMemo } from "react";
-
-const COURSE_SECTION_IDS = [
-  "course-curriculum",
-  "course-projects",
-  "course-faq",
-  "course-register",
-] as const;
-
-const HOME_SECTION_IDS = [
-  "about-first",
-  "achievements",
-  "course-teaser",
-] as const;
 
 interface NavLink {
   label: string;
   href: string;
-  sectionId?: string;
-  isAnchor: boolean;
 }
 
 interface NavbarProps {
@@ -43,20 +24,9 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   const pathname = usePathname();
   const isCoursePage = pathname === "/course";
   const isHomePage = pathname === "/";
-  const showSponsorshipNav = !isHomePage;
+  const isSponsorshipPage = pathname === "/sponsorship";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const activeCourseSection = useCourseScrollSpy(
-    COURSE_SECTION_IDS,
-    isCoursePage
-  );
-  const activeHomeSection = useCourseScrollSpy(HOME_SECTION_IDS, isHomePage);
-  const activeSectionId = isCoursePage
-    ? activeCourseSection
-    : isHomePage
-      ? activeHomeSection
-      : null;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,104 +48,23 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   }, [mobileMenuOpen]);
 
   const navLinks: NavLink[] = useMemo(() => {
-    if (isCoursePage) {
-      return [
-        {
-          label: t("nav.curriculum"),
-          href: "#course-curriculum",
-          sectionId: "course-curriculum",
-          isAnchor: true,
-        },
-        {
-          label: t("nav.projects"),
-          href: "#course-projects",
-          sectionId: "course-projects",
-          isAnchor: true,
-        },
-        {
-          label: t("nav.faq"),
-          href: "#course-faq",
-          sectionId: "course-faq",
-          isAnchor: true,
-        },
-        {
-          label: t("nav.registerConsultation"),
-          href: "#course-register",
-          sectionId: "course-register",
-          isAnchor: true,
-        },
-      ];
-    }
-
     const links: NavLink[] = [
-      {
-        label: t("nav.about"),
-        href: "#about-first",
-        sectionId: "about-first",
-        isAnchor: true,
-      },
-      {
-        label: t("nav.achievements"),
-        href: "#achievements",
-        sectionId: "achievements",
-        isAnchor: true,
-      },
-      {
-        label: t("nav.course"),
-        href: "#course-teaser",
-        sectionId: "course-teaser",
-        isAnchor: true,
-      },
+      { label: t("nav.home"), href: "/" },
+      { label: t("nav.course"), href: "/course" },
     ];
 
-    if (showSponsorshipNav) {
-      links.push({
-        label: t("nav.sponsorship"),
-        href: "/sponsorship",
-        isAnchor: false,
-      });
+    if (isSponsorshipPage) {
+      links.push({ label: t("nav.sponsorship"), href: "/sponsorship" });
     }
 
     return links;
-  }, [isCoursePage, showSponsorshipNav, t]);
+  }, [isSponsorshipPage, t]);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition =
-        elementPosition + window.pageYOffset - NAV_SCROLL_OFFSET;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const handleLinkClick = (
-    link: NavLink,
-    e: React.MouseEvent<HTMLAnchorElement>
-  ) => {
-    if (link.isAnchor && link.sectionId) {
-      e.preventDefault();
-      setMobileMenuOpen(false);
-      scrollToSection(link.sectionId);
-    } else {
-      setMobileMenuOpen(false);
-    }
-  };
-
-  const isLinkActive = (link: NavLink) =>
-    Boolean(
-      link.sectionId &&
-        activeSectionId &&
-        activeSectionId === link.sectionId
-    );
+  const isLinkActive = (link: NavLink) => pathname === link.href;
 
   const linkClassName = (link: NavLink) =>
     cn(
-      "text-sm font-medium transition-colors cursor-pointer",
+      "text-sm font-medium transition-colors",
       isLinkActive(link)
         ? "text-primary"
         : "text-muted-foreground hover:text-primary"
@@ -183,14 +72,18 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
 
   const mobileLinkClassName = (link: NavLink) =>
     cn(
-      "flex items-center px-4 py-3 text-sm font-medium transition-colors hover:bg-muted rounded-lg min-h-[44px] cursor-pointer",
+      "flex items-center px-4 py-3 text-sm font-medium transition-colors hover:bg-muted rounded-lg min-h-[44px]",
       isLinkActive(link)
         ? "text-primary bg-primary/5"
         : "text-muted-foreground hover:text-primary"
     );
 
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
   const renderNavCtas = (fullWidth: boolean) => {
-    const widthClass = fullWidth ? "w-full justify-center min-h-[44px]" : "min-h-[30px] py-1 text-sm";
+    const widthClass = fullWidth
+      ? "w-full justify-center min-h-[44px]"
+      : "min-h-[30px] py-1 text-sm";
 
     if (isCoursePage) {
       return (
@@ -256,17 +149,9 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
         <Link
           href="/"
           className="flex items-center gap-1.5 sm:gap-2"
-          onClick={() => setMobileMenuOpen(false)}
+          onClick={closeMobileMenu}
         >
-          <Image
-            src="/Logo/RBS Logo.svg"
-            alt="Robotics Sóc Sơn Logo"
-            width={637}
-            height={483}
-            className="h-5 w-auto object-contain sm:h-6"
-            priority
-            sizes="24px"
-          />
+          <BrandLogo className="h-5 w-auto sm:h-6" />
           <span className="text-base sm:text-lg font-bold text-foreground">
             Robotics Sóc Sơn
           </span>
@@ -274,15 +159,14 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
 
         <div className="hidden md:flex md:items-center md:gap-6">
           {navLinks.map((link) => (
-            <a
-              key={link.href + link.label}
+            <Link
+              key={link.href}
               href={link.href}
-              onClick={(e) => handleLinkClick(link, e)}
               className={linkClassName(link)}
-              aria-current={isLinkActive(link) ? "location" : undefined}
+              aria-current={isLinkActive(link) ? "page" : undefined}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -313,15 +197,15 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
         <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md">
           <div className="container mx-auto px-4 py-4 space-y-1">
             {navLinks.map((link) => (
-              <a
-                key={link.href + link.label}
+              <Link
+                key={link.href}
                 href={link.href}
-                onClick={(e) => handleLinkClick(link, e)}
+                onClick={closeMobileMenu}
                 className={mobileLinkClassName(link)}
-                aria-current={isLinkActive(link) ? "location" : undefined}
+                aria-current={isLinkActive(link) ? "page" : undefined}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <div className="pt-2 border-t border-border space-y-2">
               {renderNavCtas(true)}

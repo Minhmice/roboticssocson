@@ -8,7 +8,6 @@ import TeamCarouselSection from "@/components/homepage/TeamCarousel";
 import AchievementsSection from "@/components/homepage/Achievements";
 import MissionSection from "@/components/homepage/Mission";
 import CourseTeaser from "@/components/homepage/CourseTeaser";
-import TheChallengeSection from "@/components/homepage/TheChallenge";
 
 export function HomePage() {
   return (
@@ -21,7 +20,6 @@ export function HomePage() {
       <AchievementsSection />
       <MissionSection />
       <CourseTeaser />
-      <TheChallengeSection />
     </main>
   );
 }

@@ -1,0 +1,1 @@
+{"nodes": [{"id": "coursesections", "label": "courseSections.ts", "file_type": "code", "source_file": "src\\data\\courseSections.ts", "source_location": "L1"}], "edges": [{"source": "coursesections", "target": "getlocalized", "relation": "imports_from", "confidence": "EXTRACTED", "source_file": "src\\data\\courseSections.ts", "source_location": "L1", "weight": 1.0}]}

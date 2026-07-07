@@ -16,6 +16,7 @@ interface ImageGalleryProps {
   images?: Array<ImageGalleryItem>;
   className?: string;
   sizes?: string;
+  animated?: boolean;
 }
 
 export function ImageGallery({
@@ -23,6 +24,7 @@ export function ImageGallery({
   images,
   className,
   sizes,
+  animated = true,
 }: ImageGalleryProps) {
   // Default images nếu không có
   const defaultImages: ImageGalleryItem[] = Array.from({
@@ -66,6 +68,21 @@ export function ImageGallery({
   };
 
   if (layout === "1") {
+    const image = (
+      <MediaPlaceholder
+        type="image"
+        src={galleryImages[0]?.src}
+        caption={galleryImages[0]?.caption || ""}
+        flush
+        className={cn("h-48 md:h-56 w-full object-cover rounded-xl")}
+        sizes={imageSizes}
+      />
+    );
+
+    if (!animated) {
+      return <div className={cn("w-full", className)}>{image}</div>;
+    }
+
     return (
       <motion.div
         className={cn("w-full", className)}
@@ -78,6 +95,7 @@ export function ImageGallery({
             type="image"
             src={galleryImages[0]?.src}
             caption={galleryImages[0]?.caption || ""}
+            flush
             className={cn("h-48 md:h-56 w-full object-cover rounded-xl")}
             sizes={imageSizes}
           />
@@ -87,6 +105,24 @@ export function ImageGallery({
   }
 
   if (layout === "2") {
+    const grid = (
+      <div className={cn("grid grid-cols-2 gap-3 sm:gap-4", className)}>
+        {galleryImages.map((img, idx) => (
+          <MediaPlaceholder
+            key={img.src ?? img.caption ?? idx}
+            type="image"
+            src={img.src}
+            caption={img.caption || ""}
+            flush
+            className="h-40 md:h-48 w-full object-cover rounded-xl"
+            sizes={imageSizes}
+          />
+        ))}
+      </div>
+    );
+
+    if (!animated) return grid;
+
     return (
       <motion.div
         className={cn("grid grid-cols-2 gap-3 sm:gap-4", className)}
@@ -95,11 +131,12 @@ export function ImageGallery({
         animate="visible"
       >
         {galleryImages.map((img, idx) => (
-          <motion.div key={idx} variants={itemVariants}>
+          <motion.div key={img.src ?? img.caption ?? idx} variants={itemVariants}>
             <MediaPlaceholder
               type="image"
               src={img.src}
               caption={img.caption || ""}
+              flush
               className="h-40 md:h-48 w-full object-cover rounded-xl"
               sizes={imageSizes}
             />
@@ -110,6 +147,24 @@ export function ImageGallery({
   }
 
   if (layout === "4") {
+    const grid = (
+      <div className={cn("grid grid-cols-2 gap-3 sm:gap-4", className)}>
+        {galleryImages.map((img, idx) => (
+          <MediaPlaceholder
+            key={img.src ?? img.caption ?? idx}
+            type="image"
+            src={img.src}
+            caption={img.caption || ""}
+            flush
+            className="h-16 sm:h-24 md:h-32 w-full object-cover rounded-xl"
+            sizes={imageSizes}
+          />
+        ))}
+      </div>
+    );
+
+    if (!animated) return grid;
+
     return (
       <motion.div
         className={cn("grid grid-cols-2 gap-3 sm:gap-4", className)}
@@ -118,11 +173,12 @@ export function ImageGallery({
         animate="visible"
       >
         {galleryImages.map((img, idx) => (
-          <motion.div key={idx} variants={itemVariants}>
+          <motion.div key={img.src ?? img.caption ?? idx} variants={itemVariants}>
             <MediaPlaceholder
               type="image"
               src={img.src}
               caption={img.caption || ""}
+              flush
               className="h-16 sm:h-24 md:h-32 w-full object-cover rounded-xl"
               sizes={imageSizes}
             />

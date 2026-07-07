@@ -30,7 +30,11 @@ const EASE_OUT_QUART = [0.25, 1, 0.5, 1] as const;
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 const VIEWPORT = { once: true, margin: "-60px" } as const;
 const STEP_COUNT = courseMethodSteps.length;
-const MARKER_OFFSET = "1.625rem";
+/** h-11 marker column — rail must pass through its center */
+const MARKER_SIZE_REM = 2.75;
+const MARKER_GAP_REM = 1;
+const MARKER_RAIL_LEFT = `${MARKER_SIZE_REM / 2}rem`;
+const PHASE_LABEL_OFFSET = `${MARKER_SIZE_REM + MARKER_GAP_REM}rem`;
 /** Navbar offset (pt-16) + breathing room — matches layout shell */
 const STICKY_TOP_REM = 6;
 const STICKY_TOP = `${STICKY_TOP_REM}rem`;
@@ -108,9 +112,9 @@ function RailItem({
     isChallenge
       ? "border-primary bg-primary text-primary-foreground shadow-[var(--shadow-glow-lg)]"
       : isHighlighted
-        ? "border-primary bg-accent text-primary shadow-[var(--shadow-glow)] scale-105 motion-reduce:scale-100"
+        ? "border-primary bg-card text-primary shadow-[var(--shadow-glow)] ring-2 ring-primary/25 ring-offset-2 ring-offset-background motion-reduce:ring-0 motion-reduce:ring-offset-0"
         : isPast
-          ? "border-primary/40 bg-accent/80 text-primary"
+          ? "border-primary/35 bg-card text-primary/80"
           : "border-border bg-card text-primary/70"
   );
 
@@ -549,6 +553,7 @@ export default function CourseMethod() {
             <p
               id={phaseLabelId}
               className="text-sm font-semibold text-foreground/90 break-words"
+              style={{ paddingInlineStart: PHASE_LABEL_OFFSET }}
             >
               {phaseTitle}
             </p>
@@ -609,8 +614,8 @@ export default function CourseMethod() {
         aria-label={stepsListLabel || undefined}
       >
         <span
-          className="pointer-events-none absolute top-0 bottom-0 w-px bg-border motion-reduce:opacity-100"
-          style={{ left: MARKER_OFFSET }}
+          className="pointer-events-none absolute inset-y-0 w-px -translate-x-1/2 bg-border motion-reduce:opacity-100"
+          style={{ left: MARKER_RAIL_LEFT }}
           aria-hidden
         />
         {railContent}

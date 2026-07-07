@@ -29,25 +29,16 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   return (
     <div
-      className="w-full bg-background font-sans md:px-10"
+      className="w-full bg-background font-sans md:px-10 relative isolate"
       ref={containerRef}
     >
-      <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
-        <h2 className="text-3xl md:text-7xl mb-4 text-foreground max-w-2xl font-bold">
-          Hành trình thi đấu của chúng em
-        </h2>
-        <p className="text-muted-foreground text-base md:text-2xl max-w-3xl">
-          Từ những ngày đầu thành lập đến những thành tích đáng tự hào trong các cuộc thi robotics.
-        </p>
-      </div>
-
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
+      <div ref={ref} className="relative max-w-7xl mx-auto pb-28 md:pb-32">
         {data.map((item, index) => (
           <div
             key={index}
             className="flex justify-start pb-10 md:pb-40"
           >
-            <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
+            <div className="sticky flex flex-col md:flex-row z-10 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
               <div className="h-12 absolute left-2 md:left-2 w-12 rounded-full bg-card border-2 border-primary flex items-center justify-center">
                 <div className="h-6 w-6 rounded-full bg-gradient-to-r from-primary to-primary/70" />
               </div>

@@ -2,11 +2,11 @@
 
 import * as React from "react";
 import Image from "next/image";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-// import { User as UserIcon, Wrench, Code2, PenTool } from "lucide-react";
 import Link from "next/link";
 import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
 
@@ -27,22 +27,11 @@ export interface MemberCardProps {
   classInfo?: string; // ví dụ: "2007" hoặc "Born 2008"
   tags?: string[]; // hashtag phía dưới
   href?: string; // link "View Profile"
-  logoSrc?: string; // mặc định: "/Logo.svg"
+  logoSrc?: string; // deprecated: kept for API compatibility
+  imagePriority?: boolean;
   className?: string;
   showButton?: boolean;
 }
-
-// Utility function for role icons (currently unused but kept for future use)
-// const roleIcon = (role: string) => {
-//   const r = role.toLowerCase();
-//   if (r.includes("engineer") || r.includes("engineering"))
-//     return <Wrench className="h-4 w-4" />;
-//   if (r.includes("coding") || r.includes("developer") || r.includes("dev"))
-//     return <Code2 className="h-4 w-4" />;
-//   if (r.includes("media") || r.includes("design"))
-//     return <PenTool className="h-4 w-4" />;
-//   return <UserIcon className="h-4 w-4" />;
-// };
 
 export function MemberCard({
   name,
@@ -53,7 +42,7 @@ export function MemberCard({
   classInfo,
   tags = ["#FTC2026", "#STEM", "#Innovation"],
   href,
-  logoSrc = "/Logo/RBS Logo.svg",
+  imagePriority = false,
   className,
   showButton = true,
 }: MemberCardProps) {
@@ -88,9 +77,8 @@ export function MemberCard({
           alt={`${name} cover`}
           fill
           className="object-cover"
-          priority
+          priority={imagePriority}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 350px"
-          unoptimized={imageSrc?.includes("Hương") || imageSrc?.includes("Dũng") || imageSrc?.includes("Hà")}
         />
       ) : (
         <div className="absolute inset-0">
@@ -108,14 +96,7 @@ export function MemberCard({
         <div className="relative rounded-full bg-card backdrop-blur-md border border-border h-10 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:scale-[1.01] group overflow-hidden flex items-center">
           <div className="flex items-center justify-center w-10 h-10 flex-shrink-0">
             <div className="h-6 w-8 flex items-center justify-center">
-              <Image
-                src={logoSrc}
-                alt="Robotics Sóc Sơn"
-                width={637}
-                height={483}
-                className="h-6 w-auto object-contain object-center"
-                sizes="32px"
-              />
+              <BrandLogo className="h-6 w-auto" />
             </div>
           </div>
           <span className="text-xs font-semibold text-foreground opacity-0 max-w-0 group-hover:opacity-100 group-hover:max-w-[180px] group-hover:pr-3 transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap flex flex-col leading-tight">
@@ -140,18 +121,18 @@ export function MemberCard({
         {/* Tên */}
         <div className="mb-4">
           <div className="mb-2">
-            <h3 className="text-xl font-bold leading-tight text-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            <h3 className="text-xl font-bold leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
               {name}
             </h3>
           </div>
           {classInfo && (
-            <p className="text-xs text-slate-200/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)] mb-3">
+            <p className="text-xs text-white/85 drop-shadow-[0_1px_6px_rgba(0,0,0,0.7)] mb-3">
               {classInfo}
             </p>
           )}
 
           {slogan && (
-            <p className="text-xs italic text-muted-foreground line-clamp-2 mb-3">
+            <p className="text-xs italic text-white/75 drop-shadow-[0_1px_6px_rgba(0,0,0,0.7)] line-clamp-2 mb-3">
               {slogan}
             </p>
           )}
@@ -163,7 +144,7 @@ export function MemberCard({
               {tags.map((t, idx) => (
                 <span
                   key={idx}
-                  className="rounded-full bg-muted border border-border px-2 py-1 text-[10px] uppercase tracking-wide text-muted-foreground"
+                  className="rounded-full border border-white/10 bg-black/35 px-2 py-1 text-[10px] uppercase tracking-wide text-white/85 backdrop-blur-sm"
                 >
                   {t}
                 </span>

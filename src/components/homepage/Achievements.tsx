@@ -13,6 +13,7 @@ import { useRef } from "react";
 import { achievementsHeader } from "@/data/achievements";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedSection } from "@/components/shared/AnimatedComponents";
+import { cn } from "@/lib/utils";
 
 export default function AchievementsSection() {
   const { locale } = useLanguage();
@@ -103,13 +104,19 @@ function AchievementContent({
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="h-16 w-16 rounded-xl bg-primary/20 flex items-center justify-center shadow-lg border bg-primary">
+        <div
+          className={cn(
+            "flex h-16 w-16 shrink-0 items-center justify-center rounded-xl",
+            "bg-gradient-to-br from-primary to-primary/80",
+            "shadow-[0_8px_24px_rgba(37,99,235,0.2)]"
+          )}
+        >
           {index === 0 ? (
-            <Trophy className="h-8 w-8 text-primary-foreground" />
+            <Trophy className="h-8 w-8 text-white" />
           ) : index === 1 ? (
-            <Award className="h-8 w-8 text-primary-foreground" />
+            <Award className="h-8 w-8 text-white" />
           ) : (
-            <Medal className="h-8 w-8 text-primary-foreground" />
+            <Medal className="h-8 w-8 text-white" />
           )}
         </div>
         <div>

@@ -19,10 +19,7 @@ export default function TheChallengeSection() {
   const { locale } = useLanguage();
 
   return (
-    <section
-      id="the-challenge"
-      className="relative py-12 sm:py-16 md:py-24 min-h-[90vh] sm:min-h-screen flex items-center"
-    >
+    <section id="the-challenge" className="relative py-12 sm:py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full">
         <SectionHeader
           badge="Challenge"
@@ -35,13 +32,12 @@ export default function TheChallengeSection() {
             locale === "vi"
               ? "Bốn mùa khẳng định – một tương lai cần vun đắp."
               : "Four seasons of affirmation – a future that needs nurturing."
-            }
+          }
           align="center"
         />
 
-        <div className="mt-6 sm:mt-8 md:mt-12 grid grid-cols-2 md:grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
-          {/* Left: Problem */}
-          <GlowCard className="p-3 sm:p-4 md:p-6 lg:p-8">
+        <div className="mt-6 sm:mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+          <GlowCard className="p-4 sm:p-6 lg:p-8">
             <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
               <AlertCircle className="h-5 w-5 sm:h-6 sm:w-6 text-red-400" />
               <h3 className="text-base sm:text-lg md:text-xl font-bold text-foreground">
@@ -87,8 +83,7 @@ export default function TheChallengeSection() {
             </div>
           </GlowCard>
 
-          {/* Right: Solution */}
-          <GlowCard className="p-3 sm:p-4 md:p-6 lg:p-8">
+          <GlowCard className="p-4 sm:p-6 lg:p-8">
             <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
               <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               <h3 className="text-base sm:text-lg md:text-xl font-bold text-foreground">
@@ -149,7 +144,7 @@ export default function TheChallengeSection() {
                     : "View detailed budget"
                 }
                 variant="primary"
-                href="/sponsorship#budget-section"
+                href="#budget-section"
                 className="text-xs sm:text-sm"
               />
             </div>

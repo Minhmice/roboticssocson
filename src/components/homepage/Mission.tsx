@@ -3,88 +3,109 @@
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { missionData, type MissionItem } from "@/data/mission";
 import { Target, Rocket, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef, useState } from "react";
-import { missionData } from "@/data/mission";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
 
-// Icon mapping
-const iconMap: Record<
-  string,
-  React.ComponentType<{ className?: string }>
-> = {
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Target,
   Rocket,
   Heart,
 };
 
+function getMobileSpan(item: MissionItem) {
+  if (item.mobileSpan) return item.mobileSpan;
+  if (item.id === "mission") return "col-span-2";
+  if (item.id === "image-3") return "col-span-2";
+  return "col-span-1";
+}
+
+function getHeightClasses(item: MissionItem) {
+  const mobileH = item.mobileHeight || "";
+  const desktopH = item.height || "";
+  let desktopHeight = "";
+
+  if (desktopH.includes("md:")) {
+    const mdIndex = desktopH.indexOf("md:");
+    desktopHeight = desktopH.substring(mdIndex);
+  } else if (desktopH.includes("min-h-")) {
+    desktopHeight = desktopH.replace(/min-h-\[[^\]]+\]\s*/, "").trim();
+  } else {
+    desktopHeight = desktopH;
+  }
+
+  return mobileH && desktopHeight
+    ? `${mobileH} ${desktopHeight}`.trim()
+    : mobileH || desktopHeight || undefined;
+}
+
+function fadeIn(el: Element) {
+  gsap.fromTo(
+    el,
+    { autoAlpha: 0, y: 16 },
+    { autoAlpha: 1, y: 0, duration: 0.48, ease: "power2.out", overwrite: "auto" }
+  );
+
+  const icon = el.querySelector(".mission-value-icon");
+  if (icon) {
+    gsap.fromTo(
+      icon,
+      { scale: 0.9 },
+      { scale: 1, duration: 0.55, ease: "back.out(1.5)", overwrite: "auto" }
+    );
+  }
+}
+
+function fadeOut(el: Element) {
+  gsap.killTweensOf(el.querySelector(".mission-value-icon"));
+  gsap.to(el, {
+    autoAlpha: 0,
+    y: 12,
+    duration: 0.3,
+    ease: "power2.in",
+    overwrite: "auto",
+  });
+}
+
 export default function MissionSection() {
   const { locale } = useLanguage();
-  const [sectionVisible, setSectionVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Add bento animations
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const id = "bento-mission-animations";
-    if (document.getElementById(id)) return;
-    const style = document.createElement("style");
-    style.id = id;
-    style.innerHTML = `
-      @keyframes bento2-float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-6%); }
-      }
-      @keyframes bento2-pulse {
-        0%, 100% { transform: scale(1); opacity: 0.85; }
-        50% { transform: scale(1.08); opacity: 1; }
-      }
-      @keyframes bento2-tilt {
-        0% { transform: rotate(-2deg); }
-        50% { transform: rotate(2deg); }
-        100% { transform: rotate(-2deg); }
-      }
-      @keyframes bento2-drift {
-        0%, 100% { transform: translate3d(0, 0, 0); }
-        50% { transform: translate3d(6%, -6%, 0); }
-      }
-      @keyframes bento2-card {
-        0% { opacity: 0; transform: translate3d(0, 18px, 0) scale(0.96); }
-        100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-      }
-    `;
-    document.head.appendChild(style);
-    return () => {
-      style.remove();
-    };
-  }, []);
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
 
-  useEffect(() => {
-    if (!sectionRef.current || typeof window === "undefined") return;
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set("[data-mission-item]", { autoAlpha: 1, y: 0, clearProps: "transform" });
+      });
 
-    // On mobile, show immediately; on desktop, wait for intersection
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) {
-      const frameId = requestAnimationFrame(() => setSectionVisible(true));
-      return () => cancelAnimationFrame(frameId);
-    }
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const items = gsap.utils.toArray<HTMLElement>("[data-mission-item]");
+        gsap.set(items, { autoAlpha: 1, y: 0 });
 
-    const node = sectionRef.current;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setSectionVisible(true);
-            observer.disconnect();
-          }
+        items.forEach((el) => {
+          ScrollTrigger.create({
+            trigger: el,
+            start: "top 90%",
+            end: "bottom 10%",
+            onEnter: () => fadeIn(el),
+            onLeave: () => fadeOut(el),
+            onEnterBack: () => fadeIn(el),
+            onLeaveBack: () => fadeOut(el),
+          });
         });
-      },
-      { threshold: 0.25 }
-    );
+      });
 
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+      return () => mm.revert();
+    },
+    { scope: sectionRef }
+  );
 
   return (
     <section
@@ -94,71 +115,37 @@ export default function MissionSection() {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <SectionHeader
-          badge="Mission & Vision"
-          title={
-            locale === "vi"
-              ? "Mục tiêu & Sứ mệnh của đội"
-              : "Our Mission & Vision"
-          }
-          subtitle={
-            locale === "vi"
-              ? "Năng động — Sáng tạo — Không ngừng khám phá"
-              : "Dynamic — Creative — Driven to Discover"
-          }
-          align="center"
+            badge="Mission & Vision"
+            title={
+              locale === "vi"
+                ? "Mục tiêu & Sứ mệnh của đội"
+                : "Our Mission & Vision"
+            }
+            subtitle={
+              locale === "vi"
+                ? "Năng động — Sáng tạo — Không ngừng khám phá"
+                : "Dynamic — Creative — Driven to Discover"
+            }
+            align="center"
         />
 
-        {/* Bento Grid Layout */}
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 md:auto-rows-fr">
-          {missionData.map((item, index) => {
-            const animationDelay = `${Math.max(index * 0.12, 0)}s`;
-
-            // Mobile span: prefer data.mobileSpan, fallback to defaults
-            const getMobileSpan = () => {
-              if (item.mobileSpan) return item.mobileSpan;
-              if (item.id === "mission") return "col-span-2";
-              if (item.id === "image-3") return "col-span-2";
-              return "col-span-1";
-            };
-
-            // Combine mobileHeight and height for responsive sizing
-            const getHeightClasses = () => {
-              const mobileH = item.mobileHeight || "";
-              const desktopH = item.height || "";
-              // If desktopH contains "md:", extract the part after "md:"
-              // Otherwise, if it contains "min-h-", remove it since we have mobileHeight
-              let desktopHeight = "";
-              if (desktopH.includes("md:")) {
-                const mdIndex = desktopH.indexOf("md:");
-                desktopHeight = desktopH.substring(mdIndex);
-              } else if (desktopH.includes("min-h-")) {
-                // Extract only the desktop height part (remove min-h-...)
-                desktopHeight = desktopH
-                  .replace(/min-h-\[[^\]]+\]\s*/, "")
-                  .trim();
-              } else {
-                desktopHeight = desktopH;
-              }
-              // Combine mobile and desktop heights
-              // Return as string to ensure proper class application
-              return mobileH && desktopHeight
-                ? `${mobileH} ${desktopHeight}`.trim()
-                : mobileH || desktopHeight || undefined;
-            };
+          {missionData.map((item) => {
+            const span = `${getMobileSpan(item)} ${item.span}`;
+            const height = getHeightClasses(item);
 
             if (item.type === "text") {
               const Icon = item.icon ? iconMap[item.icon] : null;
               const IconComponent = Icon || Target;
 
               return (
-                <BentoItem
+                <article
                   key={item.id}
-                  span={`${getMobileSpan()} ${item.span}`}
-                  height={getHeightClasses()}
-                  isVisible={sectionVisible}
-                  animationDelay={animationDelay}
+                  data-mission-item
                   className={cn(
-                    "group relative flex flex-col overflow-hidden rounded-xl md:rounded-2xl border border-border bg-card p-4 md:p-5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] hover:border-primary/30 hover:scale-[1.02] md:h-full"
+                    span,
+                    height,
+                    "group relative flex flex-col overflow-hidden rounded-xl md:rounded-2xl border border-border bg-card p-4 md:p-5 shadow-sm transition-[box-shadow,border-color] duration-300 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] hover:border-primary/30 md:h-full"
                   )}
                 >
                   <div className="absolute inset-0 -z-10 overflow-hidden rounded-xl sm:rounded-2xl">
@@ -185,7 +172,7 @@ export default function MissionSection() {
                           <IconComponent className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-white" />
                         </div>
                       )}
-                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-foreground">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-foreground text-balance">
                         {locale === "vi" ? item.title_vi : item.title_en}
                       </h3>
                     </div>
@@ -196,7 +183,7 @@ export default function MissionSection() {
                       {item.content_vi.split("\n\n").map((paragraph, pIdx) => (
                         <p
                           key={pIdx}
-                          className="text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed"
+                          className="text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed text-pretty"
                         >
                           {locale === "vi"
                             ? paragraph
@@ -205,19 +192,16 @@ export default function MissionSection() {
                       ))}
                     </div>
                   )}
-                </BentoItem>
+                </article>
               );
             }
 
             if (item.type === "image") {
               return (
-                <BentoItem
+                <article
                   key={item.id}
-                  span={`${getMobileSpan()} ${item.span}`}
-                  height={getHeightClasses()}
-                  isVisible={sectionVisible}
-                  animationDelay={animationDelay}
-                  className="p-0 overflow-hidden rounded-2xl"
+                  data-mission-item
+                  className={cn(span, height, "p-0 overflow-hidden rounded-2xl")}
                 >
                   <div className="relative h-full w-full">
                     <MediaPlaceholder
@@ -232,7 +216,7 @@ export default function MissionSection() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 640px"
                     />
                   </div>
-                </BentoItem>
+                </article>
               );
             }
 
@@ -240,15 +224,13 @@ export default function MissionSection() {
               const Icon = item.icon ? iconMap[item.icon] : Target;
 
               return (
-                <BentoItem
+                <article
                   key={item.id}
-                  span={`${getMobileSpan()} ${item.span}`}
-                  height={getHeightClasses()}
-                  isVisible={sectionVisible}
-                  animationDelay={animationDelay}
+                  data-mission-item
                   className={cn(
-                    "group hover:scale-105 transition-all duration-300 relative",
-                    "flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] hover:border-primary/30 md:h-full transition-all duration-300"
+                    span,
+                    height,
+                    "group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm transition-[box-shadow,border-color] duration-300 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] hover:border-primary/30 md:h-full"
                   )}
                 >
                   {item.bgColor && (
@@ -273,69 +255,27 @@ export default function MissionSection() {
                   <div className="relative z-10 h-full flex flex-col">
                     <div
                       className={cn(
-                        "inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br mb-3 shadow-lg",
+                        "mission-value-icon inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br mb-3 shadow-lg",
                         item.color
                       )}
                     >
-                      <Icon
-                        className="h-6 w-6 text-white"
-                        style={
-                          item.animation
-                            ? { animation: item.animation }
-                            : undefined
-                        }
-                      />
+                      <Icon className="h-6 w-6 text-white" />
                     </div>
-                    <h4 className="text-lg font-bold text-foreground mb-2">
+                    <h4 className="text-lg font-bold text-foreground mb-2 text-balance">
                       {locale === "vi" ? item.title_vi : item.title_en}
                     </h4>
-                    <p className="text-sm text-foreground leading-relaxed">
+                    <p className="text-sm text-foreground leading-relaxed text-pretty">
                       {locale === "vi" ? item.content_vi : item.content_en}
                     </p>
                   </div>
-                </BentoItem>
+                </article>
               );
             }
+
             return null;
           })}
         </div>
       </div>
     </section>
-  );
-}
-
-interface BentoItemProps {
-  children: React.ReactNode;
-  span: string;
-  height?: string;
-  isVisible: boolean;
-  animationDelay: string;
-  className?: string;
-  style?: React.CSSProperties;
-}
-
-function BentoItem({
-  children,
-  span,
-  height,
-  isVisible,
-  animationDelay,
-  className,
-  style,
-}: BentoItemProps) {
-  return (
-    <article
-      className={cn(
-        "opacity-100 md:motion-safe:opacity-0",
-        isVisible &&
-          "md:motion-safe:animate-[bento2-card_0.8s_ease-out_forwards]",
-        span,
-        className,
-        height // Put height last to ensure it can override h-full on mobile
-      )}
-      style={{ animationDelay, ...style }}
-    >
-      {children}
-    </article>
   );
 }

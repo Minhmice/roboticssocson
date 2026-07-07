@@ -9,6 +9,7 @@ interface AnimatedComponentProps {
   className?: string;
   delay?: number;
   onClick?: () => void;
+  once?: boolean;
 }
 
 // Base animation configuration
@@ -149,9 +150,10 @@ export function AnimatedText({
   className,
   direction = "left",
   delay = 0,
+  once = false,
 }: AnimatedComponentProps & { direction?: "left" | "right" }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, animationConfig);
+  const isInView = useInView(ref, { ...animationConfig, once });
 
   const xValue = direction === "left" ? -30 : 30;
 

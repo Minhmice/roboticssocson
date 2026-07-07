@@ -12,15 +12,11 @@ import CourseOutcomes from "./CourseOutcomes";
 import CourseProblem from "./CourseProblem";
 import CourseProjects from "./CourseProjects";
 import CourseRegister from "./CourseRegister";
-import CourseSolution from "./CourseSolution";
-import CourseStickyCTA from "./CourseStickyCTA";
-
 export default function CoursePage() {
   return (
-    <div className="pb-20">
+    <div>
       <CourseHero />
       <CourseProblem />
-      <CourseSolution />
       <CourseOutcomes />
       <CourseCurriculum />
       <CourseProjects />
@@ -31,7 +27,6 @@ export default function CoursePage() {
       <CourseFAQ />
       <CourseOffer />
       <CourseRegister />
-      <CourseStickyCTA />
     </div>
   );
 }

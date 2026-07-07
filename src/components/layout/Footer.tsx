@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { Mail } from "lucide-react";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 import { FacebookIcon } from "@/components/shared/FacebookIcon";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { sponsorEmail, socials } from "@/data/settings";
@@ -41,14 +41,7 @@ export const Footer: React.FC = () => {
           {/* Column 1: Logo & Tagline */}
           <div>
             <div className="flex items-center gap-2 mb-3 sm:mb-4">
-              <Image
-                src="/Logo/RBS Logo.svg"
-                alt="Robotics Sóc Sơn Logo"
-                width={637}
-                height={483}
-                className="h-7 w-auto object-contain sm:h-8"
-                sizes="32px"
-              />
+              <BrandLogo className="h-7 w-auto sm:h-8" />
               <span className="text-lg sm:text-xl md:text-2xl font-bold text-foreground">
                 Robotics Sóc Sơn
               </span>

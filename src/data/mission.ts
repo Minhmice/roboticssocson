@@ -158,8 +158,8 @@ export const missionData: readonly MissionItem[] = [
     mobileHeight: "min-h-[150px]",
     height: "md:h-[215px]",
     icon: "Heart",
-    color: "from-purple-500 to-purple-600",
-    bgColor: "bg-purple-900/20",
+    color: "from-primary to-primary/80",
+    bgColor: "bg-primary/5",
     animation: "bento2-tilt 5.5s ease-in-out infinite",
   },
   // Image 5 - Achievements

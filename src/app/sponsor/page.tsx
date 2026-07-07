@@ -399,8 +399,8 @@ export default function SponsorPage() {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-lg bg-chart-2/5 border-l-4 border-chart-2 mb-6 mx-6 sm:mx-8">
-                  <p className="text-sm text-muted-foreground">
+                <div className="p-4 rounded-lg bg-primary/5 border border-primary/20 mb-6 mx-6 sm:mx-8">
+                  <p className="text-sm text-foreground/85">
                     {locale === "vi"
                       ? personalStepInfo.note_content_vi
                       : personalStepInfo.note_content_en}

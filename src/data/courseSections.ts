@@ -180,6 +180,14 @@ export const courseProblemCapstone = {
   description: courseProblemProse,
 } as const;
 
+export const courseProblemHumanImage = {
+  src: "/Images/Mission/Image (2).webp",
+  alt: {
+    vi: "Học sinh tập trung lắp mạch và lập trình trong lớp",
+    en: "Student focused on building circuits and coding in class",
+  },
+} as const;
+
 export const courseSolutionProse: LocalizedText = {
   vi: "Thay vì chỉ tiêu thụ nội dung, học sinh dùng khối lệnh Scratch và mBlock để hiểu cách công nghệ hoạt động — rồi đưa chương trình ra LED, cảm biến và robot thật. Máy tính là công cụ; phần lớn thời gian là tay, mắt và tư duy.",
   en: "Instead of only consuming content, students use Scratch and mBlock blocks to see how technology works — then bring programs to real LEDs, sensors, and robots. The computer is a tool; most of the time is hands, eyes, and thinking.",

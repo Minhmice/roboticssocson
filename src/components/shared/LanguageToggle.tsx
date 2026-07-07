@@ -41,9 +41,3 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
   );
 };
 
-/**
- * Usage example:
- * 
- * <LanguageToggle onLanguageChange={(lang) => console.log(lang)} />
- */
-

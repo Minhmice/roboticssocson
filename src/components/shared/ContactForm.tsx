@@ -21,7 +21,6 @@ export const ContactForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Integrate with API endpoint or webhook
-    console.log("Form submitted:", formData);
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
   };
@@ -163,10 +162,4 @@ export const ContactForm: React.FC = () => {
     </GlowCard>
   );
 };
-
-/**
- * Usage example:
- * 
- * <ContactForm />
- */
 

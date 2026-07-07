@@ -5,6 +5,7 @@ import {
   courseProblemCapstone,
   courseProblemCards,
   courseSectionCopy,
+  courseSolutionCards,
 } from "@/data/courseSections";
 import { getLocalized } from "@/lib/course/getLocalized";
 import { getLucideIcon } from "@/lib/course/lucideFromName";
@@ -19,54 +20,51 @@ import type { LucideIcon } from "lucide-react";
 import { useId, useRef } from "react";
 
 const EASE_OUT_QUART = [0.25, 1, 0.5, 1] as const;
-const VIEWPORT = { once: false, margin: "-50px" } as const;
-const ITEM_DURATION = 0.6;
-const STAGGER_CHILDREN = 0.15;
-const HEADING_ID = "course-problem-heading";
-
-const sectionContainerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: STAGGER_CHILDREN,
-    },
-  },
-};
+const VIEWPORT = { once: true, margin: "-60px" } as const;
+const ITEM_DURATION = 0.45;
+const STAGGER_CHILDREN = 0.1;
 
 const listVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
       staggerChildren: STAGGER_CHILDREN,
-      delayChildren: 0.05,
+      delayChildren: 0.08,
     },
   },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 10 },
+  hidden: { opacity: 0, x: -8 },
   visible: {
     opacity: 1,
-    y: 0,
+    x: 0,
     transition: { duration: ITEM_DURATION, ease: EASE_OUT_QUART },
   },
 };
 
-const orbPulseVariants: Variants = {
-  idle: {
-    boxShadow: "0 0 0 0 rgba(37, 99, 235, 0)",
+const solutionItemVariants: Variants = {
+  hidden: { opacity: 0, x: 8 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: ITEM_DURATION, ease: EASE_OUT_QUART },
   },
-  pulse: {
-    boxShadow: [
-      "0 0 0 0 rgba(37, 99, 235, 0)",
-      "0 0 0 6px rgba(37, 99, 235, 0.14)",
-      "0 0 0 0 rgba(37, 99, 235, 0)",
-    ],
-    transition: {
-      duration: 2.6,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
+};
+
+const headerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08 },
+  },
+};
+
+const headerItemVariants: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: EASE_OUT_QUART },
   },
 };
 
@@ -77,37 +75,49 @@ type RailItemProps = {
   isLast: boolean;
   isCapstone?: boolean;
   animated: boolean;
+  variant?: "problem" | "solution";
 };
 
 function StepOrb({
   Icon,
-  animated,
   inView,
   isCapstone,
+  animated,
+  variant = "problem",
 }: {
   Icon: LucideIcon;
-  animated: boolean;
   inView: boolean;
   isCapstone?: boolean;
+  animated: boolean;
+  variant?: "problem" | "solution";
 }) {
   const baseClass = cn(
-    "relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border shadow-sm transition-colors duration-300 motion-reduce:transition-none",
+    "relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border shadow-sm",
     isCapstone
       ? "border-primary bg-primary text-primary-foreground"
       : inView
-        ? "border-primary/40 bg-accent"
-        : "border-border bg-card",
+        ? "border-primary/50 bg-accent text-primary"
+        : "border-border bg-card text-muted-foreground",
+    variant === "solution" &&
+      inView &&
+      !isCapstone &&
+      "shadow-[0_0_0_4px_rgba(37,99,235,0.08)]",
   );
 
-  const iconClass = cn(
-    "h-4 w-4",
-    isCapstone ? "text-primary-foreground" : "text-primary",
-  );
-
-  if (!animated || isCapstone) {
+  if (!animated) {
     return (
       <span className={baseClass}>
-        <Icon className={iconClass} aria-hidden />
+        <Icon
+          className={cn(
+            "h-4 w-4",
+            isCapstone
+              ? "text-primary-foreground"
+              : inView
+                ? "text-primary"
+                : "text-muted-foreground",
+          )}
+          aria-hidden
+        />
       </span>
     );
   }
@@ -115,11 +125,40 @@ function StepOrb({
   return (
     <motion.span
       className={baseClass}
-      variants={orbPulseVariants}
-      initial="idle"
-      animate={inView ? "pulse" : "idle"}
+      initial={{ scale: 0.9, opacity: 0.85 }}
+      animate={
+        inView
+          ? {
+              scale: 1,
+              opacity: 1,
+              boxShadow: isCapstone
+                ? [
+                    "0 0 0 0 rgba(37, 99, 235, 0.2)",
+                    "0 0 0 8px rgba(37, 99, 235, 0)",
+                  ]
+                : undefined,
+            }
+          : { scale: 0.9, opacity: 0.85 }
+      }
+      transition={{
+        duration: isCapstone ? 0.55 : 0.4,
+        ease: EASE_OUT_QUART,
+        boxShadow: isCapstone
+          ? { duration: 1.2, ease: "easeOut" }
+          : undefined,
+      }}
     >
-      <Icon className={iconClass} aria-hidden />
+      <Icon
+        className={cn(
+          "h-4 w-4",
+          isCapstone
+            ? "text-primary-foreground"
+            : inView
+              ? "text-primary"
+              : "text-muted-foreground",
+        )}
+        aria-hidden
+      />
     </motion.span>
   );
 }
@@ -131,52 +170,77 @@ function RailItem({
   isLast,
   isCapstone = false,
   animated,
+  variant = "problem",
 }: RailItemProps) {
   const ref = useRef<HTMLLIElement>(null);
-  const inView = useInView(ref, { margin: "-20% 0px -20% 0px", amount: 0.5 });
+  const inView = useInView(ref, { margin: "-15% 0px -15% 0px", amount: 0.45 });
+  const itemVariant =
+    variant === "solution" ? solutionItemVariants : itemVariants;
 
   const connector = !isLast ? (
-    <span
-      className="absolute left-[1.375rem] top-11 bottom-0 w-px bg-border"
-      aria-hidden
-    />
+    <>
+      <span
+        className="absolute left-[1.375rem] top-11 bottom-0 w-px bg-border"
+        aria-hidden
+      />
+      {animated ? (
+        <motion.span
+          className="absolute left-[1.375rem] top-11 bottom-0 w-px origin-top bg-primary/35"
+          aria-hidden
+          initial={false}
+          animate={{ scaleY: inView ? 1 : 0 }}
+          transition={{ duration: 0.55, ease: EASE_OUT_QUART, delay: 0.12 }}
+        />
+      ) : (
+        <span
+          className={cn(
+            "absolute left-[1.375rem] top-11 bottom-0 w-px origin-top bg-primary/35",
+            inView ? "scale-y-100" : "scale-y-0",
+          )}
+          aria-hidden
+        />
+      )}
+    </>
   ) : null;
-
-  const bodyClass = cn(
-    "mt-1.5 text-sm leading-relaxed text-pretty",
-    isCapstone
-      ? "text-foreground/85 md:text-base"
-      : "text-foreground/80",
-  );
 
   const content = (
     <>
       {connector}
       <StepOrb
         Icon={Icon}
-        animated={animated}
         inView={inView}
         isCapstone={isCapstone}
+        animated={animated}
+        variant={variant}
       />
       <div className="min-w-0 pt-0.5">
         <h3
           className={cn(
-            "font-semibold text-foreground text-balance",
+            "font-semibold text-balance",
             isCapstone
-              ? "text-base sm:text-[1.0625rem] text-primary"
-              : "text-base sm:text-[1.0625rem]",
+              ? "text-base text-primary sm:text-[1.0625rem]"
+              : "text-base text-foreground sm:text-[1.0625rem]",
           )}
         >
           {title}
         </h3>
-        <p className={bodyClass}>{description}</p>
+        <p
+          className={cn(
+            "mt-1.5 text-sm leading-relaxed text-pretty",
+            isCapstone
+              ? "text-foreground/85 md:text-base"
+              : "text-foreground/80",
+          )}
+        >
+          {description}
+        </p>
       </div>
     </>
   );
 
   if (!animated) {
     return (
-      <li ref={ref} className="relative flex gap-4 pb-10 last:pb-0">
+      <li ref={ref} className="relative flex gap-4 pb-9 last:pb-0">
         {content}
       </li>
     );
@@ -185,24 +249,163 @@ function RailItem({
   return (
     <motion.li
       ref={ref}
-      className="relative flex gap-4 pb-10 last:pb-0"
-      variants={itemVariants}
+      className="relative flex gap-4 pb-9 last:pb-0"
+      variants={itemVariant}
     >
       {content}
     </motion.li>
   );
 }
 
+function ColumnHeader({
+  animated,
+  children,
+  className,
+}: {
+  animated: boolean;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  if (!animated) {
+    return <header className={className}>{children}</header>;
+  }
+
+  return (
+    <motion.header
+      className={className}
+      initial="hidden"
+      whileInView="visible"
+      viewport={VIEWPORT}
+      variants={headerVariants}
+    >
+      {children}
+    </motion.header>
+  );
+}
+
+function MotionBadge({
+  animated,
+  children,
+}: {
+  animated: boolean;
+  children: React.ReactNode;
+}) {
+  const className =
+    "mb-4 inline-block rounded-full border border-primary/20 bg-accent px-3 py-1 text-xs font-medium text-primary";
+
+  if (!animated) {
+    return <span className={className}>{children}</span>;
+  }
+
+  return (
+    <motion.span className={className} variants={headerItemVariants}>
+      {children}
+    </motion.span>
+  );
+}
+
+function MotionTitle({
+  animated,
+  id,
+  children,
+  className,
+}: {
+  animated: boolean;
+  id?: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  if (!animated) {
+    return (
+      <h2 id={id} className={className}>
+        {children}
+      </h2>
+    );
+  }
+
+  return (
+    <motion.h2 id={id} className={className} variants={headerItemVariants}>
+      {children}
+    </motion.h2>
+  );
+}
+
+function MotionSubtitle({
+  animated,
+  children,
+  className,
+}: {
+  animated: boolean;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  if (!animated) {
+    return <p className={className}>{children}</p>;
+  }
+
+  return (
+    <motion.p className={className} variants={headerItemVariants}>
+      {children}
+    </motion.p>
+  );
+}
+
+function MotionList({
+  animated,
+  children,
+  className,
+  ariaLabelledBy,
+}: {
+  animated: boolean;
+  children: React.ReactNode;
+  className?: string;
+  ariaLabelledBy: string;
+}) {
+  if (!animated) {
+    return (
+      <ol className={className} aria-labelledby={ariaLabelledBy}>
+        {children}
+      </ol>
+    );
+  }
+
+  return (
+    <motion.ol
+      className={className}
+      aria-labelledby={ariaLabelledBy}
+      initial="hidden"
+      whileInView="visible"
+      viewport={VIEWPORT}
+      variants={listVariants}
+    >
+      {children}
+    </motion.ol>
+  );
+}
+
+const PROBLEM_HEADING_ID = "course-problem-heading";
+const SOLUTION_HEADING_ID = "course-solution-heading";
+
 export default function CourseProblem() {
   const { locale } = useLanguage();
-  const copy = courseSectionCopy.problem;
+  const problemCopy = courseSectionCopy.problem;
+  const solutionCopy = courseSectionCopy.solution;
   const prefersReducedMotion = useReducedMotion();
   const animated = !prefersReducedMotion;
-  const listLabelId = useId();
+  const problemListLabelId = useId();
+  const solutionListLabelId = useId();
 
-  const title = getLocalized(copy.title, locale);
-  const subtitle = getLocalized(copy.subtitle, locale);
-  const badge = copy.badge ? getLocalized(copy.badge, locale) : null;
+  const problemTitle = getLocalized(problemCopy.title, locale);
+  const problemSubtitle = getLocalized(problemCopy.subtitle, locale);
+  const badge = problemCopy.badge
+    ? getLocalized(problemCopy.badge, locale)
+    : null;
+
+  const solutionTitleLine1 = getLocalized(solutionCopy.title, locale);
+  const solutionTitleLine2 = solutionCopy.titleLine2
+    ? getLocalized(solutionCopy.titleLine2, locale)
+    : null;
+  const solutionSubtitle = getLocalized(solutionCopy.subtitle, locale);
 
   const painItems = courseProblemCards.map((item) => {
     const Icon = getLucideIcon(item.icon ?? "Circle");
@@ -222,109 +425,130 @@ export default function CourseProblem() {
     Icon: CapstoneIcon,
   };
 
-  const allItems = [...painItems, capstoneItem];
-  const totalSteps = allItems.length;
+  const solutionItems = courseSolutionCards.map((item) => {
+    const Icon = getLucideIcon(item.icon ?? "Circle");
+    return {
+      id: item.id,
+      title: getLocalized(item.title, locale),
+      description: getLocalized(item.description, locale),
+      Icon,
+    };
+  });
 
-  const railItems = allItems.map((item, index) => (
-    <RailItem
-      key={item.id}
-      title={item.title}
-      description={item.description}
-      Icon={item.Icon}
-      isLast={index === totalSteps - 1}
-      isCapstone={index === totalSteps - 1}
-      animated={animated}
-    />
-  ));
-
-  const gridClassName =
-    "lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-x-16 lg:gap-y-0 lg:items-start";
-
-  const headerBlock = animated ? (
-    <motion.header
-      className="mb-10 text-center lg:mb-0 lg:sticky lg:top-24 lg:text-left"
-      initial="hidden"
-      whileInView="visible"
-      viewport={VIEWPORT}
-      variants={sectionContainerVariants}
-    >
-      {badge && (
-        <motion.span
-          className="mb-4 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
-          variants={itemVariants}
-        >
-          {badge}
-        </motion.span>
-      )}
-      <motion.h2
-        id={HEADING_ID}
-        className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold leading-[1.12] tracking-tight text-balance text-foreground"
-        variants={itemVariants}
-      >
-        {title}
-      </motion.h2>
-      <motion.p
-        className="mt-5 mx-auto lg:mx-0 max-w-[38ch] text-base md:text-lg text-foreground/80 leading-relaxed text-pretty"
-        variants={itemVariants}
-      >
-        {subtitle}
-      </motion.p>
-    </motion.header>
-  ) : (
-    <header className="mb-10 text-center lg:mb-0 lg:sticky lg:top-24 lg:text-left">
-      {badge && (
-        <span className="mb-4 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-          {badge}
-        </span>
-      )}
-      <h2
-        id={HEADING_ID}
-        className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold leading-[1.12] tracking-tight text-balance text-foreground"
-      >
-        {title}
-      </h2>
-      <p className="mt-5 mx-auto lg:mx-0 max-w-[38ch] text-base md:text-lg text-foreground/80 leading-relaxed text-pretty">
-        {subtitle}
-      </p>
-    </header>
-  );
-
-  const railBlock = animated ? (
-    <motion.ol
-      className="relative mx-auto w-full max-w-xl lg:max-w-none space-y-0"
-      aria-labelledby={listLabelId}
-      initial="hidden"
-      whileInView="visible"
-      viewport={VIEWPORT}
-      variants={listVariants}
-    >
-      <span id={listLabelId} className="sr-only">
-        {title}
-      </span>
-      {railItems}
-    </motion.ol>
-  ) : (
-    <ol
-      className="relative mx-auto w-full max-w-xl lg:max-w-none space-y-0"
-      aria-labelledby={listLabelId}
-    >
-      <span id={listLabelId} className="sr-only">
-        {title}
-      </span>
-      {railItems}
-    </ol>
-  );
+  const rightRailItems = [capstoneItem, ...solutionItems];
+  const titleClassName =
+    "text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold leading-[1.12] tracking-[-0.02em] text-balance text-foreground";
+  const subtitleClassName =
+    "mt-4 max-w-[38ch] text-pretty text-base leading-relaxed text-foreground/80 md:text-lg";
 
   return (
     <section
       id="course-problem"
-      className="py-12 sm:py-16 md:py-24 bg-muted/40"
-      aria-labelledby={HEADING_ID}
+      className="relative overflow-hidden bg-muted/40 py-12 sm:py-16 md:py-24"
+      aria-labelledby={PROBLEM_HEADING_ID}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-        <div className={gridClassName}>
-          {headerBlock}
-          {railBlock}
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+        {badge && (
+          <div className="mb-10 text-center lg:mb-14">
+            <MotionBadge animated={animated}>{badge}</MotionBadge>
+          </div>
+        )}
+
+        <div className="flex flex-col gap-16 lg:gap-24">
+          {/* Row 1 — title trái · bullets phải */}
+          <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+            <ColumnHeader
+              animated={animated}
+              className="text-center lg:sticky lg:top-24 lg:text-left"
+            >
+              <MotionTitle
+                animated={animated}
+                id={PROBLEM_HEADING_ID}
+                className={titleClassName}
+              >
+                {problemTitle}
+              </MotionTitle>
+              <MotionSubtitle
+                animated={animated}
+                className={cn(subtitleClassName, "mx-auto lg:mx-0")}
+              >
+                {problemSubtitle}
+              </MotionSubtitle>
+            </ColumnHeader>
+
+            <MotionList
+              animated={animated}
+              className="relative mx-auto w-full max-w-xl lg:max-w-none"
+              ariaLabelledBy={problemListLabelId}
+            >
+              <span id={problemListLabelId} className="sr-only">
+                {problemTitle}
+              </span>
+              {painItems.map((item, index) => (
+                <RailItem
+                  key={item.id}
+                  title={item.title}
+                  description={item.description}
+                  Icon={item.Icon}
+                  isLast={index === painItems.length - 1}
+                  animated={animated}
+                  variant="problem"
+                />
+              ))}
+            </MotionList>
+          </div>
+
+          {/* Row 2 — bullets trái · title phải */}
+          <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+            <MotionList
+              animated={animated}
+              className="relative order-2 mx-auto w-full max-w-xl lg:order-1 lg:max-w-none"
+              ariaLabelledBy={solutionListLabelId}
+            >
+              <span id={solutionListLabelId} className="sr-only">
+                {solutionTitleLine1} {solutionTitleLine2}
+              </span>
+              {rightRailItems.map((item, index) => (
+                <RailItem
+                  key={item.id}
+                  title={item.title}
+                  description={item.description}
+                  Icon={item.Icon}
+                  isLast={index === rightRailItems.length - 1}
+                  isCapstone={index === 0}
+                  animated={animated}
+                  variant="solution"
+                />
+              ))}
+            </MotionList>
+
+            <ColumnHeader
+              animated={animated}
+              className="order-1 text-center lg:order-2 lg:sticky lg:top-24 lg:text-right"
+            >
+              <MotionTitle
+                animated={animated}
+                id={SOLUTION_HEADING_ID}
+                className={titleClassName}
+              >
+                <span className="block">{solutionTitleLine1}</span>
+                {solutionTitleLine2 && (
+                  <span className="mt-1 block text-primary">
+                    {solutionTitleLine2}
+                  </span>
+                )}
+              </MotionTitle>
+              <MotionSubtitle
+                animated={animated}
+                className={cn(
+                  subtitleClassName,
+                  "mx-auto lg:ml-auto lg:mr-0 lg:text-right",
+                )}
+              >
+                {solutionSubtitle}
+              </MotionSubtitle>
+            </ColumnHeader>
+          </div>
         </div>
       </div>
     </section>
