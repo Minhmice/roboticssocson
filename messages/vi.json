@@ -12,7 +12,9 @@
     "projects": "Dự án",
     "faq": "FAQ",
     "registerConsultation": "Đăng ký tư vấn",
-    "sponsorButton": "Tài trợ ngay"
+    "sponsorButton": "Tài trợ ngay",
+    "openMenu": "Mở menu điều hướng",
+    "closeMenu": "Đóng menu điều hướng"
   },
   "hero": {
     "badge": "Robotics Sóc Sơn • Hanoi"

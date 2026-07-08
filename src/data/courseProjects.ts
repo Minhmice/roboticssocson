@@ -1,129 +1,172 @@
 import type { LocalizedText, LocalizedStringList } from "@/lib/course/getLocalized";
 
-export type CourseProject = {
-  id: string;
-  title: LocalizedText;
-  description: LocalizedText;
-  components: LocalizedStringList;
-  logic: LocalizedStringList;
-  skills: LocalizedStringList;
-  imageSrc?: string;
-  imageAlt?: LocalizedText;
+/** Optional path under /public — leave empty to show MediaPlaceholder. */
+export type CapstoneMedia = {
+  src?: string;
+  alt: LocalizedText;
+  caption: LocalizedText;
 };
 
-export const courseProjects: CourseProject[] = [
-  {
-    id: "project-smart-bin",
-    title: {
-      vi: "Thùng rác thông minh",
-      en: "Smart trash bin",
+export type CapstoneVariant = {
+  id: string;
+  title: LocalizedText;
+  tagline: LocalizedText;
+  setup: LocalizedText;
+  creative: LocalizedStringList;
+  gameplay: LocalizedText;
+  media: CapstoneMedia;
+};
+
+export type CapstoneArena = {
+  title: LocalizedText;
+  subtitle: LocalizedText;
+  badge: LocalizedText;
+  heroMedia: CapstoneMedia;
+  platformTitle: LocalizedText;
+  platformItems: LocalizedStringList;
+  platformMedia: CapstoneMedia;
+  arenaTitle: LocalizedText;
+  arenaSetup: LocalizedText;
+  arenaRules: LocalizedStringList;
+  arenaMedia: CapstoneMedia;
+  variantsTitle: LocalizedText;
+  variantsLead: LocalizedText;
+  variants: CapstoneVariant[];
+};
+
+/**
+ * Capstone = shared drive base + student-chosen mechanisms + live arena demo.
+ * Media `src` empty → UI shows “Ảnh sẽ được cập nhật” until assets land.
+ */
+export const courseCapstone: CapstoneArena = {
+  title: {
+    vi: "Dự án cuối khóa: Đấu trường robot",
+    en: "Capstone: Robot arena challenge",
+  },
+  subtitle: {
+    vi: "Mỗi đội nhận cùng một khung xe Arduino. Học sinh tự chọn cơ cấu gạt và chiến thuật — rồi tranh đẩy hộp về căn cứ trước lớp.",
+    en: "Every team starts with the same Arduino chassis. Students choose pusher designs and tactics — then race to push boxes home in a live class match.",
+  },
+  badge: {
+    vi: "Capstone",
+    en: "Capstone",
+  },
+  heroMedia: {
+    src: "/Images/Course/capstone-hero.webp",
+    alt: {
+      vi: "Robot thi đấu trên sân đấu trường đang nâng khối vàng trước khán giả",
+      en: "Competition robot on the arena floor lifting a yellow block before spectators",
     },
-    description: {
-      vi: "Cảm biến siêu âm phát hiện tay đưa vào — servo mở nắp tự động, đóng sau vài giây.",
-      en: "Ultrasonic sensor detects a hand — servo opens the lid automatically and closes after a few seconds.",
-    },
-    components: {
-      vi: [
-        "Arduino / mBlock",
-        "Cảm biến siêu âm HC-SR04",
-        "Servo SG90",
-        "Nguồn 5V, dây jumper",
-        "Khung thùng rác mô hình",
-      ],
-      en: [
-        "Arduino / mBlock",
-        "HC-SR04 ultrasonic sensor",
-        "SG90 servo",
-        "5V power, jumper wires",
-        "Model bin frame",
-      ],
-    },
-    logic: {
-      vi: [
-        "Đo khoảng cách liên tục",
-        "Nếu tay < ngưỡng → mở nắp (servo 90°)",
-        "Chờ 2–3 giây → đóng nắp",
-        "Lặp lại vòng đo",
-      ],
-      en: [
-        "Measure distance continuously",
-        "If hand < threshold → open lid (servo 90°)",
-        "Wait 2–3 seconds → close lid",
-        "Repeat measurement loop",
-      ],
-    },
-    skills: {
-      vi: [
-        "Đọc cảm biến siêu âm",
-        "Điều khiển servo",
-        "Điều kiện if/else",
-        "Vòng lặp forever",
-        "Trình bày demo sản phẩm",
-      ],
-      en: [
-        "Read ultrasonic sensor",
-        "Control servo",
-        "If/else conditions",
-        "Forever loop",
-        "Present a product demo",
-      ],
+    caption: {
+      vi: "Demo / thi đấu trên đấu trường — đích đến cuối khóa",
+      en: "Live arena competition — the course end goal",
     },
   },
-  {
-    id: "project-parking-warning",
-    title: {
-      vi: "Cảnh báo lùi xe",
-      en: "Reverse parking warning",
+  platformTitle: {
+    vi: "Khung nền tảng (cả hai đội đều có)",
+    en: "Shared platform (both teams)",
+  },
+  platformItems: {
+    vi: [
+      "Hệ thống di chuyển: khung xe bánh đà, Arduino Uno, mạch công suất điều khiển động cơ",
+      "Hệ thống điều khiển: tay cầm Bluetooth / joystick — lái xe tới vị trí thuận lợi",
+    ],
+    en: [
+      "Drive system: wheeled chassis, Arduino Uno, and a motor-driver board",
+      "Control system: Bluetooth / joystick controller — drive to a good shooting position",
+    ],
+  },
+  platformMedia: {
+    src: "/Images/Course/capstone-chassis.webp",
+    alt: {
+      vi: "Khung xe robot 4 bánh acrylic với cảm biến siêu âm và cảm biến dò đường",
+      en: "Four-wheel acrylic robot chassis with ultrasonic head and line sensors",
     },
-    description: {
-      vi: "Khoảng cách càng gần vật cản — LED nhấp nháy hoặc buzzer kêu càng nhanh.",
-      en: "The closer to an obstacle — LEDs blink or buzzer beeps faster.",
-    },
-    components: {
-      vi: [
-        "Arduino / mBlock",
-        "Cảm biến siêu âm",
-        "LED đỏ / vàng / xanh",
-        "Buzzer (tuỳ chọn)",
-        "Breadboard và điện trở",
-      ],
-      en: [
-        "Arduino / mBlock",
-        "Ultrasonic sensor",
-        "Red / yellow / green LEDs",
-        "Buzzer (optional)",
-        "Breadboard and resistors",
-      ],
-    },
-    logic: {
-      vi: [
-        "Đo khoảng cách phía sau",
-        "Xa: LED xanh sáng ổn định",
-        "Trung bình: LED vàng nhấp chậm",
-        "Gần: LED đỏ + buzzer nhấp nhanh",
-      ],
-      en: [
-        "Measure rear distance",
-        "Far: steady green LED",
-        "Medium: slow yellow blink",
-        "Close: fast red LED + buzzer",
-      ],
-    },
-    skills: {
-      vi: [
-        "Map khoảng cách → mức cảnh báo",
-        "PWM / nhịp nhấp LED",
-        "Điều kiện nhiều nhánh",
-        "Debug ngưỡng cảm biến",
-        "Giải thích an toàn thực tế",
-      ],
-      en: [
-        "Map distance → warning level",
-        "PWM / LED blink timing",
-        "Multi-branch conditions",
-        "Debug sensor thresholds",
-        "Explain real-world safety",
-      ],
+    caption: {
+      vi: "Khung nền tảng — chassis học sinh dùng làm điểm xuất phát",
+      en: "Shared platform — the chassis every team starts with",
     },
   },
-];
+  arenaTitle: {
+    vi: "Trận chính: Đẩy hộp về căn cứ",
+    en: "Main match: Box to base",
+  },
+  arenaSetup: {
+    vi: "Sân phẳng, nhiều hộp giấy màu ở giữa và vòng giới hạn vẽ sẵn. Mỗi đội bốc ngẫu nhiên một màu. Thời gian: 3 phút.",
+    en: "Flat field, colored paper boxes in the center, and a marked boundary ring. Each team draws a color at random. Match length: 3 minutes.",
+  },
+  arenaRules: {
+    vi: [
+      "Xuất phát hai phía — lái xe và gạt hộp đúng màu về căn cứ",
+      "Hộp đúng màu về căn cứ: +3 điểm",
+      "Chạm được hộp đúng màu nhưng chưa về căn cứ: +1 điểm",
+      "Hết giờ — đội nhiều điểm hơn thắng",
+    ],
+    en: [
+      "Start from opposite sides — drive and push your color boxes home",
+      "Your color box reaches base: +3 points",
+      "Touch your color box but it is not home yet: +1 point",
+      "At time-up — higher score wins",
+    ],
+  },
+  arenaMedia: {
+    src: "",
+    alt: {
+      vi: "Sơ đồ sân đẩy hộp về căn cứ",
+      en: "Box-to-base arena field diagram",
+    },
+    caption: {
+      vi: "Ảnh / sơ đồ sân đẩy hộp — sẽ cập nhật",
+      en: "Box-pusher field photo / diagram — coming soon",
+    },
+  },
+  variantsTitle: {
+    vi: "Đẩy hộp về căn cứ",
+    en: "Box to base",
+  },
+  variantsLead: {
+    vi: "Một thử thách cuối khóa — lái xe, gạt đúng hộp, ghi điểm trước lớp.",
+    en: "One capstone challenge — drive, push the right boxes, and score live in class.",
+  },
+  variants: [
+    {
+      id: "box-pusher",
+      title: {
+        vi: "Đẩy hộp về căn cứ",
+        en: "Box to base",
+      },
+      tagline: {
+        vi: "Lái xe, gạt hộp, ghi điểm — dễ hiểu, dễ hồi hộp",
+        en: "Drive, push, score — easy to follow, hard to look away",
+      },
+      setup: {
+        vi: "Nhiều hộp giấy màu khác nhau giữa sân; vòng giới hạn vẽ sẵn. Mỗi đội bốc ngẫu nhiên một màu.",
+        en: "Colored paper boxes in the center; a marked boundary ring. Each team draws a color at random.",
+      },
+      creative: {
+        vi: [
+          "Cơ khí: tấm gạt rộng (như xe ủi) hoặc cánh tay đẩy từ bên hông",
+          "Code: cảm biến màu để tìm hộp đúng màu đội mình",
+          "Chiến thuật: chặn đường đối thủ hoặc đẩy hộp sai màu ra xa căn cứ",
+        ],
+        en: [
+          "Hardware: a wide bulldozer blade or a side-mounted pusher arm",
+          "Code: color sensing to find your team’s assigned box color",
+          "Tactics: block the rival’s lane or knock the wrong-color box away from base",
+        ],
+      },
+      gameplay: {
+        vi: "Xuất phát hai phía — tranh đẩy hộp đúng màu về căn cứ trước khi hết giờ.",
+        en: "Start from opposite sides — race to push your color boxes back to base before time is up.",
+      },
+      media: {
+        src: "",
+        alt: { vi: "Robot đẩy hộp về căn cứ", en: "Box-pusher robots" },
+        caption: {
+          vi: "Ảnh đẩy hộp — sẽ cập nhật",
+          en: "Box pusher photo — coming soon",
+        },
+      },
+    },
+  ],
+};

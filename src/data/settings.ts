@@ -9,6 +9,10 @@ export const domain = "roboticssocson.minhmice.com" as const;
 
 export const sponsorEmail = "roboticssocson@gmail.com" as const;
 
+export const contactPhone = "0981427659" as const;
+export const contactLeadName = "Đoàn Thùy Ngân" as const;
+export const messengerUrl = "https://m.me/roboticssocson" as const;
+
 /** Reserved for a future public pitch PDF path under /public. */
 export const pitchPdfUrl: string | null = null;
 
@@ -20,7 +24,7 @@ export type Socials = {
 };
 
 export const socials: Socials = {
-  facebook: "https://www.facebook.com/roboticssocson",
+  facebook: "https://www.facebook.com/roboticssocson/",
   youtube: "",
   tiktok: "",
   github: "",
@@ -53,6 +57,7 @@ export const settings = {
   brand,
   domain,
   sponsorEmail,
+  contactPhone,
   pitchPdfUrl,
   socials,
   palette,

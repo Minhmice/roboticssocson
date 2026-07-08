@@ -365,24 +365,24 @@ export const courseLessons: readonly CourseLesson[] = [
     part: "capstone",
     title: { vi: "Dự án cuối khóa", en: "Capstone Project" },
     goal: {
-      vi: "Tổng hợp lập trình và phần cứng vào một sản phẩm hoàn chỉnh.",
-      en: "Combine programming and hardware into one complete product.",
+      vi: "Tổng hợp khung xe Arduino, cảm biến và cơ cấu tự chọn vào trận đấu sân.",
+      en: "Combine the Arduino chassis, sensors, and a chosen mechanism into a live match.",
     },
     product: {
-      vi: "Thùng rác thông minh hoặc cảnh báo lùi xe mini.",
-      en: "A smart bin or mini parking reverse-warning device.",
+      vi: "Robot đấu trường (bắn bóng / kéo co / đâm bóng / đẩy hộp) — thi đấu trước lớp.",
+      en: "Arena robot (ball launch / tug-of-war / balloon / box push) — compete in class.",
     },
     primaryLevel: {
-      vi: "Hoàn thành mạch cơ bản và demo một tính năng chính.",
-      en: "Complete the basic circuit and demo one core feature.",
+      vi: "Xe chạy được bằng joystick và hoàn thành một cơ cấu chính (bắn, kéo hoặc đẩy).",
+      en: "Drive with the joystick and finish one main mechanism (shoot, pull, or push).",
     },
     secondaryLevel: {
-      vi: "Thêm cảm biến phụ hoặc giao diện Scratch đồng bộ.",
-      en: "Add a secondary sensor or synced Scratch interface.",
+      vi: "Thêm cảm biến hỗ trợ (siêu âm khoảng cách, LED sẵn sàng, hoặc Shield).",
+      en: "Add an assist sensor (range, ready LED, or shield).",
     },
     challenge: {
-      vi: "Trình bày sản phẩm: vấn đề, giải pháp, và cách code hoạt động.",
-      en: "Present the product: problem, solution, and how the code works.",
+      vi: "Thi đấu 3 phút + giải thích chiến thuật: vì sao chọn cơ cấu đó và luật if/else chính.",
+      en: "3-minute match + explain tactics: why that mechanism and the key if/else rules.",
     },
   },
 ] as const;

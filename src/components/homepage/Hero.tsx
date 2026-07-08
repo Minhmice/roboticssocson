@@ -222,11 +222,28 @@ function AnimatedTextWithChars({ text }: { text: string }) {
   );
 }
 
+function useIsNarrowViewport(maxWidth = 767) {
+  // Default true so ATF mobile stays quiet until matchMedia confirms width.
+  const [narrow, setNarrow] = useState(true);
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${maxWidth}px)`);
+    const sync = () => setNarrow(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, [maxWidth]);
+
+  return narrow;
+}
+
 export default function Hero() {
   const { locale } = useLanguage();
   const { getField } = useTranslatedData();
   const prefersReducedMotion = useReducedMotion();
-  const reduced = Boolean(prefersReducedMotion);
+  const isMobile = useIsNarrowViewport();
+  // Above-the-fold on mobile: skip ambient/chip animation and phrase cycling cost.
+  const reduced = Boolean(prefersReducedMotion) || isMobile;
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [cycleCount, setCycleCount] = useState(0);
@@ -347,9 +364,6 @@ export default function Hero() {
               className="w-full sm:w-auto text-base sm:text-lg px-8 sm:px-10 py-3.5 sm:py-4 min-h-[48px] shadow-[0_8px_28px_rgba(37,99,235,0.22)] hover:shadow-[0_10px_32px_rgba(37,99,235,0.28)]"
             />
           </div>
-          <p className="mt-3 text-xs sm:text-sm text-foreground/70">
-            {getField(heroData, "cta_note")}
-          </p>
         </AnimatedText>
       </div>
     </AuroraBackground>

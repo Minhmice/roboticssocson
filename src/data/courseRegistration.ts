@@ -11,6 +11,7 @@ export type CourseRegistrationConfig = {
   successMessage_en: string;
   googleFormLinks: { vi: string; en: string };
   messengerUrl?: string;
+  emailFallback?: string;
   fieldLabels: {
     parentName_vi: string;
     parentName_en: string;
@@ -37,14 +38,23 @@ export type CourseRegistrationConfig = {
 export const courseRegistrationConfig: CourseRegistrationConfig = {
   title_vi: "Đăng ký tư vấn khóa học",
   title_en: "Course consultation registration",
-  subtitle_vi: "Đăng ký qua Google Form hoặc nhắn Messenger — phản hồi trong 24–48 giờ.",
-  subtitle_en: "Register via Google Form or message us on Messenger — we reply within 24–48 hours.",
-  submitLabel_vi: "Gửi đăng ký",
-  submitLabel_en: "Submit registration",
-  successMessage_vi: "Cảm ơn bạn! Chúng tôi sẽ liên hệ sớm.",
-  successMessage_en: "Thank you! We will contact you soon.",
-  googleFormLinks: { vi: "", en: "" },
+  subtitle_vi:
+    "Đăng ký trực tiếp trên trang — phản hồi trong 24–48 giờ. Có thể nhắn Messenger nếu cần hỗ trợ nhanh.",
+  subtitle_en:
+    "Register directly on this page — we reply within 24–48 hours. Messenger is available for quick help.",
+  submitLabel_vi: "Gửi đăng ký tư vấn",
+  submitLabel_en: "Submit consultation request",
+  successMessage_vi:
+    "Đăng ký thành công. Trung tâm sẽ liên hệ tư vấn sớm.",
+  successMessage_en:
+    "Registration successful. We will contact you soon.",
+  // Back-up links to the official Google Form (custom UI posts to formResponse).
+  googleFormLinks: {
+    vi: "https://docs.google.com/forms/d/e/1FAIpQLSda8_sRGtCiOLWgjR073-TV9drtiOzdWW9nbgLr5PIqO9xzTw/viewform",
+    en: "https://docs.google.com/forms/d/e/1FAIpQLSda8_sRGtCiOLWgjR073-TV9drtiOzdWW9nbgLr5PIqO9xzTw/viewform",
+  },
   messengerUrl: "https://m.me/roboticssocson",
+  emailFallback: "mailto:roboticssocson@gmail.com?subject=Dang%20ky%20tu%20van%20khoa%20hoc",
   fieldLabels: {
     parentName_vi: "Họ tên phụ huynh",
     parentName_en: "Parent name",

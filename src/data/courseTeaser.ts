@@ -49,8 +49,8 @@ export const courseTeaserSteps: CourseTeaserStep[] = [
     id: "capstone",
     title: { vi: "Dự án", en: "Capstone" },
     description: {
-      vi: "Thùng rác thông minh hoặc cảnh báo lùi xe — sản phẩm trình bày được.",
-      en: "Smart bin or parking warning — a product you can present.",
+      vi: "Đấu trường robot — mỗi đội tự “độ” cơ cấu rồi thi đấu trước lớp.",
+      en: "Robot arena — teams customize mechanisms and compete live in class.",
     },
   },
 ];

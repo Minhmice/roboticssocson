@@ -33,6 +33,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-05)
 - Phase 6 added: Marketing copy integration — parent-facing screen-time narrative on /course
 - Phase 7 added: Light theme migration — white + blue tech palette across entire site
 - Phase 7 complete: Light theme shipped via token migration + component sweep
+- Phase 8 added: Production readiness public launch SEO CWV headers analytics
 
 ## Current Milestone
 

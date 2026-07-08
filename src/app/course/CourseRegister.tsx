@@ -1,131 +1,195 @@
 "use client";
 
-import { CTAButton } from "@/components/shared/CTAButton";
+import { BootLink } from "@/components/shared/BootLink";
 import { FadeInSection } from "@/components/shared/FadeInSection";
-import { SectionHeader } from "@/components/shared/SectionHeader";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { courseRegistrationConfig } from "@/data/courseRegistration";
-import {
-  getGoogleFormUrl,
-  getMessengerUrl,
-  isRegistrationUrlAvailable,
-} from "@/lib/course/registrationLinks";
-import { Check, ExternalLink, MessageCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight, Mail } from "lucide-react";
+
+const headingId = "course-register-heading";
+
+const easeOutQuart = [0.25, 1, 0.5, 1] as const;
+
+const ctaButtonBase =
+  "inline-flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl px-8 py-3.5 text-base font-semibold transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1d4ed8] sm:text-lg";
 
 const copy = {
-  whatWeAskHeading: {
-    vi: "Khi mở Google Form, phụ huynh sẽ cần cung cấp:",
-    en: "When you open the Google Form, parents will provide:",
+  title: {
+    vi: "Sẵn sàng đăng ký tư vấn?",
+    en: "Ready to book a consultation?",
   },
-  trustLine: {
-    vi: "Thông tin chỉ dùng để tư vấn lớp học phù hợp. Thời gian điền khoảng 1–2 phút.",
-    en: "Information is used only for class consultation. Takes about 1–2 minutes.",
+  lead: {
+    vi: "Mở form đầy đủ trên trang riêng — gửi đăng ký trong 1–2 phút.",
+    en: "Open the full registration page — submit in about one to two minutes.",
   },
-  googleFormCta: {
-    vi: "Đăng ký qua Google Form",
-    en: "Register via Google Form",
+  proof: {
+    vi: "Đội phản hồi trong 24–48 giờ",
+    en: "Team replies within 24–48 hours",
   },
-  googleFormDisabled: {
-    vi: "Google Form đang cập nhật",
-    en: "Google Form is being updated",
+  cta: {
+    vi: "Mở form đăng ký tư vấn",
+    en: "Open consultation form",
   },
-  googleFormHelper: {
-    vi: "Trong thời gian này, phụ huynh có thể nhắn Messenger để được tư vấn.",
-    en: "For now, parents can contact us through Messenger for consultation.",
-  },
-  messengerCta: {
-    vi: "Nhắn Messenger",
-    en: "Message on Messenger",
+  contact: {
+    vi: "Liên hệ để thêm chi tiết",
+    en: "Contact for more details",
   },
 };
 
+/** Final course conversion — drenched tech-blue panel into /course-register-form. */
 export default function CourseRegister() {
   const { locale } = useLanguage();
-  const config = courseRegistrationConfig;
+  const prefersReducedMotion = useReducedMotion();
 
-  const title = locale === "vi" ? config.title_vi : config.title_en;
-  const subtitle = locale === "vi" ? config.subtitle_vi : config.subtitle_en;
+  const MotionTag = prefersReducedMotion ? "div" : motion.div;
+  const motionProps = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 16 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-40px" },
+        transition: { duration: 0.45, ease: easeOutQuart },
+      };
 
-  const googleFormUrl = getGoogleFormUrl(config.googleFormLinks, locale);
-  const messengerUrl = getMessengerUrl(config.messengerUrl, locale);
-  const hasGoogleForm = isRegistrationUrlAvailable(googleFormUrl);
-
-  const bullets = [
-    locale === "vi" ? config.fieldLabels.parentName_vi : config.fieldLabels.parentName_en,
-    locale === "vi" ? config.fieldLabels.phone_vi : config.fieldLabels.phone_en,
-    locale === "vi"
-      ? `${config.fieldLabels.studentName_vi} & ${config.fieldLabels.age_vi}`
-      : `${config.fieldLabels.studentName_en} & ${config.fieldLabels.age_en}`,
-    locale === "vi" ? config.fieldLabels.experience_vi : config.fieldLabels.experience_en,
-    locale === "vi" ? config.fieldLabels.note_vi : config.fieldLabels.note_en,
-  ];
+  const stagger = (delay: number) =>
+    prefersReducedMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 14 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true },
+          transition: { duration: 0.4, delay, ease: easeOutQuart },
+        };
 
   return (
     <FadeInSection
       id="course-register"
-      className="py-12 sm:py-16 md:py-24 bg-muted/40"
+      className="py-12 sm:py-16 md:py-20 lg:py-24"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-        <SectionHeader title={title} subtitle={subtitle} />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+        <MotionTag
+          {...motionProps}
+          className={cn(
+            "course-mid-cta grid-pattern animate-gradient-shift animate-pulse-glow rounded-2xl",
+            !prefersReducedMotion && "will-change-transform",
+          )}
+        >
+          <div
+            className="course-mid-cta-orb -left-20 -top-24 h-64 w-64 bg-white/22"
+            aria-hidden
+          />
+          <div
+            className="course-mid-cta-orb -bottom-28 -right-16 h-80 w-80 bg-sky-300/30"
+            aria-hidden
+          />
+          <div className="course-mid-cta-shimmer" aria-hidden />
 
-        <div className="max-w-lg mx-auto space-y-4 text-center">
-          {hasGoogleForm ? (
-            <CTAButton
-              label={copy.googleFormCta[locale]}
-              variant="primary"
-              icon={ExternalLink}
-              href={googleFormUrl}
-              target="_blank"
-              className="w-full min-h-[44px]"
-            />
-          ) : (
-            <div className="space-y-2">
-              <CTAButton
-                label={copy.googleFormDisabled[locale]}
-                variant="primary"
-                disabled
-                className="w-full min-h-[44px] opacity-50 cursor-not-allowed border-border shadow-none hover:shadow-none hover:scale-100"
-              />
-              <p className="text-sm text-muted-foreground">
-                {copy.googleFormHelper[locale]}
-              </p>
+          <div className="relative flex flex-col gap-8 p-6 sm:p-10 md:p-12 lg:p-14 xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,19rem)] xl:items-center xl:gap-x-14">
+            <header className="min-w-0 text-center xl:text-left">
+              {prefersReducedMotion ? (
+                <>
+                  <h2
+                    id={headingId}
+                    className="text-balance text-[clamp(1.75rem,4.5vw,3rem)] font-black leading-[1.08] tracking-tight text-white"
+                  >
+                    {copy.title[locale]}
+                  </h2>
+                  <p className="mx-auto mt-4 max-w-[44ch] text-pretty text-base font-medium leading-relaxed text-blue-50/95 sm:text-lg md:text-xl xl:mx-0">
+                    {copy.lead[locale]}
+                  </p>
+                  <p className="mx-auto mt-3 text-sm tracking-wide text-blue-100/70 sm:text-base xl:mx-0">
+                    {copy.proof[locale]}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <motion.h2
+                    id={headingId}
+                    {...stagger(0.08)}
+                    className="text-balance text-[clamp(1.75rem,4.5vw,3rem)] font-black leading-[1.08] tracking-tight text-white"
+                  >
+                    {copy.title[locale]}
+                  </motion.h2>
+                  <motion.p
+                    {...stagger(0.14)}
+                    className="mx-auto mt-4 max-w-[44ch] text-pretty text-base font-medium leading-relaxed text-blue-50/95 sm:text-lg md:text-xl xl:mx-0"
+                  >
+                    {copy.lead[locale]}
+                  </motion.p>
+                  <motion.p
+                    {...stagger(0.22)}
+                    className="mx-auto mt-3 text-sm tracking-wide text-blue-100/70 sm:text-base xl:mx-0"
+                  >
+                    {copy.proof[locale]}
+                  </motion.p>
+                </>
+              )}
+            </header>
+
+            <div className="flex min-w-0 w-full flex-col gap-3 sm:mx-auto sm:max-w-md xl:mx-0 xl:max-w-none">
+              {prefersReducedMotion ? (
+                <>
+                  <BootLink
+                    href="/course-register-form"
+                    className={cn(
+                      ctaButtonBase,
+                      "bg-white text-primary shadow-[0_4px_20px_rgba(0,0,0,0.14)] hover:bg-blue-50 hover:shadow-[0_10px_32px_rgba(0,0,0,0.18)] active:scale-[0.98]",
+                    )}
+                    aria-describedby={headingId}
+                  >
+                    <ArrowUpRight className="h-4 w-4 shrink-0" aria-hidden />
+                    {copy.cta[locale]}
+                  </BootLink>
+                  <BootLink
+                    href="/contact-us"
+                    className={cn(
+                      ctaButtonBase,
+                      "border-2 border-white/80 bg-white/10 text-white hover:border-white hover:bg-white/18 active:scale-[0.98]",
+                    )}
+                  >
+                    <Mail className="h-4 w-4 shrink-0" aria-hidden />
+                    {copy.contact[locale]}
+                  </BootLink>
+                </>
+              ) : (
+                <>
+                  <motion.div {...stagger(0.28)}>
+                    <BootLink
+                      href="/course-register-form"
+                      className={cn(
+                        ctaButtonBase,
+                        "group bg-white text-primary shadow-[0_4px_20px_rgba(0,0,0,0.14)] hover:-translate-y-0.5 hover:bg-blue-50 hover:shadow-[0_10px_32px_rgba(0,0,0,0.18)] active:translate-y-0 active:scale-[0.98]",
+                      )}
+                      aria-describedby={headingId}
+                    >
+                      <ArrowUpRight
+                        className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        aria-hidden
+                      />
+                      {copy.cta[locale]}
+                    </BootLink>
+                  </motion.div>
+                  <motion.div {...stagger(0.36)}>
+                    <BootLink
+                      href="/contact-us"
+                      className={cn(
+                        ctaButtonBase,
+                        "group border-2 border-white/80 bg-white/10 text-white hover:-translate-y-0.5 hover:border-white hover:bg-white/18 active:translate-y-0 active:scale-[0.98]",
+                      )}
+                    >
+                      <Mail
+                        className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:scale-105"
+                        aria-hidden
+                      />
+                      {copy.contact[locale]}
+                    </BootLink>
+                  </motion.div>
+                </>
+              )}
             </div>
-          )}
-
-          {messengerUrl && (
-            <CTAButton
-              label={copy.messengerCta[locale]}
-              variant="secondary"
-              icon={MessageCircle}
-              href={messengerUrl}
-              target="_blank"
-              className="w-full min-h-[44px]"
-            />
-          )}
-
-          <div className="pt-6 text-left">
-            <h3 className="text-sm font-medium text-foreground mb-3">
-              {copy.whatWeAskHeading[locale]}
-            </h3>
-            <ul className="space-y-2">
-              {bullets.map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-2 text-sm text-muted-foreground"
-                >
-                  <Check
-                    className="h-4 w-4 text-primary shrink-0 mt-0.5"
-                    aria-hidden
-                  />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
-              {copy.trustLine[locale]}
-            </p>
           </div>
-        </div>
+        </MotionTag>
       </div>
     </FadeInSection>
   );

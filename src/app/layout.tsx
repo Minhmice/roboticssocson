@@ -2,9 +2,13 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { AppShell } from "@/components/layout/AppShell";
 import { DynamicMetadata } from "@/components/layout/DynamicMetadata";
+import { Analytics } from "@/components/shared/Analytics";
+import { getBootLoaderPreloadScript } from "@/lib/boot-loader";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { homeSeo } from "@/lib/seo/routes-seo";
+import { getSiteUrl } from "@/lib/seo/site-url";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,39 +17,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:4000"
-  ),
-  title: "RBS - Sponsorship Site",
-  description:
-    "Empower the next generation of innovators. High school robotics team from Hanoi competing in FIRST Tech Challenge.",
-  keywords:
-    "robotics, FIRST Tech Challenge, FTC, STEM, Sóc Sơn, Hanoi, sponsorship, innovation",
+  metadataBase: new URL(getSiteUrl()),
+  ...buildMetadata(homeSeo.vi),
   authors: [{ name: "Robotics Sóc Sơn" }],
   icons: {
     icon: "/Logo/RBS Logo.svg",
     shortcut: "/Logo/RBS Logo.svg",
     apple: "/Logo/RBS Logo.svg",
-  },
-  openGraph: {
-    title: "RBS - Sponsorship Site",
-    description: "Empower the next generation of innovators through robotics.",
-    type: "website",
-    siteName: "Robotics Sóc Sơn",
-    images: [
-      {
-        url: "/Logo/RBS Logo.svg",
-        width: 637,
-        height: 483,
-        alt: "Robotics Sóc Sơn Logo",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Robotics Sóc Sơn",
-    description: "Empower the next generation of innovators.",
-    images: ["/Logo/RBS Logo.svg"],
   },
 };
 
@@ -60,14 +38,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const bootPreload = getBootLoaderPreloadScript();
+
   return (
-    <html lang="vi" className="scroll-smooth dark" data-theme="dark">
+    <html lang="vi" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
+      {bootPreload ? (
+        <head>
+          <script
+            id="rbs-boot-gate"
+            dangerouslySetInnerHTML={{ __html: bootPreload }}
+          />
+        </head>
+      ) : null}
       <body className={`${inter.variable} antialiased overflow-x-clip`}>
         <LanguageProvider>
           <DynamicMetadata />
-          <Navbar />
-          <main className="relative overflow-x-clip pt-16">{children}</main>
-          <Footer />
+          <Analytics />
+          <AppShell>{children}</AppShell>
         </LanguageProvider>
       </body>
     </html>

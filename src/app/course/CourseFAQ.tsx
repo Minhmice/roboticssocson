@@ -111,7 +111,7 @@ export default function CourseFAQ() {
 
                   <div className="course-faq-answer-panel">
                     <div className="course-faq-answer-inner">
-                      <div className="course-faq-answer-content px-4 sm:px-5 pb-5 text-sm text-foreground/85 leading-relaxed">
+                      <div className="course-faq-answer-content px-4 sm:px-5 pb-5 text-sm text-foreground/85 leading-relaxed text-center mx-auto max-w-prose">
                         {getLocalized(item.answer, locale)}
                       </div>
                     </div>

@@ -81,15 +81,15 @@ export default function CourseTeaser() {
               {getLocalized(courseTeaserCopy.subtitle, locale)}
             </p>
 
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center rounded-lg border border-primary/20 bg-card px-4 py-2 text-sm font-semibold text-primary shadow-sm">
+            <div className="mt-7 flex flex-col sm:flex-row items-stretch gap-3 sm:gap-4">
+              <span className="inline-flex w-full sm:flex-1 items-center justify-center rounded-xl border border-primary/20 bg-card px-6 sm:px-8 py-3 text-base font-medium text-primary shadow-sm min-h-[48px] text-center">
                 {getLocalized(courseTeaserCopy.stat, locale)}
               </span>
               <CTAButton
                 label={getLocalized(courseTeaserCopy.cta, locale)}
                 variant="primary"
                 href="/course"
-                className="min-h-[48px] px-8 text-base shadow-[0_4px_14px_rgba(37,99,235,0.28)]"
+                className="w-full sm:flex-1 min-h-[48px] px-6 sm:px-8 text-base shadow-[0_4px_14px_rgba(37,99,235,0.28)]"
               />
             </div>
           </header>

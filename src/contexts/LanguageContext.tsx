@@ -1,10 +1,17 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
+import enMessages from "../../messages/en.json";
+import viMessages from "../../messages/vi.json";
 
 type Locale = "vi" | "en";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Messages = Record<string, any>;
+
+const MESSAGE_CATALOG: Record<Locale, Messages> = {
+  vi: viMessages,
+  en: enMessages,
+};
 
 interface LanguageContextType {
   locale: Locale;
@@ -24,41 +31,28 @@ function getInitialLocale(): Locale {
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(getInitialLocale);
-  const [messages, setMessages] = useState<Messages>({});
-  const [, setIsChanging] = useState(false);
-
-  // Load messages dynamically
-  useEffect(() => {
-    import(`../../messages/${locale}.json`)
-      .then((m) => setMessages(m.default))
-      .catch((err) => console.error(`Failed to load messages for ${locale}:`, err));
-  }, [locale]);
 
   const setLocale = (newLocale: Locale) => {
     if (newLocale === locale) return;
-    
-    setIsChanging(true);
-    
-    // Fade out animation
+
     document.body.style.opacity = "0";
     document.body.style.transition = "opacity 0.3s ease-out";
 
     setTimeout(() => {
       setLocaleState(newLocale);
       localStorage.setItem("locale", newLocale);
-      
-      // Fade in animation
+
       setTimeout(() => {
         document.body.style.opacity = "1";
-        setIsChanging(false);
       }, 50);
     }, 300);
   };
 
+  const messages = MESSAGE_CATALOG[locale] ?? MESSAGE_CATALOG.vi;
+
   const t = (key: string): string => {
     if (!key || typeof key !== "string") return "";
-    if (!messages || Object.keys(messages).length === 0) return key;
-    
+
     const keys = key.split(".");
     let value: Record<string, unknown> | string = messages;
     for (const k of keys) {

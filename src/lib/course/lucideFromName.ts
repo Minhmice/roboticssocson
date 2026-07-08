@@ -16,6 +16,7 @@ import {
   Smartphone,
   Sparkles,
   Target,
+  Trophy,
   Workflow,
   Zap,
   Circle,
@@ -40,6 +41,7 @@ const iconMap: Record<string, LucideIcon> = {
   Smartphone,
   Sparkles,
   Target,
+  Trophy,
   Workflow,
   Zap,
 };

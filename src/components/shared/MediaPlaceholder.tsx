@@ -14,6 +14,7 @@ interface MediaPlaceholderProps {
   className?: string;
   sizes?: string;
   unoptimized?: boolean;
+  priority?: boolean;
 }
 
 export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
@@ -25,6 +26,7 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
   className,
   sizes = "100vw",
   unoptimized,
+  priority,
 }) => {
   const { locale } = useLanguage();
   const Icon = type === "image" ? ImageIcon : Video;
@@ -38,45 +40,28 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
         : "Video coming soon";
 
   if (src && src.trim() && type === "image") {
-    const encodedSrc = (() => {
+    // Pass a normalized path; next/image encodes for the optimizer.
+    // Pre-encoding spaces/accents caused double-encoding (%2520) and broken loads.
+    const imageSrc = (() => {
       const trimmedSrc = src.trim();
 
       if (trimmedSrc.startsWith("http") || trimmedSrc.startsWith("data:")) {
         return trimmedSrc;
       }
 
-      let normalizedSrc = trimmedSrc;
-      if (!normalizedSrc.startsWith("/")) {
-        normalizedSrc = "/" + normalizedSrc;
-      }
-
-      const lastSlashIndex = normalizedSrc.lastIndexOf("/");
-      if (lastSlashIndex === -1) return normalizedSrc;
-
-      const path = normalizedSrc.substring(0, lastSlashIndex + 1);
-      const filename = normalizedSrc.substring(lastSlashIndex + 1);
-
-      const hasSpecialChars =
-        /[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ\s()]/.test(
-          filename
-        );
-
-      if (hasSpecialChars) {
-        return path + encodeURIComponent(filename);
-      }
-
-      return normalizedSrc;
+      return trimmedSrc.startsWith("/") ? trimmedSrc : `/${trimmedSrc}`;
     })();
 
     return (
       <div className={cn("relative h-full w-full", className)}>
         <Image
-          src={encodedSrc}
+          src={imageSrc}
           alt={alt || caption || "Image"}
           fill
           sizes={sizes}
           className={cn("object-cover", !flush && "rounded-2xl")}
           unoptimized={unoptimized}
+          priority={priority}
         />
         {caption && (
           <div

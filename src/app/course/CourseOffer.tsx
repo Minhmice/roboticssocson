@@ -24,7 +24,7 @@ export default function CourseOffer() {
         <CTAButton
           label={getLocalized(courseOfferConfig.ctaLabel, locale)}
           variant="primary"
-          href="#course-register"
+          href="/course-register-form"
           className="min-h-[44px]"
         />
       </div>

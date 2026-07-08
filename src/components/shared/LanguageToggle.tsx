@@ -19,8 +19,11 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
         onClick={() => setLocale("vi")}
         variant="ghost"
         size="sm"
+        type="button"
+        aria-pressed={locale === "vi"}
+        aria-label="Tiếng Việt"
         className={cn(
-          "rounded-lg transition-all",
+          "rounded-lg transition-all min-h-[44px] min-w-[44px]",
           locale === "vi" && "bg-primary/10 text-primary"
         )}
       >
@@ -30,8 +33,11 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
         onClick={() => setLocale("en")}
         variant="ghost"
         size="sm"
+        type="button"
+        aria-pressed={locale === "en"}
+        aria-label="English"
         className={cn(
-          "rounded-lg transition-all",
+          "rounded-lg transition-all min-h-[44px] min-w-[44px]",
           locale === "en" && "bg-primary/10 text-primary"
         )}
       >

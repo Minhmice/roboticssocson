@@ -94,6 +94,15 @@
     font-feature-settings: "rlig" 1, "calt" 1;
     transition: background-color 0.3s ease-out, color 0.3s ease-out;
     overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
   }
   html {
     overflow-x: clip;
@@ -282,15 +291,16 @@
     animation: cta-shimmer 7s cubic-bezier(0.25, 1, 0.5, 1) infinite;
   }
 
-  /* Course FAQ accordion */
+  /* Course FAQ accordion — grid-template-rows expand (no height animation) */
   .course-faq-answer-panel {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 320ms cubic-bezier(0.25, 1, 0.5, 1);
+    transition: grid-template-rows 240ms cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .course-faq-item[open] .course-faq-answer-panel {
     grid-template-rows: 1fr;
+    transition-duration: 360ms;
   }
 
   .course-faq-answer-inner {
@@ -300,16 +310,18 @@
 
   .course-faq-answer-content {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-8px);
     transition:
-      opacity 240ms cubic-bezier(0.25, 1, 0.5, 1),
-      transform 240ms cubic-bezier(0.25, 1, 0.5, 1);
+      opacity 180ms cubic-bezier(0.25, 1, 0.5, 1),
+      transform 180ms cubic-bezier(0.25, 1, 0.5, 1);
+    transition-delay: 0ms;
   }
 
   .course-faq-item[open] .course-faq-answer-content {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 60ms;
+    transition-duration: 280ms;
+    transition-delay: 72ms;
   }
 
   .course-faq-toggle {
@@ -706,6 +718,90 @@
         rgba(37, 99, 235, 0.15),
         rgba(37, 99, 235, 0.6)
       );
+    }
+  }
+
+  /* ---- Boot loader (first-entry only) ---- */
+  html[data-rbs-boot="1"] body {
+    overflow: hidden;
+  }
+
+  .boot-aware-shell {
+    opacity: 1;
+  }
+
+  .boot-loader__grid {
+    background-image:
+      radial-gradient(
+        ellipse 70% 50% at 50% 42%,
+        rgba(37, 99, 235, 0.07),
+        transparent 70%
+      ),
+      linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      48px 48px,
+      48px 48px;
+    background-position: center;
+    mask-image: radial-gradient(
+      ellipse 65% 55% at 50% 45%,
+      #000 20%,
+      transparent 75%
+    );
+  }
+
+  .boot-loader__glow {
+    background: radial-gradient(
+      circle,
+      rgba(37, 99, 235, 0.14) 0%,
+      rgba(15, 23, 42, 0.04) 45%,
+      transparent 70%
+    );
+    animation: boot-loader-glow 1.4s cubic-bezier(0.25, 1, 0.5, 1) 0.2s both;
+  }
+
+  .boot-loader__scan {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(37, 99, 235, 0.55) 45%,
+      rgba(15, 23, 42, 0.35) 55%,
+      transparent 100%
+    );
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.25);
+  }
+
+  @keyframes boot-loader-glow {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .boot-loader__glow {
+      opacity: 0.55;
+      filter: none;
+    }
+
+    .boot-loader__grid {
+      background-size:
+        100% 100%,
+        40px 40px,
+        40px 40px;
+      opacity: 0.85;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .boot-loader__glow {
+      animation: none;
+      opacity: 0.5;
     }
   }
 }

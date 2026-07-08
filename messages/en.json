@@ -12,7 +12,9 @@
     "projects": "Projects",
     "faq": "FAQ",
     "registerConsultation": "Book consultation",
-    "sponsorButton": "Become a Sponsor"
+    "sponsorButton": "Become a Sponsor",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu"
   },
   "hero": {
     "badge": "Robotics Sóc Sơn • Hanoi"

@@ -30,7 +30,7 @@ import {
 
 type SponsorType = "corporate" | "personal" | null;
 
-export default function SponsorPage() {
+export default function SponsorPageClient() {
   const { locale } = useLanguage();
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedType, setSelectedType] = useState<SponsorType>(null);
@@ -64,7 +64,7 @@ export default function SponsorPage() {
 
   return (
     <AuroraBackground className="bg-background text-foreground">
-      <main className="relative z-10 min-h-screen py-12 sm:py-16 md:py-24">
+      <div className="relative z-10 min-h-screen py-12 sm:py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
           {/* Intro Section */}
           <div className="text-center mb-12 space-y-4">
@@ -453,7 +453,7 @@ export default function SponsorPage() {
             </AnimatedCard>
           )}
         </div>
-      </main>
+      </div>
     </AuroraBackground>
   );
 }

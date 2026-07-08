@@ -201,6 +201,16 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 
 **Plans:** Crafted inline via `/impeccable craft` (no separate plan files)
 
+### Phase 8: Production readiness public launch SEO CWV headers analytics
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 7
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 8 to break down)
+
 ---
 
 ## Historical Phases (v1.0)

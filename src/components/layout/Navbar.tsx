@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { BootLink } from "@/components/shared/BootLink";
 import { BrandLogo } from "@/components/shared/BrandLogo";
 import { usePathname } from "next/navigation";
 import { X, Menu } from "lucide-react";
@@ -19,12 +19,13 @@ interface NavbarProps {
   className?: string;
 }
 
+/** Site Navbar — light tech-blue system always (DESIGN.md). Immersive pages keep this chrome. */
 export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   const { t } = useLanguage();
   const pathname = usePathname();
-  const isCoursePage = pathname === "/course";
-  const isHomePage = pathname === "/";
-  const isSponsorshipPage = pathname === "/sponsorship";
+  const isCourseFlow =
+    pathname === "/course" || pathname === "/course-register-form";
+  const isContactPage = pathname === "/contact-us";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -47,35 +48,30 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
     };
   }, [mobileMenuOpen]);
 
-  const navLinks: NavLink[] = useMemo(() => {
-    const links: NavLink[] = [
+  const navLinks: NavLink[] = useMemo(
+    () => [
       { label: t("nav.home"), href: "/" },
       { label: t("nav.course"), href: "/course" },
-    ];
-
-    if (isSponsorshipPage) {
-      links.push({ label: t("nav.sponsorship"), href: "/sponsorship" });
-    }
-
-    return links;
-  }, [isSponsorshipPage, t]);
+    ],
+    [t],
+  );
 
   const isLinkActive = (link: NavLink) => pathname === link.href;
 
   const linkClassName = (link: NavLink) =>
     cn(
-      "text-sm font-medium transition-colors",
+      "text-sm font-medium transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       isLinkActive(link)
         ? "text-primary"
-        : "text-muted-foreground hover:text-primary"
+        : "text-muted-foreground hover:text-primary",
     );
 
   const mobileLinkClassName = (link: NavLink) =>
     cn(
-      "flex items-center px-4 py-3 text-sm font-medium transition-colors hover:bg-muted rounded-lg min-h-[44px]",
+      "flex items-center px-4 py-3 text-sm font-medium transition-colors hover:bg-muted rounded-lg min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       isLinkActive(link)
         ? "text-primary bg-primary/5"
-        : "text-muted-foreground hover:text-primary"
+        : "text-muted-foreground hover:text-primary",
     );
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
@@ -83,57 +79,33 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   const renderNavCtas = (fullWidth: boolean) => {
     const widthClass = fullWidth
       ? "w-full justify-center min-h-[44px]"
-      : "min-h-[30px] py-1 text-sm";
+      : "min-h-[44px] py-2 text-sm";
 
-    if (isCoursePage) {
+    if (isCourseFlow) {
+      const onRegister = pathname === "/course-register-form";
       return (
         <CTAButton
           label={t("nav.registerConsultation")}
           variant="primary"
-          href="#course-register"
-          className={widthClass}
+          href="/course-register-form"
+          className={cn(widthClass, onRegister && "ring-2 ring-primary/30")}
+          aria-current={onRegister ? "page" : undefined}
         />
-      );
-    }
-
-    if (isHomePage) {
-      return (
-        <>
-          <CTAButton
-            label={t("nav.course")}
-            variant="primary"
-            href="/course"
-            className={cn(widthClass, fullWidth && "w-full")}
-          />
-          <CTAButton
-            label={t("nav.contact")}
-            variant="secondary"
-            href="https://m.me/roboticssocson"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(widthClass, fullWidth && "w-full")}
-          />
-        </>
       );
     }
 
     return (
-      <>
-        <CTAButton
-          label={t("nav.sponsorButton")}
-          variant="primary"
-          href="/sponsorship"
-          className={cn(widthClass, fullWidth && "w-full")}
-        />
-        <CTAButton
-          label={t("nav.contact")}
-          variant="secondary"
-          href="https://m.me/roboticssocson"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(widthClass, fullWidth && "w-full")}
-        />
-      </>
+      <CTAButton
+        label={t("nav.contact")}
+        variant="primary"
+        href="/contact-us"
+        className={cn(
+          widthClass,
+          fullWidth && "w-full",
+          isContactPage && "ring-2 ring-primary/30",
+        )}
+        aria-current={isContactPage ? "page" : undefined}
+      />
     );
   };
 
@@ -142,31 +114,31 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md transition-shadow duration-300",
         scrolled && "shadow-[0_1px_3px_rgba(0,0,0,0.08)] border-border/80",
-        className
+        className,
       )}
     >
       <div className="container mx-auto flex h-14 sm:h-16 items-center justify-between px-4 md:px-6">
-        <Link
+        <BootLink
           href="/"
-          className="flex items-center gap-1.5 sm:gap-2"
+          className="flex items-center gap-1.5 sm:gap-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           onClick={closeMobileMenu}
         >
           <BrandLogo className="h-5 w-auto sm:h-6" />
           <span className="text-base sm:text-lg font-bold text-foreground">
             Robotics Sóc Sơn
           </span>
-        </Link>
+        </BootLink>
 
         <div className="hidden md:flex md:items-center md:gap-6">
           {navLinks.map((link) => (
-            <Link
+            <BootLink
               key={link.href}
               href={link.href}
               className={linkClassName(link)}
               aria-current={isLinkActive(link) ? "page" : undefined}
             >
               {link.label}
-            </Link>
+            </BootLink>
           ))}
         </div>
 
@@ -180,8 +152,8 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
         </div>
 
         <button
-          className="md:hidden text-muted-foreground hover:text-primary transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-          aria-label="Toggle menu"
+          className="md:hidden text-muted-foreground hover:text-primary transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          aria-label={mobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
           aria-expanded={mobileMenuOpen}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
@@ -197,7 +169,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
         <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md">
           <div className="container mx-auto px-4 py-4 space-y-1">
             {navLinks.map((link) => (
-              <Link
+              <BootLink
                 key={link.href}
                 href={link.href}
                 onClick={closeMobileMenu}
@@ -205,7 +177,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
                 aria-current={isLinkActive(link) ? "page" : undefined}
               >
                 {link.label}
-              </Link>
+              </BootLink>
             ))}
             <div className="pt-2 border-t border-border space-y-2">
               {renderNavCtas(true)}

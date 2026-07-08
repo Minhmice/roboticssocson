@@ -15,7 +15,6 @@ export const courseSeo: Record<Locale, RouteSeo> = {
       "khóa học lập trình",
     ],
     canonicalPath: "/course",
-    ogImage: "/Logo/RBS Logo.svg",
   },
   en: {
     title: "From Blocks to Hardware | Robotics Sóc Sơn",
@@ -31,6 +30,5 @@ export const courseSeo: Record<Locale, RouteSeo> = {
       "coding course",
     ],
     canonicalPath: "/course",
-    ogImage: "/Logo/RBS Logo.svg",
   },
 };

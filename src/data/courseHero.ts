@@ -31,12 +31,12 @@ export const courseHeroData: CourseHeroData = {
     en: "Help your child spend less time on passive screens — by building real circuits and projects, through Scratch → flowcharts → mBlock → Arduino → sensors. No prior experience needed; teachers guide every step.",
   },
   ctaPrimary: {
-    vi: "Xem lộ trình",
-    en: "View curriculum",
+    vi: "Đăng ký tư vấn",
+    en: "Book a consultation",
   },
   ctaSecondary: {
-    vi: "Hỏi lịch học & học phí",
-    en: "Ask about schedule & fees",
+    vi: "Xem lộ trình",
+    en: "View curriculum",
   },
   chips: [
     {

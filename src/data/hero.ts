@@ -12,8 +12,6 @@ export type HeroData = {
   readonly sub_en: string;
   readonly cta_primary_vi: string;
   readonly cta_primary_en: string;
-  readonly cta_note_vi: string;
-  readonly cta_note_en: string;
   readonly animatedWords_vi: readonly string[];
   readonly animatedWords_en: readonly string[];
 };
@@ -29,8 +27,6 @@ export const heroData: HeroData = {
     "Robotics Soc Son is a high school robotics team from Hanoi, with a mission to spread STEAM passion through creativity and teamwork.",
   cta_primary_vi: "Liên hệ",
   cta_primary_en: "Contact us",
-  cta_note_vi: "roboticssocson@gmail.com — phản hồi trong 48 giờ",
-  cta_note_en: "roboticssocson@gmail.com — we reply within 48 hours",
   animatedWords_vi: [
     "Lập trình - Sáng tạo",
     "Mơ ước - Triển khai",

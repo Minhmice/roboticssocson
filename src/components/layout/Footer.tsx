@@ -1,11 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { Mail } from "lucide-react";
+import { BootLink } from "@/components/shared/BootLink";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { BrandLogo } from "@/components/shared/BrandLogo";
 import { FacebookIcon } from "@/components/shared/FacebookIcon";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { sponsorEmail, socials } from "@/data/settings";
+import {
+  contactLeadName,
+  contactPhone,
+  messengerUrl,
+  sponsorEmail,
+  socials,
+} from "@/data/settings";
 
 export const Footer: React.FC = () => {
   const { t } = useLanguage();
@@ -49,7 +55,7 @@ export const Footer: React.FC = () => {
             <p className="text-xs sm:text-sm text-muted-foreground">
               {t("footer.taglineMain")}
             </p>
-            <p className="mt-2 text-[10px] sm:text-xs text-muted-foreground/80">
+            <p className="mt-2 text-xs text-muted-foreground">
               {t("footer.taglineSub")}
             </p>
           </div>
@@ -77,23 +83,24 @@ export const Footer: React.FC = () => {
                   isRoute: true,
                 },
                 {
-                  label: t("nav.sponsorship"),
-                  href: "/sponsorship",
+                  label: t("nav.contact"),
+                  href: "/contact-us",
+                  isRoute: true,
                 },
                 {
-                  label: t("nav.contact"),
-                  href: "https://m.me/roboticssocson",
-                  external: true,
+                  label: t("nav.registerConsultation"),
+                  href: "/course-register-form",
+                  isRoute: true,
                 },
               ].map((link) => (
                 <li key={link.href}>
                   {link.isRoute ? (
-                    <Link
+                    <BootLink
                       href={link.href}
-                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary flex items-center"
+                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm flex items-center min-h-[44px] sm:min-h-0"
                     >
                       {link.label}
-                    </Link>
+                    </BootLink>
                   ) : (
                     <a
                       href={link.href}
@@ -102,9 +109,7 @@ export const Footer: React.FC = () => {
                           ? handleLinkClick(e, link.sectionId)
                           : undefined
                       }
-                      target={link.external ? "_blank" : undefined}
-                      rel={link.external ? "noopener noreferrer" : undefined}
-                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary flex items-center cursor-pointer"
+                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm flex items-center cursor-pointer min-h-[44px] sm:min-h-0"
                     >
                       {link.label}
                     </a>
@@ -122,26 +127,55 @@ export const Footer: React.FC = () => {
             <div className="space-y-1.5 sm:space-y-2">
               <a
                 href={`mailto:${sponsorEmail}`}
-                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary"
+                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-[44px] sm:min-h-0"
               >
-                <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
+                <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
                 <span className="break-all">{sponsorEmail}</span>
+              </a>
+              <a
+                href={`tel:${contactPhone}`}
+                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-[44px] sm:min-h-0"
+              >
+                <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+                <span>
+                  {contactPhone} — {contactLeadName}
+                </span>
+              </a>
+              <a
+                href={messengerUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-[44px] sm:min-h-0"
+              >
+                <svg
+                  className="h-3.5 w-3.5 sm:h-4 sm:w-4"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden
+                >
+                  <path d="M12 0C5.373 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.627 0 12-4.974 12-11.111C24 4.975 18.627 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.732 8.2l3.131 3.259L19.752 8.2l-6.559 6.763z" />
+                </svg>
+                Messenger
               </a>
               <a
                 href={socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary"
+                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-[44px] sm:min-h-0"
               >
-                <FacebookIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
+                <FacebookIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
                 Facebook
               </a>
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
+                <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+                <span>THPT Sóc Sơn, Hà Nội</span>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="mt-6 sm:mt-8 border-t border-border pt-6 sm:pt-8 text-center text-[10px] sm:text-xs text-muted-foreground/80">
+        <div className="mt-6 sm:mt-8 border-t border-border pt-6 sm:pt-8 text-center text-xs text-muted-foreground">
           <p>{t("footer.copyright")}</p>
           <p className="mt-1">Developed by @minhmice29</p>
         </div>

@@ -41,8 +41,8 @@ export const courseSectionCopy = {
       en: "Turn your child",
     },
     titleLine2: {
-      vi: "làm ra sản phẩm",
-      en: "into a maker",
+      vi: "làm chủ công nghệ",
+      en: "into a tech master",
     },
     subtitle: {
       vi: "Thay vì chỉ tiêu thụ nội dung, con dùng khối lệnh Scratch và mBlock để hiểu cách công nghệ hoạt động — rồi đưa chương trình ra LED, cảm biến và robot thật.",
@@ -250,8 +250,8 @@ export const courseSolutionCards: CourseCard[] = [
       en: "Capstone projects",
     },
     description: {
-      vi: "Thùng rác thông minh hoặc cảnh báo lùi xe — chứng minh năng lực trước phụ huynh.",
-      en: "Smart bin or parking warning — proof of skill for parents and peers.",
+      vi: "Đấu trường robot — khung xe chung, tự chọn cơ cấu, thi đấu trước lớp.",
+      en: "Robot arena — shared chassis, chosen mechanisms, live class match.",
     },
   },
 ];
@@ -285,20 +285,20 @@ export const courseOutcomeCards: CourseCard[] = [
     id: "outcome-game",
     icon: "Gamepad2",
     title: {
-      vi: "Tự làm game mini",
-      en: "Build mini games",
+      vi: "Dùng AI để giải quyết vấn đề",
+      en: "Use AI to solve problems",
     },
     description: {
-      vi: "Game điểm số, va chạm, animation — sản phẩm Scratch hoàn chỉnh.",
-      en: "Score games, collisions, animation — complete Scratch projects.",
+      vi: "Dùng AI để gỡ lỗi, tìm hướng giải và cải tiến — hoàn thiện dự án Scratch.",
+      en: "Use AI to debug, solve problems, and iterate — complete Scratch projects.",
     },
   },
   {
     id: "outcome-hardware",
     icon: "CircuitBoard",
     title: {
-      vi: "Lắp LED, nút, cảm biến, servo",
-      en: "Wire LEDs, buttons, sensors, servos",
+      vi: "Lắp và điều khiển một số thiết bị cơ bản",
+      en: "Assemble and control basic devices",
     },
     description: {
       vi: "Hiểu nguyên lý điện cơ bản và điều khiển linh kiện.",
@@ -307,14 +307,14 @@ export const courseOutcomeCards: CourseCard[] = [
   },
   {
     id: "outcome-capstone",
-    icon: "Recycle",
+    icon: "Trophy",
     title: {
-      vi: "Làm thùng rác thông minh hoặc cảnh báo lùi xe",
-      en: "Smart bin or reverse parking warning",
+      vi: "Thi đấu đấu trường robot cuối khóa",
+      en: "Compete in the robot arena capstone",
     },
     description: {
-      vi: "Dự án tích hợp cảm biến, xử lý và output thực tế.",
-      en: "Projects integrating sensors, logic, and real outputs.",
+      vi: "Lái xe Arduino, tự “độ” cơ cấu bắn/kéo/đẩy, ghi điểm trước lớp.",
+      en: "Drive an Arduino bot, customize shoot/pull/push, score live in class.",
     },
   },
   {
@@ -488,22 +488,3 @@ export const courseAiClosingLine: LocalizedText = {
   vi: "Không dùng AI để làm hộ toàn bộ bài — AI chỉ hỗ trợ tư duy và kiểm tra.",
   en: "AI never does the whole assignment — it supports thinking and checking only.",
 };
-
-export const courseMidPageCta = {
-  headline: {
-    vi: "Sẵn sàng cho con bắt đầu?",
-    en: "Ready for your child to start?",
-  },
-  subtitle: {
-    vi: "Buổi tư vấn miễn phí giúp phụ huynh chọn lộ trình Scratch → Arduino phù hợp với con.",
-    en: "A free consultation helps you choose the right Scratch → Arduino path for your child.",
-  },
-  primaryCta: {
-    vi: "Đăng ký tư vấn",
-    en: "Book a consultation",
-  },
-  secondaryCta: {
-    vi: "Xem lại lộ trình",
-    en: "Review curriculum",
-  },
-} as const satisfies Record<string, LocalizedText>;

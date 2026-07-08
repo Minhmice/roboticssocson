@@ -6,7 +6,12 @@ import { GlowCard } from "./GlowCard";
 import { CTAButton } from "./CTAButton";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { sponsorEmail } from "@/data/settings";
 
+/**
+ * Contact form UI. Do not show fake "success" — no backend endpoint yet.
+ * Primary action: mailto with prefilled body.
+ */
 export const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -16,17 +21,8 @@ export const ContactForm: React.FC = () => {
     message: "",
   });
 
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Integrate with API endpoint or webhook
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-  };
-
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({
       ...formData,
@@ -44,25 +40,43 @@ export const ContactForm: React.FC = () => {
     isValidEmail(formData.email) &&
     formData.message.trim();
 
+  const mailtoHref = (() => {
+    const subject = encodeURIComponent(
+      `Contact — ${formData.name.trim() || "Robotics Soc Son"}`,
+    );
+    const body = encodeURIComponent(
+      [
+        `Name: ${formData.name}`,
+        `Company: ${formData.company || "—"}`,
+        `Email: ${formData.email}`,
+        `Phone: ${formData.phone || "—"}`,
+        "",
+        formData.message,
+      ].join("\n"),
+    );
+    return `mailto:${sponsorEmail}?subject=${subject}&body=${body}`;
+  })();
+
   return (
     <GlowCard className="max-w-3xl">
-      <h2 className="mb-6 text-2xl font-bold text-foreground">
-        Get in Touch
-      </h2>
+      <h2 className="mb-2 text-2xl font-bold text-foreground">Get in Touch</h2>
+      <p className="mb-6 text-sm text-foreground/80">
+        Opens your email client — we do not store form data on this site yet.
+      </p>
 
-      {submitted && (
-        <div className="mb-6 rounded-lg bg-green-950/50 border border-green-500/30 p-4 text-green-400">
-          Thank you! We&apos;ll get back to you soon.
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Name & Company */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (!isFormValid) return;
+          window.location.href = mailtoHref;
+        }}
+        className="space-y-6"
+      >
         <div className="grid gap-6 md:grid-cols-2">
           <div>
             <label
               htmlFor="name"
-              className="mb-2 block text-sm font-medium text-muted-foreground"
+              className="mb-2 block text-sm font-medium text-foreground"
             >
               Name *
             </label>
@@ -79,7 +93,7 @@ export const ContactForm: React.FC = () => {
           <div>
             <label
               htmlFor="company"
-              className="mb-2 block text-sm font-medium text-muted-foreground"
+              className="mb-2 block text-sm font-medium text-foreground"
             >
               Company
             </label>
@@ -94,12 +108,11 @@ export const ContactForm: React.FC = () => {
           </div>
         </div>
 
-        {/* Email & Phone */}
         <div className="grid gap-6 md:grid-cols-2">
           <div>
             <label
               htmlFor="email"
-              className="mb-2 block text-sm font-medium text-muted-foreground"
+              className="mb-2 block text-sm font-medium text-foreground"
             >
               Email *
             </label>
@@ -116,7 +129,7 @@ export const ContactForm: React.FC = () => {
           <div>
             <label
               htmlFor="phone"
-              className="mb-2 block text-sm font-medium text-muted-foreground"
+              className="mb-2 block text-sm font-medium text-foreground"
             >
               Phone
             </label>
@@ -131,11 +144,10 @@ export const ContactForm: React.FC = () => {
           </div>
         </div>
 
-        {/* Message */}
         <div>
           <label
             htmlFor="message"
-            className="mb-2 block text-sm font-medium text-muted-foreground"
+            className="mb-2 block text-sm font-medium text-foreground"
           >
             Message *
           </label>
@@ -150,10 +162,9 @@ export const ContactForm: React.FC = () => {
           />
         </div>
 
-        {/* Submit Button */}
         <CTAButton
           type="submit"
-          label="Send Message"
+          label="Open email draft"
           icon={Send}
           disabled={!isFormValid}
           className="w-full md:w-auto"
@@ -162,4 +173,3 @@ export const ContactForm: React.FC = () => {
     </GlowCard>
   );
 };
-

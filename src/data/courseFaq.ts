@@ -91,8 +91,8 @@ export const courseFaq: CourseFAQItem[] = [
       en: "Is there a final project?",
     },
     answer: {
-      vi: "Có. Buổi 12 và dự án cuối khóa: thùng rác thông minh hoặc cảnh báo lùi xe — học sinh demo và trình bày trước lớp.",
-      en: "Yes. Session 12 and capstone projects: smart bin or reverse parking warning — students demo and present to the class.",
+      vi: "Có. Buổi 12 là đấu trường robot: cùng khung xe Arduino, tự chọn cơ cấu (bắn / kéo / đẩy), rồi thi đấu và giải thích chiến thuật trước lớp.",
+      en: "Yes. Session 12 is the robot arena: shared Arduino chassis, choose a mechanism (shoot / pull / push), then compete and explain tactics to the class.",
     },
   },
   {

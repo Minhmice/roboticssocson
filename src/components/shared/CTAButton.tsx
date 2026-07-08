@@ -1,4 +1,10 @@
+"use client";
+
 import { LucideIcon } from "lucide-react";
+import {
+  isInternalAppPath,
+  requestBootNavigation,
+} from "@/lib/boot-navigation";
 import { cn } from "@/lib/utils";
 
 interface CTAButtonProps {
@@ -12,6 +18,7 @@ interface CTAButtonProps {
   disabled?: boolean;
   target?: "_blank" | "_self" | "_parent" | "_top";
   rel?: string;
+  "aria-current"?: "page" | "step" | "location" | "date" | "time" | boolean;
 }
 
 export const CTAButton: React.FC<CTAButtonProps> = ({
@@ -25,6 +32,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   disabled = false,
   target,
   rel,
+  "aria-current": ariaCurrent,
 }) => {
   const baseStyles =
     "px-6 py-3 rounded-xl font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
@@ -50,8 +58,19 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
         href={href}
         target={target}
         rel={rel || (target === "_blank" ? "noopener noreferrer" : undefined)}
+        aria-current={ariaCurrent}
         className={cn(baseStyles, variants[variant], className)}
-        onClick={onClick}
+        onClick={(e) => {
+          onClick?.(e);
+          if (e.defaultPrevented) return;
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+          if (target && target !== "_self") return;
+          if (!isInternalAppPath(href)) return;
+          if (requestBootNavigation(href)) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }}
       >
         {content}
       </a>
@@ -73,4 +92,4 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
       {content}
     </button>
   );
-}
+};
