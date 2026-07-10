@@ -151,7 +151,7 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DECK-01 … DECK-05, QUAL-01 | Phase 9 | Planned |
+| DECK-01 … DECK-05, QUAL-01 | Phase 9 | Complete |
 
 ---
 *Requirements updated: 2026-07-10 — Phase 9 deck*

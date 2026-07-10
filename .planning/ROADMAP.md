@@ -259,15 +259,15 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 09-01 — Bilingual deck data layer
+- [x] 09-01 — Bilingual deck data layer
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 09-02 — Production deck player
+- [x] 09-02 — Production deck player
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 09-03 — Course integration + verify
+- [x] 09-03 — Course integration + verify
 
 ---
 
