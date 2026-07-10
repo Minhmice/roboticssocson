@@ -139,5 +139,19 @@ Implementation per `docs/course/technical_SPEC.md` and `ACCEPTANCE_CRITERIA.md`.
 
 **Coverage:** v2.0 — 18 requirements mapped across Phases 3–5. Unmapped: 0.
 
+## v2.1 Requirements (Phase 9 — Arduino mBlock deck)
+
+### Presentation deck
+
+- [ ] **DECK-01**: User can navigate the deck with left/right tap zones and keyboard arrows only (no hover-dependent UI).
+- [ ] **DECK-02**: Deck content is data-driven with bilingual `LocalizedText` for all 30 slides.
+- [ ] **DECK-03**: Deck uses light-theme DESIGN.md production styling (not wireframe placeholders).
+- [ ] **DECK-04**: Deck player is componentized under `src/components/course/deck/`.
+- [ ] **DECK-05**: User can discover and open the deck from `/course`.
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| DECK-01 … DECK-05, QUAL-01 | Phase 9 | Planned |
+
 ---
-*Requirements updated: 2026-07-05 — Milestone v2.0*
+*Requirements updated: 2026-07-10 — Phase 9 deck*

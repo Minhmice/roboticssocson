@@ -193,6 +193,7 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 **Depends on:** Phase 6
 
 **Success Criteria:**
+
 1. `:root` tokens in `globals.css` use light palette; body renders white with ink text.
 2. Shared primitives (`GlowCard`, `CTAButton`, `SectionHeader`) use semantic tokens / blue shadows.
 3. `/`, `/course`, `/sponsorship`, `/sponsor` free of dark hardcoded `slate-9`/`cyan` classes.
@@ -210,6 +211,7 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 **Depends on:** Phase 7
 
 **Success Criteria:**
+
 1. `posthog-js` initializes via `instrumentation-client.ts` with `/ingest` reverse proxy.
 2. Custom events fire for CTA clicks, language toggle, nav, course registration, and boot loader.
 3. `/analytics` requires dashboard password; HogQL summary loads when `POSTHOG_PERSONAL_API_KEY` is set.
@@ -218,10 +220,54 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 **Plans:** Implemented via PostHog wizard pattern + `/impeccable craft`
 
 Plans:
+
 - [x] PostHog SDK + proxy + custom event instrumentation
 - [x] Password-gated `/analytics` dashboard (DESIGN.md light theme)
 - [ ] Add `POSTHOG_PERSONAL_API_KEY` for live HogQL metrics in dashboard
 - [ ] Production env vars on host (Vercel / Cloudflare)
+
+### Phase 9: Arduino mBlock presentation deck
+
+**Goal:** Ship production 30-slide PPTX-style presentation at `/course/arduino-mblock-deck` — bilingual data, left/right navigation, light-theme DESIGN.md polish, and link from `/course`.
+
+**Mode:** mvp  
+**Status:** Planned  
+**Depends on:** Phase 8 (non-blocking for deck UI)
+
+**Requirements:** DECK-01, DECK-02, DECK-03, DECK-04, DECK-05, QUAL-01
+
+**Success Criteria:**
+
+1. `src/data/arduinoMblockDeck.ts` exports 30 bilingual slides covering Arduino, mBlock, teaching advantages, synergy, and kids narrative.
+2. `DeckPlayer` + `DeckSlide` replace wireframe UI — no dashed placeholders or WIREFRAME labels.
+3. Navigation: left/right 18% tap zones, `←`/`→` keys, progress bar, disabled at ends.
+4. `/course` links to deck; metadata title does not say "Wireframe".
+5. `npm run lint` passes; manual pass through all 30 slides.
+
+**Plans:** 3 plans in 3 waves
+
+| Wave | Plans | Objective |
+|------|-------|-----------|
+| 1 | 09-01 | Bilingual deck data layer |
+| 2 *(blocked on Wave 1)* | 09-02 | Production DeckPlayer + layouts |
+| 3 *(blocked on Wave 2)* | 09-03 | Course link, metadata, verify |
+
+- `09-01-PLAN.md` — Bilingual slide data (DECK-02)
+- `09-02-PLAN.md` — Deck player and layouts (DECK-01, DECK-03, DECK-04)
+- `09-03-PLAN.md` — Integration and verification (DECK-05, QUAL-01)
+
+Plans:
+**Wave 1**
+
+- [ ] 09-01 — Bilingual deck data layer
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 09-02 — Production deck player
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 09-03 — Course integration + verify
 
 ---
 
