@@ -21,3 +21,4 @@ export * from "./courseSections";
 export * from "./courseTeaser";
 export * from "./courseOffer";
 export * from "./courseTrust";
+export * from "./arduinoMblockDeck";

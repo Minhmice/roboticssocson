@@ -231,7 +231,7 @@ Plans:
 **Goal:** Ship production 30-slide PPTX-style presentation at `/course/arduino-mblock-deck` — bilingual data, left/right navigation, light-theme DESIGN.md polish, and link from `/course`.
 
 **Mode:** mvp  
-**Status:** Planned  
+**Status:** Complete  
 **Depends on:** Phase 8 (non-blocking for deck UI)
 
 **Requirements:** DECK-01, DECK-02, DECK-03, DECK-04, DECK-05, QUAL-01

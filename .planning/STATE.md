@@ -33,6 +33,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-05)
 - Phase 8 added: Production readiness public launch SEO CWV headers analytics
 - Phase 9 added: Arduino mBlock presentation deck
 - Phase 9 planned: 3 plans (data, player, integration)
+- Phase 9 executed: production Arduino/mBlock deck at /course/arduino-mblock-deck
 
 ## Current Milestone
 

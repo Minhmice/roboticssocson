@@ -94,5 +94,9 @@
     "message": "Message / Tin nhắn",
     "submit": "Submit / Gửi",
     "infoSubtitle": "Contact us via email or Telegram to discuss sponsorship or collaboration."
+  },
+  "course": {
+    "deckLink": "View Arduino & mBlock presentation",
+    "deckLinkDescription": "30 slides on Arduino, mBlock, and hands-on robotics learning benefits."
   }
 }

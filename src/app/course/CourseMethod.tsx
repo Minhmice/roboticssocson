@@ -9,6 +9,8 @@ import {
 import { getLocalized, type CourseLocale } from "@/lib/course/getLocalized";
 import { getLucideIcon } from "@/lib/course/lucideFromName";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { Presentation } from "lucide-react";
 import {
   motion,
   useReducedMotion,
@@ -405,7 +407,7 @@ function MethodHeader({
 }
 
 export default function CourseMethod() {
-  const { locale } = useLanguage();
+  const { locale, t } = useLanguage();
   const copy = courseSectionCopy.method;
   const prefersReducedMotion = useReducedMotion();
   const animated = !prefersReducedMotion;
@@ -657,6 +659,28 @@ export default function CourseMethod() {
             {railBlock}
           </div>
         )}
+
+        <div className="relative mt-12 rounded-2xl border border-border bg-accent/50 p-6 md:p-8">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <div className="mb-2 flex items-center gap-2 text-primary">
+                <Presentation className="size-5 shrink-0" aria-hidden />
+                <h3 className="text-lg font-semibold text-foreground">
+                  {t("course.deckLink")}
+                </h3>
+              </div>
+              <p className="max-w-2xl text-pretty text-sm text-muted-foreground md:text-base">
+                {t("course.deckLinkDescription")}
+              </p>
+            </div>
+            <Link
+              href="/course/arduino-mblock-deck"
+              className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2"
+            >
+              {t("course.deckLink")}
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );
