@@ -5,6 +5,8 @@ import {
   isInternalAppPath,
   requestBootNavigation,
 } from "@/lib/boot-navigation";
+import { captureEvent } from "@/lib/posthog/client";
+import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
 
 interface CTAButtonProps {
@@ -61,6 +63,12 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
         aria-current={ariaCurrent}
         className={cn(baseStyles, variants[variant], className)}
         onClick={(e) => {
+          captureEvent(AnalyticsEvents.CTA_CLICKED, {
+            label,
+            href,
+            variant,
+            surface: typeof window !== "undefined" ? window.location.pathname : undefined,
+          });
           onClick?.(e);
           if (e.defaultPrevented) return;
           if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -79,7 +87,14 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
 
   return (
     <button
-      onClick={onClick}
+      onClick={(e) => {
+        captureEvent(AnalyticsEvents.CTA_CLICKED, {
+          label,
+          variant,
+          surface: typeof window !== "undefined" ? window.location.pathname : undefined,
+        });
+        onClick?.(e);
+      }}
       type={type}
       disabled={disabled}
       className={cn(

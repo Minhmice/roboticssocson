@@ -15,11 +15,14 @@ import {
   type ReactNode,
 } from "react";
 import { flushSync } from "react-dom";
-import {
-  BOOT_LOADER_HIDE_STYLE_ID,
-  isBootLoaderDisabled,
-} from "@/lib/boot-loader";
+import { isBootLoaderDisabled } from "@/lib/boot-loader";
 import { setBootNavigationHandler } from "@/lib/boot-navigation";
+import {
+  useBootAnimationReady,
+  useBootRevealActions,
+} from "@/contexts/BootRevealContext";
+import { captureEvent } from "@/lib/posthog/client";
+import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
 
 /** Tune durations, copy, and labels here. */
@@ -67,11 +70,6 @@ const ORBIT_NODES = [
   { angle: 138, radius: 56, size: 5 },
   { angle: 210, radius: 62, size: 3.5 },
 ] as const;
-
-function clearBootPreloadGate(): void {
-  document.documentElement.removeAttribute("data-rbs-boot");
-  document.getElementById(BOOT_LOADER_HIDE_STYLE_ID)?.remove();
-}
 
 function normalizePath(pathname: string): string {
   if (!pathname) return "/";
@@ -537,6 +535,7 @@ export function BootLoader() {
   const reduced = Boolean(prefersReducedMotion);
   const router = useRouter();
   const pathname = usePathname();
+  const { beginBoot, endBoot } = useBootRevealActions();
   const pathnameRef = useRef(pathname);
   const pendingHrefRef = useRef<string | null>(null);
   const busyRef = useRef(false);
@@ -551,10 +550,11 @@ export function BootLoader() {
     if (pageLoadDone || mode !== null) return;
     const t = window.setTimeout(() => {
       busyRef.current = true;
+      beginBoot();
       setMode("initial");
     }, 0);
     return () => window.clearTimeout(t);
-  }, [pageLoadDone, mode]);
+  }, [beginBoot, pageLoadDone, mode]);
 
   useEffect(() => {
     pathnameRef.current = pathname;
@@ -575,13 +575,14 @@ export function BootLoader() {
 
       pendingHrefRef.current = resolved;
       busyRef.current = true;
+      beginBoot();
       flushSync(() => {
         setSession((s) => s + 1);
         setMode("route");
       });
       return true;
     },
-    [mode],
+    [beginBoot, mode],
   );
 
   // Keep lock aligned with overlay visibility.
@@ -643,13 +644,16 @@ export function BootLoader() {
 
   const handleComplete = useCallback(() => {
     if (mode === "initial") {
-      clearBootPreloadGate();
       setPageLoadDone(true);
+      captureEvent(AnalyticsEvents.BOOT_LOADER_COMPLETED, {
+        surface: pathnameRef.current ?? "/",
+      });
     }
     busyRef.current = false;
     pendingHrefRef.current = null;
     setMode(null);
-  }, [mode]);
+    endBoot();
+  }, [endBoot, mode]);
 
   useEffect(() => {
     if (!mode) return;
@@ -676,8 +680,7 @@ export function BootLoader() {
 }
 
 /**
- * Page shell under the overlay. Pre-paint hide comes from the head script
- * style tag; opacity restore happens when that style is removed.
+ * Site shell under the boot overlay. Hidden until `animationReady`, then fades in.
  */
 export function BootAwareMain({
   children,
@@ -686,12 +689,14 @@ export function BootAwareMain({
   children: ReactNode;
   className?: string;
 }) {
+  const ready = useBootAnimationReady();
+  const disabled = isBootLoaderDisabled();
+
   return (
     <div
-      className={cn(
-        "boot-aware-shell transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
-        className,
-      )}
+      data-boot-ready={disabled || ready ? "" : undefined}
+      className={cn("boot-aware-shell", className)}
+      aria-hidden={!disabled && !ready}
     >
       {children}
     </div>

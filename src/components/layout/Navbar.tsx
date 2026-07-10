@@ -7,6 +7,8 @@ import { X, Menu } from "lucide-react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { captureEvent } from "@/lib/posthog/client";
+import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
 import { useState, useEffect, useMemo } from "react";
 
@@ -24,10 +26,18 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   const { t } = useLanguage();
   const pathname = usePathname();
   const isCourseFlow =
-    pathname === "/course" || pathname === "/course-register-form";
+    pathname === "/course" ||
+    pathname?.startsWith("/course-register-form") === true;
   const isContactPage = pathname === "/contact-us";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const trackNavClick = (link: NavLink) => {
+    captureEvent(AnalyticsEvents.NAV_SECTION_CLICKED, {
+      section_id: link.href.replace(/^\/#?/, "") || "home",
+      label: link.label,
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,10 +92,10 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
       : "min-h-[44px] py-2 text-sm";
 
     if (isCourseFlow) {
-      const onRegister = pathname === "/course-register-form";
+      const onRegister = pathname?.startsWith("/course-register-form") === true;
       return (
         <CTAButton
-          label={t("nav.registerConsultation")}
+          label={t("nav.registerCourse")}
           variant="primary"
           href="/course-register-form"
           className={cn(widthClass, onRegister && "ring-2 ring-primary/30")}
@@ -136,6 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
               href={link.href}
               className={linkClassName(link)}
               aria-current={isLinkActive(link) ? "page" : undefined}
+              onClick={() => trackNavClick(link)}
             >
               {link.label}
             </BootLink>
@@ -172,7 +183,10 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
               <BootLink
                 key={link.href}
                 href={link.href}
-                onClick={closeMobileMenu}
+                onClick={() => {
+                  trackNavClick(link);
+                  closeMobileMenu();
+                }}
                 className={mobileLinkClassName(link)}
                 aria-current={isLinkActive(link) ? "page" : undefined}
               >

@@ -3,10 +3,8 @@
 import Script from "next/script";
 
 /**
- * Analytics loader. Scripts load only when the matching public env is set.
- * Prefer one provider at a time in production.
- *
- * TODO(Sentry): `npm i @sentry/nextjs` + init in instrumentation — not added yet.
+ * Analytics loader. PostHog initializes via `src/instrumentation-client.ts`.
+ * GA4 / Plausible load only when their public env vars are set.
  */
 export function Analytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_ID?.trim();

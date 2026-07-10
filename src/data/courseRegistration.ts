@@ -36,16 +36,16 @@ export type CourseRegistrationConfig = {
 };
 
 export const courseRegistrationConfig: CourseRegistrationConfig = {
-  title_vi: "Đăng ký tư vấn khóa học",
-  title_en: "Course consultation registration",
+  title_vi: "Đăng ký khóa học",
+  title_en: "Course registration",
   subtitle_vi:
     "Đăng ký trực tiếp trên trang — phản hồi trong 24–48 giờ. Có thể nhắn Messenger nếu cần hỗ trợ nhanh.",
   subtitle_en:
     "Register directly on this page — we reply within 24–48 hours. Messenger is available for quick help.",
-  submitLabel_vi: "Gửi đăng ký tư vấn",
-  submitLabel_en: "Submit consultation request",
+  submitLabel_vi: "Gửi đăng ký khóa học",
+  submitLabel_en: "Submit course registration",
   successMessage_vi:
-    "Đăng ký thành công. Trung tâm sẽ liên hệ tư vấn sớm.",
+    "Đăng ký thành công. Trung tâm sẽ liên hệ sớm.",
   successMessage_en:
     "Registration successful. We will contact you soon.",
   // Back-up links to the official Google Form (custom UI posts to formResponse).
@@ -54,7 +54,7 @@ export const courseRegistrationConfig: CourseRegistrationConfig = {
     en: "https://docs.google.com/forms/d/e/1FAIpQLSda8_sRGtCiOLWgjR073-TV9drtiOzdWW9nbgLr5PIqO9xzTw/viewform",
   },
   messengerUrl: "https://m.me/roboticssocson",
-  emailFallback: "mailto:roboticssocson@gmail.com?subject=Dang%20ky%20tu%20van%20khoa%20hoc",
+  emailFallback: "mailto:roboticssocson@gmail.com?subject=Dang%20ky%20khoa%20hoc",
   fieldLabels: {
     parentName_vi: "Họ tên phụ huynh",
     parentName_en: "Parent name",

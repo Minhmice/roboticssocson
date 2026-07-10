@@ -13,6 +13,7 @@ const SSR_LOCKED_PATHS = new Set([
   "/",
   "/course",
   "/course-register-form",
+  "/course-register-form/success",
   "/contact-us",
 ]);
 

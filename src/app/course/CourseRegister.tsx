@@ -16,8 +16,8 @@ const ctaButtonBase =
 
 const copy = {
   title: {
-    vi: "Sẵn sàng đăng ký tư vấn?",
-    en: "Ready to book a consultation?",
+    vi: "Sẵn sàng đăng ký khóa học?",
+    en: "Ready to register for the course?",
   },
   lead: {
     vi: "Mở form đầy đủ trên trang riêng — gửi đăng ký trong 1–2 phút.",
@@ -28,8 +28,8 @@ const copy = {
     en: "Team replies within 24–48 hours",
   },
   cta: {
-    vi: "Mở form đăng ký tư vấn",
-    en: "Open consultation form",
+    vi: "Mở form đăng ký khóa học",
+    en: "Open course registration form",
   },
   contact: {
     vi: "Liên hệ để thêm chi tiết",

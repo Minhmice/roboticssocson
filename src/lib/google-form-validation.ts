@@ -96,6 +96,7 @@ export function validateConsultStep2(
   }
 
   if (!values.expectation.trim()) errors.expectation = req(locale);
+  if (!values.roboticsDream.trim()) errors.roboticsDream = req(locale);
 
   return errors;
 }

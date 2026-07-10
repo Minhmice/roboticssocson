@@ -36,8 +36,8 @@ export const courseFaq: CourseFAQItem[] = [
       en: "Is buying Arduino parts expensive?",
     },
     answer: {
-      vi: "Arduino là nền tảng mã nguồn mở phổ biến — linh kiện giá từ vài nghìn đến vài chục nghìn mỗi cảm biến. Bộ dùng trong lớp được cung cấp; nếu mua thêm để thực hành tại nhà, chúng tôi gửi danh sách shop uy tín khi đăng ký tư vấn.",
-      en: "Arduino is a widely used open platform — parts cost from a few thousand to tens of thousands of VND per sensor. Class kits are provided; if you buy extras for home practice, we share trusted shop lists during consultation.",
+      vi: "Arduino là nền tảng mã nguồn mở phổ biến — linh kiện giá từ vài nghìn đến vài chục nghìn mỗi cảm biến. Bộ dùng trong lớp được cung cấp; nếu mua thêm để thực hành tại nhà, chúng tôi gửi danh sách shop uy tín khi đăng ký khóa học.",
+      en: "Arduino is a widely used open platform — parts cost from a few thousand to tens of thousands of VND per sensor. Class kits are provided; if you buy extras for home practice, we share trusted shop lists when you register for the course.",
     },
   },
   {
@@ -80,8 +80,8 @@ export const courseFaq: CourseFAQItem[] = [
       en: "What if my child isn't interested?",
     },
     answer: {
-      vi: "Đăng ký tư vấn để trao đổi về lộ trình và buổi trải nghiện khi mở khóa — phụ huynh và con làm quen quy trình làm sản phẩm trước khi quyết định học dài hạn.",
-      en: "Register for consultation to discuss the curriculum and trial sessions when a cohort opens — parents and students can experience the product-building flow before committing long-term.",
+      vi: "Đăng ký khóa học để trao đổi về lộ trình và buổi trải nghiện khi mở khóa — phụ huynh và con làm quen quy trình làm sản phẩm trước khi quyết định học dài hạn.",
+      en: "Register for the course to discuss the curriculum and trial sessions when a cohort opens — parents and students can experience the product-building flow before committing long-term.",
     },
   },
   {
@@ -113,8 +113,8 @@ export const courseFaq: CourseFAQItem[] = [
       en: "Online or in-person?",
     },
     answer: {
-      vi: "Ưu tiên học trực tiếp để thao tác phần cứng an toàn. Lịch và địa điểm cụ thể sẽ xác nhận khi đăng ký — nhắn Messenger để được tư vấn.",
-      en: "In-person is preferred for safe hands-on hardware. Schedule and venue are confirmed at registration — message us on Messenger for details.",
+      vi: "Ưu tiên học trực tiếp để thao tác phần cứng an toàn. Lịch và địa điểm cụ thể sẽ xác nhận khi đăng ký — liên hệ qua email hoặc số điện thoại trên trang đăng ký.",
+      en: "In-person is preferred for safe hands-on hardware. Schedule and venue are confirmed at registration — contact us by email or phone on the registration page.",
     },
   },
 ];

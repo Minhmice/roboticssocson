@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AppShell } from "@/components/layout/AppShell";
 import { DynamicMetadata } from "@/components/layout/DynamicMetadata";
 import { Analytics } from "@/components/shared/Analytics";
+import { PostHogPageView } from "@/components/shared/PostHogPageView";
 import { getBootLoaderPreloadScript } from "@/lib/boot-loader";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { homeSeo } from "@/lib/seo/routes-seo";
@@ -54,6 +56,9 @@ export default function RootLayout({
         <LanguageProvider>
           <DynamicMetadata />
           <Analytics />
+          <Suspense fallback={null}>
+            <PostHogPageView />
+          </Suspense>
           <AppShell>{children}</AppShell>
         </LanguageProvider>
       </body>

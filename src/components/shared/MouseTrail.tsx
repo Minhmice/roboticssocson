@@ -27,6 +27,8 @@ export const ROBOTICS_TRAIL_STOPS: MouseTrailStop[] = [
 /**
  * Desktop mouse-trail grid overlay (Farmminerals Webflow port).
  * Desktop only (≥768px); respects reduced motion by skipping init.
+ *
+ * Stack (ContactExperienceShell): image z-0 → gradient z-1 → trail z-2 → content z-10.
  */
 export function MouseTrail({
   sectionId = "trail-section",
@@ -34,7 +36,7 @@ export function MouseTrail({
   fadeInDuration = 100,
   fadeOutDuration = 300,
   showOpacity = 0.85,
-  containerZIndex = 50,
+  containerZIndex = 2,
   gradientStops = ROBOTICS_TRAIL_STOPS,
 }: MouseTrailConfig = {}) {
   useEffect(() => {
@@ -150,7 +152,13 @@ export function MouseTrail({
       };
 
       section.addEventListener("mousemove", onMove);
-      section.appendChild(container);
+
+      const gradientLayer = section.querySelector("[data-trail-underlay]");
+      if (gradientLayer?.nextSibling) {
+        section.insertBefore(container, gradientLayer.nextSibling);
+      } else {
+        section.appendChild(container);
+      }
 
       (container as HTMLDivElement & { __cleanup?: () => void }).__cleanup =
         () => {

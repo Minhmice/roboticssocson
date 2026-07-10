@@ -201,15 +201,27 @@ Ship production course surface for **"Từ Khối Lệnh Đến Phần Cứng"**
 
 **Plans:** Crafted inline via `/impeccable craft` (no separate plan files)
 
-### Phase 8: Production readiness public launch SEO CWV headers analytics
+### Phase 8: Production readiness — SEO, CWV, headers, PostHog analytics
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** Ship PostHog SDK across the site, instrument custom behavior events, and deliver a password-protected internal analytics dashboard aligned with DESIGN.md.
+
+**Mode:** mvp  
+**Status:** In progress  
 **Depends on:** Phase 7
-**Plans:** 0 plans
+
+**Success Criteria:**
+1. `posthog-js` initializes via `instrumentation-client.ts` with `/ingest` reverse proxy.
+2. Custom events fire for CTA clicks, language toggle, nav, course registration, and boot loader.
+3. `/analytics` requires dashboard password; HogQL summary loads when `POSTHOG_PERSONAL_API_KEY` is set.
+4. `npm run lint` and `npm run build` pass.
+
+**Plans:** Implemented via PostHog wizard pattern + `/impeccable craft`
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 8 to break down)
+- [x] PostHog SDK + proxy + custom event instrumentation
+- [x] Password-gated `/analytics` dashboard (DESIGN.md light theme)
+- [ ] Add `POSTHOG_PERSONAL_API_KEY` for live HogQL metrics in dashboard
+- [ ] Production env vars on host (Vercel / Cloudflare)
 
 ---
 

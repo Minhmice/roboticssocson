@@ -24,7 +24,7 @@ Khóa học không chỉ dạy kéo thả khối lệnh. Học sinh sẽ học c
 
 Tiêu đề: **Từ Khối Lệnh Đến Phần Cứng**
 Mô tả: Khóa học STEM giúp học sinh cấp 1–2 học lập trình, AI, flowchart, Scratch, mBlock và Arduino qua các dự án thực hành.
-CTA: **Xem lộ trình học** / **Đăng ký tư vấn**
+CTA: **Xem lộ trình học** / **Đăng ký khóa học**
 
 ### Vấn đề
 
@@ -63,4 +63,4 @@ Hiện đại, giáo dục, thân thiện. Dùng mascot mèo/robot làm người
 
 ## 7. Chỉ số thành công
 
-Người xem hiểu khóa học trong 30 giây, thấy rõ sản phẩm cuối khóa, biết con mình sẽ học gì, và có CTA đăng ký/tư vấn rõ ràng.
+Người xem hiểu khóa học trong 30 giây, thấy rõ sản phẩm cuối khóa, biết con mình sẽ học gì, và có CTA đăng ký khóa học rõ ràng.

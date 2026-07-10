@@ -2,12 +2,12 @@ import { buildMetadata } from "@/lib/seo/metadata";
 
 export const courseRegisterFormSeo = {
   vi: {
-    title: "Đăng ký tư vấn khóa học | Robotics Sóc Sơn",
+    title: "Đăng ký khóa học | Robotics Sóc Sơn",
     description:
-      "Đăng ký tư vấn khóa Scratch → Arduino với Robotics Sóc Sơn. Form 2 bước — phản hồi trong 24–48 giờ.",
+      "Đăng ký khóa Scratch → Arduino với Robotics Sóc Sơn. Form 2 bước — phản hồi trong 24–48 giờ.",
     keywords: [
       "đăng ký khóa học robotics",
-      "tư vấn STEM",
+      "khóa học STEM",
       "Scratch",
       "Arduino",
       "Sóc Sơn",
@@ -15,12 +15,12 @@ export const courseRegisterFormSeo = {
     canonicalPath: "/course-register-form",
   },
   en: {
-    title: "Course consultation registration | Robotics Sóc Sơn",
+    title: "Course registration | Robotics Sóc Sơn",
     description:
-      "Book a Scratch → Arduino course consultation with Robotics Sóc Sơn. Two-step form — reply within 24–48 hours.",
+      "Register for the Scratch → Arduino course with Robotics Sóc Sơn. Two-step form — reply within 24–48 hours.",
     keywords: [
       "robotics course registration",
-      "STEM consultation",
+      "STEM course",
       "Scratch",
       "Arduino",
       "Soc Son",
@@ -45,6 +45,37 @@ export const contactUsSeo = {
     canonicalPath: "/contact-us",
   },
 };
+
+export const courseRegisterSuccessSeo = {
+  vi: {
+    title: "Đăng ký thành công | Robotics Sóc Sơn",
+    description:
+      "Đăng ký khóa học đã được ghi nhận. Robotics Sóc Sơn sẽ liên hệ trong 24–48 giờ.",
+    keywords: [
+      "đăng ký thành công",
+      "khóa học robotics",
+      "STEM",
+      "Sóc Sơn",
+    ],
+    canonicalPath: "/course-register-form/success",
+  },
+  en: {
+    title: "Registration successful | Robotics Sóc Sơn",
+    description:
+      "Your course registration was received. Robotics Sóc Sơn will reply within 24–48 hours.",
+    keywords: [
+      "registration successful",
+      "robotics course",
+      "STEM course",
+      "Soc Son",
+    ],
+    canonicalPath: "/course-register-form/success",
+  },
+};
+
+export function courseRegisterSuccessMetadata() {
+  return buildMetadata(courseRegisterSuccessSeo.vi);
+}
 
 export function courseRegisterFormMetadata() {
   return buildMetadata(courseRegisterFormSeo.vi);

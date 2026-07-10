@@ -1,6 +1,8 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
+import { captureEvent } from "@/lib/posthog/client";
+import { AnalyticsEvents } from "@/lib/posthog/events";
 import enMessages from "../../messages/en.json";
 import viMessages from "../../messages/vi.json";
 
@@ -34,6 +36,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const setLocale = (newLocale: Locale) => {
     if (newLocale === locale) return;
+
+    captureEvent(AnalyticsEvents.LANGUAGE_SWITCHED, {
+      from: locale,
+      to: newLocale,
+    });
 
     document.body.style.opacity = "0";
     document.body.style.transition = "opacity 0.3s ease-out";

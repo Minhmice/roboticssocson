@@ -11,10 +11,16 @@ import CourseProblem from "./CourseProblem";
 import CourseProjects from "./CourseProjects";
 import CourseRegister from "./CourseRegister";
 import CourseTrust from "./CourseTrust";
+import { PageAnalytics } from "@/components/shared/PageAnalytics";
+import { AnalyticsEvents } from "@/lib/posthog/events";
 
 export default function CoursePage() {
   return (
     <div>
+      <PageAnalytics
+        event={AnalyticsEvents.COURSE_PAGE_VIEWED}
+        surface="/course"
+      />
       <CourseHero />
       <CourseProblem />
       <CourseOutcomes />

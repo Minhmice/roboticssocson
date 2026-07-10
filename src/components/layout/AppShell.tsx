@@ -8,20 +8,21 @@ import {
 } from "@/components/layout/BootLoader";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { BootRevealProvider } from "@/contexts/BootRevealContext";
 import { cn } from "@/lib/utils";
 
 /** Full-bleed contact/register experiences — keep Navbar + Footer, drop main top pad. */
-const IMMERSIVE_PATHS = new Set([
-  "/course-register-form",
-  "/contact-us",
-]);
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const immersive = IMMERSIVE_PATHS.has(pathname);
+  const immersive =
+    pathname === "/contact-us" ||
+    pathname === "/analytics" ||
+    pathname?.startsWith("/course-register-form") === true;
+  const hideFooter = pathname === "/analytics";
 
   return (
-    <>
+    <BootRevealProvider>
       <BootLoader />
       <BootAwareMain>
         <Navbar />
@@ -33,8 +34,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         >
           {children}
         </main>
-        <Footer />
+        {!hideFooter ? <Footer /> : null}
       </BootAwareMain>
-    </>
+    </BootRevealProvider>
   );
 }

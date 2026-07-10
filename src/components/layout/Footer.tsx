@@ -88,7 +88,7 @@ export const Footer: React.FC = () => {
                   isRoute: true,
                 },
                 {
-                  label: t("nav.registerConsultation"),
+                  label: t("nav.registerCourse"),
                   href: "/course-register-form",
                   isRoute: true,
                 },

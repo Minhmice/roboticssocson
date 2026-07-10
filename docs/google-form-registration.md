@@ -1,12 +1,12 @@
 # Google Form registration (custom UI)
 
-The course consult form on `/course#course-register` uses a **custom React UI**. It does **not** embed a Google Forms iframe. Submissions POST to Google’s `formResponse` endpoint via a hidden iframe + hidden form.
+The course registration form on `/course-register-form` uses a **custom React UI**. It does **not** embed a Google Forms iframe. Submissions POST to Google’s `formResponse` endpoint via a hidden iframe + hidden form.
 
 ## Live form
 
 | | |
 |---|---|
-| Title | Đăng kí tư vấn khoá học lập trình Robotics |
+| Title | Đăng kí khoá học lập trình Robotics |
 | View | `https://docs.google.com/forms/d/e/1FAIpQLSda8_sRGtCiOLWgjR073-TV9drtiOzdWW9nbgLr5PIqO9xzTw/viewform` |
 | Post | `…/formResponse` |
 

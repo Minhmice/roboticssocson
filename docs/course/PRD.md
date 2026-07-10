@@ -35,7 +35,7 @@ Một landing page dạng scroll:
 
 * Logo khóa học.
 * Menu anchor: Tổng quan, Lộ trình, Dự án, FAQ, Đăng ký.
-* CTA cố định: “Đăng ký tư vấn”.
+* CTA cố định: “Đăng ký khóa học”.
 * Sticky khi scroll.
 
 ### Hero Section
@@ -45,7 +45,7 @@ Một landing page dạng scroll:
 * 2 CTA:
 
   * “Xem lộ trình”
-  * “Đăng ký tư vấn”
+  * “Đăng ký khóa học”
 * Visual: mascot mèo/robot + block code + mạch Arduino.
 * Badge: “Dành cho học sinh cấp 1–2”, “12 buổi”, “Học qua thực hành”.
 
@@ -159,7 +159,7 @@ Fields:
 * Lớp/độ tuổi
 * Mức kinh nghiệm: Chưa học / Đã học Scratch / Đã học Arduino
 * Ghi chú
-* Button: “Gửi đăng ký tư vấn”
+* Button: “Gửi đăng ký khóa học”
 
 Validation:
 

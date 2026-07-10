@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { ContactExperiencePanel } from "@/components/shared/ContactExperiencePanel";
 import { MouseTrail } from "@/components/shared/MouseTrail";
 import {
   contactLeadName,
@@ -25,11 +26,8 @@ type ContactExperienceShellProps = {
   backgroundSrc?: string;
   backgroundAlt?: string;
   meta?: ContactExperienceMeta[];
-  /** Content below the page title (contact-us info list). */
   leadingContent?: ReactNode;
-  /** Hide the shell h1 when leading content carries the page title. */
   showTitle?: boolean;
-  /** Right column for forms. Off on contact-us. */
   showAside?: boolean;
   children?: ReactNode;
 };
@@ -37,9 +35,12 @@ type ContactExperienceShellProps = {
 export const CONTACT_EXPERIENCE_BG =
   "/Images/Achievements/FTC 2024-2025/Image  (3).webp";
 
+const shellPadding =
+  "px-[clamp(1.25rem,5vw,4.5rem)] pb-[clamp(1.25rem,3vh,2.5rem)]";
+
 /**
  * Full-bleed photo + tech-blue wash + MouseTrail.
- * Default: title top-left, form bottom-right. Navbar/Footer from AppShell.
+ * Background always spans the viewport; content sits in an inner row on register.
  */
 export function ContactExperienceShell({
   title,
@@ -57,6 +58,49 @@ export function ContactExperienceShell({
   const phoneLabel = phone ? `${phone} — ${contactLeadName}` : "";
   const showDefaultContact = !leadingContent;
   const anchorBottom = !showAside && Boolean(leadingContent);
+  const registerLayout = showAside && Boolean(children);
+
+  const panelBlock = (
+    <div
+      className={cn(
+        "pointer-events-none relative z-10 flex w-full min-w-0 shrink-0",
+        registerLayout && "lg:min-w-0 lg:flex-[0.95]",
+        anchorBottom
+          ? "mt-auto pb-[clamp(0.5rem,2vh,1.25rem)]"
+          : "items-start",
+      )}
+    >
+      <div className="pointer-events-auto relative w-full min-w-0">
+        {leadingContent}
+
+        {showDefaultContact ? (
+          <ContactExperiencePanel
+            title={title}
+            showTitle={showTitle}
+            email={email}
+            emailLabel={emailLabel}
+            phone={phone}
+            phoneLabel={phoneLabel}
+            meta={meta}
+            layout={registerLayout ? "register" : "default"}
+          />
+        ) : null}
+      </div>
+    </div>
+  );
+
+  const asideBlock =
+    showAside && children ? (
+      <div
+        className={cn(
+          "relative z-10 flex w-full min-w-0 flex-col items-start",
+          "max-lg:pb-[calc(4.5rem+env(safe-area-inset-bottom))]",
+          registerLayout && "lg:min-w-0 lg:flex-[1.05] lg:pb-0",
+        )}
+      >
+        {children}
+      </div>
+    ) : null;
 
   return (
     <div className="min-h-dvh bg-slate-900">
@@ -67,15 +111,7 @@ export function ContactExperienceShell({
         <div className="relative z-3 min-h-dvh w-full">
           <div
             id="trail-section"
-            className={cn(
-              "relative flex min-h-dvh flex-col overflow-hidden px-[clamp(1.25rem,5vw,4.5rem)] pb-[clamp(2rem,4vh,3.75rem)]",
-              anchorBottom
-                ? "justify-end pt-[calc(4rem+1.25rem)]"
-                : "pt-[calc(4rem+3.5em)]",
-              showAside
-                ? "items-start gap-10 lg:flex-row lg:items-start lg:gap-[clamp(2.5rem,5vw,4.75rem)]"
-                : "items-start",
-            )}
+            className="relative flex min-h-dvh w-full flex-col overflow-hidden"
           >
             <MouseTrail />
 
@@ -89,88 +125,36 @@ export function ContactExperienceShell({
             />
             <div
               className="pointer-events-none absolute inset-0 z-1 bg-[linear-gradient(115deg,rgba(15,23,42,0.78)_0%,rgba(15,23,42,0.42)_42%,rgba(37,99,235,0.38)_100%),linear-gradient(to_top,rgba(15,23,42,0.55)_0%,transparent_45%)]"
+              data-trail-underlay
               aria-hidden
             />
 
-            <div
-              className={cn(
-                "pointer-events-none relative z-100 flex w-full",
-                anchorBottom
-                  ? "mt-auto pb-[clamp(0.5rem,2vh,1.25rem)]"
-                  : "items-start",
-              )}
-            >
-              <div className="pointer-events-auto relative flex w-full max-w-184 flex-col items-start gap-5 lg:w-[min(42em,92vw)]">
-                {showTitle ? (
-                  <h1 className="pointer-events-none m-0 text-balance text-[clamp(3rem,8vw,5.85rem)] font-black leading-[0.98] tracking-tight text-white [text-shadow:0_2px_24px_rgba(15,23,42,0.35)] max-[991px]:text-[clamp(2.6rem,12vw,4rem)] max-[479px]:text-[clamp(2.35rem,13vw,3.2rem)]">
-                    {title}
-                  </h1>
-                ) : null}
-
-                {leadingContent}
-
-                {showDefaultContact && (
-                  <div className="flex w-full flex-col gap-5 xl:flex-row xl:items-start xl:gap-[clamp(1.75rem,3.5vw,3rem)]">
-                    <div className="flex flex-col gap-5">
-                      <a
-                        href={`mailto:${email}`}
-                        className="inline-flex w-fit flex-col items-start gap-0.5 no-underline group rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-                      >
-                        <span className="text-[clamp(0.88rem,1.35vw,1.12rem)] font-medium uppercase tracking-[0.06em] leading-tight text-white max-[479px]:text-[0.82rem]">
-                          {emailLabel ?? email}
-                        </span>
-                        <span className="h-px w-full bg-white opacity-90 transition-[background-color,height] duration-200 group-hover:h-0.5 group-hover:bg-primary" />
-                      </a>
-
-                      {phone ? (
-                        <a
-                          href={`tel:${phone.replace(/\s+/g, "")}`}
-                          className="inline-flex w-fit flex-col items-start gap-0.5 no-underline group rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-                        >
-                          <span className="text-[clamp(0.88rem,1.35vw,1.12rem)] font-medium uppercase tracking-[0.06em] leading-tight text-white/95 max-[479px]:text-[0.82rem]">
-                            {phoneLabel}
-                          </span>
-                          <span className="h-px w-full bg-white/80 opacity-90 transition-[background-color,height] duration-200 group-hover:h-0.5 group-hover:bg-primary" />
-                        </a>
-                      ) : null}
-                    </div>
-
-                    {meta.length > 0 && (
-                      <div className="pointer-events-auto flex w-full max-w-[28ch] flex-col gap-1.5 xl:max-w-[22ch] xl:shrink-0 xl:pt-0.5">
-                        {meta.map((item) =>
-                          item.href ? (
-                            <a
-                              key={item.label}
-                              href={item.href}
-                              className="w-fit max-w-full border-b border-white/45 text-[clamp(0.78rem,1.1vw,0.9rem)] font-medium uppercase tracking-[0.04em] leading-snug text-pretty text-white no-underline transition-colors hover:border-white rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-                              target={item.external ? "_blank" : undefined}
-                              rel={
-                                item.external ? "noopener noreferrer" : undefined
-                              }
-                            >
-                              {item.label}
-                            </a>
-                          ) : (
-                            <p
-                              key={item.label}
-                              className="m-0 max-w-full text-[clamp(0.78rem,1.1vw,0.9rem)] font-medium uppercase tracking-[0.04em] leading-snug text-pretty text-white"
-                            >
-                              {item.label}
-                            </p>
-                          ),
-                        )}
-                      </div>
-                    )}
-                  </div>
+            {registerLayout ? (
+              <div
+                className={cn(
+                  "relative z-10 flex w-full min-w-0 flex-1 flex-col gap-4",
+                  shellPadding,
+                  "pt-[calc(4rem+0.65rem)]",
+                  "lg:mx-auto lg:max-w-[min(76rem,100%)] lg:min-h-[calc(100dvh-4rem)] lg:flex-row lg:items-center lg:justify-between lg:gap-x-[clamp(1.5rem,3vw,3rem)] lg:pt-[calc(4rem+1.25rem)] lg:pb-6",
                 )}
+              >
+                {panelBlock}
+                {asideBlock}
               </div>
-            </div>
-
-            {showAside && children ? (
-              <div className="relative z-100 flex w-full flex-col items-start pt-0 lg:ml-auto lg:mt-auto lg:w-[min(42em,100%)] lg:self-stretch lg:pt-8">
-                {children}
+            ) : (
+              <div
+                className={cn(
+                  "relative z-10 flex w-full min-w-0 flex-1 flex-col",
+                  shellPadding,
+                  anchorBottom
+                    ? "justify-end pt-[calc(4rem+1.25rem)]"
+                    : "items-start pt-[calc(4rem+3.5em)]",
+                )}
+              >
+                {panelBlock}
+                {asideBlock}
               </div>
-            ) : null}
+            )}
           </div>
         </div>
       </section>

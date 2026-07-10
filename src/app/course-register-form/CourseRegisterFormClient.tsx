@@ -5,11 +5,13 @@ import {
   ContactExperienceShell,
   defaultContactMeta,
 } from "@/components/shared/ContactExperienceShell";
+import { PageAnalytics } from "@/components/shared/PageAnalytics";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { AnalyticsEvents } from "@/lib/posthog/events";
 
 const titles = {
-  vi: "Đăng ký tư vấn",
-  en: "Book a consult",
+  vi: "Đăng ký khóa học",
+  en: "Register for the course",
 };
 
 export default function CourseRegisterFormClient() {
@@ -19,6 +21,11 @@ export default function CourseRegisterFormClient() {
     <ContactExperienceShell
       title={titles[locale]}
       backgroundSrc="/Images/Achievements/FTC 2024-2025/Image  (2).webp"
+      backgroundAlt={
+        locale === "vi"
+          ? "Đội Robotics Sóc Sơn tại giải FTC"
+          : "Robotics Soc Son team at FTC competition"
+      }
       meta={[
         {
           label:
@@ -29,6 +36,10 @@ export default function CourseRegisterFormClient() {
         ...defaultContactMeta(locale).filter((m) => m.href),
       ]}
     >
+      <PageAnalytics
+        event={AnalyticsEvents.COURSE_REGISTER_PAGE_VIEWED}
+        surface="/course-register-form"
+      />
       <CourseConsultForm />
     </ContactExperienceShell>
   );

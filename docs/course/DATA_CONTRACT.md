@@ -305,12 +305,12 @@ export const courseLessons: Lesson[] = [
 ```ts
 // src/data/courseRegistration.ts
 export const courseRegistrationConfig: CourseRegistrationConfig = {
-  title_vi: "Đăng ký tư vấn",
-  title_en: "Request consultation",
+  title_vi: "Đăng ký khóa học",
+  title_en: "Course registration",
   subtitle_vi: "Điền form — chúng tôi liên hệ sớm nhất có thể.",
   subtitle_en: "Submit — we will contact you as soon as possible.",
-  submitLabel_vi: "Gửi đăng ký tư vấn",
-  submitLabel_en: "Submit consultation request",
+  submitLabel_vi: "Gửi đăng ký khóa học",
+  submitLabel_en: "Submit course registration",
   successMessage_vi: "Đã gửi! Cảm ơn bạn.",
   successMessage_en: "Submitted! Thank you.",
   googleFormLinks: {

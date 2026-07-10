@@ -1,18 +1,31 @@
 "use client";
 
 import {
+  Children,
+  cloneElement,
+  isValidElement,
   useEffect,
   useId,
   useRef,
   useState,
   useTransition,
+  type ReactElement,
   type ReactNode,
 } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import {
+  AnimatePresence,
+  motion,
+  useAnimationControls,
+  useReducedMotion,
+} from "framer-motion";
 import { ChevronLeft, ChevronRight, Loader2, Send } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { captureEvent } from "@/lib/posthog/client";
+import { AnalyticsEvents } from "@/lib/posthog/events";
+import { useBootAnimationReady } from "@/contexts/BootRevealContext";
 import {
   buildGoogleFormPayload,
   EMPTY_CONSULT_FORM,
@@ -22,6 +35,11 @@ import {
   type GoogleFormSourceOption,
 } from "@/lib/google-form-map";
 import {
+  clearConsultFormDraft,
+  readConsultFormDraft,
+  writeConsultFormDraft,
+} from "@/lib/course-consult-draft";
+import {
   hasConsultErrors,
   validateConsultStep1,
   validateConsultStep2,
@@ -30,22 +48,25 @@ import {
 
 const IFRAME_NAME = "google-form-target";
 
+/** Pause before form reveals — lets left panel finish first */
+const FORM_ENTER_DELAY_S = 0.38;
+const FORM_ENTER_EASE = [0.16, 1, 0.3, 1] as const;
+
 const ui = {
+  stepOf: {
+    vi: (current: number, total: number) => `Bước ${current}/${total}`,
+    en: (current: number, total: number) => `Step ${current} of ${total}`,
+  },
   stepContact: { vi: "Thông tin liên hệ", en: "Contact details" },
   stepStudent: { vi: "Thông tin học sinh", en: "Student details" },
-  next: { vi: "Tiếp tục", en: "Continue" },
+  next: {
+    vi: "Tiếp tục — thông tin học sinh",
+    en: "Continue — student details",
+  },
+  nextShort: { vi: "Tiếp tục", en: "Continue" },
   back: { vi: "Quay lại", en: "Back" },
-  submit: { vi: "• Gửi đăng ký •", en: "• Submit •" },
+  submit: { vi: "Gửi đăng ký", en: "Submit registration" },
   submitting: { vi: "Đang gửi…", en: "Sending…" },
-  success: {
-    vi: "Đăng ký thành công. Trung tâm sẽ liên hệ tư vấn sớm.",
-    en: "Registration successful. We will contact you soon.",
-  },
-  successSub: {
-    vi: "Cảm ơn bạn đã gửi đăng ký",
-    en: "Thank you for registering",
-  },
-  reset: { vi: "Gửi đăng ký khác", en: "Submit another" },
   optional: { vi: "tuỳ chọn", en: "optional" },
   parentName: {
     vi: "Họ và tên phụ huynh",
@@ -79,41 +100,144 @@ const ui = {
     vi: "Kỳ vọng / mục tiêu của học sinh",
     en: "Student goal for this course",
   },
+  roboticsDream: {
+    vi: "Ước mơ / dự định tương lai về Robotics",
+    en: "Future robotics goals or dreams",
+  },
   phoneHint: {
     vi: "10 số, bắt đầu bằng 0",
     en: "10 digits starting with 0",
   },
+  replyHint: {
+    vi: "Phản hồi trong 24–48 giờ qua email hoặc Messenger",
+    en: "We reply within 24–48 hours by email or Messenger",
+  },
+  optionalToggle: {
+    vi: "Thêm nền tảng lập trình (tuỳ chọn)",
+    en: "Add coding background (optional)",
+  },
+  timeHint: {
+    vi: "Khoảng 1–2 phút để hoàn tất",
+    en: "About 1–2 minutes to complete",
+  },
 };
 
-/** Underline field — scaled for course-register overlay (light-on-dark). */
+const STEP1_FIELD_ORDER = [
+  "parentName",
+  "studentName",
+  "phone",
+  "email",
+] as const satisfies readonly (keyof CourseConsultFormValues)[];
+
+const STEP2_FIELD_ORDER = [
+  "schoolClass",
+  "source",
+  "sourceOther",
+  "expectation",
+  "roboticsDream",
+] as const satisfies readonly (keyof CourseConsultFormValues)[];
+
+/** Underline field — 48px+ touch, 16px text for mobile readability */
 const fieldClass =
-  "min-h-12 w-full rounded-none border-0 border-b border-white/40 bg-transparent px-1.5 py-1.5 text-base leading-relaxed tracking-[0.01em] text-white shadow-none outline-none transition-[border-color] placeholder:text-white/55 hover:border-white focus-visible:border-blue-300 focus-visible:ring-0";
+  "min-h-12 w-full rounded-none border-0 border-b border-white/45 bg-transparent px-1 py-2.5 text-base leading-relaxed tracking-[0.01em] text-white shadow-none outline-none transition-[border-color] placeholder:text-white/80 hover:border-white focus-visible:border-blue-300 focus-visible:ring-0 max-lg:text-[1.0625rem]";
 
 const solidBtn =
-  "inline-flex min-h-14 cursor-pointer items-center justify-center rounded-md border-0 bg-white px-8 py-4 text-[0.9rem] font-extrabold uppercase tracking-[0.08em] text-primary shadow-[0_10px_28px_rgba(15,23,42,0.28)] transition-colors hover:bg-accent hover:text-primary disabled:cursor-wait disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300";
+  "inline-flex min-h-14 cursor-pointer items-center justify-center rounded-md border-0 bg-white px-8 py-4 text-[0.9375rem] font-semibold leading-snug tracking-normal text-primary shadow-[0_10px_28px_rgba(15,23,42,0.28)] transition-colors hover:bg-accent hover:text-primary disabled:cursor-wait disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300";
 
 const ghostBtn =
-  "inline-flex min-h-14 flex-1 cursor-pointer items-center justify-center rounded-md border border-white/55 bg-transparent px-6 py-3.5 text-[0.875rem] font-bold uppercase tracking-[0.07em] text-white transition-colors hover:border-white hover:bg-white/10 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300";
+  "inline-flex min-h-14 flex-1 cursor-pointer items-center justify-center rounded-md border border-white/55 bg-transparent px-6 py-3.5 text-[0.875rem] font-semibold leading-snug tracking-normal text-white transition-colors hover:border-white hover:bg-white/10 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300";
 
 const labelClass =
-  "mb-2 block text-[0.875rem] font-extrabold uppercase leading-snug tracking-[0.07em] text-white";
+  "mb-1.5 block text-[0.875rem] font-semibold leading-snug tracking-normal text-white lg:mb-1 lg:text-[0.8125rem]";
+
+const textareaClass =
+  "min-h-[3.25em] resize-y pt-1.5 max-lg:min-h-[3.25em] lg:min-h-[2.35rem] lg:resize-none lg:py-1.5 lg:text-[0.9375rem]";
+
+const radioLabelClass =
+  "flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border border-white/25 bg-white/[0.04] px-3 py-2.5 text-[0.9375rem] leading-snug text-white transition-colors hover:border-white/45 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-300 has-[:checked]:border-primary/80 has-[:checked]:bg-primary/15 max-lg:min-h-[3rem] max-lg:text-base lg:min-h-10 lg:gap-2 lg:px-2.5 lg:py-2 lg:text-[0.8125rem]";
+
+const radioInputClass =
+  "h-5 w-5 shrink-0 cursor-pointer accent-primary focus-visible:outline-none max-lg:h-[1.375rem] max-lg:w-[1.375rem]";
+
+const actionBarClass =
+  "mt-6 flex w-full flex-col-reverse gap-3 sm:flex-row sm:items-center max-lg:sticky max-lg:bottom-0 max-lg:z-20 max-lg:-mx-0.5 max-lg:border-t max-lg:border-white/15 max-lg:bg-slate-950/80 max-lg:px-0.5 max-lg:py-3 max-lg:pb-[max(0.75rem,env(safe-area-inset-bottom))] max-lg:backdrop-blur-md lg:mt-3 lg:static lg:border-0 lg:bg-transparent lg:p-0 lg:backdrop-blur-none";
+
+const solidBtnCompact =
+  "lg:min-h-12 lg:px-6 lg:py-3 lg:text-[0.875rem]";
+
+const ghostBtnCompact =
+  "lg:min-h-12 lg:px-5 lg:py-2.5 lg:text-[0.8125rem]";
+
+function readInitialDraft(): { step: 1 | 2; values: CourseConsultFormValues } | null {
+  if (typeof window === "undefined") return null;
+  return readConsultFormDraft();
+}
+
+function focusFirstError(
+  formId: string,
+  step: 1 | 2,
+  errors: ConsultFieldErrors,
+) {
+  const order = step === 1 ? STEP1_FIELD_ORDER : STEP2_FIELD_ORDER;
+  const firstKey = order.find((key) => errors[key]);
+  if (!firstKey) return;
+
+  const idMap: Record<string, string> = {
+    parentName: `${formId}-parent`,
+    studentName: `${formId}-student`,
+    phone: `${formId}-phone`,
+    email: `${formId}-email`,
+    schoolClass: `${formId}-school`,
+    source: `${formId}-source`,
+    sourceOther: `${formId}-source-other`,
+    expectation: `${formId}-expect`,
+    roboticsDream: `${formId}-robotics`,
+  };
+
+  const targetId = idMap[firstKey];
+  if (!targetId) return;
+
+  if (firstKey === "source") {
+    const radio = document.querySelector<HTMLInputElement>(
+      `input[name="${formId}-source"]`,
+    );
+    radio?.focus();
+    return;
+  }
+
+  document.getElementById(targetId)?.focus();
+}
 
 export function CourseConsultForm() {
   const { locale } = useLanguage();
+  const router = useRouter();
   const reduceMotion = useReducedMotion();
+  const animationReady = useBootAnimationReady();
   const formId = useId();
+  const formShellRef = useRef<HTMLDivElement>(null);
   const hiddenFormRef = useRef<HTMLFormElement>(null);
-  const [step, setStep] = useState<1 | 2>(1);
-  const [values, setValues] =
-    useState<CourseConsultFormValues>(EMPTY_CONSULT_FORM);
-  const [errors, setErrors] = useState<ConsultFieldErrors>({});
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">(
-    "idle"
+  const [step, setStep] = useState<1 | 2>(
+    () => readInitialDraft()?.step ?? 1,
   );
+  const [values, setValues] = useState<CourseConsultFormValues>(
+    () => readInitialDraft()?.values ?? EMPTY_CONSULT_FORM,
+  );
+  const [errors, setErrors] = useState<ConsultFieldErrors>({});
+  const [status, setStatus] = useState<"idle" | "submitting">("idle");
   const [hiddenPairs, setHiddenPairs] = useState<
     Array<{ name: string; value: string }>
   >([]);
   const [, startTransition] = useTransition();
+  const draftHydratedRef = useRef(false);
+
+  useEffect(() => {
+    draftHydratedRef.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (!draftHydratedRef.current) return;
+    writeConsultFormDraft({ step, values });
+  }, [step, values]);
 
   useEffect(() => {
     if (status !== "submitting" || hiddenPairs.length === 0) return;
@@ -122,15 +246,35 @@ export function CourseConsultForm() {
     const t = window.setTimeout(() => {
       form.submit();
       startTransition(() => {
-        setStatus("success");
+        clearConsultFormDraft();
         setValues(EMPTY_CONSULT_FORM);
         setStep(1);
         setErrors({});
         setHiddenPairs([]);
+        setStatus("idle");
+
+        const go = () => {
+          captureEvent(AnalyticsEvents.COURSE_REGISTER_SUBMITTED, {
+            surface: "/course-register-form",
+          });
+          router.push("/course-register-form/success");
+        };
+        if (
+          typeof document !== "undefined" &&
+          "startViewTransition" in document
+        ) {
+          (
+            document as Document & {
+              startViewTransition: (callback: () => void) => void;
+            }
+          ).startViewTransition(go);
+        } else {
+          go();
+        }
       });
     }, 50);
     return () => window.clearTimeout(t);
-  }, [status, hiddenPairs]);
+  }, [status, hiddenPairs, router]);
 
   const setField = <K extends keyof CourseConsultFormValues>(
     key: K,
@@ -148,24 +292,39 @@ export function CourseConsultForm() {
   const goNext = () => {
     const stepErrors = validateConsultStep1(values, locale);
     setErrors(stepErrors);
-    if (hasConsultErrors(stepErrors)) return;
+    if (hasConsultErrors(stepErrors)) {
+      focusFirstError(formId, 1, stepErrors);
+      return;
+    }
     setStep(2);
+    formShellRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const goBack = () => {
     setStep(1);
     setErrors({});
+    formShellRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const handleSubmit = () => {
+    captureEvent(AnalyticsEvents.COURSE_REGISTER_SUBMIT_CLICKED, {
+      button_label: ui.submit[locale],
+      step: String(step),
+      surface: "/course-register-form",
+    });
+
     const stepErrors = validateConsultStep2(values, locale);
     setErrors(stepErrors);
-    if (hasConsultErrors(stepErrors)) return;
+    if (hasConsultErrors(stepErrors)) {
+      focusFirstError(formId, 2, stepErrors);
+      return;
+    }
 
     const step1 = validateConsultStep1(values, locale);
     if (hasConsultErrors(step1)) {
       setErrors(step1);
       setStep(1);
+      focusFirstError(formId, 1, step1);
       return;
     }
 
@@ -177,28 +336,45 @@ export function CourseConsultForm() {
     ? { duration: 0 }
     : { duration: 0.28, ease: [0.16, 1, 0.3, 1] as const };
 
-  if (status === "success") {
-    return (
-      <div className="relative z-[100] flex min-h-48 w-full max-w-[42em] flex-col justify-end gap-4 text-white">
-        <p className="m-0 text-balance text-[clamp(1.6rem,3vw,2.35rem)] font-extrabold leading-[1.05] tracking-[-0.02em]">
-          {ui.success[locale]}
-        </p>
-        <p className="m-0 text-[0.9rem] uppercase tracking-[0.04em] text-white/90">
-          {ui.successSub[locale]}
-        </p>
-        <button
-          type="button"
-          className="w-fit min-h-11 cursor-pointer border-0 bg-transparent p-0 text-sm font-semibold text-blue-200 underline underline-offset-4"
-          onClick={() => setStatus("idle")}
-        >
-          {ui.reset[locale]}
-        </button>
-      </div>
-    );
-  }
+  const formControls = useAnimationControls();
+  const formEnteredRef = useRef(false);
+
+  useEffect(() => {
+    if (reduceMotion) {
+      formControls.set({ opacity: 1, y: 0, filter: "blur(0px)" });
+      return;
+    }
+    if (!animationReady) {
+      formEnteredRef.current = false;
+      formControls.set({ opacity: 1, y: 18, filter: "blur(5px)" });
+      return;
+    }
+    if (formEnteredRef.current) return;
+    formEnteredRef.current = true;
+
+    formControls.set({ opacity: 1, y: 18, filter: "blur(5px)" });
+    void formControls.start({
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.85,
+        delay: FORM_ENTER_DELAY_S,
+        ease: FORM_ENTER_EASE,
+      },
+    });
+  }, [animationReady, formControls, reduceMotion]);
+
+  const stepLabel =
+    step === 1 ? ui.stepContact[locale] : ui.stepStudent[locale];
 
   return (
-    <div className="relative z-[100] w-full max-w-[42em]">
+    <motion.div
+      ref={formShellRef}
+      className="relative z-10 w-full min-w-0 max-w-[42em] scroll-mt-24 lg:max-w-none"
+      initial={false}
+      animate={formControls}
+    >
       <iframe
         name={IFRAME_NAME}
         title="google-form-submission"
@@ -225,26 +401,47 @@ export function CourseConsultForm() {
         ))}
       </form>
 
+      <div className="mb-2 flex flex-col gap-0.5 lg:mb-1">
+        <p className="m-0 text-sm font-medium leading-snug text-white/90">
+          <span className="text-white">{ui.stepOf[locale](step, 2)}</span>
+          <span className="text-white/70" aria-hidden>
+            {" "}
+            ·{" "}
+          </span>
+          <span>{stepLabel}</span>
+        </p>
+        <p className="m-0 text-xs leading-snug text-white/70 lg:hidden">
+          {ui.replyHint[locale]}
+          <span className="text-white/50" aria-hidden>
+            {" "}
+            ·{" "}
+          </span>
+          {ui.timeHint[locale]}
+        </p>
+      </div>
+
       <Progress
         value={step === 1 ? 45 : 100}
-        className="mb-10 h-1.5 bg-white/20"
-        aria-label={
-          step === 1 ? ui.stepContact[locale] : ui.stepStudent[locale]
-        }
+        className="mb-4 h-1 bg-white/20 lg:mb-2.5"
+        aria-label={stepLabel}
       />
 
       <AnimatePresence mode="wait" initial={false}>
         {step === 1 ? (
-          <motion.div
+          <motion.form
             key="step1"
-            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+            noValidate
+            onSubmit={(e) => {
+              e.preventDefault();
+              goNext();
+            }}
+            initial={reduceMotion ? false : { opacity: 1, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+            exit={reduceMotion ? undefined : { opacity: 1, y: -4 }}
             transition={transition}
             className="flex w-full flex-col"
           >
-            {/* Identity pair — tight group */}
-            <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-x-5 gap-y-5 lg:grid-cols-2">
               <OverlayField
                 id={`${formId}-parent`}
                 label={ui.parentName[locale]}
@@ -255,6 +452,7 @@ export function CourseConsultForm() {
                   id={`${formId}-parent`}
                   className={fieldClass}
                   autoComplete="name"
+                  enterKeyHint="next"
                   value={values.parentName}
                   onChange={(e) => setField("parentName", e.target.value)}
                   aria-invalid={Boolean(errors.parentName)}
@@ -270,6 +468,8 @@ export function CourseConsultForm() {
                 <input
                   id={`${formId}-student`}
                   className={fieldClass}
+                  autoComplete="additional-name"
+                  enterKeyHint="next"
                   value={values.studentName}
                   onChange={(e) => setField("studentName", e.target.value)}
                   aria-invalid={Boolean(errors.studentName)}
@@ -277,8 +477,7 @@ export function CourseConsultForm() {
               </OverlayField>
             </div>
 
-            {/* Contact pair */}
-            <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+            <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 lg:grid-cols-2">
               <OverlayField
                 id={`${formId}-phone`}
                 label={ui.phone[locale]}
@@ -292,6 +491,7 @@ export function CourseConsultForm() {
                   type="tel"
                   inputMode="tel"
                   autoComplete="tel"
+                  enterKeyHint="next"
                   placeholder="09xx xxx xxx"
                   value={values.phone}
                   onChange={(e) => setField("phone", e.target.value)}
@@ -309,7 +509,9 @@ export function CourseConsultForm() {
                   id={`${formId}-email`}
                   className={fieldClass}
                   type="email"
+                  inputMode="email"
                   autoComplete="email"
+                  enterKeyHint="go"
                   placeholder="name@gmail.com"
                   value={values.email}
                   onChange={(e) => setField("email", e.target.value)}
@@ -318,27 +520,29 @@ export function CourseConsultForm() {
               </OverlayField>
             </div>
 
-            {/* CTA — generous separation from fields */}
-            <div className="mt-12">
-              <button
-                type="button"
-                className={cn(solidBtn, "w-full sm:w-auto sm:min-w-[11.5rem]")}
-                onClick={goNext}
-              >
-                {ui.next[locale]}
+            <div className={actionBarClass}>
+              <button type="submit" className={cn(solidBtn, "w-full sm:w-auto sm:min-w-[11.5rem]")}>
+                <span className="sm:hidden">{ui.nextShort[locale]}</span>
+                <span className="hidden sm:inline">{ui.next[locale]}</span>
                 <ChevronRight className="ml-2 h-4 w-4" aria-hidden />
               </button>
             </div>
-          </motion.div>
+          </motion.form>
         ) : (
-          <motion.div
+          <motion.form
             key="step2"
-            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+            noValidate
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+            initial={reduceMotion ? false : { opacity: 1, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+            exit={reduceMotion ? undefined : { opacity: 1, y: -4 }}
             transition={transition}
-            className="flex w-full flex-col"
+            className="flex w-full flex-col lg:gap-2"
           >
+            <div className="flex w-full flex-col gap-3 lg:gap-2.5">
             <OverlayField
               id={`${formId}-school`}
               label={ui.schoolClass[locale]}
@@ -348,23 +552,31 @@ export function CourseConsultForm() {
               <input
                 id={`${formId}-school`}
                 className={fieldClass}
+                autoComplete="organization"
+                enterKeyHint="next"
                 value={values.schoolClass}
                 onChange={(e) => setField("schoolClass", e.target.value)}
                 aria-invalid={Boolean(errors.schoolClass)}
               />
             </OverlayField>
 
-            <fieldset className="mt-8 w-full">
+            <fieldset className="w-full lg:mt-0">
               <legend className={labelClass}>
                 {ui.source[locale]}
-                <span className="ml-1 text-blue-300">*</span>
+                <span className="ml-1 text-blue-300" aria-hidden>
+                  *
+                </span>
+                <span className="sr-only"> (required)</span>
               </legend>
-              <div className="flex flex-col gap-2" role="radiogroup">
+              <div
+                className="flex flex-col gap-2 lg:grid lg:grid-cols-3 lg:gap-2"
+                role="radiogroup"
+                id={`${formId}-source`}
+                aria-describedby={errors.source ? `${formId}-source-error` : undefined}
+                aria-invalid={Boolean(errors.source)}
+              >
                 {GOOGLE_FORM_SOURCE_OPTIONS.map((opt) => (
-                  <label
-                    key={opt}
-                    className="flex min-h-12 cursor-pointer items-center gap-3 text-base leading-snug text-white"
-                  >
+                  <label key={opt} className={radioLabelClass}>
                     <input
                       type="radio"
                       name={`${formId}-source`}
@@ -374,21 +586,25 @@ export function CourseConsultForm() {
                         setField("source", opt);
                         if (opt !== "Mục khác") setField("sourceOther", "");
                       }}
-                      className="h-[1.125rem] w-[1.125rem] accent-primary"
+                      className={radioInputClass}
                     />
                     <span>{ui.sourceLabels[opt][locale]}</span>
                   </label>
                 ))}
               </div>
               {errors.source && (
-                <p className="mt-2 text-sm text-red-200" role="alert">
+                <p
+                  id={`${formId}-source-error`}
+                  className="mt-2 text-sm text-red-200"
+                  role="alert"
+                >
                   {errors.source}
                 </p>
               )}
             </fieldset>
 
             {values.source === "Mục khác" && (
-              <div className="mt-6">
+              <div className="mt-2 lg:mt-0">
                 <OverlayField
                   id={`${formId}-source-other`}
                   label={ui.sourceOther[locale]}
@@ -405,19 +621,29 @@ export function CourseConsultForm() {
               </div>
             )}
 
-            <div className="mt-8 flex flex-col gap-8">
-              <OverlayField
-                id={`${formId}-exp`}
-                label={`${ui.experience[locale]} (${ui.optional[locale]})`}
+            <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-x-4 lg:gap-y-2.5">
+              <details
+                className="group rounded-sm border border-white/20 bg-white/5 open:border-white/30 open:pb-2 lg:col-span-2"
+                open={values.experience.trim().length > 0}
               >
-                <textarea
-                  id={`${formId}-exp`}
-                  className={cn(fieldClass, "min-h-[5em] resize-none pt-1.5")}
-                  rows={2}
-                  value={values.experience}
-                  onChange={(e) => setField("experience", e.target.value)}
-                />
-              </OverlayField>
+                <summary className="flex min-h-11 cursor-pointer list-none items-center px-3 text-sm font-medium text-white/90 marker:content-none lg:min-h-9 lg:px-2.5 lg:text-[0.8125rem] [&::-webkit-details-marker]:hidden">
+                  {ui.optionalToggle[locale]}
+                </summary>
+                <div className="px-3 pt-1 lg:px-2.5">
+                  <OverlayField
+                    id={`${formId}-exp`}
+                    label={ui.experience[locale]}
+                  >
+                    <textarea
+                      id={`${formId}-exp`}
+                      className={cn(fieldClass, textareaClass)}
+                      rows={2}
+                      value={values.experience}
+                      onChange={(e) => setField("experience", e.target.value)}
+                    />
+                  </OverlayField>
+                </div>
+              </details>
 
               <OverlayField
                 id={`${formId}-expect`}
@@ -427,19 +653,36 @@ export function CourseConsultForm() {
               >
                 <textarea
                   id={`${formId}-expect`}
-                  className={cn(fieldClass, "min-h-[5.5em] resize-none pt-1.5")}
-                  rows={3}
+                  className={cn(fieldClass, textareaClass)}
+                  rows={2}
                   value={values.expectation}
                   onChange={(e) => setField("expectation", e.target.value)}
                   aria-invalid={Boolean(errors.expectation)}
                 />
               </OverlayField>
+
+              <OverlayField
+                id={`${formId}-robotics`}
+                label={ui.roboticsDream[locale]}
+                required
+                error={errors.roboticsDream}
+              >
+                <textarea
+                  id={`${formId}-robotics`}
+                  className={cn(fieldClass, textareaClass)}
+                  rows={2}
+                  value={values.roboticsDream}
+                  onChange={(e) => setField("roboticsDream", e.target.value)}
+                  aria-invalid={Boolean(errors.roboticsDream)}
+                />
+              </OverlayField>
+            </div>
             </div>
 
-            <div className="mt-12 flex w-full flex-col-reverse gap-4 sm:flex-row sm:items-center">
+            <div className={actionBarClass}>
               <button
                 type="button"
-                className={ghostBtn}
+                className={cn(ghostBtn, ghostBtnCompact)}
                 onClick={goBack}
                 disabled={status === "submitting"}
               >
@@ -447,9 +690,9 @@ export function CourseConsultForm() {
                 {ui.back[locale]}
               </button>
               <button
-                type="button"
-                className={cn(solidBtn, "flex-[1.4]")}
-                onClick={handleSubmit}
+                type="submit"
+                className={cn(solidBtn, solidBtnCompact, "flex-[1.4]")}
+                data-analytics-id="course-register-submit"
                 disabled={status === "submitting"}
               >
                 {status === "submitting" ? (
@@ -468,10 +711,10 @@ export function CourseConsultForm() {
                 )}
               </button>
             </div>
-          </motion.div>
+          </motion.form>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }
 
@@ -490,18 +733,39 @@ function OverlayField({
   error?: string;
   children: ReactNode;
 }) {
+  const hintId = hint ? `${id}-hint` : undefined;
+  const errorId = error ? `${id}-error` : undefined;
+  const describedBy =
+    [error ? errorId : undefined, !error && hint ? hintId : undefined]
+      .filter(Boolean)
+      .join(" ") || undefined;
+
+  const child = Children.only(children);
+  const fieldControl = isValidElement(child)
+    ? cloneElement(child as ReactElement<{ "aria-describedby"?: string }>, {
+        "aria-describedby": describedBy,
+      })
+    : children;
+
   return (
     <div className="w-full min-w-0">
       <label htmlFor={id} className={labelClass}>
         {label}
-        {required && <span className="ml-1 text-blue-300">*</span>}
+        {required && (
+          <span className="ml-1 text-blue-300" aria-hidden>
+            *
+          </span>
+        )}
+        {required && <span className="sr-only"> (required)</span>}
       </label>
-      {children}
+      {fieldControl}
       {hint && !error && (
-        <p className="mt-2 text-sm leading-snug text-white/75">{hint}</p>
+        <p id={hintId} className="mt-2 text-sm leading-snug text-white/80">
+          {hint}
+        </p>
       )}
       {error && (
-        <p className="mt-2 text-sm text-red-200" role="alert">
+        <p id={errorId} className="mt-2 text-sm text-red-200" role="alert">
           {error}
         </p>
       )}
