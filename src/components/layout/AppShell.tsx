@@ -18,8 +18,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   const immersive =
     pathname === "/contact-us" ||
     pathname === "/analytics" ||
-    pathname?.startsWith("/course-register-form") === true;
-  const hideFooter = pathname === "/analytics";
+    pathname?.startsWith("/course-register-form") === true ||
+    pathname === "/course/arduino-mblock-deck";
+  const hideFooter =
+    pathname === "/analytics" ||
+    pathname === "/course/arduino-mblock-deck";
 
   return (
     <BootRevealProvider>
