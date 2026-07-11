@@ -1,8 +1,8 @@
 "use client";
 
-import { DeckPlayer } from "@/components/course/deck/DeckPlayer";
+import { DeckGate } from "@/components/course/deck/DeckGate";
 import { arduinoMblockDeckSlides } from "@/data/arduinoMblockDeck";
 
 export default function ArduinoMblockDeckPage() {
-  return <DeckPlayer slides={arduinoMblockDeckSlides} />;
+  return <DeckGate slides={arduinoMblockDeckSlides} />;
 }

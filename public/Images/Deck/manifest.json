@@ -1,0 +1,344 @@
+{
+  "updatedAt": "2026-07-11T07:59:08.302Z",
+  "sources": [
+    {
+      "source": "RAW/arduino_board.jpg",
+      "page": 3,
+      "slot": 0,
+      "slideId": 3,
+      "output": "/Images/Deck/slide-03-00.webp",
+      "width": 1000,
+      "height": 1000,
+      "skipped": true
+    },
+    {
+      "source": "RAW/arduino_logo.webp",
+      "output": "/Images/Deck/assets/arduino-logo.webp",
+      "type": "logo",
+      "width": 640,
+      "height": 431,
+      "skipped": true
+    },
+    {
+      "source": "RAW/mblock_logo.png",
+      "output": "/Images/Deck/assets/mblock-logo.webp",
+      "type": "logo",
+      "width": 300,
+      "height": 300,
+      "skipped": true
+    },
+    {
+      "source": "RAW/scratch_logo.png",
+      "output": "/Images/Deck/assets/scratch-logo.webp",
+      "type": "logo",
+      "width": 320,
+      "height": 320,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide1.jpg",
+      "page": 1,
+      "slot": 0,
+      "slideId": 1,
+      "output": "/Images/Deck/slide-01-00.webp",
+      "width": 768,
+      "height": 433,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide11.avif",
+      "page": 11,
+      "slot": 0,
+      "slideId": 13,
+      "output": "/Images/Deck/slide-11-00.webp",
+      "width": 740,
+      "height": 416,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide12,1.jpg",
+      "page": 12,
+      "slot": 1,
+      "slideId": 14,
+      "output": "/Images/Deck/slide-12-01.webp",
+      "width": 686,
+      "height": 386,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide12,2.webp",
+      "page": 12,
+      "slot": 2,
+      "slideId": 14,
+      "output": "/Images/Deck/slide-12-02.webp",
+      "width": 1000,
+      "height": 1000,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide13.jpg",
+      "page": 13,
+      "slot": 0,
+      "slideId": 15,
+      "output": "/Images/Deck/slide-13-00.webp",
+      "width": 600,
+      "height": 490,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide16,1.png",
+      "page": 16,
+      "slot": 1,
+      "slideId": 18,
+      "output": "/Images/Deck/slide-16-01.webp",
+      "width": 1920,
+      "height": 1440,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide16,2.png",
+      "page": 16,
+      "slot": 2,
+      "slideId": 18,
+      "output": "/Images/Deck/slide-16-02.webp",
+      "width": 800,
+      "height": 450,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide19.jpg",
+      "page": 19,
+      "slot": 0,
+      "slideId": 22,
+      "output": "/Images/Deck/slide-19-00.webp",
+      "width": 600,
+      "height": 600,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide2.jpg",
+      "page": 2,
+      "slot": 0,
+      "slideId": 2,
+      "output": "/Images/Deck/slide-02-00.webp",
+      "width": 1000,
+      "height": 1000,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide20.webp",
+      "page": 20,
+      "slot": 0,
+      "slideId": 23,
+      "output": "/Images/Deck/slide-20-00.webp",
+      "width": 1000,
+      "height": 1000,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide21.jpg",
+      "page": 21,
+      "slot": 0,
+      "slideId": 24,
+      "output": "/Images/Deck/slide-21-00.webp",
+      "width": 1360,
+      "height": 685,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide25.webp",
+      "page": 25,
+      "slot": 0,
+      "slideId": 28,
+      "output": "/Images/Deck/slide-25-00.webp",
+      "width": 1000,
+      "height": 600,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide5.png",
+      "page": 5,
+      "slot": 0,
+      "slideId": 5,
+      "output": "/Images/Deck/slide-05-00.webp",
+      "width": 1472,
+      "height": 1069,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide61.webp",
+      "page": 6,
+      "slot": 1,
+      "slideId": 6,
+      "output": "/Images/Deck/slide-06-01.webp",
+      "width": 1021,
+      "height": 1024,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide62.webp",
+      "page": 6,
+      "slot": 2,
+      "slideId": 6,
+      "output": "/Images/Deck/slide-06-02.webp",
+      "width": 700,
+      "height": 700,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide63.jpg",
+      "page": 6,
+      "slot": 3,
+      "slideId": 6,
+      "output": "/Images/Deck/slide-06-03.webp",
+      "width": 1000,
+      "height": 1000,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide64.webp",
+      "page": 6,
+      "slot": 4,
+      "slideId": 6,
+      "output": "/Images/Deck/slide-06-04.webp",
+      "width": 800,
+      "height": 800,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide71.webp",
+      "page": 7,
+      "slot": 1,
+      "slideId": 7,
+      "output": "/Images/Deck/slide-07-01.webp",
+      "width": 1500,
+      "height": 930,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide72.jpg",
+      "page": 7,
+      "slot": 2,
+      "slideId": 7,
+      "output": "/Images/Deck/slide-07-02.webp",
+      "width": 1000,
+      "height": 1000,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide73.jpg",
+      "page": 7,
+      "slot": 3,
+      "slideId": 7,
+      "output": "/Images/Deck/slide-07-03.webp",
+      "width": 720,
+      "height": 462,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide8.png",
+      "page": 8,
+      "slot": 0,
+      "slideId": 8,
+      "output": "/Images/Deck/slide-08-00.webp",
+      "width": 1156,
+      "height": 654,
+      "skipped": true
+    },
+    {
+      "source": "RAW/slide9.jpg",
+      "page": 9,
+      "slot": 0,
+      "slideId": 9,
+      "output": "/Images/Deck/slide-09-00.webp",
+      "width": 1280,
+      "height": 720,
+      "skipped": true
+    }
+  ],
+  "slideIds": {
+    "1": [
+      "/Images/Deck/slide-01-00.webp"
+    ],
+    "2": [
+      "/Images/Deck/slide-02-00.webp"
+    ],
+    "3": [
+      "/Images/Deck/slide-03-00.webp"
+    ],
+    "5": [
+      "/Images/Deck/slide-05-00.webp"
+    ],
+    "6": [
+      "/Images/Deck/slide-06-01.webp",
+      "/Images/Deck/slide-06-02.webp",
+      "/Images/Deck/slide-06-03.webp",
+      "/Images/Deck/slide-06-04.webp"
+    ],
+    "7": [
+      "/Images/Deck/slide-07-01.webp",
+      "/Images/Deck/slide-07-02.webp",
+      "/Images/Deck/slide-07-03.webp"
+    ],
+    "8": [
+      "/Images/Deck/slide-08-00.webp"
+    ],
+    "9": [
+      "/Images/Deck/slide-09-00.webp"
+    ],
+    "10": [
+      "/Images/About FTC/3.3.webp",
+      "/Images/Mission/Image (7).webp"
+    ],
+    "13": [
+      "/Images/Deck/slide-11-00.webp"
+    ],
+    "14": [
+      "/Images/Deck/slide-12-01.webp",
+      "/Images/Deck/slide-12-02.webp"
+    ],
+    "15": [
+      "/Images/Deck/slide-13-00.webp"
+    ],
+    "16": [
+      "/Images/Deck/slide-08-00.webp"
+    ],
+    "17": [
+      "/Images/Deck/assets/mblock-logo.webp"
+    ],
+    "18": [
+      "/Images/Deck/slide-16-01.webp",
+      "/Images/Deck/slide-16-02.webp"
+    ],
+    "19": [
+      "/Images/Achievements/FTC 2024-2025/Image  (2).webp"
+    ],
+    "20": [
+      "/Images/Course/capstone-hero.webp"
+    ],
+    "22": [
+      "/Images/Deck/slide-19-00.webp"
+    ],
+    "23": [
+      "/Images/Deck/slide-20-00.webp"
+    ],
+    "24": [
+      "/Images/Deck/slide-21-00.webp"
+    ],
+    "25": [
+      "/Images/Achievements/FTC 2024-2025/Image  (4).webp"
+    ],
+    "26": [
+      "/Images/Mission/Image (6).webp"
+    ],
+    "27": [
+      "/Images/Mission/Image (7).webp"
+    ],
+    "28": [
+      "/Images/Deck/slide-25-00.webp"
+    ],
+    "30": [
+      "/Images/Deck/slide-30-qr.webp"
+    ]
+  }
+}

@@ -220,6 +220,226 @@
     animation: pulse-glow 3s ease-in-out infinite;
   }
 
+  /* Contact email/phone — periodic cyan signal blink */
+  @keyframes contact-link-blink {
+    0%,
+    68%,
+    100% {
+      text-shadow: 0 0 0 transparent;
+      filter: brightness(1);
+    }
+    74% {
+      text-shadow:
+        0 0 10px rgba(56, 189, 248, 0.55),
+        0 0 22px rgba(37, 99, 235, 0.35);
+      filter: brightness(1.12);
+    }
+    80% {
+      text-shadow:
+        0 0 6px rgba(56, 189, 248, 0.35),
+        0 0 14px rgba(37, 99, 235, 0.2);
+      filter: brightness(1.04);
+    }
+  }
+
+  .animate-contact-link-blink {
+    animation: contact-link-blink 3.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  }
+
+  .group\/contact[data-copied="true"] .animate-contact-link-blink,
+  button[data-copied="true"] .animate-contact-link-blink {
+    animation: none;
+    text-shadow: 0 0 16px rgba(37, 99, 235, 0.45);
+    filter: brightness(1.08);
+  }
+
+  @keyframes contact-copy-pop {
+    0% {
+      transform: scale(1);
+      filter: brightness(1);
+    }
+    35% {
+      transform: scale(1.045);
+      filter: brightness(1.18);
+    }
+    70% {
+      transform: scale(0.992);
+      filter: brightness(1.06);
+    }
+    100% {
+      transform: scale(1);
+      filter: brightness(1);
+    }
+  }
+
+  .animate-contact-copy-pop {
+    animation: contact-copy-pop 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Contact page — slow premium row hover (explicit CSS, not Tailwind group variants) */
+  .contact-row {
+    position: relative;
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.125rem;
+    border-radius: 0.125rem;
+    text-decoration: none;
+  }
+
+  .contact-row__label-wrap {
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+    align-items: center;
+    padding-right: 1.75rem;
+  }
+
+  .contact-row__label {
+    display: inline-block;
+    transform: translateX(0);
+    color: rgb(255 255 255);
+  }
+
+  .contact-row__arrow {
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    color: color-mix(in srgb, var(--primary) 90%, transparent);
+    opacity: 0;
+    transform: translate(1.25rem, -50%);
+  }
+
+  .contact-row__underline-track {
+    position: relative;
+    margin-top: 0.25rem;
+    display: block;
+    height: 0.125rem;
+    width: 100%;
+  }
+
+  .contact-row__underline {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 1px;
+    transform-origin: left center;
+    background-color: rgb(255 255 255 / 0.9);
+    box-shadow: 0 0 0 rgb(37 99 235 / 0);
+  }
+
+  .contact-row__label-wrap--plain {
+    padding-right: 0;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .contact-row__label {
+      transition:
+        transform 1.35s cubic-bezier(0.22, 1, 0.36, 1),
+        color 1.35s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 1.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .contact-row__arrow {
+      transition:
+        opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.18s,
+        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.18s;
+    }
+
+    .contact-row__underline {
+      transition:
+        height 1.55s cubic-bezier(0.22, 1, 0.36, 1) 0.12s,
+        background-color 1.55s cubic-bezier(0.22, 1, 0.36, 1) 0.12s,
+        box-shadow 1.55s cubic-bezier(0.22, 1, 0.36, 1) 0.12s,
+        opacity 1.55s cubic-bezier(0.22, 1, 0.36, 1) 0.12s;
+    }
+
+    .contact-row:hover .contact-row__label,
+    .contact-row:focus-visible .contact-row__label {
+      transform: translateX(0.75rem);
+      color: rgb(191 219 254);
+      animation: none !important;
+    }
+
+    .contact-row:hover .contact-row__arrow,
+    .contact-row:focus-visible .contact-row__arrow {
+      opacity: 1;
+      transform: translate(0, -50%);
+    }
+
+    .contact-row:hover .contact-row__underline,
+    .contact-row:focus-visible .contact-row__underline {
+      height: 2px;
+      background-color: var(--primary);
+      box-shadow: 0 0 20px rgb(37 99 235 / 0.42);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-row__label,
+    .contact-row__arrow,
+    .contact-row__underline {
+      transition: none !important;
+    }
+
+    .contact-row:hover .contact-row__label,
+    .contact-row:focus-visible .contact-row__label {
+      transform: none;
+    }
+
+    .contact-row:hover .contact-row__arrow,
+    .contact-row:focus-visible .contact-row__arrow {
+      opacity: 0;
+    }
+  }
+
+  button[data-copied="true"] {
+    text-shadow: 0 0 18px rgba(37, 99, 235, 0.35);
+  }
+
+  @keyframes contact-copy-tooltip-in {
+    0% {
+      opacity: 0;
+    }
+    35% {
+      opacity: 0.12;
+    }
+    65% {
+      opacity: 0.45;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes contact-copy-tooltip-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  .contact-copy-tooltip {
+    opacity: 0;
+    animation: contact-copy-tooltip-in 1.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+    padding: 0.3rem 0.55rem;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+  }
+
+  .contact-copy-tooltip[data-state="closed"] {
+    animation: contact-copy-tooltip-out 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
   /* Course mid-page CTA — drenched tech-blue surface */
   .course-mid-cta {
     position: relative;
@@ -235,6 +455,7 @@
     box-shadow:
       0 4px 24px rgba(37, 99, 235, 0.28),
       0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+    transition: box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .course-mid-cta.grid-pattern::before {
@@ -291,6 +512,66 @@
     animation: cta-shimmer 7s cubic-bezier(0.25, 1, 0.5, 1) infinite;
   }
 
+  .course-mid-cta--live,
+  .course-mid-cta:focus-within {
+    box-shadow:
+      0 10px 44px rgba(37, 99, 235, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+      0 0 72px rgba(147, 197, 253, 0.22);
+  }
+
+  .course-mid-cta--live .course-mid-cta-shimmer::after {
+    animation-duration: 2.6s;
+  }
+
+  .course-mid-cta-splash {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+      circle 300px at var(--splash-x, 50%) var(--splash-y, 50%),
+      rgba(255, 255, 255, 0.26) 0%,
+      rgba(255, 255, 255, 0.1) 32%,
+      transparent 64%
+    );
+    transition: opacity 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .course-mid-cta-splash.is-active {
+    opacity: 1;
+  }
+
+  @keyframes course-mid-cta-ripple {
+    0% {
+      transform: translate(-50%, -50%) scale(0.3);
+      opacity: 0.55;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(2.6);
+      opacity: 0;
+    }
+  }
+
+  .course-mid-cta-ripple {
+    position: absolute;
+    left: var(--splash-x, 50%);
+    top: var(--splash-y, 50%);
+    z-index: 1;
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.14) 42%,
+      transparent 72%
+    );
+    animation: course-mid-cta-ripple 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
   /* Course FAQ accordion — grid-template-rows expand (no height animation) */
   .course-faq-answer-panel {
     display: grid;
@@ -306,6 +587,7 @@
   .course-faq-answer-inner {
     overflow: hidden;
     min-height: 0;
+    margin-top: 0.75rem;
   }
 
   .course-faq-answer-content {
@@ -400,10 +682,26 @@
 
   @media (prefers-reduced-motion: reduce) {
     .animate-pulse-glow,
+    .animate-contact-link-blink,
+    .animate-contact-copy-pop,
+    .contact-copy-tooltip,
+    .contact-copy-tooltip[data-state="closed"],
     .animate-gradient-shift,
     .animate-aurora,
+    .animate-aurora-fast,
     .aurora-layer::after,
     .course-mid-cta-shimmer::after,
+    .course-mid-cta-ripple,
+    .course-mid-cta-splash,
+    .course-mid-cta {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    .course-mid-cta-splash.is-active {
+      opacity: 0;
+    }
+
     .mission-icon-float,
     .mission-icon-pulse,
     .mission-icon-tilt {
@@ -571,13 +869,55 @@
     animation: hero-ring-breathe 7s cubic-bezier(0.25, 1, 0.5, 1) infinite;
   }
 
+  /* Course hero — secondary aurora sweep + drifting image wash */
+  @keyframes course-aurora-sweep {
+    0%,
+    100% {
+      transform: translate3d(-4%, 0, 0) scale(1.02);
+      opacity: 0.28;
+    }
+    50% {
+      transform: translate3d(4%, -2%, 0) scale(1.06);
+      opacity: 0.42;
+    }
+  }
+
+  @keyframes course-hero-image-wash {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1.08);
+      opacity: 0.2;
+    }
+    50% {
+      transform: translate3d(-2%, -1.5%, 0) scale(1.12);
+      opacity: 0.32;
+    }
+  }
+
+  .course-aurora-sweep {
+    background: radial-gradient(
+      ellipse 70% 55% at 62% 48%,
+      color-mix(in srgb, var(--primary) 28%, transparent) 0%,
+      color-mix(in srgb, var(--chart-2) 18%, transparent) 42%,
+      transparent 72%
+    );
+    animation: course-aurora-sweep 14s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  }
+
+  .course-hero-image-wash {
+    animation: course-hero-image-wash 16s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-float-drift,
     .hero-float-drift-alt,
     .hero-float-orbit,
     .hero-orb-pulse,
     .hero-twinkle,
-    .hero-ring-breathe {
+    .hero-ring-breathe,
+    .course-aurora-sweep,
+    .course-hero-image-wash,
+    .animate-aurora-fast {
       animation: none !important;
     }
   }

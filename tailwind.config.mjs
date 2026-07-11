@@ -61,6 +61,7 @@ const config = {
       },
       animation: {
         aurora: "aurora 60s linear infinite",
+        "aurora-fast": "aurora 28s linear infinite",
       },
       keyframes: {
         aurora: {

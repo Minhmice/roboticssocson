@@ -9,6 +9,8 @@ export const AnalyticsEvents = {
   COURSE_REGISTER_SUBMIT_CLICKED: "course_register_submit_clicked",
   COURSE_REGISTER_SUBMITTED: "course_register_submitted",
   COURSE_CONSULT_SUBMITTED: "course_consult_submitted",
+  COURSE_PRICING_VIEWED: "course_pricing_viewed",
+  COURSE_PRICING_CTA_CLICKED: "course_pricing_cta_clicked",
   CONTACT_FORM_SUBMITTED: "contact_form_submitted",
   BOOT_LOADER_COMPLETED: "boot_loader_completed",
 } as const;
@@ -31,4 +33,11 @@ export type LanguageSwitchedProps = {
 export type NavSectionClickedProps = {
   section_id: string;
   label?: string;
+};
+
+export type CoursePricingEventProps = {
+  price: number;
+  session_count: number;
+  surface: string;
+  href?: string;
 };

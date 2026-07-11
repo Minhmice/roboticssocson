@@ -1,5 +1,10 @@
 import type { LocalizedText } from "@/lib/course/getLocalized";
 
+/**
+ * TODO(curriculum): Marketing promises 16 sessions (`coursePricingConfig.sessionCount`).
+ * `courseLessons` below defines 12 lessons only — add sessions 13–16 before launch.
+ */
+
 export type CoursePart = "scratch" | "hardware" | "capstone";
 
 export type CoursePartMeta = {
@@ -35,8 +40,8 @@ export const coursePartMeta: readonly CoursePartMeta[] = [
     id: "capstone",
     label: { vi: "Dự án cuối", en: "Capstone" },
     description: {
-      vi: "Buổi 12 · Tổng hợp lập trình và phần cứng",
-      en: "Session 12 · Combine programming and hardware",
+      vi: "Buổi 16 · Tổng hợp lập trình và phần cứng",
+      en: "Session 16 · Combine programming and hardware",
     },
   },
 ];
@@ -62,8 +67,8 @@ export const curriculumFieldLabels = {
     en: "Session {current} of {total}",
   },
   lessonsListLabel: {
-    vi: "Danh sách 12 buổi học",
-    en: "List of 12 sessions",
+    vi: "Danh sách 16 buổi học",
+    en: "List of 16 sessions",
   },
 } as const;
 

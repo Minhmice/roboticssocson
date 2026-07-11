@@ -13,7 +13,6 @@ import { courseSectionCopy } from "@/data/courseSections";
 import { getLocalized, type CourseLocale } from "@/lib/course/getLocalized";
 import { cn } from "@/lib/utils";
 import {
-  AnimatePresence,
   motion,
   useReducedMotion,
   useScroll,
@@ -21,33 +20,27 @@ import {
   useTransform,
   type Variants,
 } from "framer-motion";
-import { ChevronDown } from "lucide-react";
 import {
   Fragment,
   useCallback,
   useEffect,
   useId,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState,
   type CSSProperties,
 } from "react";
 
-const EASE_OUT_QUART = [0.25, 1, 0.5, 1] as const;
+import {
+  COURSE_SCROLL_VIEWPORT_DEEP,
+  EASE_OUT_QUART,
+} from "@/lib/course/scrollReveal";
+
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
-const VIEWPORT = { once: true, margin: "-60px" } as const;
 const SESSION_COUNT = courseLessons.length;
 /** Navbar offset (pt-16) + breathing room — matches layout shell */
 const STICKY_TOP_REM = 6;
 const STICKY_TOP = `${STICKY_TOP_REM}rem`;
-/** Wait before auto-opening the next lesson while scrolling — avoids accordion overload */
-const SCROLL_OPEN_DELAY_MS = 1000;
-const INPUT_LOCK_MS = 1200;
-const PANEL_OPEN_DURATION_S = 0.42;
-const PANEL_CLOSE_DURATION_S = 0.26;
-const ACCORDION_LOCK_MS = Math.round(PANEL_OPEN_DURATION_S * 1000) + 80;
-/** h-11 marker column — rail must pass through its center, not an arbitrary offset */
 const MARKER_SIZE_REM = 2.75;
 const MARKER_GAP_REM = 1;
 const MARKER_RAIL_LEFT = `${MARKER_SIZE_REM / 2}rem`;
@@ -69,15 +62,6 @@ const listVariants: Variants = {
     transition: { staggerChildren: 0.04, delayChildren: 0.04 },
   },
 };
-
-type DetailField = "goal" | "primaryLevel" | "secondaryLevel" | "challenge";
-
-const detailFields: DetailField[] = [
-  "goal",
-  "primaryLevel",
-  "secondaryLevel",
-  "challenge",
-];
 
 function interpolateLabel(
   template: { vi: string; en: string },
@@ -358,7 +342,7 @@ function CurriculumHeader({
           )}
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={VIEWPORT}
+          viewport={COURSE_SCROLL_VIEWPORT_DEEP}
           transition={{ duration: 0.5, ease: EASE_OUT_EXPO }}
         >
           <motion.div
@@ -388,43 +372,25 @@ function CurriculumHeader({
 type LessonRailItemProps = {
   lesson: CourseLesson;
   sessionIndex: number;
-  isOpen: boolean;
   isActive: boolean;
   isPast: boolean;
-  onToggle: () => void;
   animated: boolean;
-  collapseInstant: boolean;
-  expandFadeOnly: boolean;
 };
 
 function LessonRailItem({
   lesson,
   sessionIndex,
-  isOpen,
   isActive,
   isPast,
-  onToggle,
   animated,
-  collapseInstant,
-  expandFadeOnly,
 }: LessonRailItemProps) {
   const { locale } = useLanguage();
   const title = getLocalized(lesson.title, locale);
-  const panelId = `curriculum-lesson-${lesson.id}-panel`;
-  const toggleId = `curriculum-lesson-${lesson.id}-toggle`;
   const titleId = `curriculum-lesson-${lesson.id}-title`;
 
   const isCapstone = lesson.id === CAPSTONE_ID;
   const accentAlpha = sessionAccentAlpha(sessionIndex);
-  const isHighlighted = isActive || isOpen;
-
-  const toggleAriaLabel = interpolateLabel(
-    isOpen
-      ? curriculumFieldLabels.hideDetailsAriaLabel
-      : curriculumFieldLabels.detailsAriaLabel,
-    locale,
-    { session: lesson.id, title }
-  );
+  const isHighlighted = isActive;
 
   const markerClass = cn(
     "relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 text-sm font-bold transition-all duration-300 motion-reduce:transition-none",
@@ -478,116 +444,6 @@ function LessonRailItem({
         <p className="mt-1.5 text-sm text-foreground/75 leading-relaxed text-pretty break-words">
           {getLocalized(lesson.product, locale)}
         </p>
-        <button
-          id={toggleId}
-          type="button"
-          onClick={onToggle}
-          aria-expanded={isOpen}
-          aria-controls={panelId}
-          aria-label={toggleAriaLabel}
-          className="mt-3 inline-flex min-h-[44px] items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md -ml-1 px-1"
-        >
-          <span aria-hidden>
-            {getLocalized(
-              isOpen
-                ? curriculumFieldLabels.hideDetailsToggle
-                : curriculumFieldLabels.detailsToggle,
-              locale
-            )}
-          </span>
-          <ChevronDown
-            className={cn(
-              "h-4 w-4 transition-transform duration-200 motion-reduce:transition-none",
-              isOpen && "rotate-180"
-            )}
-            aria-hidden
-          />
-        </button>
-        {animated ? (
-          <AnimatePresence initial={false}>
-            {isOpen ? (
-              <motion.dl
-                key={panelId}
-                id={panelId}
-                role="region"
-                aria-labelledby={titleId}
-                className="mt-3 overflow-hidden rounded-xl border border-border bg-accent/40 p-4 [overflow-anchor:none]"
-                initial={
-                  expandFadeOnly
-                    ? { opacity: 0 }
-                    : { height: 0, opacity: 0 }
-                }
-                animate={
-                  expandFadeOnly
-                    ? {
-                        opacity: 1,
-                        transition: {
-                          duration: 0.35,
-                          ease: EASE_OUT_EXPO,
-                        },
-                      }
-                    : {
-                        height: "auto",
-                        opacity: 1,
-                        transition: {
-                          duration: PANEL_OPEN_DURATION_S,
-                          ease: EASE_OUT_EXPO,
-                        },
-                      }
-                }
-                exit={
-                  expandFadeOnly
-                    ? {
-                        opacity: 0,
-                        transition: {
-                          duration: collapseInstant ? 0.01 : 0.2,
-                          ease: EASE_OUT_QUART,
-                        },
-                      }
-                    : {
-                        height: 0,
-                        opacity: 0,
-                        transition: {
-                          duration: collapseInstant ? 0.01 : PANEL_CLOSE_DURATION_S,
-                          ease: EASE_OUT_QUART,
-                        },
-                      }
-                }
-              >
-                <div className="space-y-3">
-                  {detailFields.map((field) => (
-                    <div key={field}>
-                      <dt className="text-sm font-medium text-foreground">
-                        {getLocalized(curriculumFieldLabels[field], locale)}
-                      </dt>
-                      <dd className="mt-0.5 text-sm text-foreground/75 leading-relaxed text-pretty">
-                        {getLocalized(lesson[field], locale)}
-                      </dd>
-                    </div>
-                  ))}
-                </div>
-              </motion.dl>
-            ) : null}
-          </AnimatePresence>
-        ) : isOpen ? (
-          <dl
-            id={panelId}
-            role="region"
-            aria-labelledby={titleId}
-            className="mt-3 space-y-3 rounded-xl border border-border bg-accent/40 p-4"
-          >
-            {detailFields.map((field) => (
-              <div key={field}>
-                <dt className="text-sm font-medium text-foreground">
-                  {getLocalized(curriculumFieldLabels[field], locale)}
-                </dt>
-                <dd className="mt-0.5 text-sm text-foreground/75 leading-relaxed text-pretty">
-                  {getLocalized(lesson[field], locale)}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        ) : null}
       </div>
     </>
   );
@@ -621,31 +477,11 @@ export default function CourseCurriculum() {
   const animated = !prefersReducedMotion;
   const headingId = useId();
 
-  const [openLessonIds, setOpenLessonIds] = useState<Set<number>>(
-    () => new Set([1])
-  );
-  const [collapseInstant, setCollapseInstant] = useState(false);
-  const [scrollExpandLessonId, setScrollExpandLessonId] = useState<number | null>(
-    null
-  );
   const [activePhase, setActivePhase] = useState<CoursePart>("scratch");
   const [activeSessionIndex, setActiveSessionIndex] = useState(0);
 
   const listRef = useRef<HTMLOListElement>(null);
   const phaseRefs = useRef<Partial<Record<CoursePart, HTMLElement>>>({});
-  const inputLockRef = useRef(false);
-  const inputLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const scrollOpenTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const pendingOpenIndexRef = useRef<number | null>(null);
-  const openLessonIdsRef = useRef(openLessonIds);
-  const accordionAnimatingRef = useRef(false);
-  const collapseInstantTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const stabilizeViewportTopRef = useRef<number | null>(null);
-  const stabilizeIndexRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    openLessonIdsRef.current = openLessonIds;
-  }, [openLessonIds]);
 
   const lessonsByPart = useMemo(() => {
     const grouped = {} as Record<CoursePart, CourseLesson[]>;
@@ -665,143 +501,6 @@ export default function CourseCurriculum() {
     });
     return map;
   }, []);
-
-  const lessonIdByIndex = useMemo(
-    () => courseLessons.map((lesson) => lesson.id),
-    []
-  );
-
-  const clearScrollOpenTimer = useCallback(() => {
-    if (scrollOpenTimerRef.current) {
-      clearTimeout(scrollOpenTimerRef.current);
-      scrollOpenTimerRef.current = null;
-    }
-    pendingOpenIndexRef.current = null;
-  }, []);
-
-  const getOpenLessonIndex = useCallback(() => {
-    const openId = [...openLessonIdsRef.current][0];
-    if (openId === undefined) return -1;
-    return lessonIdByIndex.indexOf(openId);
-  }, [lessonIdByIndex]);
-
-  const captureMarkerViewportTop = useCallback((index: number) => {
-    const list = listRef.current;
-    if (!list) return null;
-
-    const item = list.querySelector<HTMLElement>(
-      `[data-session-index="${index}"]`
-    );
-    const marker = item?.querySelector<HTMLElement>("[data-session-marker]");
-    if (!marker) return null;
-
-    return marker.getBoundingClientRect().top;
-  }, []);
-
-  const openLessonWithStability = useCallback(
-    (id: number, index: number, fromScroll: boolean) => {
-      const currentOpenId = [...openLessonIdsRef.current][0];
-      if (currentOpenId === id) return;
-
-      if (fromScroll) {
-        const viewportTop = captureMarkerViewportTop(index);
-        if (viewportTop !== null) {
-          stabilizeIndexRef.current = index;
-          stabilizeViewportTopRef.current = viewportTop;
-        }
-        setScrollExpandLessonId(id);
-
-        if (currentOpenId !== undefined) {
-          setCollapseInstant(true);
-          if (collapseInstantTimerRef.current) {
-            clearTimeout(collapseInstantTimerRef.current);
-          }
-          collapseInstantTimerRef.current = setTimeout(() => {
-            setCollapseInstant(false);
-            collapseInstantTimerRef.current = null;
-          }, 80);
-        }
-      } else {
-        setScrollExpandLessonId(null);
-      }
-
-      accordionAnimatingRef.current = true;
-      setOpenLessonIds(new Set([id]));
-
-      window.setTimeout(() => {
-        accordionAnimatingRef.current = false;
-        setScrollExpandLessonId((current) => (current === id ? null : current));
-      }, ACCORDION_LOCK_MS);
-    },
-    [captureMarkerViewportTop]
-  );
-
-  const scheduleScrollOpen = useCallback(
-    (index: number) => {
-      if (accordionAnimatingRef.current) return;
-
-      const openIndex = getOpenLessonIndex();
-      if (openIndex === index) return;
-
-      clearScrollOpenTimer();
-      pendingOpenIndexRef.current = index;
-      const delay = animated ? SCROLL_OPEN_DELAY_MS : 0;
-
-      scrollOpenTimerRef.current = setTimeout(() => {
-        scrollOpenTimerRef.current = null;
-        if (inputLockRef.current) return;
-        if (pendingOpenIndexRef.current !== index) return;
-        if (accordionAnimatingRef.current) return;
-
-        const id = lessonIdByIndex[index];
-        if (id !== undefined) {
-          openLessonWithStability(id, index, true);
-        }
-        pendingOpenIndexRef.current = null;
-      }, delay);
-    },
-    [
-      animated,
-      clearScrollOpenTimer,
-      getOpenLessonIndex,
-      lessonIdByIndex,
-      openLessonWithStability,
-    ]
-  );
-
-  const lockInputNavigation = useCallback(() => {
-    clearScrollOpenTimer();
-    inputLockRef.current = true;
-    if (inputLockTimerRef.current) {
-      clearTimeout(inputLockTimerRef.current);
-    }
-    inputLockTimerRef.current = setTimeout(() => {
-      inputLockRef.current = false;
-    }, INPUT_LOCK_MS);
-  }, [clearScrollOpenTimer]);
-
-  const toggleLesson = useCallback((id: number) => {
-    lockInputNavigation();
-    setCollapseInstant(false);
-    setScrollExpandLessonId(null);
-    stabilizeIndexRef.current = null;
-    stabilizeViewportTopRef.current = null;
-    const index = sessionIndexById.get(id);
-    if (index !== undefined) {
-      setActiveSessionIndex(index);
-    }
-
-    setOpenLessonIds((current) => {
-      const next = new Set(current);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.clear();
-        next.add(id);
-      }
-      return next;
-    });
-  }, [lockInputNavigation, sessionIndexById]);
 
   const scrollToPhase = useCallback(
     (part: CoursePart) => {
@@ -873,9 +572,6 @@ export default function CourseCurriculum() {
         const index = Number(top.target.getAttribute("data-session-index"));
         if (!Number.isNaN(index)) {
           setActiveSessionIndex(index);
-          if (!inputLockRef.current && !accordionAnimatingRef.current) {
-            scheduleScrollOpen(index);
-          }
         }
       },
       { rootMargin: "-35% 0px -35% 0px", threshold: [0.25, 0.5, 0.75] }
@@ -886,46 +582,7 @@ export default function CourseCurriculum() {
     }
 
     return () => sessionObserver.disconnect();
-  }, [locale, scheduleScrollOpen]);
-
-  useLayoutEffect(() => {
-    const index = stabilizeIndexRef.current;
-    const viewportTopBefore = stabilizeViewportTopRef.current;
-    if (index === null || viewportTopBefore === null) return;
-
-    const list = listRef.current;
-    const item = list?.querySelector<HTMLElement>(
-      `[data-session-index="${index}"]`
-    );
-    const marker = item?.querySelector<HTMLElement>("[data-session-marker]");
-    if (!marker) {
-      stabilizeIndexRef.current = null;
-      stabilizeViewportTopRef.current = null;
-      return;
-    }
-
-    const delta = marker.getBoundingClientRect().top - viewportTopBefore;
-    if (Math.abs(delta) > 0.5) {
-      window.scrollBy({ top: delta, behavior: "auto" });
-    }
-
-    stabilizeIndexRef.current = null;
-    stabilizeViewportTopRef.current = null;
-  }, [openLessonIds]);
-
-  useEffect(() => {
-    return () => {
-      if (inputLockTimerRef.current) {
-        clearTimeout(inputLockTimerRef.current);
-      }
-      if (scrollOpenTimerRef.current) {
-        clearTimeout(scrollOpenTimerRef.current);
-      }
-      if (collapseInstantTimerRef.current) {
-        clearTimeout(collapseInstantTimerRef.current);
-      }
-    };
-  }, []);
+  }, [locale]);
 
   const title = getLocalized(copy.title, locale);
   const titleLine2 = copy.titleLine2
@@ -981,13 +638,9 @@ export default function CourseCurriculum() {
               key={lesson.id}
               lesson={lesson}
               sessionIndex={sessionIndex}
-              isOpen={openLessonIds.has(lesson.id)}
               isActive={activeSessionIndex === sessionIndex}
               isPast={sessionIndex < activeSessionIndex}
-              onToggle={() => toggleLesson(lesson.id)}
               animated={animated}
-              collapseInstant={collapseInstant}
-              expandFadeOnly={scrollExpandLessonId === lesson.id}
             />
           );
         })}
@@ -1017,7 +670,7 @@ export default function CourseCurriculum() {
           aria-label={lessonsListLabel}
           initial="hidden"
           whileInView="visible"
-          viewport={VIEWPORT}
+          viewport={COURSE_SCROLL_VIEWPORT_DEEP}
           variants={listVariants}
         >
           <span
@@ -1090,7 +743,7 @@ export default function CourseCurriculum() {
               className="min-w-0"
               initial="hidden"
               whileInView="visible"
-              viewport={VIEWPORT}
+              viewport={COURSE_SCROLL_VIEWPORT_DEEP}
               variants={itemVariants}
             >
               {railBlock}

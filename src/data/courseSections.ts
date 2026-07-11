@@ -106,8 +106,8 @@ export const courseSectionCopy = {
     },
   },
   curriculum: {
-    title: { vi: "Lộ trình", en: "12-session" },
-    titleLine2: { vi: "12 buổi", en: "curriculum" },
+    title: { vi: "Lộ trình", en: "16-session" },
+    titleLine2: { vi: "16 buổi", en: "curriculum" },
     subtitle: {
       vi: "Từ Scratch đến Arduino — mỗi buổi có mục tiêu, sản phẩm và thử thách riêng.",
       en: "From Scratch to Arduino — each session has goals, products, and challenges.",

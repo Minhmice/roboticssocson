@@ -535,6 +535,7 @@ export function BootLoader() {
   const reduced = Boolean(prefersReducedMotion);
   const router = useRouter();
   const pathname = usePathname();
+  const isDeckPresentation = pathname === "/course/arduino-mblock-deck";
   const { beginBoot, endBoot } = useBootRevealActions();
   const pathnameRef = useRef(pathname);
   const pendingHrefRef = useRef<string | null>(null);
@@ -546,7 +547,7 @@ export function BootLoader() {
 
   // Every hard page open: run boot once this mount.
   useEffect(() => {
-    if (isBootLoaderDisabled()) return;
+    if (isBootLoaderDisabled() || isDeckPresentation) return;
     if (pageLoadDone || mode !== null) return;
     const t = window.setTimeout(() => {
       busyRef.current = true;
@@ -554,7 +555,7 @@ export function BootLoader() {
       setMode("initial");
     }, 0);
     return () => window.clearTimeout(t);
-  }, [beginBoot, pageLoadDone, mode]);
+  }, [beginBoot, isDeckPresentation, pageLoadDone, mode]);
 
   useEffect(() => {
     pathnameRef.current = pathname;
@@ -572,6 +573,7 @@ export function BootLoader() {
 
       const resolved = resolveInternalHref(href, pathnameRef.current);
       if (!resolved) return false;
+      if (resolved === "/course/arduino-mblock-deck") return false;
 
       pendingHrefRef.current = resolved;
       busyRef.current = true;
@@ -689,14 +691,24 @@ export function BootAwareMain({
   children: ReactNode;
   className?: string;
 }) {
+  const pathname = usePathname();
   const ready = useBootAnimationReady();
   const disabled = isBootLoaderDisabled();
+  const { endBoot } = useBootRevealActions();
+  const isDeckPresentation = pathname === "/course/arduino-mblock-deck";
+  const shellReady = disabled || ready || isDeckPresentation;
+
+  useEffect(() => {
+    if (isDeckPresentation && !disabled && !ready) {
+      endBoot();
+    }
+  }, [disabled, endBoot, isDeckPresentation, ready]);
 
   return (
     <div
-      data-boot-ready={disabled || ready ? "" : undefined}
+      data-boot-ready={shellReady ? "" : undefined}
       className={cn("boot-aware-shell", className)}
-      aria-hidden={!disabled && !ready}
+      aria-hidden={!shellReady}
     >
       {children}
     </div>

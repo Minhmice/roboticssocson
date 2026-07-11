@@ -12,16 +12,24 @@ import {
 } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 
-const EASE_OUT_QUART = [0.25, 1, 0.5, 1] as const;
-const VIEWPORT = { once: true, margin: "-50px" } as const;
+import {
+  COURSE_SCROLL_VIEWPORT,
+  EASE_OUT_QUART,
+  ENTER_DURATION,
+  EXIT_DURATION,
+} from "@/lib/course/scrollReveal";
 const HEADING_ID = "course-outcomes-heading";
 
 const headerVariants: Variants = {
-  hidden: { opacity: 0, y: 10 },
+  hidden: {
+    opacity: 0,
+    y: 10,
+    transition: { duration: EXIT_DURATION, ease: EASE_OUT_QUART },
+  },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: EASE_OUT_QUART },
+    transition: { duration: ENTER_DURATION, ease: EASE_OUT_QUART },
   },
 };
 
@@ -36,11 +44,15 @@ const gridVariants: Variants = {
 };
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 14 },
+  hidden: {
+    opacity: 0,
+    y: 14,
+    transition: { duration: EXIT_DURATION, ease: EASE_OUT_QUART },
+  },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: EASE_OUT_QUART },
+    transition: { duration: ENTER_DURATION, ease: EASE_OUT_QUART },
   },
 };
 
@@ -162,7 +174,7 @@ export default function CourseOutcomes() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={VIEWPORT}
+            viewport={COURSE_SCROLL_VIEWPORT}
           >
             <motion.div variants={headerVariants}>{header}</motion.div>
             <motion.div className={gridClassName} variants={gridVariants}>

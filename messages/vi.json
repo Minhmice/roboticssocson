@@ -82,6 +82,12 @@
     "qty": "Số lượng"
   },
   "contact": {
+    "copyEmail": "Sao chép email",
+    "copyPhone": "Sao chép số điện thoại",
+    "clickToCopy": "Nhấn để sao chép",
+    "copied": "Đã sao chép!",
+    "openEmail": "Mở ứng dụng email",
+    "openPhone": "Gọi điện",
     "badge": "Contact",
     "title": "Liên Hệ / Contact",
     "subtitle": "Hãy liên hệ với chúng tôi để tài trợ hoặc hợp tác",
@@ -95,8 +101,27 @@
     "submit": "Gửi / Submit",
     "infoSubtitle": "Liên hệ qua email hoặc Telegram để thảo luận về tài trợ hoặc hợp tác."
   },
-  "course": {
-    "deckLink": "Xem trình chiếu Arduino & mBlock",
-    "deckLinkDescription": "30 slide giới thiệu vai trò Arduino, mBlock và lợi ích khi học Robotics thực hành."
+  "deck": {
+    "checkingSession": "Đang kiểm tra phiên…",
+    "login": {
+      "title": "Trình chiếu nội bộ",
+      "subtitle": "Arduino & mBlock — chỉ dành cho đội trình bày",
+      "passwordLabel": "Mật khẩu truy cập",
+      "passwordPlaceholder": "Nhập mật khẩu đội",
+      "submit": "Bắt đầu trình chiếu",
+      "submitting": "Đang xác thực…",
+      "wrongPassword": "Mật khẩu không đúng. Chỉ thành viên đội mới truy cập được.",
+      "networkError": "Không thể xác thực. Kiểm tra kết nối và thử lại."
+    },
+    "player": {
+      "regionLabel": "Trình chiếu Arduino mBlock",
+      "roleDescription": "trình chiếu slide",
+      "prev": "Slide trước",
+      "next": "Slide sau",
+      "progress": "Tiến độ trình chiếu",
+      "slideAnnounce": "Slide {current} / {total}: {title}",
+      "enterFullscreen": "Toàn màn hình",
+      "exitFullscreen": "Thoát toàn màn hình"
+    }
   }
 }

@@ -1,10 +1,11 @@
 "use client";
 
+import { CopyContactLink } from "@/components/shared/CopyContactLink";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { AnimatedSection } from "@/components/shared/AnimatedComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { sponsorEmail, socials } from "@/data/settings";
-import { Mail, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import { FacebookIcon } from "@/components/shared/FacebookIcon";
 
 export default function FinalCTASection() {
@@ -57,13 +58,13 @@ export default function FinalCTASection() {
 
           {/* Contact Info */}
           <div className="flex flex-col items-center gap-3 sm:gap-4 text-muted-foreground px-2 sm:px-0">
-            <a
-              href={`mailto:${sponsorEmail}`}
-              className="flex items-center gap-2 hover:text-primary transition-colors min-h-[44px] text-sm sm:text-base"
-            >
-              <Mail className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
-              <span className="break-all">{sponsorEmail}</span>
-            </a>
+            <CopyContactLink
+              kind="email"
+              copyValue={sponsorEmail}
+              variant="footer"
+              display={<span className="break-all">{sponsorEmail}</span>}
+              className="items-center"
+            />
             <a
               href={socials.facebook}
               target="_blank"

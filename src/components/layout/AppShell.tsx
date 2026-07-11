@@ -15,24 +15,27 @@ import { cn } from "@/lib/utils";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const deckPresentation = pathname === "/course/arduino-mblock-deck";
   const immersive =
     pathname === "/contact-us" ||
     pathname === "/analytics" ||
     pathname?.startsWith("/course-register-form") === true ||
-    pathname === "/course/arduino-mblock-deck";
+    deckPresentation;
   const hideFooter =
-    pathname === "/analytics" ||
-    pathname === "/course/arduino-mblock-deck";
+    pathname === "/analytics" || deckPresentation;
+  const hideNavbar = deckPresentation;
 
   return (
     <BootRevealProvider>
       <BootLoader />
       <BootAwareMain>
-        <Navbar />
+        {!hideNavbar ? <Navbar /> : null}
         <main
           className={cn(
             "relative overflow-x-clip",
-            immersive ? "pt-0" : "pt-16"
+            deckPresentation && "fixed inset-0 z-50 h-dvh overflow-hidden pt-0",
+            !deckPresentation && immersive && "pt-0",
+            !deckPresentation && !immersive && "pt-16",
           )}
         >
           {children}

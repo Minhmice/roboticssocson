@@ -14,16 +14,16 @@ export const courseTeaserCopy = {
   },
   titleHighlight: { vi: "Phần Cứng", en: "Hardware" },
   subtitle: {
-    vi: "Thực hành Scratch → Arduino thay vì chỉ xem màn hình — 12 buổi cho học sinh cấp 1–2.",
-    en: "Hands-on Scratch → Arduino instead of passive screens — 12 sessions for grades 1–2.",
+    vi: "Thực hành Scratch → Arduino thay vì chỉ xem màn hình — 16 buổi cho học sinh cấp 1–2.",
+    en: "Hands-on Scratch → Arduino instead of passive screens — 16 sessions for grades 1–2.",
   },
   journeyLabel: {
     vi: "Lộ trình 3 giai đoạn",
     en: "3-stage learning path",
   },
   stat: {
-    vi: "12 buổi thực hành",
-    en: "12 hands-on sessions",
+    vi: "16 buổi thực hành",
+    en: "16 hands-on sessions",
   },
   cta: { vi: "Xem khóa học", en: "View course" },
 } as const;

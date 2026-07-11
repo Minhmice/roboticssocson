@@ -8,6 +8,7 @@ import {
   type Variants,
 } from "framer-motion";
 import type { ContactExperienceMeta } from "@/components/shared/ContactExperienceShell";
+import { CopyContactLink } from "@/components/shared/CopyContactLink";
 import { useBootAnimationReady } from "@/contexts/BootRevealContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
@@ -170,66 +171,43 @@ export function ContactExperiencePanel({
         initial="rest"
         animate={instant ? undefined : animationReady ? "enter" : "rest"}
       >
-        <motion.a
-          href={`mailto:${email}`}
-          className="inline-flex w-fit flex-col items-start gap-0.5 rounded-sm no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+        <motion.div
           variants={instant ? undefined : linkReveal}
           initial="rest"
           animate={instant ? undefined : animationReady ? "enter" : "rest"}
         >
-          <span
-            className={cn(
-              "font-medium leading-tight tracking-normal text-white transition-colors group-hover:text-blue-100",
+          <CopyContactLink
+            kind="email"
+            copyValue={email}
+            variant="on-dark"
+            display={emailLabel ?? email}
+            labelClassName={cn(
               isRegister
                 ? "text-[0.8125rem] lg:text-[clamp(0.88rem,1.2vw,1rem)]"
                 : "text-[clamp(0.88rem,1.35vw,1.12rem)] max-[479px]:text-[0.82rem]",
             )}
-          >
-            {emailLabel ?? email}
-          </span>
-          <motion.span
-            className="h-px w-full bg-white opacity-90 transition-[background-color,height] duration-200 group-hover:h-0.5 group-hover:bg-primary"
-            initial={false}
-            animate={{ scaleX: 1 }}
-            transition={{
-              duration: instant ? 0 : 0.75,
-              delay: animationReady && !instant ? 0.28 : 0,
-              ease: easeOutQuint,
-            }}
-            style={{ transformOrigin: "left center" }}
           />
-        </motion.a>
+        </motion.div>
 
         {phone ? (
-          <motion.a
-            href={`tel:${phone.replace(/\s+/g, "")}`}
-            className="inline-flex w-fit flex-col items-start gap-0.5 rounded-sm no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+          <motion.div
             variants={instant ? undefined : linkReveal}
             initial="rest"
             animate={instant ? undefined : animationReady ? "enter" : "rest"}
           >
-            <span
-              className={cn(
-                "font-medium leading-tight tracking-normal text-white/95 transition-colors group-hover:text-blue-100",
+            <CopyContactLink
+              kind="phone"
+              copyValue={phone.replace(/\s+/g, "")}
+              variant="on-dark"
+              display={phoneLabel ?? phone}
+              labelClassName={cn(
+                "text-white/95",
                 isRegister
                   ? "text-[0.8125rem] lg:text-[clamp(0.88rem,1.2vw,1rem)]"
                   : "text-[clamp(0.88rem,1.35vw,1.12rem)] max-[479px]:text-[0.82rem]",
               )}
-            >
-              {phoneLabel}
-            </span>
-            <motion.span
-              className="h-px w-full bg-white/80 opacity-90 transition-[background-color,height] duration-200 group-hover:h-0.5 group-hover:bg-primary"
-              initial={false}
-              animate={{ scaleX: 1 }}
-              transition={{
-                duration: instant ? 0 : 0.75,
-                delay: animationReady && !instant ? 0.4 : 0,
-                ease: easeOutQuint,
-              }}
-              style={{ transformOrigin: "left center" }}
             />
-          </motion.a>
+          </motion.div>
         ) : null}
       </motion.div>
 

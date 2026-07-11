@@ -4,6 +4,10 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { courseFaq, courseFaqSectionCopy } from "@/data/courseFaq";
 import { getLocalized } from "@/lib/course/getLocalized";
+import {
+  COURSE_SCROLL_VIEWPORT,
+  COURSE_SCROLL_VIEWPORT_DEEP,
+} from "@/lib/course/scrollReveal";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
 import { useRef, useState } from "react";
@@ -52,7 +56,7 @@ export default function CourseFAQ() {
         <motion.div
           initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={COURSE_SCROLL_VIEWPORT_DEEP}
           transition={{ duration: 0.4, ease: motionEase }}
         >
           <SectionHeader
@@ -70,7 +74,7 @@ export default function CourseFAQ() {
                 key={item.id}
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-32px" }}
+                viewport={COURSE_SCROLL_VIEWPORT}
                 transition={{
                   duration: 0.35,
                   delay: prefersReducedMotion
@@ -111,7 +115,7 @@ export default function CourseFAQ() {
 
                   <div className="course-faq-answer-panel">
                     <div className="course-faq-answer-inner">
-                      <div className="course-faq-answer-content px-4 sm:px-5 pb-5 text-sm text-foreground/85 leading-relaxed text-center mx-auto max-w-prose">
+                      <div className="course-faq-answer-content w-full px-4 sm:px-5 pb-5 text-sm text-foreground/85 leading-relaxed text-pretty text-left">
                         {getLocalized(item.answer, locale)}
                       </div>
                     </div>

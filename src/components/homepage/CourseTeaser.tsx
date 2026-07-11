@@ -66,7 +66,7 @@ export default function CourseTeaser() {
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-12 xl:gap-16">
           <header className="min-w-0">
             <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card px-4 py-1.5 text-sm font-medium text-primary shadow-sm">
               <BookOpen className="h-3.5 w-3.5" aria-hidden />
@@ -94,16 +94,16 @@ export default function CourseTeaser() {
             </div>
           </header>
 
-          <figure className="relative min-w-0">
-            <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-[0_16px_48px_rgba(37,99,235,0.12)]">
-              <div className="relative aspect-[4/3] sm:aspect-[5/4]">
+          <figure className="relative min-w-0 lg:justify-self-stretch">
+            <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-[0_16px_48px_rgba(37,99,235,0.12)] lg:shadow-[0_20px_56px_rgba(37,99,235,0.16)]">
+              <div className="relative aspect-[4/3] sm:aspect-[5/4] lg:aspect-[1/1] xl:aspect-[6/5] min-h-[300px] sm:min-h-[380px] lg:min-h-[440px] xl:min-h-[500px]">
                 <MediaPlaceholder
                   type="image"
                   src={heroImage.src}
                   alt={getLocalized(heroImage.alt, locale)}
                   flush
                   className="absolute inset-0 m-0"
-                  sizes="(max-width: 1024px) 100vw, 520px"
+                  sizes="(max-width: 1024px) 100vw, 680px"
                 />
               </div>
               <figcaption className="border-t border-border bg-card px-4 py-3 text-sm font-medium text-foreground/85">

@@ -19,8 +19,11 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { useId, useRef } from "react";
 
-const EASE_OUT_QUART = [0.25, 1, 0.5, 1] as const;
-const VIEWPORT = { once: true, margin: "-60px" } as const;
+import {
+  COURSE_SCROLL_VIEWPORT_DEEP,
+  EASE_OUT_QUART,
+  EXIT_DURATION,
+} from "@/lib/course/scrollReveal";
 const ITEM_DURATION = 0.45;
 const STAGGER_CHILDREN = 0.1;
 
@@ -35,7 +38,11 @@ const listVariants: Variants = {
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, x: -8 },
+  hidden: {
+    opacity: 0,
+    x: -8,
+    transition: { duration: EXIT_DURATION, ease: EASE_OUT_QUART },
+  },
   visible: {
     opacity: 1,
     x: 0,
@@ -44,7 +51,11 @@ const itemVariants: Variants = {
 };
 
 const solutionItemVariants: Variants = {
-  hidden: { opacity: 0, x: 8 },
+  hidden: {
+    opacity: 0,
+    x: 8,
+    transition: { duration: EXIT_DURATION, ease: EASE_OUT_QUART },
+  },
   visible: {
     opacity: 1,
     x: 0,
@@ -275,7 +286,7 @@ function ColumnHeader({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={VIEWPORT}
+      viewport={COURSE_SCROLL_VIEWPORT_DEEP}
       variants={headerVariants}
     >
       {children}
@@ -375,7 +386,7 @@ function MotionList({
       aria-labelledby={ariaLabelledBy}
       initial="hidden"
       whileInView="visible"
-      viewport={VIEWPORT}
+      viewport={COURSE_SCROLL_VIEWPORT_DEEP}
       variants={listVariants}
     >
       {children}

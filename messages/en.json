@@ -82,6 +82,12 @@
     "qty": "Qty"
   },
   "contact": {
+    "copyEmail": "Copy email",
+    "copyPhone": "Copy phone number",
+    "clickToCopy": "Click to copy",
+    "copied": "Copied!",
+    "openEmail": "Open email app",
+    "openPhone": "Call",
     "badge": "Contact",
     "title": "Contact / Liên Hệ",
     "subtitle": "Reach out to sponsor or collaborate with us",
@@ -95,8 +101,27 @@
     "submit": "Submit / Gửi",
     "infoSubtitle": "Contact us via email or Telegram to discuss sponsorship or collaboration."
   },
-  "course": {
-    "deckLink": "View Arduino & mBlock presentation",
-    "deckLinkDescription": "30 slides on Arduino, mBlock, and hands-on robotics learning benefits."
+  "deck": {
+    "checkingSession": "Checking session…",
+    "login": {
+      "title": "Internal presentation",
+      "subtitle": "Arduino & mBlock — team presenters only",
+      "passwordLabel": "Access password",
+      "passwordPlaceholder": "Enter team password",
+      "submit": "Start presentation",
+      "submitting": "Authenticating…",
+      "wrongPassword": "Incorrect password. Team members only.",
+      "networkError": "Could not authenticate. Check your connection and try again."
+    },
+    "player": {
+      "regionLabel": "Arduino mBlock presentation",
+      "roleDescription": "slide deck",
+      "prev": "Previous slide",
+      "next": "Next slide",
+      "progress": "Presentation progress",
+      "slideAnnounce": "Slide {current} / {total}: {title}",
+      "enterFullscreen": "Full screen",
+      "exitFullscreen": "Exit full screen"
+    }
   }
 }

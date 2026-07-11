@@ -91,8 +91,8 @@ export const courseFaq: CourseFAQItem[] = [
       en: "Is there a final project?",
     },
     answer: {
-      vi: "Có. Buổi 12 là đấu trường robot: cùng khung xe Arduino, tự chọn cơ cấu (bắn / kéo / đẩy), rồi thi đấu và giải thích chiến thuật trước lớp.",
-      en: "Yes. Session 12 is the robot arena: shared Arduino chassis, choose a mechanism (shoot / pull / push), then compete and explain tactics to the class.",
+      vi: "Có. Buổi 16 là đấu trường robot: cùng khung xe Arduino, tự chọn cơ cấu (bắn / kéo / đẩy), rồi thi đấu và giải thích chiến thuật trước lớp.",
+      en: "Yes. Session 16 is the robot arena: shared Arduino chassis, choose a mechanism (shoot / pull / push), then compete and explain tactics to the class.",
     },
   },
   {

@@ -15,6 +15,7 @@ export type CourseHeroData = {
   readonly chips: readonly LocalizedText[];
   readonly heroImage: CourseHeroImage;
   readonly proofLine: LocalizedText;
+  readonly headlineHighlight: LocalizedText;
 };
 
 export const courseHeroData: CourseHeroData = {
@@ -26,9 +27,13 @@ export const courseHeroData: CourseHeroData = {
     vi: "Từ Khối Lệnh Đến Phần Cứng",
     en: "From Blocks to Hardware",
   },
+  headlineHighlight: {
+    vi: "Phần Cứng",
+    en: "Hardware",
+  },
   lead: {
-    vi: "Giúp con dành ít thời gian màn hình thụ động — bằng cách tự tay lắp mạch và chế tạo sản phẩm thật, qua hành trình Scratch → flowchart → mBlock → Arduino → cảm biến. Không cần kinh nghiệm trước; giáo viên hướng dẫn từng bước.",
-    en: "Help your child spend less time on passive screens — by building real circuits and projects, through Scratch → flowcharts → mBlock → Arduino → sensors. No prior experience needed; teachers guide every step.",
+    vi: "Con tự tay lắp mạch và tạo sản phẩm thật qua hành trình Scratch → flowchart → mBlock → Arduino → cảm biến. Không cần kinh nghiệm; giáo viên hướng dẫn từng bước.",
+    en: "Your child builds real circuits and projects hands-on through Scratch → flowcharts → mBlock → Arduino → sensors. No prior experience needed; teachers guide every step.",
   },
   ctaPrimary: {
     vi: "Đăng ký khóa học",
@@ -40,12 +45,20 @@ export const courseHeroData: CourseHeroData = {
   },
   chips: [
     {
-      vi: "12 buổi thực hành",
-      en: "12 hands-on sessions",
+      vi: "Lắp mạch và điều khiển robot",
+      en: "Build circuits & control robots",
     },
     {
-      vi: "Kit dùng trong lớp",
-      en: "Class kit provided",
+      vi: "Học theo dự án thực tế",
+      en: "Real project-based learning",
+    },
+    {
+      vi: "Phân tầng Tiểu học & THCS",
+      en: "Primary & lower secondary tracks",
+    },
+    {
+      vi: "Kit có sẵn trong lớp",
+      en: "In-class kit provided",
     },
   ],
   heroImage: {

@@ -1,7 +1,8 @@
 "use client";
 
 import { BootLink } from "@/components/shared/BootLink";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { CopyContactLink } from "@/components/shared/CopyContactLink";
+import { MapPin } from "lucide-react";
 import { BrandLogo } from "@/components/shared/BrandLogo";
 import { FacebookIcon } from "@/components/shared/FacebookIcon";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -125,22 +126,22 @@ export const Footer: React.FC = () => {
               {t("footer.contact")}
             </h4>
             <div className="space-y-1.5 sm:space-y-2">
-              <a
-                href={`mailto:${sponsorEmail}`}
-                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-[44px] sm:min-h-0"
-              >
-                <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
-                <span className="break-all">{sponsorEmail}</span>
-              </a>
-              <a
-                href={`tel:${contactPhone}`}
-                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-[44px] sm:min-h-0"
-              >
-                <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
-                <span>
-                  {contactPhone} — {contactLeadName}
-                </span>
-              </a>
+              <CopyContactLink
+                kind="email"
+                copyValue={sponsorEmail}
+                variant="footer"
+                display={<span className="break-all">{sponsorEmail}</span>}
+              />
+              <CopyContactLink
+                kind="phone"
+                copyValue={contactPhone}
+                variant="footer"
+                display={
+                  <span>
+                    {contactPhone} — {contactLeadName}
+                  </span>
+                }
+              />
               <a
                 href={messengerUrl}
                 target="_blank"
