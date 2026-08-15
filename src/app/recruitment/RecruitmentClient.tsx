@@ -1,5 +1,6 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, UsersRound } from "lucide-react";
 import { RecruitmentForm } from "@/components/recruitment/RecruitmentForm";
@@ -10,20 +11,20 @@ import { AnalyticsEvents } from "@/lib/posthog/events";
 const content = {
   vi: {
     title: "Tìm đồng đội cho mùa giải tiếp theo.",
-    body: "Robotics Sóc Sơn là nơi bạn biến tò mò thành kỹ năng thật, trên sân đấu, trong xưởng và cùng một đội ngũ luôn muốn làm tốt hơn.",
+    body: "Biến sự tò mò thành kỹ năng thật, trong xưởng, trên sân đấu và cùng một đội luôn muốn làm tốt hơn.",
     signal: "RBS 4.0 / OPEN CALL",
-    proof: "Không cần biết mọi thứ trước khi bắt đầu. Chỉ cần sẵn sàng học, làm và chịu trách nhiệm cùng nhau.",
+    proof: "Không cần kinh nghiệm robotics, CAD hay lập trình. Đội tìm sự tò mò, tinh thần học hỏi và trách nhiệm.",
     formTitle: "Bắt đầu từ câu chuyện của bạn",
-    formBody: "Điền thông tin thật ngắn gọn. Câu hỏi cuối sẽ thay đổi theo ban bạn chọn.",
+    formBody: "Ba bước ngắn, có lưu bản nháp trên thiết bị. Câu hỏi cuối thay đổi theo ban bạn chọn.",
     jump: "Mở form tuyển thành viên",
   },
   en: {
     title: "Find your teammates for the next season.",
-    body: "Robotics Sóc Sơn turns curiosity into real skills, on the field, in the workshop, and inside a team that keeps raising its standard.",
+    body: "Turn curiosity into real skills in the workshop, on the field, and with a team that keeps improving.",
     signal: "RBS 4.0 / OPEN CALL",
-    proof: "You do not need to know everything before you start. Bring a willingness to learn, build, and take ownership together.",
+    proof: "No robotics, CAD, or coding experience is required. We look for curiosity, willingness to learn, and responsibility.",
     formTitle: "Start with your story",
-    formBody: "Keep it honest and concise. The final questions adapt to the division you choose.",
+    formBody: "Three short steps with a draft saved on this device. Final questions adapt to your chosen division.",
     jump: "Open member application",
   },
 } as const;
@@ -32,6 +33,12 @@ export default function RecruitmentClient() {
   const { locale } = useLanguage();
   const copy = content[locale];
   const reduceMotion = useReducedMotion();
+  const clientReady = useSyncExternalStore(
+    () => () => undefined,
+    () => true,
+    () => false,
+  );
+  const allowDecorativeMotion = clientReady && !reduceMotion;
 
   return (
     <>
@@ -39,18 +46,18 @@ export default function RecruitmentClient() {
       <div className="min-h-dvh overflow-x-clip bg-slate-950">
         <section className="relative overflow-hidden bg-slate-950 text-white">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(37,99,235,0.25),transparent_33%),radial-gradient(circle_at_88%_18%,rgba(14,165,233,0.16),transparent_28%)]" aria-hidden />
-          {!reduceMotion ? (
+          {allowDecorativeMotion ? (
             <>
               <motion.div
                 aria-hidden
                 animate={{ transform: ["translate3d(-5%, -4%, 0) scale(0.96)", "translate3d(4%, 3%, 0) scale(1.04)", "translate3d(-5%, -4%, 0) scale(0.96)"] }}
-                transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 18, repeat: Infinity, ease: [0.77, 0, 0.175, 1] }}
                 className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl"
               />
               <motion.div
                 aria-hidden
                 animate={{ transform: ["translate3d(4%, 3%, 0) scale(1)", "translate3d(-5%, -2%, 0) scale(0.92)", "translate3d(4%, 3%, 0) scale(1)"] }}
-                transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
+                transition={{ duration: 22, repeat: Infinity, ease: [0.77, 0, 0.175, 1], delay: 1.4 }}
                 className="pointer-events-none absolute -right-32 top-1/3 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl"
               />
             </>

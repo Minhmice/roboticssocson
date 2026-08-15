@@ -52,6 +52,79 @@ export const RECRUITMENT_DISCOVERY_SOURCES = [
 export type RecruitmentDivision = (typeof RECRUITMENT_DIVISIONS)[number];
 export type RecruitmentDiscoverySource =
   (typeof RECRUITMENT_DISCOVERY_SOURCES)[number];
+export type RecruitmentLocale = "vi" | "en";
+
+export const RECRUITMENT_DIVISION_COPY = {
+  "Cơ khí - Thiết kế": {
+    vi: {
+      label: "Cơ khí - Thiết kế",
+      description: "Thiết kế chi tiết, lắp ráp và biến ý tưởng thành cơ cấu hoạt động.",
+    },
+    en: {
+      label: "Mechanical - Design",
+      description: "Design parts, assemble mechanisms, and turn ideas into working hardware.",
+    },
+  },
+  "Code - Điện tử": {
+    vi: {
+      label: "Code - Điện tử",
+      description: "Lập trình robot, kết nối cảm biến và tìm nguyên nhân khi hệ thống chưa chạy đúng.",
+    },
+    en: {
+      label: "Code - Electronics",
+      description: "Program the robot, connect sensors, and trace why a system is not working yet.",
+    },
+  },
+  "Truyền thông": {
+    vi: {
+      label: "Truyền thông",
+      description: "Kể câu chuyện của đội qua nội dung, hình ảnh, video và hoạt động cộng đồng.",
+    },
+    en: {
+      label: "Communications",
+      description: "Tell the team story through writing, visuals, video, and community activities.",
+    },
+  },
+} as const satisfies Record<
+  RecruitmentDivision,
+  Record<RecruitmentLocale, { label: string; description: string }>
+>;
+
+export const RECRUITMENT_DISCOVERY_SOURCE_LABELS = {
+  "Qua fanpage, các nền tảng mạng xã hội": {
+    vi: "Qua fanpage, các nền tảng mạng xã hội",
+    en: "Fanpage or social media",
+  },
+  "Qua người thân, họ hàng": {
+    vi: "Qua người thân, họ hàng",
+    en: "Family or relatives",
+  },
+  "Qua bạn bè": {
+    vi: "Qua bạn bè",
+    en: "Friends",
+  },
+  "Khác": {
+    vi: "Khác",
+    en: "Other",
+  },
+} as const satisfies Record<
+  RecruitmentDiscoverySource,
+  Record<RecruitmentLocale, string>
+>;
+
+export function getRecruitmentDivisionCopy(
+  division: RecruitmentDivision,
+  locale: RecruitmentLocale,
+) {
+  return RECRUITMENT_DIVISION_COPY[division][locale];
+}
+
+export function getRecruitmentDiscoverySourceLabel(
+  source: RecruitmentDiscoverySource,
+  locale: RecruitmentLocale,
+): string {
+  return RECRUITMENT_DISCOVERY_SOURCE_LABELS[source][locale];
+}
 
 export type RecruitmentFormValues = {
   fullName: string;
@@ -129,13 +202,21 @@ export function buildRecruitmentFormPayload(
   if (!values.division) return [];
 
   const E = RECRUITMENT_FORM_ENTRIES;
+  const birthDate = /^\d{4}-\d{2}-\d{2}$/.test(values.birthDate)
+    ? values.birthDate.split("-").reverse().join("/")
+    : values.birthDate.trim();
   const pairs: Array<{ name: string; value: string }> = [
     { name: E.fullName, value: values.fullName.trim() },
-    { name: E.birthDate, value: values.birthDate.trim() },
+    { name: E.birthDate, value: birthDate },
     { name: E.classCohort, value: values.classCohort.trim() },
     { name: E.phone, value: values.phone.trim() },
     { name: E.email, value: values.email.trim() },
-    { name: E.facebook, value: values.facebook.trim() },
+    {
+      name: E.facebook,
+      value:
+        values.facebook.trim() ||
+        "Không sử dụng Facebook - liên hệ qua email hoặc số điện thoại",
+    },
     { name: E.discoverySource, value: values.discoverySource === "Khác" ? "__other_option__" : values.discoverySource },
     { name: E.motivation, value: values.motivation.trim() },
     { name: E.division, value: values.division },
