@@ -7,7 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 /**
  * Routes that already ship complete SSR metadata.
  * Client locale changes must NOT overwrite title/description for these —
- * crawlers and view-source must keep the server title (esp. /course).
+ * crawlers and view-source must keep the server title.
  */
 const SSR_LOCKED_PATHS = new Set([
   "/",
@@ -15,6 +15,7 @@ const SSR_LOCKED_PATHS = new Set([
   "/course-register-form",
   "/course-register-form/success",
   "/contact-us",
+  "/recruitment",
 ]);
 
 /**

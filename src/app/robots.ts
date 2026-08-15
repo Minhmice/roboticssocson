@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { courseSurfacesEnabled } from "@/data/courseRegistration";
 import { getSiteUrl } from "@/lib/seo/site-url";
 
 export default function robots(): MetadataRoute.Robots {
@@ -8,8 +9,14 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      // Former sponsorship surfaces archived under src/legacy — not public routes.
-      disallow: ["/sponsor", "/sponsorship"],
+      disallow: [
+        // Former sponsorship surfaces archived under src/legacy — not public routes.
+        "/sponsor",
+        "/sponsorship",
+        ...(!courseSurfacesEnabled
+          ? ["/course", "/course-register-form"]
+          : []),
+      ],
     },
     sitemap: `${origin}/sitemap.xml`,
     host: origin,

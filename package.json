@@ -8,6 +8,7 @@
     "start": "next start -p 4000",
     "lint": "eslint .",
     "check:assets": "node scripts/check-assets.mjs",
+    "optimize:images": "node scripts/optimize-public-images.mjs",
     "sync:deck-images": "node scripts/sync-deck-raw-images.mjs",
     "sync:deck-images:watch": "node scripts/sync-deck-raw-images.mjs --watch",
     "test:e2e": "playwright test",

@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import { StatusBoard } from "@/components/shared/StatusBoard";
+import { courseSurfacesEnabled } from "@/data/courseRegistration";
 
 export default function NotFound() {
   const { locale } = useLanguage();
@@ -14,8 +15,12 @@ export default function NotFound() {
       title={vi ? "Không tìm thấy trang" : "Page not found"}
       description={
         vi
-          ? "Đường dẫn không tồn tại hoặc đã được chuyển đi. Quay lại trang chủ hoặc mở khóa học STEM."
-          : "This path does not exist or has moved. Head home, or open the STEM course."
+          ? courseSurfacesEnabled
+            ? "Đường dẫn không tồn tại hoặc đã được chuyển đi. Quay lại trang chủ hoặc mở khóa học STEM."
+            : "Đường dẫn không tồn tại hoặc đã được chuyển đi. Quay lại trang chủ để tiếp tục."
+          : courseSurfacesEnabled
+            ? "This path does not exist or has moved. Head home, or open the STEM course."
+            : "This path does not exist or has moved. Head home to continue."
       }
       actions={[
         {
@@ -23,11 +28,15 @@ export default function NotFound() {
           href: "/",
           variant: "primary",
         },
-        {
-          label: vi ? "Xem khóa học" : "View course",
-          href: "/course",
-          variant: "secondary",
-        },
+        ...(courseSurfacesEnabled
+          ? [
+              {
+                label: vi ? "Xem khóa học" : "View course",
+                href: "/course",
+                variant: "secondary" as const,
+              },
+            ]
+          : []),
       ]}
     />
   );

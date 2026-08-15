@@ -1,6 +1,15 @@
 export type ExperienceLevel = "none" | "scratch" | "arduino" | "other";
 
 export type CourseRegistrationConfig = {
+  /**
+   * Public course surfaces (`/course`, `/course-register-form`, nested deck,
+   * homepage teaser, nav/footer links, sitemap/robots, Course JSON-LD).
+   *
+   * Flip to `true` and rebuild/redeploy to reopen. See `reopenNote_*`.
+   */
+  enabled: boolean;
+  reopenNote_vi: string;
+  reopenNote_en: string;
   title_vi: string;
   title_en: string;
   subtitle_vi: string;
@@ -36,6 +45,14 @@ export type CourseRegistrationConfig = {
 };
 
 export const courseRegistrationConfig: CourseRegistrationConfig = {
+  // COURSE SURFACE SWITCH — set `enabled: true` and rebuild to restore
+  // `/course`, `/course-register-form`, nested deck, homepage teaser,
+  // nav/footer links, sitemap, robots, and Course JSON-LD.
+  enabled: false,
+  reopenNote_vi:
+    "Đặt courseRegistrationConfig.enabled = true rồi rebuild/redeploy để mở lại trang khóa học, form đăng ký, teaser trang chủ, và link nav/footer.",
+  reopenNote_en:
+    "Set courseRegistrationConfig.enabled = true, then rebuild/redeploy to restore the course page, registration form, homepage teaser, and nav/footer links.",
   title_vi: "Đăng ký khóa học",
   title_en: "Course registration",
   subtitle_vi:
@@ -78,3 +95,6 @@ export const courseRegistrationConfig: CourseRegistrationConfig = {
     { value: "other", label_vi: "Khác", label_en: "Other" },
   ],
 };
+
+/** Convenience alias for route/UI/SEO gates. Flip via `courseRegistrationConfig.enabled`. */
+export const courseSurfacesEnabled = courseRegistrationConfig.enabled;

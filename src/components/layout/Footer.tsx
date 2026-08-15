@@ -13,6 +13,7 @@ import {
   sponsorEmail,
   socials,
 } from "@/data/settings";
+import { courseSurfacesEnabled } from "@/data/courseRegistration";
 
 export const Footer: React.FC = () => {
   const { t } = useLanguage();
@@ -78,9 +79,18 @@ export const Footer: React.FC = () => {
                   href: "#achievements",
                   sectionId: "achievements",
                 },
+                ...(courseSurfacesEnabled
+                  ? [
+                      {
+                        label: t("nav.course"),
+                        href: "/course",
+                        isRoute: true,
+                      },
+                    ]
+                  : []),
                 {
-                  label: t("nav.course"),
-                  href: "/course",
+                  label: t("nav.recruitment"),
+                  href: "/recruitment",
                   isRoute: true,
                 },
                 {
@@ -88,17 +98,21 @@ export const Footer: React.FC = () => {
                   href: "/contact-us",
                   isRoute: true,
                 },
-                {
-                  label: t("nav.registerCourse"),
-                  href: "/course-register-form",
-                  isRoute: true,
-                },
+                ...(courseSurfacesEnabled
+                  ? [
+                      {
+                        label: t("nav.registerCourse"),
+                        href: "/course-register-form",
+                        isRoute: true,
+                      },
+                    ]
+                  : []),
               ].map((link) => (
                 <li key={link.href}>
                   {link.isRoute ? (
                     <BootLink
                       href={link.href}
-                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm flex items-center min-h-[44px] sm:min-h-0"
+                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm flex items-center min-h-11 sm:min-h-0"
                     >
                       {link.label}
                     </BootLink>
@@ -110,7 +124,7 @@ export const Footer: React.FC = () => {
                           ? handleLinkClick(e, link.sectionId)
                           : undefined
                       }
-                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm flex items-center cursor-pointer min-h-[44px] sm:min-h-0"
+                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm flex items-center cursor-pointer min-h-11 sm:min-h-0"
                     >
                       {link.label}
                     </a>
@@ -146,7 +160,7 @@ export const Footer: React.FC = () => {
                 href={messengerUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-[44px] sm:min-h-0"
+                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-11 sm:min-h-0"
               >
                 <svg
                   className="h-3.5 w-3.5 sm:h-4 sm:w-4"
@@ -162,7 +176,7 @@ export const Footer: React.FC = () => {
                 href={socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-[44px] sm:min-h-0"
+                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-11 sm:min-h-0"
               >
                 <FacebookIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
                 Facebook

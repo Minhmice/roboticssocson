@@ -10,6 +10,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { captureEvent } from "@/lib/posthog/client";
 import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
+import { courseSurfacesEnabled } from "@/data/courseRegistration";
 import { useState, useEffect, useMemo } from "react";
 
 interface NavLink {
@@ -26,9 +27,11 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   const { t } = useLanguage();
   const pathname = usePathname();
   const isCourseFlow =
-    pathname === "/course" ||
-    pathname?.startsWith("/course-register-form") === true;
+    courseSurfacesEnabled &&
+    (pathname === "/course" ||
+      pathname?.startsWith("/course-register-form") === true);
   const isContactPage = pathname === "/contact-us";
+  const isRecruitmentPage = pathname === "/recruitment";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -61,7 +64,10 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   const navLinks: NavLink[] = useMemo(
     () => [
       { label: t("nav.home"), href: "/" },
-      { label: t("nav.course"), href: "/course" },
+      { label: t("nav.recruitment"), href: "/recruitment" },
+      ...(courseSurfacesEnabled
+        ? [{ label: t("nav.course"), href: "/course" }]
+        : []),
     ],
     [t],
   );
@@ -100,6 +106,18 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
           href="/course-register-form"
           className={cn(widthClass, onRegister && "ring-2 ring-primary/30")}
           aria-current={onRegister ? "page" : undefined}
+        />
+      );
+    }
+
+    if (isRecruitmentPage) {
+      return (
+        <CTAButton
+          label={t("nav.recruitment")}
+          variant="primary"
+          href="/recruitment"
+          className={cn(widthClass, "ring-2 ring-primary/30")}
+          aria-current="page"
         />
       );
     }
@@ -163,7 +181,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
         </div>
 
         <button
-          className="md:hidden text-muted-foreground hover:text-primary transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="md:hidden text-muted-foreground hover:text-primary transition-colors min-h-11 min-w-11 flex items-center justify-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           aria-label={mobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
           aria-expanded={mobileMenuOpen}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

@@ -18,6 +18,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const deckPresentation = pathname === "/course/arduino-mblock-deck";
   const immersive =
     pathname === "/contact-us" ||
+    pathname === "/recruitment" ||
     pathname === "/analytics" ||
     pathname?.startsWith("/course-register-form") === true ||
     deckPresentation;

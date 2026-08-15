@@ -12,6 +12,9 @@ export const AnalyticsEvents = {
   COURSE_PRICING_VIEWED: "course_pricing_viewed",
   COURSE_PRICING_CTA_CLICKED: "course_pricing_cta_clicked",
   CONTACT_FORM_SUBMITTED: "contact_form_submitted",
+  RECRUITMENT_PAGE_VIEWED: "recruitment_page_viewed",
+  RECRUITMENT_SUBMIT_CLICKED: "recruitment_submit_clicked",
+  RECRUITMENT_SUBMITTED: "recruitment_submitted",
   BOOT_LOADER_COMPLETED: "boot_loader_completed",
 } as const;
 

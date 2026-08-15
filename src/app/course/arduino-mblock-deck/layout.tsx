@@ -1,8 +1,13 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
+import { courseSurfacesEnabled } from "@/data/courseRegistration";
+import { assertCourseEnabled } from "@/lib/course/assertCourseEnabled";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export function generateMetadata(): Metadata {
+  if (!courseSurfacesEnabled) {
+    return { robots: { index: false, follow: false } };
+  }
   return {
     ...buildMetadata({
       title: "Arduino & mBlock — Trình chiếu nội bộ",
@@ -19,5 +24,6 @@ export default function ArduinoMblockDeckLayout({
 }: {
   children: ReactNode;
 }) {
+  assertCourseEnabled();
   return children;
 }

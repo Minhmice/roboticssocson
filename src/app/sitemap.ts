@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { courseSurfacesEnabled } from "@/data/courseRegistration";
 import { getSiteUrl } from "@/lib/seo/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -13,16 +14,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    ...(courseSurfacesEnabled
+      ? [
+          {
+            url: `${origin}/course`,
+            lastModified,
+            changeFrequency: "weekly" as const,
+            priority: 0.9,
+          },
+          {
+            url: `${origin}/course-register-form`,
+            lastModified,
+            changeFrequency: "weekly" as const,
+            priority: 0.85,
+          },
+        ]
+      : []),
     {
-      url: `${origin}/course`,
+      url: `${origin}/recruitment`,
       lastModified,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${origin}/course-register-form`,
-      lastModified,
-      changeFrequency: "weekly",
+      changeFrequency: "monthly",
       priority: 0.85,
     },
     {

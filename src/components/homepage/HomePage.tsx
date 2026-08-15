@@ -8,6 +8,7 @@ import AboutSocSonHighSchool from "@/components/homepage/AboutSocSonHighSchool";
 import TeamCarouselSection from "@/components/homepage/TeamCarousel";
 import AchievementsSection from "@/components/homepage/Achievements";
 import CourseTeaser from "@/components/homepage/CourseTeaser";
+import { courseSurfacesEnabled } from "@/data/courseRegistration";
 
 /** GSAP/ScrollTrigger live only in Mission (below the fold) — keep out of initial JS. */
 const MissionSection = dynamic(
@@ -25,7 +26,7 @@ export function HomePage() {
       <TeamCarouselSection />
       <AchievementsSection />
       <MissionSection />
-      <CourseTeaser />
+      {courseSurfacesEnabled ? <CourseTeaser /> : null}
     </div>
   );
 }
