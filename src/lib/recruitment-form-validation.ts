@@ -56,6 +56,7 @@ export function validateRecruitmentForm(
   setRequired("classCohort", values.classCohort);
   setRequired("phone", values.phone);
   setRequired("email", values.email);
+  setRequired("facebook", values.facebook);
   setRequired("motivation", values.motivation);
 
   if (values.phone.trim() && !isValidVietnamPhone(values.phone)) {

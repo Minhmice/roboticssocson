@@ -37,7 +37,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           className={cn(
             "relative overflow-x-clip",
             deckPresentation && "fixed inset-0 z-50 h-dvh overflow-hidden pt-0",
-            !deckPresentation && immersive && "pt-0",
+            recruitmentFlow && "h-dvh min-h-0 overflow-hidden pt-0",
+            !deckPresentation && !recruitmentFlow && immersive && "pt-0",
             !deckPresentation && !immersive && "pt-16",
           )}
         >

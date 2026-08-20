@@ -17,7 +17,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Check, Loader2, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Clock3, Loader2, ShieldCheck, X } from "lucide-react";
 import { useBootAnimationReady } from "@/contexts/BootRevealContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { captureEvent } from "@/lib/posthog/client";
@@ -47,9 +47,11 @@ const REVIEW_INDEX = 10;
 const SUBMISSION_TIMEOUT_MS = 15_000;
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
-const displayType = "text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-[-0.03em]";
+const displayType = "text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.15] tracking-[-0.02em]";
+/** Question prompts stay below display — Operate density over marketing scale. */
+const promptType = "text-[clamp(1.375rem,3vw,1.875rem)] leading-[1.25] tracking-[-0.015em]";
 const orientationDisplayType =
-  "text-[clamp(2.75rem,7vw,4.75rem)] leading-[1.06] tracking-[-0.035em]";
+  "text-[clamp(2rem,5.5vw,3.25rem)] leading-[1.08] tracking-[-0.03em]";
 type DivisionKey = "mechanical" | "code" | "media";
 
 const DIVISION_KEY: Record<RecruitmentDivision, DivisionKey> = {
@@ -89,14 +91,39 @@ const BRANCH_FIELDS: Record<
 
 const copyByLocale = {
   vi: {
-    orientationTitle: "Đơn tham gia đội",
-    orientationBody: "Dành ra 6-8 phút để trở thành một thành viên của CLB Robotics nhé.",
+    orientationTitle: "Đơn tuyển thành viên RBS 4.0",
+    orientationTitleLines: ["Đơn tuyển thành viên", "RBS 4.0"] as const,
+    orientationBody:
+      "Trả lời lần lượt từng câu hỏi để đăng ký thành viên Robotics Sóc Sơn. Chọn một ban phù hợp với thế mạnh của bạn.",
     orientationMeta: "Thông tin sẽ được gửi về ban quản trị để xét duyệt.",
     orientationPrivacy: "Thông tin được gửi về ban quản trị để xét duyệt.",
+    orientationEffortLabel: "Thời gian",
+    orientationEffortValue: "Khoảng 10-15 phút",
+    orientationEffortDetail: "Một câu hỏi mỗi màn hình. Bạn có thể quay lại chỉnh trước khi gửi.",
+    orientationPrivacyLabel: "Xét duyệt",
+    orientationPrivacyDetail: "Bản nháp lưu trên thiết bị này đến khi gửi thành công.",
+    orientationNextLabel: "Sau khi gửi",
+    orientationNextValue: "Đội đọc đơn và liên hệ qua điện thoại hoặc email.",
+    orientationDivisionsIntro: "Ba ban bạn có thể đăng ký",
+    orientationDivisions: [
+      {
+        name: "Cơ khí - Thiết kế",
+        blurb: "CAD, lắp ráp và xử lý chi tiết cơ khí trên robot.",
+      },
+      {
+        name: "Code - Điện tử",
+        blurb: "Lập trình, mạch điện và cảm biến điều khiển robot.",
+      },
+      {
+        name: "Truyền thông",
+        blurb: "Thiết kế, nội dung và hình ảnh kể câu chuyện của đội.",
+      },
+    ] as const,
     start: "Bắt đầu",
     progress: "Tiến độ đơn",
     exit: "Về trang đội",
     next: "Tiếp tục",
+    back: "Quay lại",
     review: "Kiểm tra lại đơn",
     edit: "Chỉnh sửa",
     previousQuestion: "Câu hỏi cuối",
@@ -120,60 +147,85 @@ const copyByLocale = {
       birthDate: "Ngày sinh",
       phone: "Số điện thoại",
       email: "Email",
-      facebook: "Link Facebook (không bắt buộc)",
+      facebook: "Link Facebook",
       discoveryOther: "Ghi rõ nguồn khác",
     },
     prompts: {
       identity: "Bạn tên là gì?",
-      identitySecond: "Và bạn học lớp nào?",
+      identitySecond: "Bạn học lớp nào?",
       birth: "Bạn sinh ngày nào?",
-      origin: "Bạn biết đến đội qua đâu?",
+      origin: "Bạn biết đến Robotics Sóc Sơn qua đâu?",
       contact: "Bạn muốn đội liên hệ với bạn bằng cách nào?",
-      role: "Bạn muốn cùng đội làm phần nào?",
-      drive: "Bạn muốn học hoặc làm điều gì cùng đội?",
+      role: "Bạn muốn đăng ký ban nào?",
+      drive: "Điều gì khiến bạn muốn trở thành một phần của Robotics Sóc Sơn?",
     },
     branch: {
       mechanical: {
-        q1: "Bạn từng tự tay làm ra thứ gì?",
-        a1: "Có thể là bài học ở trường, một dự án nhỏ, hoặc chưa có gì cả.",
-        q2: "Bạn đã thử công cụ nào?",
-        a2: "Nếu chưa, hãy nói công cụ hoặc phần mềm bạn muốn học đầu tiên.",
-        q3: "Một chi tiết lắp chưa khớp. Bạn làm gì?",
+        q1: "Bạn đã từng có kinh nghiệm thiết kế 3D (CAD) hay thao tác gia công, lắp ráp cơ khí thực tế nào chưa?",
+        a1: "Có thể là bài học ở trường, một dự án nhỏ, hoặc chưa từng thử.",
+        q2: "Kỹ năng hoặc công cụ thiết kế/phần mềm nào bạn thành thạo nhất?",
+        a2: "Nếu chưa thành thạo, hãy nêu công cụ hoặc phần mềm bạn muốn học đầu tiên.",
+        q3: "Khi một chi tiết cơ khí bị lệch/hỏng trong quá trình lắp ráp thực tế, bạn sẽ ưu tiên xử lý tình huống đó như thế nào?",
         a3: "Kể các bước bạn sẽ quan sát và thử để tìm nguyên nhân.",
-        q4: "Bạn mong nhận được gì từ ban Cơ khí - Thiết kế?",
+        q4: "Bạn mong muốn nhận được điều gì khi tham gia ban Cơ khí - Thiết kế của Robotics Sóc Sơn?",
         a4: "Ghi ngắn thôi, đội đọc để sắp xếp người hướng dẫn.",
       },
       code: {
-        q1: "Bạn từng viết dòng code nào chưa?",
+        q1: "Bạn đã từng làm quen với ngôn ngữ lập trình nào (C/C++, Python,...), các vi điều khiển nào (Arduino, ESP32,...) chưa?",
         a1: "Một bài học nhỏ, Arduino, ESP32, hoặc “chưa từng thử” đều là câu trả lời tốt.",
-        q2: "Bạn từng chạm vào mạch điện chưa?",
+        q2: "Bạn đã có kinh nghiệm thực tế về đấu nối mạch điện, sử dụng cảm biến/mạch động cơ chưa?",
         a2: "Nối dây, cảm biến, động cơ. Nếu chưa, điều gì khiến bạn muốn học?",
-        q3: "Robot chạy sai. Bạn lần theo dấu vết thế nào?",
+        q3: "Khi robot chạy không đúng thuật toán hoặc gặp sự cố cháy/chập mạch, bạn sẽ debug và xử lý lỗi như thế nào?",
         a3: "Kể cách bạn kiểm tra từng bước để khoanh vùng lỗi.",
-        q4: "Bạn mong nhận được gì từ ban Code - Điện tử?",
+        q4: "Bạn mong muốn nhận được điều gì khi tham gia ban Code - Điện tử của Robotics Sóc Sơn?",
         a4: "Ghi ngắn thôi, đội đọc để sắp xếp người hướng dẫn.",
       },
       media: {
-        q1: "Bạn kể chuyện bằng cách nào?",
-        a1: "Viết, thiết kế, ảnh, video hay tổ chức hoạt động. Chưa có kinh nghiệm cũng không sao.",
-        q2: "Bạn dùng công cụ sáng tạo nào?",
-        a2: "Canva, CapCut, Figma, hoặc một công cụ bạn muốn học.",
-        q3: "Bạn sắp xếp thời gian ra sao?",
+        q1: "Thế mạnh chính của bạn nằm ở mảng nào: thiết kế, quay phim chụp ảnh hay viết lách lên ý tưởng?",
+        a1: "Thiết kế, quay phim chụp ảnh, viết lách hoặc lên ý tưởng. Chưa có kinh nghiệm cũng không sao.",
+        q2: "Hiện tại bạn đang dùng phần mềm nào để thiết kế? (VD: Canva, Figma, Illustrator, Photoshop,...)",
+        a2: "Canva, Figma, Illustrator, Photoshop, hoặc một công cụ bạn muốn học.",
+        q3: "Mức độ sẵn sàng học hỏi và lượng thời gian bạn có thể cam kết đồng hành cùng Ban Truyền thông RBS mỗi tuần là bao nhiêu?",
         a3: "Chia sẻ khoảng thời gian bạn có thể dành cho đội mỗi tuần.",
-        q4: "Bạn mong nhận được gì từ ban Truyền thông?",
+        q4: "Bạn mong muốn nhận được điều gì khi tham gia ban Truyền thông của Robotics Sóc Sơn?",
         a4: "Ghi ngắn thôi, đội đọc để sắp xếp người hướng dẫn.",
       },
     },
   },
   en: {
-    orientationTitle: "Team application",
-    orientationBody: "Set aside 6-8 minutes to become a member of the Robotics Club.",
+    orientationTitle: "RBS 4.0 member application",
+    orientationTitleLines: ["RBS 4.0 member", "application"] as const,
+    orientationBody:
+      "Answer one question at a time to apply for Robotics Sóc Sơn. Choose the division that fits your strengths.",
     orientationMeta: "Your information will be sent to the team administrators for review.",
     orientationPrivacy: "Sent to the team administrators for review.",
+    orientationEffortLabel: "Time needed",
+    orientationEffortValue: "About 10-15 minutes",
+    orientationEffortDetail: "One question per screen. You can go back and edit before sending.",
+    orientationPrivacyLabel: "Review",
+    orientationPrivacyDetail: "A draft stays on this device until the application is sent successfully.",
+    orientationNextLabel: "After you send",
+    orientationNextValue: "The team reads your answers and contacts you by phone or email.",
+    orientationDivisionsIntro: "Three divisions you can join",
+    orientationDivisions: [
+      {
+        name: "Mechanical - Design",
+        blurb: "CAD, assembly, and hands-on mechanical problem solving.",
+      },
+      {
+        name: "Code - Electronics",
+        blurb: "Programming, circuits, and sensors that drive the robot.",
+      },
+      {
+        name: "Media",
+        blurb: "Design, writing, and visuals that tell the team's story.",
+      },
+    ] as const,
     start: "Start",
     progress: "Application progress",
     exit: "Back to the team",
     next: "Continue",
+    back: "Back",
     review: "Check your application",
     edit: "Edit",
     previousQuestion: "Last question",
@@ -197,48 +249,48 @@ const copyByLocale = {
       birthDate: "Date of birth",
       phone: "Phone number",
       email: "Email",
-      facebook: "Facebook link (optional)",
+      facebook: "Facebook link",
       discoveryOther: "Specify the other source",
     },
     prompts: {
       identity: "What is your name?",
-      identitySecond: "And which class are you in?",
+      identitySecond: "Which class are you in?",
       birth: "When were you born?",
-      origin: "How did you hear about the team?",
+      origin: "How did you hear about Robotics Sóc Sơn?",
       contact: "How should the team contact you?",
-      role: "Where would you like to contribute?",
-      drive: "What would you like to learn or build with the team?",
+      role: "Which division would you like to apply for?",
+      drive: "What makes you want to become part of Robotics Sóc Sơn?",
     },
     branch: {
       mechanical: {
-        q1: "What have you built with your own hands?",
+        q1: "Have you had any experience with 3D design (CAD) or practical machining and mechanical assembly?",
         a1: "A school project, a small personal attempt, or nothing yet.",
-        q2: "Which tools have you tried?",
+        q2: "Which design skill or software tool are you most comfortable with?",
         a2: "If none, name the tool or software you want to learn first.",
-        q3: "A part does not fit. What do you do?",
+        q3: "When a mechanical part is misaligned or broken during real assembly, how would you prioritize handling that situation?",
         a3: "Describe what you would observe and test to find the cause.",
-        q4: "What do you hope to gain in Mechanical - Design?",
-        a4: "Keep it short, the team reads this to match you with a mentor.",
+        q4: "What do you hope to gain by joining the Mechanical - Design division of Robotics Sóc Sơn?",
+        a4: "Keep it short; the team reads this to match you with a mentor.",
       },
       code: {
-        q1: "Have you written any code yet?",
+        q1: "Have you worked with any programming languages (C/C++, Python, ...) or microcontrollers (Arduino, ESP32, ...)?",
         a1: "A small lesson, Arduino, ESP32, or “not yet” are all good answers.",
-        q2: "Have you touched a circuit yet?",
+        q2: "Do you have hands-on experience wiring circuits or using sensors and motor modules?",
         a2: "Wiring, sensors, motors. If not, what makes you curious?",
-        q3: "The robot behaves wrong. How do you trace it?",
+        q3: "When the robot does not follow the algorithm or you face a short/burn fault, how would you debug and fix it?",
         a3: "Describe how you would check step by step to isolate the fault.",
-        q4: "What do you hope to gain in Code - Electronics?",
-        a4: "Keep it short, the team reads this to match you with a mentor.",
+        q4: "What do you hope to gain by joining the Code - Electronics division of Robotics Sóc Sơn?",
+        a4: "Keep it short; the team reads this to match you with a mentor.",
       },
       media: {
-        q1: "How do you tell a story?",
-        a1: "Writing, design, photos, video, or running events. No experience is fine.",
-        q2: "Which creative tools do you use?",
-        a2: "Canva, CapCut, Figma, or a tool you want to learn.",
-        q3: "How do you manage your time?",
+        q1: "Where is your main strength: design, filming/photography, or writing and ideation?",
+        a1: "Design, photo/video, writing, or ideation. No experience is fine.",
+        q2: "Which design software do you currently use? (e.g. Canva, Figma, Illustrator, Photoshop, ...)",
+        a2: "Canva, Figma, Illustrator, Photoshop, or a tool you want to learn.",
+        q3: "How ready are you to learn, and how much time can you commit each week with the RBS Communications division?",
         a3: "Share the time you could reasonably give the team each week.",
-        q4: "What do you hope to gain in Communications?",
-        a4: "Keep it short, the team reads this to match you with a mentor.",
+        q4: "What do you hope to gain by joining the Communications division of Robotics Sóc Sơn?",
+        a4: "Keep it short; the team reads this to match you with a mentor.",
       },
     },
   },
@@ -340,7 +392,7 @@ function buildBeats(copy: FlowCopy, division: RecruitmentDivision | ""): BeatSpe
           key: "facebook",
           label: copy.labels.facebook,
           kind: "url",
-          required: false,
+          required: true,
           autoComplete: "url",
           placeholder: "https://facebook.com/...",
           revealAfter: "email",
@@ -447,7 +499,7 @@ const alwaysTrue = () => true;
 const alwaysNull = () => null;
 
 const controlBase =
-  "w-full px-4 py-3 text-base leading-relaxed outline-none transition-[border-color,box-shadow] duration-200";
+  "w-full px-3.5 py-2.5 text-base leading-normal outline-none transition-[border-color,box-shadow] duration-200";
 const lightControl =
   "rounded-lg border border-slate-200 bg-white text-slate-900 shadow-sm placeholder:text-slate-400 focus-visible:border-blue-600 focus-visible:ring-2 focus-visible:ring-blue-600/25";
 export function RecruitmentFlow() {
@@ -815,33 +867,35 @@ export function RecruitmentFlow() {
       ) : null}
 
       <div className="relative z-10 shrink-0">
-        <header className="flex items-center justify-between gap-4 border-b border-slate-200 bg-white px-5 py-4 sm:px-10">
-        <Link
-          href="/"
-          className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-medium text-slate-700 transition-colors duration-200 hover:bg-slate-50 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40"
-        >
-          <X className="h-4 w-4" strokeWidth={1.8} />
-          {copy.exit}
-        </Link>
-        <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold text-slate-900">RBS</span>
-          <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 p-1">
-            {(["vi", "en"] as const).map((code) => (
-              <button
-                key={code}
-                type="button"
-                onClick={() => setLocale(code)}
-                aria-pressed={locale === code}
-                className={cn(
-                  "min-h-11 rounded-md px-3 text-sm uppercase transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40",
-                  locale === code ? "bg-white font-semibold text-blue-700 shadow-sm" : "text-slate-500 hover:text-slate-900",
-                )}
-              >
-                {code}
-              </button>
-            ))}
+        <header className="flex items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-2.5 sm:gap-4 sm:px-10 sm:py-3">
+          <Link
+            href="/"
+            className="inline-flex min-h-11 items-center gap-2 rounded-lg px-2.5 text-sm font-medium text-slate-700 transition-colors duration-200 hover:bg-slate-50 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40 sm:px-3"
+          >
+            <X className="h-4 w-4 shrink-0" strokeWidth={1.8} />
+            <span className="truncate">{copy.exit}</span>
+          </Link>
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <span className="text-sm font-semibold text-slate-900">RBS</span>
+            <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 p-1">
+              {(["vi", "en"] as const).map((code) => (
+                <button
+                  key={code}
+                  type="button"
+                  onClick={() => setLocale(code)}
+                  aria-pressed={locale === code}
+                  className={cn(
+                    "min-h-11 rounded-md px-3 text-sm uppercase transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40",
+                    locale === code
+                      ? "bg-white font-semibold text-blue-700 shadow-sm"
+                      : "text-slate-500 hover:text-slate-900",
+                  )}
+                >
+                  {code}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
         </header>
         <div
           role="progressbar"
@@ -849,7 +903,7 @@ export function RecruitmentFlow() {
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={Math.round(progressRatio * 100)}
-          className="h-0.5 w-full overflow-hidden bg-slate-200"
+          className="h-1 w-full overflow-hidden bg-slate-200"
         >
           <div
             className={cn(
@@ -863,28 +917,16 @@ export function RecruitmentFlow() {
         </div>
       </div>
 
-      <main
-        className={cn(
-          "relative z-10 flex min-h-0 flex-1 overflow-hidden px-5 sm:px-10",
-          isOrientationScreen ? "items-center justify-center py-8 sm:py-10" : "items-stretch py-6 sm:py-8",
-        )}
-      >
-        <div
-          className={cn(
-            "mx-auto flex w-full min-w-0 max-w-6xl flex-col gap-6",
-            status !== "success" && orientationActive && "h-full min-h-0 flex-1",
-            isOrientationScreen && "h-auto max-w-4xl flex-none",
-          )}
-        >
+      <main className="relative z-10 flex min-h-0 flex-1 overflow-hidden px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 sm:px-10 sm:pb-6 sm:pt-5">
+        {isOrientationScreen ? (
           <div
-            className={cn(
-              "min-w-0",
-              isOrientationScreen
-                ? "flex w-full justify-center"
-                : "min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 sm:pr-2 lg:h-full lg:flex-none",
-            )}
-          >
-            <AnimatePresence mode="wait" initial={false}>
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(37,99,235,0.08),transparent_55%)]"
+          />
+        ) : null}
+        <div className="relative mx-auto flex h-full min-h-0 w-full min-w-0 max-w-6xl flex-1 flex-col">
+          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain">
+            <AnimatePresence mode="wait">
               {status === "success" ? (
               <motion.div
                 key="success"
@@ -894,7 +936,7 @@ export function RecruitmentFlow() {
                 initial={reduceMotion ? false : { opacity: 0, transform: "translateY(10px)" }}
                 animate={{ opacity: 1, transform: "translateY(0)" }}
                 transition={{ duration: reduceMotion ? 0 : 0.45, ease: EASE_OUT }}
-                className="text-center outline-none"
+                className="mx-auto my-auto w-full max-w-xl py-8 text-center outline-none"
               >
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white">
                   <Check className="h-6 w-6" strokeWidth={2} />
@@ -920,32 +962,167 @@ export function RecruitmentFlow() {
                 </div>
               </motion.div>
             ) : !orientationActive ? (
-              <motion.section
+              <motion.div
                 key="orientation"
-                initial={reduceMotion ? false : { opacity: 0, transform: "translateY(8px)" }}
-                animate={{ opacity: 1, transform: "translateY(0)" }}
-                exit={{ opacity: 0, transform: "translateY(-8px)" }}
-                transition={{ duration: reduceMotion ? 0 : 0.22, ease: EASE_OUT }}
-                className="mx-auto flex w-full flex-col items-center rounded-2xl border border-slate-200 bg-white px-5 py-10 text-center shadow-sm sm:px-14 sm:py-16"
+                initial={
+                  reduceMotion
+                    ? false
+                    : { opacity: 0, transform: "translateY(14px) scale(0.98)" }
+                }
+                animate={{ opacity: 1, transform: "translateY(0) scale(1)" }}
+                exit={
+                  reduceMotion
+                    ? { opacity: 0 }
+                    : { opacity: 0, transform: "translateY(-10px) scale(0.99)" }
+                }
+                transition={{ duration: reduceMotion ? 0.18 : 0.48, ease: EASE_OUT }}
+                className="mx-auto my-auto w-full max-w-5xl py-2 sm:py-4"
               >
-                <h1 className={cn("max-w-[14ch] font-semibold text-blue-950", orientationDisplayType)}>
-                  {copy.orientationTitle}
-                </h1>
-                <p className="mt-6 max-w-[36ch] text-xl leading-relaxed text-slate-600 sm:mt-8 sm:text-2xl sm:leading-relaxed">
-                  {copy.orientationBody}
-                </p>
-                <p className="mt-6 max-w-[42ch] text-base leading-relaxed text-slate-600 sm:mt-8 sm:text-lg">
-                  {copy.orientationMeta}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setOrientationSeen(true)}
-                  className="mt-10 inline-flex min-h-14 items-center gap-2.5 rounded-xl bg-blue-600 px-8 text-lg font-semibold text-white transition-[background-color,transform] duration-150 hover:bg-blue-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40 focus-visible:ring-offset-2 sm:mt-12"
-                >
-                  {copy.start}
-                  <ArrowRight className="h-5 w-5" strokeWidth={2} />
-                </button>
-              </motion.section>
+                <div className="w-full rounded-2xl bg-slate-100/90 p-1 ring-1 ring-slate-200/90 sm:rounded-[1.35rem] sm:p-1.5">
+                <section className="grid w-full gap-6 rounded-[calc(1rem-0.125rem)] border border-slate-200/80 bg-white px-4 py-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:gap-8 sm:rounded-[calc(1.35rem-0.375rem)] sm:px-8 sm:py-9 lg:grid-cols-12 lg:items-stretch lg:gap-10 lg:px-10 lg:py-10">
+                  <div className="flex min-w-0 flex-col lg:col-span-6">
+                    <h1
+                      className={cn(
+                        "max-w-[18ch] text-left font-black text-blue-950",
+                        orientationDisplayType,
+                      )}
+                    >
+                      <span className="sr-only">{copy.orientationTitle}</span>
+                      {copy.orientationTitleLines.map((line, index) => (
+                        <span key={line} aria-hidden className="block overflow-hidden pb-1">
+                          <motion.span
+                            className="block will-change-transform"
+                            initial={
+                              reduceMotion
+                                ? false
+                                : { opacity: 0, transform: "translateY(110%)" }
+                            }
+                            animate={{ opacity: 1, transform: "translateY(0%)" }}
+                            transition={{
+                              duration: reduceMotion ? 0.16 : 0.55,
+                              delay: reduceMotion ? 0 : 0.08 + index * 0.08,
+                              ease: EASE_OUT,
+                            }}
+                          >
+                            {line}
+                          </motion.span>
+                        </span>
+                      ))}
+                    </h1>
+                    <motion.p
+                      initial={
+                        reduceMotion ? false : { opacity: 0, transform: "translateY(10px)" }
+                      }
+                      animate={{ opacity: 1, transform: "translateY(0px)" }}
+                      transition={{
+                        duration: reduceMotion ? 0.16 : 0.42,
+                        delay: reduceMotion ? 0 : 0.28,
+                        ease: EASE_OUT,
+                      }}
+                      className="mt-3 max-w-[42ch] text-left text-base leading-relaxed text-slate-600 sm:mt-5 sm:text-lg"
+                    >
+                      {copy.orientationBody}
+                    </motion.p>
+                    <motion.button
+                      type="button"
+                      onClick={() => setOrientationSeen(true)}
+                      aria-label={copy.start}
+                      initial={
+                        reduceMotion
+                          ? false
+                          : { opacity: 0, transform: "translateY(10px) scale(0.96)" }
+                      }
+                      animate={{ opacity: 1, transform: "translateY(0px) scale(1)" }}
+                      transition={{
+                        duration: reduceMotion ? 0.16 : 0.45,
+                        delay: reduceMotion ? 0 : 0.4,
+                        ease: EASE_OUT,
+                      }}
+                      className="group mt-6 inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-xl bg-blue-600 py-2.5 pl-6 pr-2.5 text-base font-semibold text-white shadow-[0_4px_14px_0_rgba(37,99,235,0.22)] transition-[background-color,box-shadow,transform] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40 focus-visible:ring-offset-2 active:scale-[0.98] sm:mt-9 sm:w-fit sm:min-h-14 sm:justify-start sm:pl-7 sm:text-lg [@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-px [@media(hover:hover)_and_(pointer:fine)]:hover:shadow-[0_8px_24px_0_rgba(37,99,235,0.28)]"
+                    >
+                      <span>{copy.start}</span>
+                      <span
+                        aria-hidden
+                        className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/15 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] sm:h-10 sm:w-10 [@media(hover:hover)_and_(pointer:fine)]:group-hover:translate-x-0.5"
+                      >
+                        <ArrowRight className="h-5 w-5" strokeWidth={2} />
+                      </span>
+                    </motion.button>
+                  </div>
+
+                  <motion.div
+                    initial={
+                      reduceMotion ? false : { opacity: 0, transform: "translateY(12px)" }
+                    }
+                    animate={{ opacity: 1, transform: "translateY(0px)" }}
+                    transition={{
+                      duration: reduceMotion ? 0.16 : 0.45,
+                      delay: reduceMotion ? 0 : 0.34,
+                      ease: EASE_OUT,
+                    }}
+                    className="flex min-w-0 flex-col gap-4 sm:gap-5 lg:col-span-6"
+                  >
+                    <dl className="divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-slate-50/80">
+                      <div className="flex gap-3 px-3.5 py-3 sm:px-5 sm:py-4">
+                        <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-blue-700 ring-1 ring-slate-200">
+                          <Clock3 className="h-4 w-4" strokeWidth={1.8} aria-hidden />
+                        </span>
+                        <div className="min-w-0">
+                          <dt className="text-sm font-semibold text-blue-950">
+                            {copy.orientationEffortLabel}
+                          </dt>
+                          <dd className="mt-1 text-sm leading-relaxed text-slate-600">
+                            <span className="font-medium text-slate-800">{copy.orientationEffortValue}</span>
+                            <span className="mt-1 block">{copy.orientationEffortDetail}</span>
+                          </dd>
+                        </div>
+                      </div>
+                      <div className="flex gap-3 px-3.5 py-3 sm:px-5 sm:py-4">
+                        <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-blue-700 ring-1 ring-slate-200">
+                          <ShieldCheck className="h-4 w-4" strokeWidth={1.8} aria-hidden />
+                        </span>
+                        <div className="min-w-0">
+                          <dt className="text-sm font-semibold text-blue-950">
+                            {copy.orientationPrivacyLabel}
+                          </dt>
+                          <dd className="mt-1 text-sm leading-relaxed text-slate-600">
+                            <span className="font-medium text-slate-800">{copy.orientationMeta}</span>
+                            <span className="mt-1 block">{copy.orientationPrivacyDetail}</span>
+                          </dd>
+                        </div>
+                      </div>
+                      <div className="px-3.5 py-3 sm:px-5 sm:py-4">
+                        <dt className="text-sm font-semibold text-blue-950">
+                          {copy.orientationNextLabel}
+                        </dt>
+                        <dd className="mt-1 text-sm leading-relaxed text-slate-600">
+                          {copy.orientationNextValue}
+                        </dd>
+                      </div>
+                    </dl>
+
+                    <div>
+                      <p className="text-sm font-semibold text-blue-950">
+                        {copy.orientationDivisionsIntro}
+                      </p>
+                      <ul className="mt-2.5 space-y-2 sm:mt-3">
+                        {copy.orientationDivisions.map((division) => (
+                          <li
+                            key={division.name}
+                            className="rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 sm:px-4 sm:py-3"
+                          >
+                            <p className="text-sm font-semibold text-blue-950">{division.name}</p>
+                            <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                              {division.blurb}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
+                </section>
+                </div>
+              </motion.div>
             ) : isReview ? (
               <motion.section
                 key="review"
@@ -953,13 +1130,13 @@ export function RecruitmentFlow() {
                 animate={{ opacity: 1, transform: "translateY(0)" }}
                 exit={{ opacity: 0, transform: "translateY(-8px)" }}
                 transition={{ duration: reduceMotion ? 0 : 0.22, ease: EASE_OUT }}
-                className="mx-auto w-full max-w-4xl rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-10"
+                className="mx-auto my-auto w-full max-w-4xl rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-10"
               >
-                <div className="border-b border-slate-200 pb-6">
-                  <h1 className="text-3xl font-bold tracking-tight text-blue-950 sm:text-4xl">{copy.review}</h1>
-                  <p className="mt-3 max-w-[65ch] text-sm leading-relaxed text-slate-600">{copy.orientationPrivacy}</p>
+                <div className="border-b border-slate-200 pb-5 sm:pb-6">
+                  <h1 className="text-2xl font-bold tracking-tight text-blue-950 sm:text-4xl">{copy.review}</h1>
+                  <p className="mt-2 max-w-[65ch] text-sm leading-relaxed text-slate-600 sm:mt-3">{copy.orientationPrivacy}</p>
                 </div>
-                <dl className="mt-6 grid gap-4 sm:grid-cols-2">
+                <dl className="mt-5 grid gap-3 sm:mt-6 sm:grid-cols-2 sm:gap-4">
                   {[
                     [copy.labels.fullName, values.fullName, 0],
                     [copy.labels.classCohort, values.classCohort, 0],
@@ -971,7 +1148,7 @@ export function RecruitmentFlow() {
                     [copy.prompts.role, values.division ? getRecruitmentDivisionCopy(values.division, locale).label : copy.notProvided, 4],
                     [copy.prompts.drive, values.motivation, 5],
                   ].map(([label, value, fieldIndex]) => (
-                    <div key={String(label)} className="min-w-0 rounded-lg border border-slate-200 bg-slate-50 p-4">
+                    <div key={String(label)} className="min-w-0 rounded-lg border border-slate-200 bg-slate-50 p-3.5 sm:p-4">
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0">
                           <dt className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</dt>
@@ -984,11 +1161,11 @@ export function RecruitmentFlow() {
                     </div>
                   ))}
                 </dl>
-                <div className="mt-8 flex flex-wrap justify-end gap-3">
-                  <button type="button" onClick={goBack} className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-700 transition-colors hover:border-blue-300 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40">
+                <div className="mt-6 flex flex-col-reverse gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:justify-end">
+                  <button type="button" onClick={goBack} className="inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-700 transition-colors hover:border-blue-300 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40 sm:w-auto">
                     {copy.previousQuestion}
                   </button>
-                  <button type="button" onClick={submit} className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white transition-[background-color,transform] hover:bg-blue-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40 focus-visible:ring-offset-2">
+                  <button type="button" onClick={submit} className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white transition-[background-color,transform] hover:bg-blue-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40 focus-visible:ring-offset-2 sm:w-auto">
                     {copy.submit}<ArrowRight className="h-4 w-4" strokeWidth={2} />
                   </button>
                 </div>
@@ -1000,16 +1177,16 @@ export function RecruitmentFlow() {
                 animate={{ opacity: 1, transform: "translateY(0)" }}
                 exit={reduceMotion ? { opacity: 0 } : { opacity: 0, transform: "translateY(-8px)" }}
                 transition={{ duration: reduceMotion ? 0.12 : 0.22, ease: EASE_OUT }}
-                className="mx-auto w-full max-w-4xl px-1 py-3 text-left sm:px-4 sm:py-6"
+                className="mx-auto my-auto w-full max-w-3xl rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm sm:p-8"
               >
                 <h1
                   id={`${scopeId}-prompt`}
-                  className={cn("max-w-[26ch] font-semibold text-blue-950", displayType)}
+                  className={cn("max-w-[32ch] font-semibold text-blue-950", promptType)}
                 >
                   {beat.prompt}
                 </h1>
                 {beat.aside ? (
-                  <p className="mt-4 max-w-[62ch] text-base leading-relaxed text-slate-600">
+                  <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-slate-600">
                     {beat.aside}
                   </p>
                 ) : null}
@@ -1018,7 +1195,7 @@ export function RecruitmentFlow() {
                   <div
                     role="radiogroup"
                     aria-labelledby={`${scopeId}-prompt`}
-                    className="mt-8 grid gap-3 sm:grid-cols-3"
+                    className="mt-5 grid gap-2.5 sm:mt-6 md:grid-cols-3"
                     onKeyDown={(event) => {
                       // Arrows move focus only: selecting advances the flow, so it stays explicit.
                       const keys = ["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp"];
@@ -1053,17 +1230,17 @@ export function RecruitmentFlow() {
                           data-autofocus={claims ? "true" : undefined}
                           onClick={() => selectDivision(division)}
                           className={cn(
-                            "flex min-h-44 flex-col items-start justify-center rounded-xl border p-5 text-left transition-[border-color,background-color,transform,opacity] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
+                            "flex min-h-[7.5rem] flex-col items-start justify-center rounded-xl border p-4 text-left transition-[border-color,background-color,transform,opacity] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] sm:min-h-40 sm:p-5",
                             "[@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50 active:scale-[0.99]",
                             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40",
                             selected ? "border-blue-600 bg-blue-50" : "border-slate-200 bg-white",
                             dimmed && "opacity-50",
                           )}
                         >
-                          <span className="text-xl font-semibold leading-snug tracking-[-0.02em] text-blue-950">
+                          <span className="text-lg font-semibold leading-snug tracking-[-0.02em] text-blue-950 sm:text-xl">
                             {divisionCopy.label}
                           </span>
-                          <span className="mt-3 text-sm leading-relaxed text-slate-600">
+                          <span className="mt-2 text-sm leading-relaxed text-slate-600">
                             {divisionCopy.description}
                           </span>
                         </button>
@@ -1076,7 +1253,7 @@ export function RecruitmentFlow() {
                   <div
                     role="radiogroup"
                     aria-labelledby={`${scopeId}-prompt`}
-                    className="mt-8 flex flex-wrap gap-2.5"
+                    className="mt-5 flex flex-wrap gap-2 sm:mt-6 sm:gap-2.5"
                   >
                     {RECRUITMENT_DISCOVERY_SOURCES.map((source, index) => {
                       const selected = values.discoverySource === source;
@@ -1110,7 +1287,7 @@ export function RecruitmentFlow() {
                   </div>
                 ) : null}
 
-                <div className={cn(beat.choice ? "mt-6" : "mt-8", "mx-auto w-full max-w-xl space-y-6")}>
+                <div className={cn(beat.choice ? "mt-4" : "mt-5", "w-full max-w-xl space-y-4")}>
                   {visibleFields.map((field, index) => {
                     const id = fieldId(field.key);
                     const error = errors[field.key];
@@ -1136,7 +1313,7 @@ export function RecruitmentFlow() {
                               value={values[field.key]}
                               onChange={(event) => setField(field.key, event.target.value)}
                               onKeyDown={(event) => handleFieldEnter(event, field)}
-                              rows={5}
+                              rows={4}
                               maxLength={2000}
                               aria-labelledby={field.label ? undefined : `${scopeId}-prompt`}
                               aria-required={field.required}
@@ -1145,7 +1322,7 @@ export function RecruitmentFlow() {
                                 error ? `${id}-error` : undefined,
                                 field.counter ? `${id}-count` : undefined,
                               ) || undefined}
-                              className={cn(controlBase, lightControl, "resize-none")}
+                              className={cn(controlBase, lightControl, "min-h-[7.5rem] resize-y")}
                             />
                           </div>
                           <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -1210,59 +1387,77 @@ export function RecruitmentFlow() {
                 {status === "error" ? (
                   <div
                     role="alert"
-                    className="mt-8 max-w-[62ch] rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm leading-relaxed text-red-800"
+                    className="mt-6 max-w-[62ch] rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm leading-relaxed text-red-800 sm:mt-8"
                   >
                     <p>{submissionMessage}</p>
                     <button
                       type="button"
                       onClick={submit}
-                      className="mt-3 min-h-10 rounded-md border border-red-300 bg-white px-3 font-semibold text-red-800 transition-colors duration-150 hover:border-red-400 hover:bg-red-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600/40"
+                      className="mt-3 min-h-11 rounded-md border border-red-300 bg-white px-3 font-semibold text-red-800 transition-colors duration-150 hover:border-red-400 hover:bg-red-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600/40"
                     >
                       {copy.submit}
                     </button>
                   </div>
                 ) : null}
 
-                {showAction ? (
-                  <div className="mx-auto mt-8 w-full max-w-xl sm:mt-10">
-                    <div className="flex w-full flex-wrap items-center justify-end gap-3">
-                      <button
-                        type="button"
-                        onClick={advance}
-                        disabled={actionBlocked}
-                        aria-describedby={
-                          !beatFilled && !beat.isFinal && beatStarted ? `${scopeId}-incomplete` : undefined
-                        }
-                        className={cn(
-                          "group inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-lg px-6 text-base font-semibold transition-[background-color,color,transform] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] sm:w-auto",
-                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40 focus-visible:ring-offset-2",
-                          actionBlocked
-                            ? "cursor-not-allowed bg-slate-100 text-slate-400"
-                            : "bg-blue-600 text-white hover:bg-blue-700 active:scale-[0.98]",
-                        )}
+                {showAction || activeIndex > 0 ? (
+                  <div className="mt-5 flex w-full max-w-xl flex-col items-stretch gap-2 sm:mt-6">
+                    {showAction && !beatFilled && !beat.isFinal && beatStarted ? (
+                      <p
+                        id={`${scopeId}-incomplete`}
+                        className="max-w-[40ch] text-sm leading-snug text-slate-600"
                       >
-                        {status === "submitting" ? (
-                          <>
-                            <Loader2
-                              className={cn("h-4 w-4", !reduceMotion && "animate-spin")}
-                              strokeWidth={2}
-                            />
-                            {copy.sending}
-                          </>
-                        ) : (
-                          <>
-                            {beat.isFinal ? copy.submit : copy.next}
-                            <ArrowRight
-                              className="h-4 w-4 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-0.5"
-                              strokeWidth={2}
-                            />
-                          </>
-                        )}
-                      </button>
-                      {!beatFilled && !beat.isFinal && beatStarted ? (
-                        <span id={`${scopeId}-incomplete`} className="text-sm text-slate-600">
-                          {copy.incomplete}
-                        </span>
+                        {copy.incomplete}
+                      </p>
+                    ) : null}
+                    <div className="flex w-full flex-col-reverse gap-2.5 sm:flex-row sm:items-center sm:justify-start sm:gap-3">
+                      {activeIndex > 0 ? (
+                        <button
+                          type="button"
+                          onClick={goBack}
+                          disabled={status === "submitting"}
+                          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 text-base font-medium text-slate-700 transition-colors duration-200 hover:border-blue-300 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40 disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-11 sm:w-auto sm:rounded-lg sm:px-5"
+                        >
+                          <ArrowLeft className="h-4 w-4" strokeWidth={2} />
+                          {copy.back}
+                        </button>
+                      ) : null}
+                      {showAction ? (
+                        <button
+                          type="button"
+                          onClick={advance}
+                          disabled={actionBlocked}
+                          aria-describedby={
+                            !beatFilled && !beat.isFinal && beatStarted
+                              ? `${scopeId}-incomplete`
+                              : undefined
+                          }
+                          className={cn(
+                            "group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl px-5 text-base font-semibold transition-[background-color,color,transform] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] sm:min-h-11 sm:w-auto sm:rounded-lg",
+                            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40 focus-visible:ring-offset-2",
+                            actionBlocked
+                              ? "cursor-not-allowed bg-slate-100 text-slate-400"
+                              : "bg-blue-600 text-white hover:bg-blue-700 active:scale-[0.98]",
+                          )}
+                        >
+                          {status === "submitting" ? (
+                            <>
+                              <Loader2
+                                className={cn("h-4 w-4", !reduceMotion && "animate-spin")}
+                                strokeWidth={2}
+                              />
+                              {copy.sending}
+                            </>
+                          ) : (
+                            <>
+                              {beat.isFinal ? copy.submit : copy.next}
+                              <ArrowRight
+                                className="h-4 w-4 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] [@media(hover:hover)_and_(pointer:fine)]:group-hover:translate-x-0.5"
+                                strokeWidth={2}
+                              />
+                            </>
+                          )}
+                        </button>
                       ) : null}
                     </div>
                   </div>

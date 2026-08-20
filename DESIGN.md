@@ -168,7 +168,9 @@ Surfaces are flat at rest. Borders and tonal layers organize content; blue shado
 
 **Composition:** A single-column task layout. The form remains the dominant object. Mobile keeps content scrollable inside the task pane when the keyboard is open, and preserves all actions at touch size.
 
-**Controls:** Labels sit above inputs except when the question heading already names the field. Inputs use white surfaces, steel borders, explicit focus rings, and inline helper/error text. Division choices use accessible radio semantics inside light briefing cards.
+**Controls:** Labels sit above inputs except when the question heading already names the field. Question prompts use title scale (`clamp` ~1.375–1.875rem), not display. Inputs use white surfaces, steel borders, explicit focus rings, and inline helper/error text. Division choices use accessible radio semantics inside light briefing cards.
+
+**Viewport:** Recruitment owns `h-dvh` with page overflow locked. Long review content may scroll inside the task pane only.
 
 **Progress:** A thin tech-blue line under the header uses `scaleX` only. It is empty on orientation, fills as questions complete, and is instant under reduced motion. Do not restore a chapter sidebar or question-count label.
 
