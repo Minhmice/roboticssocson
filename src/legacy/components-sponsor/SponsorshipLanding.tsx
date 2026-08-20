@@ -1,10 +1,10 @@
 "use client";
 
-import TheChallengeSection from "@/components/sponsor/TheChallenge";
-import BudgetFundraisingSection from "@/components/sponsor/BudgetFundraising";
-import BudgetBreakdownSection from "@/components/sponsor/BudgetBreakdown";
-import WhySponsorSection from "@/components/sponsor/WhySponsor";
-import FinalCTASection from "@/components/sponsor/FinalCTA";
+import TheChallengeSection from "@/legacy/components-sponsor/TheChallenge";
+import BudgetFundraisingSection from "@/legacy/components-sponsor/BudgetFundraising";
+import BudgetBreakdownSection from "@/legacy/components-sponsor/BudgetBreakdown";
+import WhySponsorSection from "@/legacy/components-sponsor/WhySponsor";
+import FinalCTASection from "@/legacy/components-sponsor/FinalCTA";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export function SponsorshipLanding() {

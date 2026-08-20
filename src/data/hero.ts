@@ -25,8 +25,8 @@ export const heroData: HeroData = {
     "Robotics Sóc Sơn là đội robot trung học đến từ Hà Nội, với sứ mệnh lan tỏa niềm đam mê STEAM thông qua sáng tạo và tinh thần đồng đội.",
   sub_en:
     "Robotics Soc Son is a high school robotics team from Hanoi, with a mission to spread STEAM passion through creativity and teamwork.",
-  cta_primary_vi: "Liên hệ",
-  cta_primary_en: "Contact us",
+  cta_primary_vi: "Tìm hiểu về đội",
+  cta_primary_en: "Explore the team",
   animatedWords_vi: [
     "Lập trình - Sáng tạo",
     "Mơ ước - Triển khai",

@@ -12,6 +12,7 @@ import type {
   TrendBucket,
   TrendRange,
 } from "@/lib/posthog/query";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
 const EASE_OUT = [0.25, 1, 0.5, 1] as const;
@@ -174,28 +175,24 @@ function RangeToggle({
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <div
-      className="relative inline-flex shrink-0 rounded-full border border-border bg-muted p-0.5"
-      role="tablist"
-      aria-label="Chu kỳ biểu đồ"
+    <Tabs
+      value={range}
+      onValueChange={(value) => onChange(value as TrendRange)}
+      className="shrink-0"
     >
-      {(["weekly", "monthly"] as const).map((option) => {
-        const selected = range === option;
-        return (
-          <button
+      <TabsList
+        aria-label="Chu kỳ biểu đồ"
+        className="relative inline-flex h-auto shrink-0 rounded-full border border-border bg-muted p-0.5"
+      >
+        {(["weekly", "monthly"] as const).map((option) => (
+          <TabsTrigger
             key={option}
-            type="button"
-            role="tab"
-            aria-selected={selected}
-            onClick={() => onChange(option)}
+            value={option}
             className={cn(
-              "relative z-10 min-h-8 min-w-[4.75rem] rounded-full px-3 text-xs font-medium transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none sm:min-h-9 sm:min-w-[5.25rem] sm:px-3.5 sm:text-sm",
-              selected
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground",
+              "relative z-10 min-h-8 min-w-[4.75rem] rounded-full px-3 text-xs font-medium shadow-none transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] data-[state=active]:bg-transparent data-[state=active]:shadow-none sm:min-h-9 sm:min-w-[5.25rem] sm:px-3.5 sm:text-sm",
             )}
           >
-            {selected ? (
+            {range === option ? (
               <motion.span
                 layoutId="analytics-range-pill"
                 className="absolute inset-0 rounded-full bg-background shadow-sm"
@@ -209,10 +206,10 @@ function RangeToggle({
             <span className="relative">
               {option === "weekly" ? "Theo tuần" : "Theo tháng"}
             </span>
-          </button>
-        );
-      })}
-    </div>
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
   );
 }
 

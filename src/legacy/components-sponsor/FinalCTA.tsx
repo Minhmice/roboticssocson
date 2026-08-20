@@ -4,7 +4,7 @@ import { CopyContactLink } from "@/components/shared/CopyContactLink";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { AnimatedSection } from "@/components/shared/AnimatedComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { sponsorEmail, socials } from "@/data/settings";
+import { contactEmail, socials } from "@/legacy/settings";
 import { Download } from "lucide-react";
 import { FacebookIcon } from "@/components/shared/FacebookIcon";
 
@@ -60,9 +60,9 @@ export default function FinalCTASection() {
           <div className="flex flex-col items-center gap-3 sm:gap-4 text-muted-foreground px-2 sm:px-0">
             <CopyContactLink
               kind="email"
-              copyValue={sponsorEmail}
+              copyValue={contactEmail}
               variant="footer"
-              display={<span className="break-all">{sponsorEmail}</span>}
+              display={<span className="break-all">{contactEmail}</span>}
               className="items-center"
             />
             <a

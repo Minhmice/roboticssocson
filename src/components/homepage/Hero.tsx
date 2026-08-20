@@ -6,14 +6,13 @@ import { CTAButton } from "@/components/shared/CTAButton";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { AnimatedText } from "@/components/shared/AnimatedComponents";
 import { heroData } from "@/data/hero";
-import { sponsorEmail } from "@/data/settings";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTranslatedData } from "@/hooks/useTranslatedData";
 import {
   Award,
   Bot,
   Cpu,
-  Mail,
+  ArrowRight,
   Sparkles,
   Wrench,
   Zap,
@@ -262,14 +261,6 @@ export default function Hero() {
     [animatedWordsRaw, locale],
   );
 
-  const contactMailto = useMemo(() => {
-    const subject =
-      locale === "vi"
-        ? "Liên hệ — Robotics Sóc Sơn"
-        : "Contact — Robotics Soc Son";
-    return `mailto:${sponsorEmail}?subject=${encodeURIComponent(subject)}`;
-  }, [locale]);
-
   const cyclingComplete =
     reduced ||
     cycleCount >= MAX_PHRASE_CYCLES ||
@@ -310,16 +301,16 @@ export default function Hero() {
 
       <div className="relative z-10 w-full max-w-4xl mx-auto text-center space-y-2 sm:space-y-4 px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20">
         <AnimatedText className="inline-flex justify-center" once>
-          <p className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/30 bg-primary/8 px-3 py-1.5 text-xs sm:text-sm font-semibold text-primary shadow-[0_4px_16px_rgba(37,99,235,0.1)]">
+          <p className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/30 bg-primary/8 px-3 py-1.5 text-xs sm:text-sm font-semibold text-primary shadow-glow-blue">
             <Award className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" aria-hidden />
             {getField(heroData, "badge")}
           </p>
         </AnimatedText>
 
         <AnimatedText direction="left" delay={0.1} once>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[4.25rem] font-extrabold tracking-[-0.02em] text-foreground leading-[1.08] sm:leading-[1.1] text-balance max-w-[65ch] mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-[-0.02em] text-foreground leading-[1.08] sm:leading-[1.1] text-balance max-w-[65ch] mx-auto">
             <span className="block text-foreground">{headlineLead}</span>
-            <span className="relative mt-3 flex min-h-[2.75rem] sm:min-h-[3.25rem] md:min-h-[3.75rem] lg:min-h-[4.25rem] items-center justify-center [perspective:1000px]">
+            <span className="relative mt-3 flex min-h-[2.75rem] sm:min-h-[3.25rem] md:min-h-[3.5rem] lg:min-h-[3.75rem] items-center justify-center [perspective:1000px]">
               <span
                 className="pointer-events-none absolute inset-x-6 inset-y-1 -z-10 rounded-2xl bg-gradient-to-b from-primary/10 via-primary/5 to-transparent blur-sm"
                 aria-hidden
@@ -359,9 +350,9 @@ export default function Hero() {
             <CTAButton
               label={getField(heroData, "cta_primary")}
               variant="primary"
-              href={contactMailto}
-              icon={Mail}
-              className="w-full sm:w-auto text-base sm:text-lg px-8 sm:px-10 py-3.5 sm:py-4 min-h-[48px] shadow-[0_8px_28px_rgba(37,99,235,0.22)] hover:shadow-[0_10px_32px_rgba(37,99,235,0.28)]"
+              href="#about-school"
+              icon={ArrowRight}
+              className="w-full sm:w-auto text-base sm:text-lg px-8 sm:px-10 py-3.5 sm:py-4 min-h-[48px] shadow-glow-blue hover:shadow-glow-blue-lg"
             />
           </div>
         </AnimatedText>

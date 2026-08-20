@@ -1,0 +1,33 @@
+---
+description: Use the project's taste, Impeccable, and Emil animation standards for all frontend coding and UI changes.
+globs: **/*.{tsx,jsx,css,scss,html}
+alwaysApply: true
+---
+
+# Frontend Design and Motion
+
+Apply these standards whenever you create, edit, or review frontend code.
+
+## Required skill pass
+
+- Read and apply `.agents/skills/design-taste-frontend/SKILL.md` for the design read, anti-slop decisions, responsive layout, typography, accessibility, and component architecture.
+- Read and apply `.agents/skills/gpt-taste/SKILL.md` for substantial visual work. Complete its `<design_plan>` pre-flight before writing new UI code; adapt its direction to the existing product brief rather than overriding `PRODUCT.md` or `DESIGN.md`.
+- Read and apply `.agents/skills/impeccable/SKILL.md` and the relevant command reference for redesigns, audits, hardening, layout, typesetting, motion, or polish. Run its context setup once per session before UI edits.
+- Read and apply `.agents/skills/emil-design-eng/SKILL.md` for interaction polish and component decisions.
+- Read and apply `.agents/skills/animate/SKILL.md` before adding motion. Animate only with a named purpose, choose the cheapest suitable tool, use approved easing/duration guidance, and ship reduced-motion behavior with the implementation.
+
+## Project constraints
+
+- Preserve the light tech briefing-room identity in `DESIGN.md`: paper-white surfaces, steel borders, and tech blue `#2563eb` as a controlled signal accent.
+- Preserve product truth, bilingual behavior, accessibility, and existing user flows unless the user explicitly asks for a redesign or behavior change.
+- Use existing tokens, Tailwind utilities, local primitives, and installed dependencies before adding new abstractions or packages.
+- Keep content/data out of generic UI primitives. Prefer typed data and localized message files for user-facing copy.
+- Keep interactive browser logic in isolated client components and avoid unnecessary client boundaries.
+- For animation, prefer `transform` and `opacity`; never use `transition: all`, `scale(0)`, or unguarded hover motion. Respect `prefers-reduced-motion` and pointer capability.
+- Check narrow, tablet, and desktop layouts. Prevent intrinsic-width overflow with `min-w-0`, bounded containers, and deliberate overflow behavior.
+
+## Before finishing
+
+- Run focused lint/typecheck or build checks for edited files and relevant asset checks.
+- Inspect the rendered result at representative mobile and desktop sizes when changing layout or motion.
+- Fix introduced accessibility, responsive, TypeScript, and lint errors before reporting completion.

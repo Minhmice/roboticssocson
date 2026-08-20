@@ -20,7 +20,13 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { ChevronLeft, ChevronRight, Loader2, Send } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { captureEvent } from "@/lib/posthog/client";
@@ -154,10 +160,10 @@ const textareaClass =
   "min-h-[3.25em] resize-y pt-1.5 max-lg:min-h-[3.25em] lg:min-h-[2.35rem] lg:resize-none lg:py-1.5 lg:text-[0.9375rem]";
 
 const radioLabelClass =
-  "flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border border-white/25 bg-white/[0.04] px-3 py-2.5 text-[0.9375rem] leading-snug text-white transition-colors hover:border-white/45 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-300 has-[:checked]:border-primary/80 has-[:checked]:bg-primary/15 max-lg:min-h-[3rem] max-lg:text-base lg:min-h-10 lg:gap-2 lg:px-2.5 lg:py-2 lg:text-[0.8125rem]";
+  "flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border border-white/25 bg-white/[0.04] px-3 py-2.5 text-[0.9375rem] leading-snug text-white transition-colors hover:border-white/45 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-300 has-[[data-state=checked]]:border-primary/80 has-[[data-state=checked]]:bg-primary/15 max-lg:min-h-[3rem] max-lg:text-base lg:min-h-10 lg:gap-2 lg:px-2.5 lg:py-2 lg:text-[0.8125rem]";
 
 const radioInputClass =
-  "h-5 w-5 shrink-0 cursor-pointer accent-primary focus-visible:outline-none max-lg:h-[1.375rem] max-lg:w-[1.375rem]";
+  "size-5 shrink-0 border-white/70 text-white shadow-none focus-visible:ring-blue-300 max-lg:size-[1.375rem]";
 
 const actionBarClass =
   "mt-6 flex w-full flex-col-reverse gap-3 sm:flex-row sm:items-center max-lg:sticky max-lg:bottom-0 max-lg:z-20 max-lg:-mx-0.5 max-lg:border-t max-lg:border-white/15 max-lg:bg-slate-950/80 max-lg:px-0.5 max-lg:py-3 max-lg:pb-[max(0.75rem,env(safe-area-inset-bottom))] max-lg:backdrop-blur-md lg:mt-3 lg:static lg:border-0 lg:bg-transparent lg:p-0 lg:backdrop-blur-none";
@@ -198,9 +204,9 @@ function focusFirstError(
   if (!targetId) return;
 
   if (firstKey === "source") {
-    const radio = document.querySelector<HTMLInputElement>(
-      `input[name="${formId}-source"]`,
-    );
+    const radio =
+      document.getElementById(`${formId}-source-Qua mạng xã hội`) ||
+      document.querySelector<HTMLElement>(`[id^="${formId}-source-"]`);
     radio?.focus();
     return;
   }
@@ -448,7 +454,7 @@ export function CourseConsultForm() {
                 required
                 error={errors.parentName}
               >
-                <input
+                <Input
                   id={`${formId}-parent`}
                   className={fieldClass}
                   autoComplete="name"
@@ -465,7 +471,7 @@ export function CourseConsultForm() {
                 required
                 error={errors.studentName}
               >
-                <input
+                <Input
                   id={`${formId}-student`}
                   className={fieldClass}
                   autoComplete="additional-name"
@@ -485,7 +491,7 @@ export function CourseConsultForm() {
                 hint={ui.phoneHint[locale]}
                 error={errors.phone}
               >
-                <input
+                <Input
                   id={`${formId}-phone`}
                   className={fieldClass}
                   type="tel"
@@ -505,7 +511,7 @@ export function CourseConsultForm() {
                 required
                 error={errors.email}
               >
-                <input
+                <Input
                   id={`${formId}-email`}
                   className={fieldClass}
                   type="email"
@@ -521,11 +527,11 @@ export function CourseConsultForm() {
             </div>
 
             <div className={actionBarClass}>
-              <button type="submit" className={cn(solidBtn, "w-full sm:w-auto sm:min-w-[11.5rem]")}>
+              <Button type="submit" className={cn(solidBtn, solidBtnCompact, "w-full sm:w-auto sm:min-w-[11.5rem]")}>
                 <span className="sm:hidden">{ui.nextShort[locale]}</span>
                 <span className="hidden sm:inline">{ui.next[locale]}</span>
-                <ChevronRight className="ml-2 h-4 w-4" aria-hidden />
-              </button>
+                <ChevronRight className="ml-2" aria-hidden />
+              </Button>
             </div>
           </motion.form>
         ) : (
@@ -549,7 +555,7 @@ export function CourseConsultForm() {
               required
               error={errors.schoolClass}
             >
-              <input
+              <Input
                 id={`${formId}-school`}
                 className={fieldClass}
                 autoComplete="organization"
@@ -568,30 +574,28 @@ export function CourseConsultForm() {
                 </span>
                 <span className="sr-only"> (required)</span>
               </legend>
-              <div
-                className="flex flex-col gap-2 lg:grid lg:grid-cols-3 lg:gap-2"
-                role="radiogroup"
+              <RadioGroup
                 id={`${formId}-source`}
+                value={values.source}
+                onValueChange={(value) => {
+                  setField("source", value as GoogleFormSourceOption);
+                  if (value !== "Mục khác") setField("sourceOther", "");
+                }}
+                className="flex flex-col gap-2 lg:grid lg:grid-cols-3 lg:gap-2"
                 aria-describedby={errors.source ? `${formId}-source-error` : undefined}
                 aria-invalid={Boolean(errors.source)}
               >
                 {GOOGLE_FORM_SOURCE_OPTIONS.map((opt) => (
-                  <label key={opt} className={radioLabelClass}>
-                    <input
-                      type="radio"
-                      name={`${formId}-source`}
+                  <Label key={opt} htmlFor={`${formId}-source-${opt}`} className={radioLabelClass}>
+                    <RadioGroupItem
+                      id={`${formId}-source-${opt}`}
                       value={opt}
-                      checked={values.source === opt}
-                      onChange={() => {
-                        setField("source", opt);
-                        if (opt !== "Mục khác") setField("sourceOther", "");
-                      }}
-                      className={radioInputClass}
+                      className={cn(radioInputClass, "border-white/70 text-white data-[state=checked]:border-primary")}
                     />
                     <span>{ui.sourceLabels[opt][locale]}</span>
-                  </label>
+                  </Label>
                 ))}
-              </div>
+              </RadioGroup>
               {errors.source && (
                 <p
                   id={`${formId}-source-error`}
@@ -611,7 +615,7 @@ export function CourseConsultForm() {
                   required
                   error={errors.sourceOther}
                 >
-                  <input
+                  <Input
                     id={`${formId}-source-other`}
                     className={fieldClass}
                     value={values.sourceOther}
@@ -622,19 +626,22 @@ export function CourseConsultForm() {
             )}
 
             <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-x-4 lg:gap-y-2.5">
-              <details
-                className="group rounded-sm border border-white/20 bg-white/5 open:border-white/30 open:pb-2 lg:col-span-2"
-                open={values.experience.trim().length > 0}
+              <Accordion
+                type="single"
+                collapsible
+                defaultValue={values.experience.trim().length > 0 ? "experience" : undefined}
+                className="lg:col-span-2"
               >
-                <summary className="flex min-h-11 cursor-pointer list-none items-center px-3 text-sm font-medium text-white/90 marker:content-none lg:min-h-9 lg:px-2.5 lg:text-[0.8125rem] [&::-webkit-details-marker]:hidden">
-                  {ui.optionalToggle[locale]}
-                </summary>
-                <div className="px-3 pt-1 lg:px-2.5">
+                <AccordionItem value="experience" className="rounded-sm border border-white/20 bg-white/5 px-0 data-[state=open]:border-white/30">
+                  <AccordionTrigger className="min-h-11 px-3 text-sm font-medium text-white/90 hover:no-underline lg:min-h-9 lg:px-2.5 lg:text-[0.8125rem] [&>svg]:text-white/70">
+                    {ui.optionalToggle[locale]}
+                  </AccordionTrigger>
+                  <AccordionContent className="px-3 pb-2 pt-1 lg:px-2.5">
                   <OverlayField
                     id={`${formId}-exp`}
                     label={ui.experience[locale]}
                   >
-                    <textarea
+                    <Textarea
                       id={`${formId}-exp`}
                       className={cn(fieldClass, textareaClass)}
                       rows={2}
@@ -642,8 +649,9 @@ export function CourseConsultForm() {
                       onChange={(e) => setField("experience", e.target.value)}
                     />
                   </OverlayField>
-                </div>
-              </details>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
 
               <OverlayField
                 id={`${formId}-expect`}
@@ -651,7 +659,7 @@ export function CourseConsultForm() {
                 required
                 error={errors.expectation}
               >
-                <textarea
+                <Textarea
                   id={`${formId}-expect`}
                   className={cn(fieldClass, textareaClass)}
                   rows={2}
@@ -667,7 +675,7 @@ export function CourseConsultForm() {
                 required
                 error={errors.roboticsDream}
               >
-                <textarea
+                <Textarea
                   id={`${formId}-robotics`}
                   className={cn(fieldClass, textareaClass)}
                   rows={2}
@@ -680,16 +688,17 @@ export function CourseConsultForm() {
             </div>
 
             <div className={actionBarClass}>
-              <button
+              <Button
                 type="button"
+                variant="outline"
                 className={cn(ghostBtn, ghostBtnCompact)}
                 onClick={goBack}
                 disabled={status === "submitting"}
               >
-                <ChevronLeft className="mr-1 h-4 w-4" aria-hidden />
+                <ChevronLeft className="mr-1" aria-hidden />
                 {ui.back[locale]}
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
                 className={cn(solidBtn, solidBtnCompact, "flex-[1.4]")}
                 data-analytics-id="course-register-submit"
@@ -697,19 +706,16 @@ export function CourseConsultForm() {
               >
                 {status === "submitting" ? (
                   <>
-                    <Loader2
-                      className="mr-2 h-4 w-4 animate-spin"
-                      aria-hidden
-                    />
+                    <Loader2 className="mr-2 animate-spin" aria-hidden />
                     {ui.submitting[locale]}
                   </>
                 ) : (
                   <>
-                    <Send className="mr-2 h-4 w-4" aria-hidden />
+                    <Send className="mr-2" aria-hidden />
                     {ui.submit[locale]}
                   </>
                 )}
-              </button>
+              </Button>
             </div>
           </motion.form>
         )}
@@ -749,7 +755,7 @@ function OverlayField({
 
   return (
     <div className="w-full min-w-0">
-      <label htmlFor={id} className={labelClass}>
+      <Label htmlFor={id} className={labelClass}>
         {label}
         {required && (
           <span className="ml-1 text-blue-300" aria-hidden>
@@ -757,7 +763,7 @@ function OverlayField({
           </span>
         )}
         {required && <span className="sr-only"> (required)</span>}
-      </label>
+      </Label>
       {fieldControl}
       {hint && !error && (
         <p id={hintId} className="mt-2 text-sm leading-snug text-white/80">

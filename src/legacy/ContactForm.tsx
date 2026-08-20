@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { Send } from "lucide-react";
-import { GlowCard } from "./GlowCard";
-import { CTAButton } from "./CTAButton";
+import { GlowCard } from "@/components/shared/GlowCard";
+import { CTAButton } from "@/components/shared/CTAButton";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { sponsorEmail } from "@/data/settings";
+import { contactEmail } from "@/legacy/settings";
 
 /**
  * Contact form UI. Do not show fake "success" — no backend endpoint yet.
@@ -54,7 +54,7 @@ export const ContactForm: React.FC = () => {
         formData.message,
       ].join("\n"),
     );
-    return `mailto:${sponsorEmail}?subject=${subject}&body=${body}`;
+    return `mailto:${contactEmail}?subject=${subject}&body=${body}`;
   })();
 
   return (

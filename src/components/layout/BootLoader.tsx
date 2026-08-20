@@ -15,7 +15,7 @@ import {
   type ReactNode,
 } from "react";
 import { flushSync } from "react-dom";
-import { isBootLoaderDisabled } from "@/lib/boot-loader";
+import { isBootLoaderDisabled, isHomepagePath } from "@/lib/boot-loader";
 import { setBootNavigationHandler } from "@/lib/boot-navigation";
 import {
   useBootAnimationReady,
@@ -257,10 +257,10 @@ function SegmentedProgress({
         className="mb-2.5 flex items-center justify-between gap-3"
         aria-hidden
       >
-        <span className="text-[11px] font-medium tracking-[0.04em] text-[#64748b]">
+        <span className="text-xs font-medium tracking-[0.04em] text-muted-foreground">
           {label}
         </span>
-        <span className="tabular-nums text-[11px] font-semibold text-[#0f172a]/80">
+        <span className="tabular-nums text-xs font-semibold text-foreground/80">
           {Math.round(progress * 100)}%
         </span>
       </div>
@@ -472,7 +472,7 @@ function BootLoaderOverlay({
         </p>
 
         <motion.p
-          className="mt-5 text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0f172a]/70 sm:tracking-[0.28em]"
+          className="mt-5 text-center text-xs font-semibold uppercase tracking-[0.22em] text-foreground/70 sm:tracking-[0.28em]"
           aria-hidden
           initial={reduced ? false : { opacity: 0, y: 6 }}
           animate={{ opacity: phase === "exiting" ? 0 : 1, y: 0 }}
@@ -486,7 +486,7 @@ function BootLoaderOverlay({
         </motion.p>
 
         <motion.h1
-          className="mt-3 text-center text-[1.35rem] font-bold tracking-[-0.04em] text-[#0f172a] text-balance sm:text-[1.65rem]"
+          className="mt-3 text-center text-xl font-bold tracking-[-0.04em] text-foreground text-balance sm:text-2xl"
           initial={
             reduced
               ? false
@@ -536,6 +536,9 @@ export function BootLoader() {
   const router = useRouter();
   const pathname = usePathname();
   const isDeckPresentation = pathname === "/course/arduino-mblock-deck";
+  const isHomepage = isHomepagePath(pathname);
+  /** The recruitment flow opens with its own terminal boot line. */
+  const isSelfBooting = pathname === "/recruitment";
   const { beginBoot, endBoot } = useBootRevealActions();
   const pathnameRef = useRef(pathname);
   const pendingHrefRef = useRef<string | null>(null);
@@ -545,9 +548,11 @@ export function BootLoader() {
   const [session, setSession] = useState(0);
   const [pageLoadDone, setPageLoadDone] = useState(false);
 
-  // Every hard page open: run boot once this mount.
+  // Every hard page open: run boot once this mount (skip homepage + deck).
   useEffect(() => {
-    if (isBootLoaderDisabled() || isDeckPresentation) return;
+    if (isBootLoaderDisabled() || isDeckPresentation || isHomepage || isSelfBooting) {
+      return;
+    }
     if (pageLoadDone || mode !== null) return;
     const t = window.setTimeout(() => {
       busyRef.current = true;
@@ -555,7 +560,7 @@ export function BootLoader() {
       setMode("initial");
     }, 0);
     return () => window.clearTimeout(t);
-  }, [beginBoot, isDeckPresentation, pageLoadDone, mode]);
+  }, [beginBoot, isDeckPresentation, isHomepage, isSelfBooting, pageLoadDone, mode]);
 
   useEffect(() => {
     pathnameRef.current = pathname;
@@ -696,13 +701,16 @@ export function BootAwareMain({
   const disabled = isBootLoaderDisabled();
   const { endBoot } = useBootRevealActions();
   const isDeckPresentation = pathname === "/course/arduino-mblock-deck";
-  const shellReady = disabled || ready || isDeckPresentation;
+  const isHomepage = isHomepagePath(pathname);
+  const isSelfBooting = pathname === "/recruitment";
+  const ownsEntrance = isDeckPresentation || isHomepage || isSelfBooting;
+  const shellReady = disabled || ready || ownsEntrance;
 
   useEffect(() => {
-    if (isDeckPresentation && !disabled && !ready) {
+    if (ownsEntrance && !disabled && !ready) {
       endBoot();
     }
-  }, [disabled, endBoot, isDeckPresentation, ready]);
+  }, [disabled, endBoot, ownsEntrance, ready]);
 
   return (
     <div

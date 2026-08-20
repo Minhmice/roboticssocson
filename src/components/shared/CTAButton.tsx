@@ -1,6 +1,7 @@
 "use client";
 
-import { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   isInternalAppPath,
   requestBootNavigation,
@@ -23,6 +24,12 @@ interface CTAButtonProps {
   "aria-current"?: "page" | "step" | "location" | "date" | "time" | boolean;
 }
 
+const ctaVariantMap = {
+  primary: "default",
+  secondary: "outline",
+  ghost: "ghost",
+} as const;
+
 export const CTAButton: React.FC<CTAButtonProps> = ({
   label,
   variant = "primary",
@@ -36,20 +43,23 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   rel,
   "aria-current": ariaCurrent,
 }) => {
-  const baseStyles =
-    "px-6 py-3 rounded-xl font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
-
-  const variants = {
-    primary:
-      "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_4px_14px_rgba(37,99,235,0.25)] active:bg-primary/95",
-    secondary:
-      "border-2 border-primary text-primary hover:bg-primary/5 hover:border-primary/80 active:bg-primary/10",
-    ghost: "text-primary hover:bg-accent hover:text-primary active:bg-accent/80",
-  };
+  const brandClass = cn(
+    buttonVariants({
+      variant: ctaVariantMap[variant],
+      size: "lg",
+    }),
+    "min-h-11 rounded-xl px-6 py-3 font-medium transition-all duration-300",
+    variant === "primary" &&
+      "hover:shadow-glow-blue",
+    variant === "secondary" &&
+      "border-2 border-primary bg-transparent text-primary hover:bg-primary/5 hover:text-primary",
+    variant === "ghost" && "text-primary hover:bg-accent hover:text-primary",
+    className,
+  );
 
   const content = (
     <span className="flex items-center justify-center gap-2">
-      {Icon && <Icon className="h-4 w-4 flex-shrink-0" />}
+      {Icon ? <Icon className="size-4 shrink-0" /> : null}
       <span>{label}</span>
     </span>
   );
@@ -61,13 +71,14 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
         target={target}
         rel={rel || (target === "_blank" ? "noopener noreferrer" : undefined)}
         aria-current={ariaCurrent}
-        className={cn(baseStyles, variants[variant], className)}
+        className={brandClass}
         onClick={(e) => {
           captureEvent(AnalyticsEvents.CTA_CLICKED, {
             label,
             href,
             variant,
-            surface: typeof window !== "undefined" ? window.location.pathname : undefined,
+            surface:
+              typeof window !== "undefined" ? window.location.pathname : undefined,
           });
           onClick?.(e);
           if (e.defaultPrevented) return;
@@ -86,25 +97,21 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   }
 
   return (
-    <button
+    <Button
+      type={type}
+      disabled={disabled}
+      className={brandClass}
       onClick={(e) => {
         captureEvent(AnalyticsEvents.CTA_CLICKED, {
           label,
           variant,
-          surface: typeof window !== "undefined" ? window.location.pathname : undefined,
+          surface:
+            typeof window !== "undefined" ? window.location.pathname : undefined,
         });
         onClick?.(e);
       }}
-      type={type}
-      disabled={disabled}
-      className={cn(
-        baseStyles,
-        variants[variant],
-        disabled && "opacity-50 cursor-not-allowed",
-        className,
-      )}
     >
       {content}
-    </button>
+    </Button>
   );
 };

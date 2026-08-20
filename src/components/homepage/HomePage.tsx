@@ -20,11 +20,11 @@ export function HomePage() {
   return (
     <div className="relative scroll-smooth">
       <Hero />
-      <AboutFIRSTSection />
-      <AboutFTCSection />
       <AboutSocSonHighSchool />
       <TeamCarouselSection />
       <AchievementsSection />
+      <AboutFIRSTSection />
+      <AboutFTCSection />
       <MissionSection />
       {courseSurfacesEnabled ? <CourseTeaser /> : null}
     </div>

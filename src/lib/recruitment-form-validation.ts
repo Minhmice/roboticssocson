@@ -1,4 +1,5 @@
 import {
+  getRecruitmentBranchFields,
   RECRUITMENT_DISCOVERY_SOURCES,
   RECRUITMENT_DIVISIONS,
   type RecruitmentFormValues,
@@ -78,17 +79,7 @@ export function validateRecruitmentForm(
     return errors;
   }
 
-  const branchRequired = {
-    "Cơ khí - Thiết kế": [
-      "mechanicalExperience",
-      "mechanicalTools",
-      "mechanicalDebugging",
-    ],
-    "Code - Điện tử": ["codeExperience", "electronicsExperience", "codeDebugging"],
-    "Truyền thông": ["mediaStrengths", "mediaTools", "mediaCommitment"],
-  } as const;
-
-  for (const key of branchRequired[values.division]) {
+  for (const key of getRecruitmentBranchFields(values.division) as Array<keyof RecruitmentFormValues>) {
     setRequired(key, values[key]);
   }
 

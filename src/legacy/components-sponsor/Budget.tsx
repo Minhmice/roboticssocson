@@ -3,7 +3,7 @@
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedCard, AnimatedSection } from "@/components/shared/AnimatedComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { budgetItems, budgetTotal } from "@/data/budget";
+import { budgetItems, budgetTotal } from "@/legacy/budget";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ExternalLink, Download } from "lucide-react";

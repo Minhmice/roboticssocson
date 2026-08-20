@@ -245,7 +245,7 @@ export default function TeamCarouselSection() {
           <div className="absolute right-2 sm:right-6 bottom-0 z-10 flex gap-2 sm:gap-3">
             <button
               onClick={handlePrev}
-              className="h-11 w-11 rounded-full bg-card backdrop-blur-sm border border-border hover:border-primary flex items-center justify-center text-primary hover:text-primary transition-all hover:shadow-[0_4px_14px_rgba(37,99,235,0.15)] min-h-[44px] min-w-[44px] disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="h-11 w-11 rounded-full bg-card backdrop-blur-sm border border-border hover:border-primary flex items-center justify-center text-primary hover:text-primary transition-all hover:shadow-glow-blue min-h-[44px] min-w-[44px] disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label={i18n.prev}
               disabled={totalSlides <= 1}
             >
@@ -254,7 +254,7 @@ export default function TeamCarouselSection() {
 
             <button
               onClick={handleNext}
-              className="h-11 w-11 rounded-full bg-card backdrop-blur-sm border border-border hover:border-primary flex items-center justify-center text-primary hover:text-primary transition-all hover:shadow-[0_4px_14px_rgba(37,99,235,0.15)] min-h-[44px] min-w-[44px] disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="h-11 w-11 rounded-full bg-card backdrop-blur-sm border border-border hover:border-primary flex items-center justify-center text-primary hover:text-primary transition-all hover:shadow-glow-blue min-h-[44px] min-w-[44px] disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label={i18n.next}
               disabled={totalSlides <= 1}
             >

@@ -2,50 +2,57 @@
 
 ## Register
 
-brand
+Team and education platform
 
 ## Users
 
-**Primary audience:** prospective sponsors — technology and education companies, investment funds, startup ecosystem partners, individual STEM advocates, and educational/community organizations in Vietnam.
+**Primary audiences:** students considering joining Robotics Sóc Sơn, their parents and teachers, STEM educators, and people looking to understand the team's work.
 
-**Context:** They arrive via pitch referral, team outreach, or search. They are evaluating whether to fund a high school FTC robotics team for the 2024–2025 season. They need credibility, clarity on impact, transparent budget, and a low-friction path to contact or commit.
+**Context:** Visitors arrive through school networks, team outreach, social channels, or search. They need a clear view of who the team is, what students build, what they learn, and how to take the next step.
 
-**Job to be done:** Quickly understand who Robotics Sóc Sơn is, what they have achieved, where sponsorship money goes, and what sponsors receive in return — then take action (become a sponsor, download pitch deck, contact the team).
+**Jobs to be done:**
+
+- Understand the team's identity, school context, achievements, and FIRST Tech Challenge work.
+- Explore the team's hands-on course materials and learning path.
+- Apply to join the team through a focused bilingual recruitment flow.
+- Ask the team a general question through a reliable contact path.
 
 ## Product Purpose
 
-A bilingual (VI/EN) sponsorship pitch website for Robotics Sóc Sơn, a high school team competing in FIRST Tech Challenge. The site exists to introduce the team, present achievements and mission, show itemized budget needs, outline sponsorship tiers and benefits, and convert visitors into sponsors or contacts.
+A bilingual Vietnamese and English website for Robotics Sóc Sơn, a high school robotics team from Sóc Sơn High School in Hanoi. The product introduces the team, makes its work understandable, shares practical STEM education, and gives prospective members a clear way to apply.
 
-Success looks like: sponsors understand the opportunity within one scroll session, trust the team's professionalism, and click a primary CTA ("Become a Sponsor", "Download Pitch", "Contact Us").
+Success looks like: a first-time visitor can understand the team within one scroll session, a student can complete the recruitment application without confusion, and an educator can find credible learning material and a neutral contact path.
 
 ## Brand Personality
 
-**Voice:** Confident, ambitious, technically credible — not childish or playful.
+**Voice:** Confident, technically credible, direct, and encouraging.
 
 **Three words:** Dynamic · Creative · Driven to Discover
 
-**Emotional goals:** Inspire confidence in the team's capability; convey competition-ready energy; feel serious enough for corporate sponsors while remaining authentic to student makers.
+**Emotional goals:** Make students feel invited to learn by building, help families understand the team's seriousness, and give educators confidence in the team's practical approach.
 
-**Tone:** Direct and proof-led (achievements, budget transparency). Bilingual without feeling like a translation afterthought.
+**Tone:** Clear and proof-led without sounding corporate. Vietnamese and English should have equal dignity and should never feel like one is an afterthought.
 
 ## Anti-references
 
-- **Cartoonish / kid-only STEM UI** — primary-color toy aesthetics, clip-art robots, bubble fonts, "for kids" visual language that undermines sponsor confidence.
-- Generic SaaS landing-page clichés (cream backgrounds, hero-metric templates, identical icon-card grids).
-- Cold corporate enterprise stock-photo sites that feel disconnected from real student engineering work.
-- Purple-gradient dark mode, neon cyberpunk excess, or decorative glassmorphism with no purpose.
+- Cartoonish or kid-only STEM UI that makes serious student work feel like a toy.
+- Generic SaaS landing-page patterns that hide the team behind decorative chrome.
+- Cold enterprise stock-photo styling disconnected from real student engineering.
+- Purple-gradient dark mode, neon cyberpunk excess, or decorative glassmorphism without a task benefit.
+- Recruitment interfaces that feel like a game, terminal simulation, or intimidating technical test.
 
 ## Design Principles
 
-1. **Show the work, not the wrapper.** Achievements, budget line items, and team photos carry more persuasion than decorative UI chrome.
-2. **Sponsor-grade credibility.** Every screen should feel pitch-deck ready — the visual system supports trust, not entertainment.
-3. **Transparency builds conversion.** Budget breakdown and tier benefits are first-class content, not buried footnotes.
-4. **Competition energy, restrained craft.** Motion and glow evoke match-day focus; never at the cost of readability or accessibility.
-5. **Bilingual by default.** Vietnamese and English share equal dignity in navigation, CTAs, and section structure.
+1. **Show the work, not the wrapper.** Team photos, robot projects, achievements, and learning outcomes carry more trust than decorative UI.
+2. **Make the next step obvious.** Students should know where to learn more, apply, or contact the team without hunting through the page.
+3. **Teach without gatekeeping.** Beginner-friendly explanations should preserve technical accuracy and respect the reader.
+4. **Keep competition energy disciplined.** Motion and blue accents can signal focus, but never compete with content or accessibility.
+5. **Bilingual by default.** Vietnamese and English share the same information architecture, states, and interaction quality.
 
-## Accessibility & Inclusion
+## Accessibility and Inclusion
 
-- **Target:** WCAG 2.1 AA — body text contrast ≥ 4.5:1, large text ≥ 3:1.
-- **Interaction:** Keyboard navigation, visible focus rings (`focus-visible:ring-2 ring-cyan-500`), minimum 44px touch targets on CTAs.
-- **Motion:** Transitions are subtle; respect `prefers-reduced-motion` for animated hero text, pulse glow, and scroll reveals.
-- **Language:** VI/EN toggle via client-side context; semantic `lang` on root HTML.
+- **Target:** WCAG 2.1 AA. Body text contrast is at least 4.5:1 and large text contrast is at least 3:1.
+- **Interaction:** Keyboard navigation, visible tech-blue focus rings, semantic labels, and minimum 44px touch targets for primary actions.
+- **Motion:** Transitions are short and purposeful. Respect `prefers-reduced-motion` for route transitions, reveals, and selection feedback.
+- **Language:** Vietnamese is the default locale. The language toggle provides an equivalent English experience and the document root exposes the active language.
+- **Privacy:** Recruitment copy explains what information is collected, how it is used to review an application, and that a draft may be saved locally on the applicant's device.

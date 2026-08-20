@@ -183,7 +183,7 @@ export default function MissionSection() {
                       {item.content_vi.split("\n\n").map((paragraph, pIdx) => (
                         <p
                           key={pIdx}
-                          className="text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed text-pretty"
+                          className="text-xs sm:text-sm md:text-base text-foreground/90 leading-relaxed text-pretty"
                         >
                           {locale === "vi"
                             ? paragraph

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import SponsorPageClient from "./SponsorPageClient";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { sponsorSeo } from "@/lib/seo/routes-seo";
-
-export const metadata: Metadata = buildMetadata(sponsorSeo.vi);
+export const metadata: Metadata = {
+  title: "Sponsor | Robotics Sóc Sơn",
+  description: "Archived sponsor surface for Robotics Sóc Sơn.",
+  alternates: { canonical: "/sponsor" },
+};
 
 export default function Page() {
   return <SponsorPageClient />;

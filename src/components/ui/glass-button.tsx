@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const glassButtonVariants = cva(
@@ -12,13 +13,13 @@ const glassButtonVariants = cva(
         default: "text-base font-medium",
         sm: "text-sm font-medium",
         lg: "text-lg font-medium",
-        icon: "h-10 w-10",
+        icon: "size-10",
       },
     },
     defaultVariants: {
       size: "default",
     },
-  }
+  },
 );
 
 const glassButtonTextVariants = cva(
@@ -29,13 +30,13 @@ const glassButtonTextVariants = cva(
         default: "px-6 py-3.5",
         sm: "px-4 py-2",
         lg: "px-8 py-4",
-        icon: "flex h-10 w-10 items-center justify-center",
+        icon: "flex size-10 items-center justify-center",
       },
     },
     defaultVariants: {
       size: "default",
     },
-  }
+  },
 );
 
 export interface GlassButtonProps
@@ -48,9 +49,13 @@ const GlassButton = React.forwardRef<HTMLButtonElement, GlassButtonProps>(
   ({ className, children, size, contentClassName, ...props }, ref) => {
     return (
       <div className={cn("glass-button-wrap rounded-full", className)}>
-        <button
-          className={cn("glass-button", glassButtonVariants({ size }))}
+        <Button
           ref={ref}
+          variant="ghost"
+          className={cn(
+            "glass-button h-auto hover:bg-transparent",
+            glassButtonVariants({ size }),
+          )}
           {...props}
         >
           <span
@@ -58,11 +63,11 @@ const GlassButton = React.forwardRef<HTMLButtonElement, GlassButtonProps>(
           >
             {children}
           </span>
-        </button>
-        <div className="glass-button-shadow rounded-full"></div>
+        </Button>
+        <div className="glass-button-shadow rounded-full" />
       </div>
     );
-  }
+  },
 );
 GlassButton.displayName = "GlassButton";
 

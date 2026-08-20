@@ -1,6 +1,6 @@
 ---
 name: Robotics Sóc Sơn
-description: Light tech sponsorship pitch — white surfaces with blue accent (Stripe/Vercel lane)
+description: Light technical team and education site with paper-white surfaces, steel borders, and a single tech-blue signal
 colors:
   paper-white: "#ffffff"
   cool-surface: "#f8fafc"
@@ -79,122 +79,135 @@ components:
 
 ## 1. Overview
 
-**Creative North Star: "The Sponsor Briefing Room"**
+**Creative North Star: The Bright Workshop Brief**
 
-This system looks like a sponsor opening a pitch deck on a bright desk — clean white surfaces, crisp ink typography, and tech blue accents that signal competence without nightclub glow. Depth comes from borders and subtle blue shadows, not dark pit layering. Motion is restrained: hover lift, soft shadow bloom, aurora mesh on hero only.
+The site should feel like opening a well-organized project brief at a school workshop: paper-white surfaces, crisp ink typography, steel dividers, real team imagery, and one blue signal that marks the next action. The system supports team identity, practical STEM education, and focused recruitment without turning the interface into a toy or a terminal simulation.
 
-The aesthetic serves a sponsorship pitch: sponsors should trust the team's professionalism in daylight contexts (office laptop, phone outdoors). Typography stays bold and legible (Inter throughout).
+The experience serves three related moments:
 
-**Key Characteristics:**
-- Restrained light surfaces (`#ffffff` body, `#f8fafc` muted bands) with tech blue (`#2563eb`) as sole accent
-- Border + blue shadow depth instead of cyan glow on dark panels
-- Inter single-family hierarchy — weight and size carry contrast
-- Signature components: `CTAButton`, `GlowCard`, `GlassButton`, aurora hero background
-- Bilingual section rhythm with `SectionHeader` blocks and anchor navigation
+- **Team and education pages:** read and understand. Authentic work, clear explanations, and measured motion lead.
+- **Recruitment:** complete a task. A compact branded application surface keeps context visible and removes intimidation.
+- **Contact:** ask a question. The form and contact details use the same light tokens and explicit states.
+
+### Key characteristics
+
+- Paper white and cool-surface bands with tech blue as the sole accent.
+- Steel borders and restrained blue shadows provide depth instead of dark panels or neon glow.
+- Inter remains the single project type family. Weight, scale, and spacing carry hierarchy.
+- Real team images and project evidence outrank decorative UI.
+- Shared controls and semantic tokens prevent route-scoped visual drift.
 
 ## 2. Colors
 
-The palette is Stripe/Vercel restraint: white paper, cool gray borders, tech blue signals.
-
 ### Primary
-- **Tech Blue** (`#2563eb`): Primary CTAs, icon accents, focus rings, active nav. ≤10% of any screen.
-- **Blue Hover** (`#1d4ed8`): Primary button hover, stronger emphasis states.
+
+- **Tech Blue** (`#2563eb`): Primary actions, selected states, focus rings, and key signals. Keep it intentional.
+- **Blue Hover** (`#1d4ed8`): Hover and pressed emphasis for primary actions.
 
 ### Neutral
-- **Paper White** (`#ffffff`): Page background (`--background`).
-- **Cool Surface** (`#f8fafc`): Alternate section bands (`--muted`).
-- **Steel Border** (`#e2e8f0`): Borders, inputs, dividers (`--border`).
-- **Ink Text** (`#0f172a`): Headings and body (`--foreground`).
-- **Muted Label** (`#64748b`): Subtitles, labels only — not long prose (`--muted-foreground`).
 
-### Named Rules
-**The One Signal Rule.** Tech blue appears on CTAs, active nav, and key metrics only.
+- **Paper White** (`#ffffff`): Main surface and application panels.
+- **Cool Surface** (`#f8fafc`): Page bands, quiet panels, and recruitment background.
+- **Steel Border** (`#e2e8f0`): Inputs, dividers, card edges, and structural boundaries.
+- **Ink Text** (`#0f172a`): Headings, labels, and high-priority copy.
+- **Ink Body** (`#1e293b`): Long-form body copy.
+- **Muted Label** (`#64748b`): Short supporting labels only.
+- **Accent Wash** (`#eff6ff`): Selected and highlighted light states.
 
-**The Ink Floor Rule.** Body copy uses ink (`#0f172a` / `#1e293b`). Muted gray is for short supporting lines only.
+### Named rules
+
+**The One Signal Rule.** Tech blue marks actions, active states, and important moments. It is not a background wash across every component.
+
+**The Ink Floor Rule.** Body copy uses ink. Muted gray is reserved for short supporting lines and never carries paragraph-length content.
+
+**The Light Workshop Rule.** No active surface introduces an unrelated dark arena, cyan HUD, or neon theme.
 
 ## 3. Typography
 
-**Display Font:** Inter (Google Fonts, `next/font`, weight 900)
-**Body Font:** Inter (weights 400, 500, 600, 700)
-**Label/Mono Font:** Fira Code declared in tokens but unused in layout; mono reserved for future code snippets.
+**Display and body:** Inter through the existing `next/font` setup.
 
-**Character:** Single sans family keeps sponsor-facing copy clean and technical. Bold weights (700–900) on headings convey competition confidence without serif display drama.
+**Character:** One sans family keeps technical information legible across Vietnamese and English. Bold weights communicate confidence without adding a second visual voice.
 
 ### Hierarchy
-- **Display** (900, `clamp(2rem, 5vw, 3.5rem)`, line-height 1.1): Hero headlines, animated word cycles. `text-wrap: balance` on h1.
-- **Headline** (700, `clamp(1.875rem, 4vw, 3rem)`, line-height 1.2): Section titles via `SectionHeader` (`text-3xl md:text-4xl lg:text-5xl`).
-- **Title** (600, 1.875rem / 30px, line-height 1.3): Card titles, package tier names (`text-2xl font-bold`).
-- **Body** (400, 1rem / 16px, line-height 1.6): Paragraphs, feature lists. Cap line length at 65–75ch in prose sections.
-- **Label** (500, 0.875rem / 14px, slight positive tracking): Badges, nav links, pill labels (`text-xs font-medium` on section badges).
 
-### Named Rules
-**The Weight Ladder Rule.** Do not introduce a second sans family. Differentiate hierarchy with weight (400 → 700 → 900) and size steps only.
+- **Display:** 900 weight, `clamp(2rem, 5vw, 3.5rem)`, line-height 1.1. Use for hero headlines and the recruitment orientation title.
+- **Headline:** 700 weight, `clamp(1.875rem, 4vw, 3rem)`, line-height 1.2. Use for section and chapter titles.
+- **Title:** 600 weight, 1.875rem / 30px, line-height 1.3. Use for cards and focused prompts.
+- **Body:** 400 weight, 1rem / 16px, line-height 1.6. Keep prose within 65 to 75 characters per line where possible.
+- **Label:** 500 weight, 0.875rem / 14px, line-height 1.5. Use for field labels, navigation, and short metadata.
 
-## 4. Elevation
+### Named rule
 
-Depth is conveyed through **tonal layering plus cyan glow**, not Material-style gray shadows. Cards rest on Pit Slate (`#0f172a`) half-opacity with `backdrop-blur-sm`; hover states add cyan outer glow (`rgba(34,211,238,0.25–0.45)`) and slight scale (`1.05`).
+**The Weight Ladder Rule.** Do not introduce a second sans family. Differentiate hierarchy with weight, scale, and spacing.
 
-At rest, surfaces are flat. Shadows appear as a response to hover, focus, or CTA emphasis — never as default card decoration.
+## 4. Elevation and shape
 
-### Shadow Vocabulary
-- **Glow Cyan** (`box-shadow: 0 4px 14px 0 rgba(34,211,238,0.35)`): Default accent lift on primary CTAs and highlighted package cards.
-- **Glow Cyan LG** (`box-shadow: 0 8px 28px 0 rgba(34,211,238,0.5)`): Stronger hover on `GlowCard` and primary button hover.
-- **Ambient Stack** (`--shadow-sm` through `--shadow-xl`): shadcn token shadows — dual-layer `hsl(0 0% 0% / 0.2)` used sparingly on default `Button` and `Card` primitives.
-- **Pulse Glow** (animated `0 0 20px–80px rgba(34,211,238,0.2–0.4)`): Final CTA banner only; disable under `prefers-reduced-motion`.
+Surfaces are flat at rest. Borders and tonal layers organize content; blue shadows appear only on hover, focus, or primary action states.
 
-### Named Rules
-**The Flat-By-Default Rule.** Surfaces are flat at rest. Cyan glow is a state response (hover, highlight, CTA), not ambient decoration on every container.
+### Shadow vocabulary
 
-## 5. Components
+- **Glow Blue:** `0 4px 14px 0 rgba(37,99,235,0.12)` for focused or highlighted actions.
+- **Glow Blue Large:** `0 8px 24px 0 rgba(37,99,235,0.18)` for deliberate hover emphasis.
+- **Ambient Stack:** Existing shadcn token shadows, used sparingly.
 
-### Buttons
-- **Shape:** Rounded-xl (12px) on marketing CTAs; rounded-md (8px) on shadcn `Button` primitives.
-- **Primary (`CTAButton`):** HUD Cyan fill (`#22D3EE`), Pit Slate text (`#0f172a`), `px-6 py-3`, min-height 44px. Hover: `#06B6D4` + glow shadow.
-- **Secondary:** 2px cyan border, cyan text, transparent fill; hover adds `cyan-500/10` background.
-- **Ghost:** Cyan text, subtle `cyan-950/30` hover wash.
-- **Glass (`GlassButton`):** Pill or xl radius, `backdrop-filter: blur(12px)`, `rgba(56,189,248,0.1)` fill, cyan border at 20% opacity. Hover: scale 1.08 + radial shadow. Hero secondary actions.
-- **shadcn `Button` default:** Signal Sky fill (`--primary`), white text, `rounded-md`, `h-9 px-4`.
+### Shape rules
 
-### Chips / Badges
-- **Section badge:** `rounded-full`, `bg-cyan-950/50`, `text-cyan-400`, `text-xs font-medium`, `px-3 py-1`.
-- **Popular tier pill:** `bg-cyan-500/20`, `text-cyan-400`, `font-semibold`.
-- **shadcn `Badge`:** `rounded-md`, primary or secondary token fills.
+- Marketing and recruitment actions use rounded-xl.
+- Inputs and native-style controls use rounded-md.
+- Content cards use rounded-2xl.
+- Badges and language toggles may use full rounding when they represent compact status or choice controls.
+- Do not make every surface a pill.
 
-### Cards / Containers
-- **`GlowCard`:** `rounded-2xl` (16px), `border-slate-800`, `bg-slate-900/50`, `p-6`, `backdrop-blur-sm`. Hover: cyan border 50%, glow shadow, `scale-105`.
-- **shadcn `Card`:** `rounded-xl`, `bg-card`, `border`, default `shadow`, `p-6` header/content padding.
-- **Internal Padding:** 24px (`p-6`) standard; section vertical rhythm `py-16` / `py-24`.
+## 5. Recruitment surface contract
 
-### Inputs / Fields
-- **Style:** `rounded-md`, `border-input` (`#1f2937`), transparent background, `h-9`, `px-3`.
-- **Focus:** `ring-1 ring-ring` (Signal Sky `#38bdf8`).
-- **Placeholder:** `text-muted-foreground` — verify 4.5:1 against background; bump to Ice Text if failing.
-- **Disabled:** `opacity-50`, `cursor-not-allowed`.
+**Mode:** Operate. The applicant is completing a meaningful task, not browsing a campaign page.
 
-### Navigation
-- **Navbar:** Fixed top, `pt-16` offset on main. Transparent → blurred dark on scroll (`scrolled` state). Logo + anchor links + `LanguageToggle` + sponsor CTA.
-- **Links:** Muted default, cyan on hover/active. Smooth scroll to section IDs with 80px offset.
-- **Mobile:** Full-screen overlay menu, body scroll lock, hamburger ↔ close icon.
+**World:** Application Briefing Room. Cool-surface page background, a white content panel, a compact RBS identity header, and tech-blue progress and action signals.
 
-### Aurora Hero (signature)
-- **Background:** `AuroraBackground` on arena black with animated gradient aurora (60s linear). Grid pattern overlay at 3% cyan opacity (`50px` grid).
-- **Content:** Centered max-w-4xl, animated rotating words (Framer Motion spring per character), badge pill, dual CTAs (glass + solid).
+**First view:** The applicant sees the RBS mark, bilingual toggle, exit path, what the application is for, approximate effort, privacy reassurance, and one clear start action before the first field. A draft may persist locally without a visible restore banner.
 
-## 6. Do's and Don'ts
+**Composition:** A single-column task layout. The form remains the dominant object. Mobile keeps content scrollable inside the task pane when the keyboard is open, and preserves all actions at touch size.
 
-### Do:
-- **Do** keep the arena black + pit slate + HUD cyan triad on every new section.
-- **Do** use `CTAButton` or `GlassButton` for sponsor-facing actions — min 44px height, visible `focus-visible:ring-2 ring-cyan-500`.
-- **Do** apply cyan glow only on hover, highlight, or primary CTA states.
-- **Do** use `SectionHeader` for section rhythm — title at headline scale, subtitle in fog text, optional badge (not an all-caps eyebrow on every block).
-- **Do** respect `prefers-reduced-motion` — replace spring hero animations and pulse-glow with instant or crossfade states.
-- **Do** maintain WCAG AA contrast: Ice Text on Arena Black for body, HUD Cyan only on large/bold UI chrome or dark fills.
+**Controls:** Labels sit above inputs except when the question heading already names the field. Inputs use white surfaces, steel borders, explicit focus rings, and inline helper/error text. Division choices use accessible radio semantics inside light briefing cards.
 
-### Don't:
-- **Don't** use cartoonish / kid-only STEM aesthetics — primary-color toy palettes, bubble fonts, clip-art robots. *"Cartoonish / kid-only STEM UI"* is an explicit anti-reference from PRODUCT.md.
-- **Don't** use gradient text (`background-clip: text`) on new components — existing `PackageCard` price gradient should not spread elsewhere.
-- **Don't** add colored side-stripe borders (`border-left` > 1px) on cards or callouts.
-- **Don't** default to glassmorphism on every surface — reserve blur for `GlassButton`, `GlowCard`, and intentional overlays.
-- **Don't** deploy the hero-metric template (big number + tiny label grids) as section scaffolding.
-- **Don't** put small all-caps tracked eyebrows above every section — one deliberate badge per `SectionHeader` is enough.
-- **Don't** let muted fog text (`#9ca3af`) carry paragraph-length body copy on `#0a111e` without a contrast check.
+**Progress:** A thin tech-blue line under the header uses `scaleX` only. It is empty on orientation, fills as questions complete, and is instant under reduced motion. Do not restore a chapter sidebar or question-count label.
+
+**Review:** Before sending, show a concise review of the applicant's answers and provide edit paths. Keep the draft until a confirmed success state.
+
+## 6. Motion
+
+Motion communicates hierarchy, continuity, and feedback only.
+
+- Question and chapter changes use opacity plus a small vertical transform, 180 to 240ms, strong ease-out.
+- Selection changes use short border/background transitions.
+- Progress uses `scaleX` and never animates layout dimensions.
+- Hover transforms are limited to fine pointers and never required to understand a control.
+- Reduced motion removes positional movement and blur while preserving immediate state changes.
+- No boot delay or ambient loop is required on recruitment.
+
+## 7. Accessibility and content
+
+- Keep focus-visible rings at tech blue with a visible offset.
+- Keep labels, helper text, and errors readable against their surface.
+- Use semantic headings and `aria-live` status regions for restoration, submission, success, and errors.
+- Keep Vietnamese and English copy structurally equivalent.
+- Explain the purpose of personal fields, especially date of birth, and disclose that the application is sent through the form service.
+- Do not use placeholder text as the only label.
+
+## 8. Do and do not
+
+### Do
+
+- Use `CTAButton`, `GlowCard`, `PillBadge`, and shared tokenized primitives where they fit.
+- Let real team work and learning outcomes carry the visual story.
+- Keep recruitment focused, friendly, and technically credible.
+- Use one deliberate badge or status line rather than an eyebrow on every section.
+- Test light-mode contrast and keyboard behavior at desktop and mobile widths.
+
+### Do not
+
+- Add a dark terminal, HUD, or cyan-only route world.
+- Use gradient text, decorative glassmorphism, or blue glow on every surface.
+- Use centered floating labels that behave like placeholders.
+- Hide the purpose, length, or next step of the recruitment form.
+- Put sponsorship, funding, budget, partner, or pitch conversion language in active product surfaces.

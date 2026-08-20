@@ -4,8 +4,6 @@
     "about": "About",
     "achievements": "Achievements",
     "community": "Community",
-    "sponsorship": "Sponsorship",
-    "budget": "Budget",
     "contact": "Contact",
     "course": "Course",
     "recruitment": "Join the team",
@@ -13,7 +11,6 @@
     "projects": "Projects",
     "faq": "FAQ",
     "registerCourse": "Register for course",
-    "sponsorButton": "Become a Sponsor",
     "openMenu": "Open navigation menu",
     "closeMenu": "Close navigation menu"
   },
@@ -32,9 +29,9 @@
     "disclaimer": "* Logos are placeholders for positioning and do not imply endorsement."
   },
   "cta": {
-    "title": "Your support powers the next generation of innovators",
-    "subtitle": "Hỗ trợ của bạn tiếp sức cho thế hệ đổi mới tiếp theo",
-    "button": "Become a Sponsor",
+    "title": "Build the next idea with Robotics Sóc Sơn",
+    "subtitle": "Explore the team, learn through making, and find your next step.",
+    "button": "Join the team",
     "contact": "Contact / Liên hệ"
   },
   "footer": {
@@ -66,22 +63,6 @@
     "inviteUs": "Invite us to your event",
     "inviteUsSubtitle": "Organizing a STEM event or want to partner with us? Reach out!"
   },
-  "sponsorship": {
-    "badge": "Sponsorship",
-    "title": "Sponsorship / Tài Trợ",
-    "subtitle": "Join us and receive exclusive benefits",
-    "benefitsTitle": "Benefits / Quyền Lợi",
-    "tiersTitle": "Sponsorship Tiers / Gói Tài Trợ"
-  },
-  "budget": {
-    "badge": "Budget",
-    "title": "Budget / Ngân Sách",
-    "subtitle": "FTC 2024-2025 season budget breakdown",
-    "total": "Total / Tổng cộng",
-    "transparency": "Transparency & Professionalism",
-    "item": "Item",
-    "qty": "Qty"
-  },
   "contact": {
     "copyEmail": "Copy email",
     "copyPhone": "Copy phone number",
@@ -91,7 +72,7 @@
     "openPhone": "Call",
     "badge": "Contact",
     "title": "Contact / Liên Hệ",
-    "subtitle": "Reach out to sponsor or collaborate with us",
+    "subtitle": "Ask the team about robotics, courses, or joining the team",
     "formTitle": "Send Message / Gửi tin nhắn",
     "infoTitle": "Contact Info / Thông tin liên hệ",
     "name": "Name / Họ tên",
@@ -100,7 +81,7 @@
     "phone": "Phone / Số điện thoại",
     "message": "Message / Tin nhắn",
     "submit": "Submit / Gửi",
-    "infoSubtitle": "Contact us via email or Telegram to discuss sponsorship or collaboration."
+    "infoSubtitle": "Email or message us with questions about the team, courses, or recruitment."
   },
   "deck": {
     "checkingSession": "Checking session…",

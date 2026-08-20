@@ -10,7 +10,7 @@ import {
   Shield,
   Award,
 } from "lucide-react";
-import { whySponsorCards, whySponsorHeader } from "@/data/sponsorship";
+import { whySponsorCards, whySponsorHeader } from "@/legacy/sponsorship";
 
 const iconMap: Record<
   string,

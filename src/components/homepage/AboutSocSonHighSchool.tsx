@@ -83,13 +83,11 @@ const contentData = {
     "Robotics Sóc Sơn là đội thi đến từ Trường Trung học Phổ thông Sóc Sơn, ngôi trường có bề dày hơn 40 năm xây dựng và phát triển tại huyện Sóc Sơn (cũ), thành phố Hà Nội.",
     "Trường được thành lập từ năm 1984, là một trong những đơn vị giáo dục tiêu biểu của khu vực ngoại thành Hà Nội, luôn chú trọng phát triển toàn diện cả kiến thức, kỹ năng và đạo đức cho học sinh.",
     "THPT Sóc Sơn đã đạt được nhiều thành tích nổi bật trong các kỳ thi học sinh giỏi cấp thành phố, Olympic khu vực, cũng như nhiều hoạt động sáng tạo khoa học – kỹ thuật và phong trào Đoàn – Hội.",
-    "Chính vì vậy, trong dự án/đội thi lần này, chúng tôi mong muốn nhận được sự đồng hành, hỗ trợ từ Quý nhà tài trợ để có thể phát huy tối đa năng lực của mình, đồng thời lan tỏa tinh thần học tập, sáng tạo của học sinh Trường THPT Sóc Sơn.",
   ],
   description_en: [
     "Robotics Sóc Sơn is a competition team from Sóc Sơn High School, a school with over 40 years of construction and development in Sóc Sơn District (formerly), Hanoi City.",
     "Established in 1984, the school is one of the exemplary educational institutions in Hanoi's suburban area, always focusing on comprehensive development of knowledge, skills, and ethics for students.",
     "Sóc Sơn High School has achieved many outstanding achievements in city-level excellent student competitions, regional Olympiads, as well as many creative science and technology activities and Youth Union movements.",
-    "Therefore, in this project/competition team, we hope to receive companionship and support from sponsors to maximize our capabilities, while spreading the learning and creative spirit of Sóc Sơn High School students.",
   ],
 };
 

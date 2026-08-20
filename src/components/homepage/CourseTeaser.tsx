@@ -128,7 +128,7 @@ export default function CourseTeaser() {
                   className={cn(
                     "relative h-full overflow-hidden rounded-2xl border bg-card p-5 sm:p-6",
                     index === 1
-                      ? "border-primary/35 shadow-[0_8px_28px_rgba(37,99,235,0.1)]"
+                      ? "border-primary/35 shadow-glow-blue"
                       : "border-border shadow-sm",
                   )}
                 >

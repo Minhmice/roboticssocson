@@ -17,6 +17,12 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ftcFeatures, ftcStats, ftcHeader } from "@/data/aboutFTC";
 import { Pause, Play } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const SLIDE_INTERVAL_MS = 8000;
 const PAUSE_AFTER_SELECT_MS = 6000;
@@ -141,7 +147,38 @@ export default function AboutFTCSection() {
           align="center"
         />
 
-        <div className="mt-6">
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {ftcStats.map((stat, idx) => {
+            const Icon = stat.icon;
+            return (
+              <div
+                key={idx}
+                className="rounded-xl border border-border bg-card/60 p-4 text-center"
+              >
+                <Icon
+                  className="mx-auto mb-2 h-5 w-5 text-muted-foreground"
+                  aria-hidden
+                />
+                <p className="text-xl font-semibold text-foreground tabular-nums">
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {locale === "vi" ? stat.label_vi : stat.label_en}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        <Accordion type="single" collapsible className="mt-8 w-full">
+          <AccordionItem value="ftc-topics" className="border-border">
+            <AccordionTrigger className="min-h-11 text-base font-semibold text-foreground hover:no-underline sm:text-lg">
+              {locale === "vi"
+                ? "Khám phá chủ đề FTC chi tiết"
+                : "Explore FTC topics in detail"}
+            </AccordionTrigger>
+            <AccordionContent>
+        <div className="mt-2">
           <GlowCard hover={false} className="h-full overflow-hidden">
             <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
               {/* Mobile segmented tabs */}
@@ -154,8 +191,8 @@ export default function AboutFTCSection() {
                     <button
                       type="button"
                       className={cn(
-                        "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium",
-                        "min-h-[32px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                        "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium",
+                        "min-h-11 min-w-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                         autoAdvanceEnabled
                           ? "border-primary/25 bg-primary/5 text-foreground"
                           : "border-border bg-card text-muted-foreground hover:text-foreground",
@@ -390,29 +427,9 @@ export default function AboutFTCSection() {
             </div>
           </GlowCard>
         </div>
-
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-          {ftcStats.map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <div
-                key={stat.label_en}
-                className="rounded-xl border border-border bg-card/60 p-4 text-center"
-              >
-                <Icon
-                  className="mx-auto mb-2 h-5 w-5 text-muted-foreground"
-                  aria-hidden
-                />
-                <p className="text-xl font-semibold text-foreground tabular-nums">
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {locale === "vi" ? stat.label_vi : stat.label_en}
-                </p>
-              </div>
-            );
-          })}
-        </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
     </section>
   );

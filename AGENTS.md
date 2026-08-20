@@ -1,10 +1,8 @@
-<!-- GSD:project-start source:PROJECT.md -->
-
 ## Project
 
 **Robotics Sóc Sơn Sponsorship Site**
 
-Robotics Sóc Sơn is a bilingual sponsorship website for a Hanoi high school robotics team competing in FIRST Tech Challenge. The current product introduces the team, achievements, mission, financial needs, and sponsorship pathways through a dark competition-floor visual system.
+Robotics Sóc Sơn is a bilingual sponsorship website for a Hanoi high school robotics team competing in FIRST Tech Challenge. The current product introduces the team, achievements, mission, and education surfaces through a light tech briefing-room visual system (paper white + tech blue).
 
 The next active work is to shape a new education/curriculum surface for a course titled "Từ Khối Lệnh Đến Phần Cứng" — a 6+ lesson journey from Scratch logic to mBlock/Arduino hardware projects, using AI and draw.io flowcharts to teach problem solving.
 
@@ -12,15 +10,11 @@ The next active work is to shape a new education/curriculum surface for a course
 
 ### Constraints
 
-- **Existing brand**: Must preserve the dark competition-floor/cyan glow system — because the site is sponsor-facing and already designed around that identity.
+- **Existing brand**: Must preserve the light tech briefing-room system (white surfaces, steel borders, tech blue `#2563eb` accent) — because the live site and DESIGN.md frontmatter already ship that identity.
 - **Beginner audience**: Curriculum copy and structure must be understandable for students new to Scratch/electronics — because the course starts from first actions and block logic.
 - **Bilingual site architecture**: New user-facing content should be prepared for Vietnamese/English patterns — because the existing site supports both locales.
 - **Static-first implementation**: Prefer data-driven static content before adding backends — because current architecture has no database or CMS.
 - **Verification**: Run lint/build and relevant asset checks after implementation — because there is no automated UI test runner yet.
-
-<!-- GSD:project-end -->
-
-<!-- GSD:stack-start source:codebase/STACK.md -->
 
 ## Technology Stack
 
@@ -41,7 +35,7 @@ The next active work is to shape a new education/curriculum surface for a course
 - **Tailwind config:** `tailwind.config.ts` extends semantic CSS-variable colors, radius, shadows, and `aurora` animation.
 - **Animation CSS:** `tw-animate-css` imported in `src/app/globals.css`.
 - **Design tokens:** CSS custom properties in `src/app/globals.css`, including `--background`, `--foreground`, `--primary`, `--card`, `--muted`, `--border`, `--ring`, font variables, and shadow variables.
-- **Design docs:** `PRODUCT.md`, `DESIGN.md`, and `.impeccable/design.json` describe the current dark arena/cyan glow brand system.
+- **Design docs:** `PRODUCT.md`, `DESIGN.md`, and `.impeccable/design.json` describe the current light tech briefing-room brand system.
 
 ## Component Libraries
 
@@ -88,10 +82,6 @@ The next active work is to shape a new education/curriculum surface for a course
 - Keep styling aligned with `src/app/globals.css` tokens and `DESIGN.md`.
 - The project is static-first and data-driven; add content to `src/data/` before hardcoding copy in components.
 
-<!-- GSD:stack-end -->
-
-<!-- GSD:conventions-start source:CONVENTIONS.md -->
-
 ## Conventions
 
 ## Language And Module Style
@@ -116,12 +106,12 @@ The next active work is to shape a new education/curriculum surface for a course
 - Theme tokens are CSS custom properties in `src/app/globals.css`.
 - Semantic Tailwind colors map to CSS variables in `tailwind.config.ts`.
 - Use `cn()` from `src/lib/utils.ts` for class merging and conditional class composition.
-- Follow `DESIGN.md`: dark arena background, pit slate surfaces, cyan as the limited signal accent, glow as an interaction state.
+- Follow `DESIGN.md`: paper-white backgrounds, cool-surface bands, tech blue as the limited signal accent, soft blue shadow as an interaction state.
 
 ## UI Patterns
 
 - Sponsor CTAs should use `src/components/shared/CTAButton.tsx` or the custom glass button when appropriate.
-- Content surfaces commonly use `GlowCard` (`rounded-2xl`, slate background, cyan glow hover).
+- Content surfaces commonly use `GlowCard` (`rounded-2xl`, white/card surface, blue-border hover).
 - Section headings should use `SectionHeader` for consistent title/subtitle/badge rhythm.
 - Image rendering should prefer `MediaPlaceholder` or `ImageGallery` so `next/image` props and path encoding stay consistent.
 
@@ -151,7 +141,7 @@ The next active work is to shape a new education/curriculum surface for a course
 ## Accessibility Conventions
 
 - CTAs should maintain at least 44px touch target height.
-- Focus rings should remain visible, typically cyan rings on dark backgrounds.
+- Focus rings should remain visible, typically tech-blue rings on light backgrounds.
 - Body text should use high-contrast foreground tokens, not muted text for long paragraphs.
 - Motion should respect reduced-motion where practical; current global animations should be audited when adding new motion.
 
@@ -172,10 +162,6 @@ The next active work is to shape a new education/curriculum surface for a course
 
 - `.planning/` is new GSD output and should be tracked if planning docs remain committed.
 - Existing untracked/modified files from Impeccable and optimization work should not be reverted by future agents.
-
-<!-- GSD:conventions-end -->
-
-<!-- GSD:architecture-start source:ARCHITECTURE.md -->
 
 ## Architecture
 
@@ -207,7 +193,7 @@ The next active work is to shape a new education/curriculum surface for a course
 ### Shared Marketing Components
 
 - `src/components/shared/CTAButton.tsx`: sponsor-facing action button variants.
-- `src/components/shared/GlowCard.tsx`: dark glass/cyan-glow content surface.
+- `src/components/shared/GlowCard.tsx`: light card surface with blue hover lift.
 - `src/components/shared/MediaPlaceholder.tsx`: image/video placeholder and `next/image` renderer.
 - `src/components/shared/ImageGallery.tsx`: gallery pattern.
 - `src/components/shared/SectionHeader.tsx`: section title/subtitle/badge rhythm.
@@ -259,35 +245,3 @@ The next active work is to shape a new education/curriculum surface for a course
 - Keep content data out of visual primitives.
 - Keep UI primitives generic; avoid baking Robotics-specific copy into `src/components/ui/**`.
 - Keep bilingual support at the data/message layer instead of duplicating entire section components.
-
-<!-- GSD:architecture-end -->
-
-<!-- GSD:skills-start source:skills/ -->
-
-## Project Skills
-
-No project skills found. Add skills to any of: `.claude/skills/`, `.agents/skills/`, `.cursor/skills/`, `.github/skills/`, or `.codex/skills/` with a `SKILL.md` index file.
-<!-- GSD:skills-end -->
-
-<!-- GSD:workflow-start source:GSD defaults -->
-
-## GSD Workflow Enforcement
-
-Before using Edit, Write, or other file-changing tools, start work through a GSD command so planning artifacts and execution context stay in sync.
-
-Use these entry points:
-
-- `/gsd-quick` for small fixes, doc updates, and ad-hoc tasks
-- `/gsd-debug` for investigation and bug fixing
-- `/gsd-execute-phase` for planned phase work
-
-Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
-<!-- GSD:workflow-end -->
-
-<!-- GSD:profile-start -->
-
-## Developer Profile
-
-> Profile not yet configured. Run `/gsd-profile-user` to generate your developer profile.
-> This section is managed by `generate-claude-profile` -- do not edit manually.
-<!-- GSD:profile-end -->

@@ -11,7 +11,6 @@ export * from "./team";
 export * from "./mission";
 export * from "./aboutFTC";
 export * from "./aboutFIRST";
-export * from "./logos";
 export * from "./courseHero";
 export * from "./courseCurriculum";
 export * from "./courseProjects";

@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface GlowCardProps {
@@ -13,15 +14,15 @@ export const GlowCard: React.FC<GlowCardProps> = ({
   hover = true,
 }) => {
   return (
-    <div
+    <Card
       className={cn(
-        "group rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300",
+        "rounded-2xl border-border bg-card p-6 shadow-sm transition-all duration-300",
         hover &&
-          "hover:border-primary/30 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)] hover:scale-[1.02] transition-all duration-300 ease-out",
+          "hover:scale-[1.02] hover:border-primary/30 hover:shadow-[0_8px_24px_rgba(37,99,235,0.12)]",
         className,
       )}
     >
       {children}
-    </div>
+    </Card>
   );
 };

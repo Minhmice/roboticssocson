@@ -15,7 +15,7 @@ import {
   contactLeadName,
   contactPhone,
   messengerUrl,
-  sponsorEmail,
+  contactEmail,
   socials,
 } from "@/data/settings";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 const labelClass =
-  "text-[clamp(0.88rem,1.35vw,1.12rem)] font-medium uppercase tracking-[0.06em] leading-snug max-[479px]:text-[0.82rem] md:text-[clamp(0.95rem,1.4vw,1.2rem)] lg:text-[clamp(1rem,1.45vw,1.35rem)]";
+  "text-[clamp(0.88rem,1.35vw,1.12rem)] font-medium uppercase tracking-[0.06em] leading-snug max-[479px]:text-xs md:text-[clamp(0.95rem,1.4vw,1.2rem)] lg:text-[clamp(1rem,1.45vw,1.35rem)]";
 
 const listVariants = {
   hidden: {},
@@ -152,8 +152,8 @@ const lines = (locale: "vi" | "en") =>
   [
     {
       kind: "email" as const,
-      copyValue: sponsorEmail,
-      label: sponsorEmail,
+      copyValue: contactEmail,
+      label: contactEmail,
     },
     {
       kind: "phone" as const,

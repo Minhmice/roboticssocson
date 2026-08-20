@@ -3,7 +3,7 @@
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimatedCard, AnimatedGrid } from "@/components/shared/AnimatedComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { benefits } from "@/data/sponsorship";
+import { benefits } from "@/legacy/sponsorship";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { Building2, Megaphone, Users, Star, BarChart } from "lucide-react";
 import { LucideIcon } from "lucide-react";

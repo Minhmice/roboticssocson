@@ -14,7 +14,7 @@ import {
   Camera,
   ArrowRight,
 } from "lucide-react";
-import { budgetCategories, getCategoryAmount } from "@/data/budget";
+import { budgetCategories, getCategoryAmount } from "@/legacy/budget";
 
 // Icon map for lucide-react icons
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {

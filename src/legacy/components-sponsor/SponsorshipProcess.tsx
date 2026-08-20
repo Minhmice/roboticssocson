@@ -7,7 +7,7 @@ import {
 } from "@/components/shared/AnimatedComponents";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { sponsorshipMainSections } from "@/data/sponsorshipProcess";
+import { sponsorshipMainSections } from "@/legacy/sponsorshipProcess";
 import {
   Building2,
   CheckCircle2,

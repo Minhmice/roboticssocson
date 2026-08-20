@@ -16,15 +16,17 @@ import { cn } from "@/lib/utils";
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const deckPresentation = pathname === "/course/arduino-mblock-deck";
+  /** Carries its own exit affordance and owns the whole viewport. */
+  const recruitmentFlow = pathname === "/recruitment";
   const immersive =
     pathname === "/contact-us" ||
-    pathname === "/recruitment" ||
+    recruitmentFlow ||
     pathname === "/analytics" ||
     pathname?.startsWith("/course-register-form") === true ||
     deckPresentation;
   const hideFooter =
-    pathname === "/analytics" || deckPresentation;
-  const hideNavbar = deckPresentation;
+    pathname === "/analytics" || recruitmentFlow || deckPresentation;
+  const hideNavbar = recruitmentFlow || deckPresentation;
 
   return (
     <BootRevealProvider>

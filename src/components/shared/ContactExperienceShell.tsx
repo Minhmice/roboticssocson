@@ -8,7 +8,7 @@ import {
   contactLeadName,
   contactPhone,
   messengerUrl,
-  sponsorEmail,
+  contactEmail,
   socials,
 } from "@/data/settings";
 import { cn } from "@/lib/utils";
@@ -44,7 +44,7 @@ const shellPadding =
  */
 export function ContactExperienceShell({
   title,
-  email = sponsorEmail,
+  email = contactEmail,
   emailLabel,
   backgroundSrc = CONTACT_EXPERIENCE_BG,
   backgroundAlt = "",

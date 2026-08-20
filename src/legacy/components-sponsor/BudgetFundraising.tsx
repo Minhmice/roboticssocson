@@ -13,7 +13,7 @@ import {
   budgetTotal,
   budgetCategories,
   getCategoryAmount,
-} from "@/data/budget";
+} from "@/legacy/budget";
 import { ExternalLink, CheckCircle2 } from "lucide-react";
 
 export default function BudgetFundraisingSection() {

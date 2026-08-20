@@ -26,7 +26,7 @@ import {
   bankInfo,
   qrCodeImage,
   googleFormLinks,
-} from "@/data/sponsorPage";
+} from "@/legacy/sponsorPage";
 
 type SponsorType = "corporate" | "personal" | null;
 

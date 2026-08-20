@@ -10,7 +10,7 @@ import {
   contactLeadName,
   contactPhone,
   messengerUrl,
-  sponsorEmail,
+  contactEmail,
   socials,
 } from "@/data/settings";
 import { courseSurfacesEnabled } from "@/data/courseRegistration";
@@ -64,7 +64,7 @@ export const Footer: React.FC = () => {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h4 className="mb-3 sm:mb-4 text-[11px] sm:text-xs md:text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <h4 className="mb-3 sm:mb-4 text-xs sm:text-xs md:text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               {t("footer.quickLinks")}
             </h4>
             <ul className="space-y-1.5 sm:space-y-2">
@@ -136,15 +136,15 @@ export const Footer: React.FC = () => {
 
           {/* Column 3: Social & Contact */}
           <div>
-            <h4 className="mb-3 sm:mb-4 text-[11px] sm:text-xs md:text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <h4 className="mb-3 sm:mb-4 text-xs sm:text-xs md:text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               {t("footer.contact")}
             </h4>
             <div className="space-y-1.5 sm:space-y-2">
               <CopyContactLink
                 kind="email"
-                copyValue={sponsorEmail}
+                copyValue={contactEmail}
                 variant="footer"
-                display={<span className="break-all">{sponsorEmail}</span>}
+                display={<span className="break-all">{contactEmail}</span>}
               />
               <CopyContactLink
                 kind="phone"

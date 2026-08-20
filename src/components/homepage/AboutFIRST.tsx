@@ -16,6 +16,12 @@ import { Globe } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   firstHeader,
   firstInfoCard,
   firstImpactCard,
@@ -91,11 +97,18 @@ export default function AboutFIRSTSection() {
                   ? firstInfoCard.paragraph1_vi
                   : firstInfoCard.paragraph1_en}
               </p>
-              <p className="text-foreground/80 leading-relaxed text-pretty">
-                {locale === "vi"
-                  ? firstInfoCard.paragraph2_vi
-                  : firstInfoCard.paragraph2_en}
-              </p>
+              <details className="group rounded-xl border border-border bg-muted/40 px-4 py-3">
+                <summary className="cursor-pointer list-none text-sm font-medium text-primary marker:content-none [&::-webkit-details-marker]:hidden min-h-11 flex items-center">
+                  {locale === "vi"
+                    ? "Thêm về các chương trình FIRST"
+                    : "More about FIRST programs"}
+                </summary>
+                <p className="mt-3 text-foreground/80 leading-relaxed text-pretty text-sm sm:text-base">
+                  {locale === "vi"
+                    ? firstInfoCard.paragraph2_vi
+                    : firstInfoCard.paragraph2_en}
+                </p>
+              </details>
               <Separator className="bg-border" />
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-primary">
@@ -188,50 +201,69 @@ export default function AboutFIRSTSection() {
             </div>
           </BentoCard>
 
-          {/* Row 3: 3 hình ảnh ngang hàng */}
-          <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4 md:h-[350px]">
-            {/* Ảnh 3 */}
-            <AnimatedImageCard animated={animated} className="h-[220px] md:h-full">
-              <MediaPlaceholder
-                type="image"
-                src="/Images/About First/3.webp"
-                caption={
-                  locale === "vi"
-                    ? firstImages[2].caption_vi
-                    : firstImages[2].caption_en
-                }
-                className="h-full w-full object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 400px"
-              />
-            </AnimatedImageCard>
-            {/* Ảnh 4 */}
-            <AnimatedImageCard animated={animated} className="h-[220px] md:h-full">
-              <MediaPlaceholder
-                type="image"
-                src="/Images/About First/4.webp"
-                caption={
-                  locale === "vi"
-                    ? firstImages[3].caption_vi
-                    : firstImages[3].caption_en
-                }
-                className="h-full w-full object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 400px"
-              />
-            </AnimatedImageCard>
-            {/* Ảnh 5 */}
-            <AnimatedImageCard animated={animated} className="h-[220px] md:h-full">
-              <MediaPlaceholder
-                type="image"
-                src="/Images/About First/5.webp"
-                caption={
-                  locale === "vi"
-                    ? firstImages[4].caption_vi
-                    : firstImages[4].caption_en
-                }
-                className="h-full w-full object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 400px"
-              />
-            </AnimatedImageCard>
+          {/* Extra FIRST moments — progressive disclosure to keep the proof path lighter */}
+          <div className="md:col-span-3">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="first-moments" className="border-border">
+                <AccordionTrigger className="min-h-11 text-base font-semibold text-foreground hover:no-underline">
+                  {locale === "vi"
+                    ? "Xem thêm khoảnh khắc FIRST"
+                    : "See more FIRST moments"}
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="grid grid-cols-1 gap-4 pt-2 md:grid-cols-3 md:h-[350px]">
+                    <AnimatedImageCard
+                      animated={animated}
+                      className="h-[220px] md:h-full"
+                    >
+                      <MediaPlaceholder
+                        type="image"
+                        src="/Images/About First/3.webp"
+                        caption={
+                          locale === "vi"
+                            ? firstImages[2].caption_vi
+                            : firstImages[2].caption_en
+                        }
+                        className="h-full w-full object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 400px"
+                      />
+                    </AnimatedImageCard>
+                    <AnimatedImageCard
+                      animated={animated}
+                      className="h-[220px] md:h-full"
+                    >
+                      <MediaPlaceholder
+                        type="image"
+                        src="/Images/About First/4.webp"
+                        caption={
+                          locale === "vi"
+                            ? firstImages[3].caption_vi
+                            : firstImages[3].caption_en
+                        }
+                        className="h-full w-full object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 400px"
+                      />
+                    </AnimatedImageCard>
+                    <AnimatedImageCard
+                      animated={animated}
+                      className="h-[220px] md:h-full"
+                    >
+                      <MediaPlaceholder
+                        type="image"
+                        src="/Images/About First/5.webp"
+                        caption={
+                          locale === "vi"
+                            ? firstImages[4].caption_vi
+                            : firstImages[4].caption_en
+                        }
+                        className="h-full w-full object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 400px"
+                      />
+                    </AnimatedImageCard>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </div>

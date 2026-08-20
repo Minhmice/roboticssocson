@@ -13,7 +13,7 @@ import {
   budgetItems,
   fundedPercentage,
   fundedAmount,
-} from "@/data/budget";
+} from "@/legacy/budget";
 
 export default function TheChallengeSection() {
   const { locale } = useLanguage();

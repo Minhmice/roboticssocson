@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { sponsorEmail } from "@/data/settings";
+import { contactEmail } from "@/data/settings";
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "invalid" | "ready";
@@ -71,7 +71,7 @@ export function ContactUsForm({ className }: { className?: string }) {
       ].join("\n")
     );
 
-    window.location.href = `mailto:${sponsorEmail}?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
     window.setTimeout(() => setPending(false), 800);
   };
 
@@ -86,7 +86,7 @@ export function ContactUsForm({ className }: { className?: string }) {
         <p className="m-0 text-balance text-[clamp(1.75rem,3.5vw,2.4rem)] font-extrabold leading-none tracking-[-0.02em]">
           {copy.successTitle[locale]}
         </p>
-        <p className="m-0 text-[0.92rem] uppercase leading-snug tracking-[0.04em] text-white/90 text-pretty">
+        <p className="m-0 text-sm uppercase leading-snug tracking-[0.04em] text-white/90 text-pretty">
           {copy.successSub[locale]}
         </p>
         <button

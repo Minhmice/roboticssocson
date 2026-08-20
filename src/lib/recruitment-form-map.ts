@@ -177,7 +177,7 @@ export const EMPTY_RECRUITMENT_FORM: RecruitmentFormValues = {
 };
 
 export const RECRUITMENT_REQUIRED_FIELDS = {
-  personal: ["fullName", "birthDate", "classCohort", "phone", "email", "facebook"],
+  personal: ["fullName", "birthDate", "classCohort", "phone", "email"],
   common: ["discoverySource", "motivation", "division"],
   mechanical: [
     "mechanicalExperience",

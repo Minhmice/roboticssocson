@@ -4,8 +4,6 @@
     "about": "Giới thiệu",
     "achievements": "Thành tích",
     "community": "Cộng đồng",
-    "sponsorship": "Tài trợ",
-    "budget": "Ngân sách",
     "contact": "Liên hệ",
     "course": "Khóa học",
     "recruitment": "Tuyển thành viên",
@@ -13,7 +11,6 @@
     "projects": "Dự án",
     "faq": "FAQ",
     "registerCourse": "Đăng ký khóa học",
-    "sponsorButton": "Tài trợ ngay",
     "openMenu": "Mở menu điều hướng",
     "closeMenu": "Đóng menu điều hướng"
   },
@@ -32,9 +29,9 @@
     "disclaimer": "* Logos are placeholders for positioning and do not imply endorsement."
   },
   "cta": {
-    "title": "Sự ủng hộ của bạn tạo nên khác biệt",
-    "subtitle": "Your support powers the next generation of innovators.",
-    "button": "Tài trợ ngay",
+    "title": "Cùng Robotics Sóc Sơn xây nên ý tưởng tiếp theo",
+    "subtitle": "Khám phá đội, học qua thực hành và tìm bước tiếp theo của bạn.",
+    "button": "Tham gia đội",
     "contact": "Liên hệ / Contact"
   },
   "footer": {
@@ -66,22 +63,6 @@
     "inviteUs": "Mời chúng tôi đến sự kiện của bạn",
     "inviteUsSubtitle": "Tổ chức sự kiện STEM hoặc muốn hợp tác với đội? Hãy liên hệ!"
   },
-  "sponsorship": {
-    "badge": "Sponsorship",
-    "title": "Tài Trợ / Sponsorship",
-    "subtitle": "Đồng hành cùng chúng tôi và nhận được quyền lợi",
-    "benefitsTitle": "Quyền Lợi / Benefits",
-    "tiersTitle": "Gói Tài Trợ / Sponsorship Tiers"
-  },
-  "budget": {
-    "badge": "Budget",
-    "title": "Ngân Sách / Budget",
-    "subtitle": "Phân bổ kinh phí cho mùa giải FTC 2024-2025",
-    "total": "Tổng cộng / Total",
-    "transparency": "Minh bạch & Chuyên nghiệp",
-    "item": "Hạng mục",
-    "qty": "Số lượng"
-  },
   "contact": {
     "copyEmail": "Sao chép email",
     "copyPhone": "Sao chép số điện thoại",
@@ -91,7 +72,7 @@
     "openPhone": "Gọi điện",
     "badge": "Contact",
     "title": "Liên Hệ / Contact",
-    "subtitle": "Hãy liên hệ với chúng tôi để tài trợ hoặc hợp tác",
+    "subtitle": "Gửi câu hỏi cho đội về robotics, khóa học hoặc tuyển thành viên",
     "formTitle": "Gửi tin nhắn / Send Message",
     "infoTitle": "Thông tin liên hệ / Contact Info",
     "name": "Họ tên / Name",
@@ -100,7 +81,7 @@
     "phone": "Số điện thoại / Phone",
     "message": "Tin nhắn / Message",
     "submit": "Gửi / Submit",
-    "infoSubtitle": "Liên hệ qua email hoặc Telegram để thảo luận về tài trợ hoặc hợp tác."
+    "infoSubtitle": "Liên hệ qua email hoặc Messenger để hỏi về đội, khóa học hoặc tuyển thành viên."
   },
   "deck": {
     "checkingSession": "Đang kiểm tra phiên…",

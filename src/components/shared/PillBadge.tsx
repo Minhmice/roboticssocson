@@ -1,4 +1,6 @@
+import { Badge, badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import type { VariantProps } from "class-variance-authority";
 
 interface PillBadgeProps {
   text: string;
@@ -6,33 +8,33 @@ interface PillBadgeProps {
   className?: string;
 }
 
+const colorToVariant: Record<
+  NonNullable<PillBadgeProps["color"]>,
+  VariantProps<typeof badgeVariants>["variant"]
+> = {
+  cyan: "default",
+  gray: "secondary",
+  gold: "outline",
+};
+
 export const PillBadge: React.FC<PillBadgeProps> = ({
   text,
   color = "cyan",
   className,
 }) => {
-  const colorVariants = {
-    cyan: "bg-primary/10 text-primary",
-    gray: "bg-muted text-muted-foreground",
-    gold: "bg-yellow-950/50 text-yellow-400",
-  };
-
   return (
-    <span
+    <Badge
+      variant={colorToVariant[color]}
       className={cn(
-        "inline-flex items-center rounded-full px-3 py-1 text-xs font-medium",
-        colorVariants[color],
-        className
+        "rounded-full px-3 py-1 font-medium",
+        color === "cyan" && "border-transparent bg-primary/10 text-primary hover:bg-primary/10",
+        color === "gray" && "border-transparent",
+        color === "gold" &&
+          "border-transparent bg-amber-950/50 text-amber-300 hover:bg-amber-950/50",
+        className,
       )}
     >
       {text}
-    </span>
+    </Badge>
   );
 };
-
-/**
- * Usage example:
- * 
- * <PillBadge text="Top 4" color="cyan" />
- */
-
