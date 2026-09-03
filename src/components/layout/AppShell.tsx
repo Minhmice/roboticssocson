@@ -16,17 +16,13 @@ import { cn } from "@/lib/utils";
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const deckPresentation = pathname === "/course/arduino-mblock-deck";
-  /** Carries its own exit affordance and owns the whole viewport. */
-  const recruitmentFlow = pathname === "/recruitment";
   const immersive =
     pathname === "/contact-us" ||
-    recruitmentFlow ||
     pathname === "/analytics" ||
     pathname?.startsWith("/course-register-form") === true ||
     deckPresentation;
-  const hideFooter =
-    pathname === "/analytics" || recruitmentFlow || deckPresentation;
-  const hideNavbar = recruitmentFlow || deckPresentation;
+  const hideFooter = pathname === "/analytics" || deckPresentation;
+  const hideNavbar = deckPresentation;
 
   return (
     <BootRevealProvider>
@@ -37,8 +33,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           className={cn(
             "relative overflow-x-clip",
             deckPresentation && "fixed inset-0 z-50 h-dvh overflow-hidden pt-0",
-            recruitmentFlow && "h-dvh min-h-0 overflow-hidden pt-0",
-            !deckPresentation && !recruitmentFlow && immersive && "pt-0",
+            !deckPresentation && immersive && "pt-0",
             !deckPresentation && !immersive && "pt-16",
           )}
         >

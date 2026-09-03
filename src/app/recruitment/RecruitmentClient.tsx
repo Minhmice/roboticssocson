@@ -41,9 +41,9 @@ export default function RecruitmentClient() {
   return (
     <>
       <PageAnalytics event={AnalyticsEvents.RECRUITMENT_PAGE_VIEWED} surface="/recruitment" />
-      <div className="min-h-dvh bg-background pt-14 text-foreground sm:pt-16">
-        <section className="mx-auto grid min-h-[calc(100dvh-4rem)] max-w-7xl items-stretch lg:grid-cols-[minmax(0,1.05fr)_minmax(24rem,0.95fr)]">
-          <div className="relative min-h-72 overflow-hidden bg-slate-950 lg:min-h-full">
+      <div className="min-w-0 bg-background text-foreground">
+        <section className="mx-auto grid min-h-[calc(100dvh-4rem)] max-w-7xl items-stretch lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+          <div className="relative min-h-72 min-w-0 overflow-hidden bg-slate-950 lg:min-h-full">
             <Image
               src="/Images/Achievements/FTC 2024-2025/Image  (2).webp"
               alt={copy.imageAlt}
@@ -61,13 +61,13 @@ export default function RecruitmentClient() {
             </p>
           </div>
 
-          <div className="flex items-center px-5 py-12 sm:px-10 sm:py-16 lg:px-14">
-            <div className="w-full max-w-xl">
+          <div className="flex min-w-0 items-center px-5 py-12 sm:px-10 sm:py-16 lg:px-14">
+            <div className="w-full min-w-0 max-w-xl">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent text-primary">
                 <CalendarX2 className="h-6 w-6" aria-hidden />
               </div>
 
-              <h1 className="mt-6 max-w-[15ch] text-balance text-[clamp(2.5rem,5vw,4.25rem)] font-black leading-[1.02] tracking-[-0.035em]">
+              <h1 className="mt-6 max-w-[15ch] text-balance text-[clamp(2.25rem,6vw,4.25rem)] font-black leading-[1.06] tracking-[-0.03em]">
                 {copy.title}
               </h1>
               <p className="mt-6 max-w-[58ch] text-pretty text-lg leading-8 text-foreground/80">

@@ -537,8 +537,6 @@ export function BootLoader() {
   const pathname = usePathname();
   const isDeckPresentation = pathname === "/course/arduino-mblock-deck";
   const isHomepage = isHomepagePath(pathname);
-  /** The recruitment flow opens with its own terminal boot line. */
-  const isSelfBooting = pathname === "/recruitment";
   const { beginBoot, endBoot } = useBootRevealActions();
   const pathnameRef = useRef(pathname);
   const pendingHrefRef = useRef<string | null>(null);
@@ -550,7 +548,7 @@ export function BootLoader() {
 
   // Every hard page open: run boot once this mount (skip homepage + deck).
   useEffect(() => {
-    if (isBootLoaderDisabled() || isDeckPresentation || isHomepage || isSelfBooting) {
+    if (isBootLoaderDisabled() || isDeckPresentation || isHomepage) {
       return;
     }
     if (pageLoadDone || mode !== null) return;
@@ -560,7 +558,7 @@ export function BootLoader() {
       setMode("initial");
     }, 0);
     return () => window.clearTimeout(t);
-  }, [beginBoot, isDeckPresentation, isHomepage, isSelfBooting, pageLoadDone, mode]);
+  }, [beginBoot, isDeckPresentation, isHomepage, pageLoadDone, mode]);
 
   useEffect(() => {
     pathnameRef.current = pathname;
@@ -702,8 +700,7 @@ export function BootAwareMain({
   const { endBoot } = useBootRevealActions();
   const isDeckPresentation = pathname === "/course/arduino-mblock-deck";
   const isHomepage = isHomepagePath(pathname);
-  const isSelfBooting = pathname === "/recruitment";
-  const ownsEntrance = isDeckPresentation || isHomepage || isSelfBooting;
+  const ownsEntrance = isDeckPresentation || isHomepage;
   const shellReady = disabled || ready || ownsEntrance;
 
   useEffect(() => {
