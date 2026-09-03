@@ -2,9 +2,9 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import RecruitmentClient from "./RecruitmentClient";
 
 export const metadata = buildMetadata({
-  title: "Đơn tuyển thành viên RBS 4.0 | Robotics Sóc Sơn",
+  title: "Đợt tuyển thành viên đã kết thúc | Robotics Sóc Sơn",
   description:
-    "Điền đơn tuyển thành viên RBS 4.0 của Robotics Sóc Sơn. Chọn ban Cơ khí - Thiết kế, Code - Điện tử hoặc Truyền thông.",
+    "Robotics Sóc Sơn đã kết thúc đợt tuyển thành viên RBS 4.0. Theo dõi các kênh chính thức của đội để cập nhật đợt tuyển tiếp theo.",
   keywords: [
     "tuyển thành viên robotics sóc sơn",
     "RBS 4.0",

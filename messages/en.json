@@ -63,6 +63,14 @@
     "inviteUs": "Invite us to your event",
     "inviteUsSubtitle": "Organizing a STEM event or want to partner with us? Reach out!"
   },
+  "recruitmentDialog": {
+    "badge": "Recruitment notice",
+    "headline": "Applications are closed",
+    "tagline": "ROBOTICS SOC SON",
+    "message": "Thank you for your interest. We are no longer accepting applications for this recruitment round.",
+    "cta": "View notice",
+    "dismiss": "Close"
+  },
   "contact": {
     "copyEmail": "Copy email",
     "copyPhone": "Copy phone number",

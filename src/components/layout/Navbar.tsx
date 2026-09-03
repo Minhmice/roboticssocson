@@ -31,7 +31,6 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
     (pathname === "/course" ||
       pathname?.startsWith("/course-register-form") === true);
   const isContactPage = pathname === "/contact-us";
-  const isRecruitmentPage = pathname === "/recruitment";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -106,18 +105,6 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
           href="/course-register-form"
           className={cn(widthClass, onRegister && "ring-2 ring-primary/30")}
           aria-current={onRegister ? "page" : undefined}
-        />
-      );
-    }
-
-    if (isRecruitmentPage) {
-      return (
-        <CTAButton
-          label={t("nav.recruitment")}
-          variant="primary"
-          href="/recruitment"
-          className={cn(widthClass, "ring-2 ring-primary/30")}
-          aria-current="page"
         />
       );
     }

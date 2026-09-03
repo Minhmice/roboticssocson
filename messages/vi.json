@@ -63,6 +63,14 @@
     "inviteUs": "Mời chúng tôi đến sự kiện của bạn",
     "inviteUsSubtitle": "Tổ chức sự kiện STEM hoặc muốn hợp tác với đội? Hãy liên hệ!"
   },
+  "recruitmentDialog": {
+    "badge": "Thông báo tuyển thành viên",
+    "headline": "Đợt đăng ký đã kết thúc",
+    "tagline": "ROBOTICS SOC SON",
+    "message": "Cảm ơn bạn đã quan tâm. CLB đã dừng nhận đơn cho đợt tuyển thành viên hiện tại.",
+    "cta": "Xem thông báo",
+    "dismiss": "Đóng"
+  },
   "contact": {
     "copyEmail": "Sao chép email",
     "copyPhone": "Sao chép số điện thoại",
