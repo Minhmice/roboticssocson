@@ -98,11 +98,24 @@ export default function TeamCarouselSection() {
   }, [pauseAutoFor, totalSlides]);
 
   // Map role names for MemberCard (from teamCarouselData to MemberCard Role type)
-  const mapRole = (role: string): string => {
-    if (role === "Captain") return "Leader";
-    if (role === "Vice Captain") return "Vice Leader";
-    return role;
-  };
+  const mapRole = useCallback(
+    (role: string): string => {
+      const isVi = locale === "vi";
+      if (role === "President") return isVi ? "Chủ tịch" : "President";
+      if (role === "Vice President") return isVi ? "Phó chủ tịch" : "Vice President";
+      if (role === "Head of Engineering") return "Head of Engineering";
+      if (role === "Head of Programming") return "Head of Programming";
+      if (role === "Head of Media Design") return "Head of Media Design";
+      if (role === "Engineering") return isVi ? "Kỹ thuật" : "Engineering";
+      if (role === "Coding") return isVi ? "Lập trình" : "Coding";
+      if (role === "Media - Design") return isVi ? "Truyền thông - Thiết kế" : "Media - Design";
+      if (role === "Captain") return isVi ? "Đội trưởng" : "Leader";
+      if (role === "Vice Captain") return isVi ? "Đội phó" : "Vice Leader";
+      if (role === "Member") return isVi ? "Thành viên" : "Member";
+      return role;
+    },
+    [locale],
+  );
 
   const i18n = useMemo(() => {
     const isVi = locale === "vi";
@@ -211,33 +224,36 @@ export default function TeamCarouselSection() {
                   </div>
                 </div>
               ) : (
-                slides.map((members, slideIndex) => (
-                  <div key={slideIndex} className="min-w-full px-3 sm:px-6">
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-                    {members.map((member, memberIndex) => {
-                      const globalIndex = slideIndex * itemsPerView + memberIndex;
+                slides.map((members, slideIndex) => {
+                  const isActiveSlide = slideIndex === safeIndex;
+                  return (
+                    <div key={slideIndex} className="min-w-full px-3 sm:px-6">
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                        {members.map((member, memberIndex) => {
+                          const globalIndex = slideIndex * itemsPerView + memberIndex;
 
-                      return (
-                        <div key={globalIndex} className="group min-w-0">
-                          <MemberCard
-                            name={member.name}
-                            role={mapRole(member.role)}
-                            image={member.image}
-                            src={member.src}
-                            classInfo={member.classInfo}
-                            tags={member.tags}
-                            slogan={member.slogan}
-                            href={member.href}
-                            showButton={false}
-                            imagePriority={safeIndex === 0}
-                            className="h-full w-full"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                ))
+                          return (
+                            <div key={globalIndex} className="group min-w-0">
+                              <MemberCard
+                                name={member.name}
+                                role={mapRole(member.role)}
+                                image={member.image}
+                                src={member.src}
+                                classInfo={member.classInfo}
+                                tags={member.tags}
+                                slogan={member.slogan}
+                                href={member.href}
+                                showButton={false}
+                                imagePriority={isActiveSlide}
+                                className="h-full w-full"
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })
               )}
             </div>
           </div>
