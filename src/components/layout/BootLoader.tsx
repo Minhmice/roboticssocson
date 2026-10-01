@@ -15,7 +15,11 @@ import {
   type ReactNode,
 } from "react";
 import { flushSync } from "react-dom";
-import { isBootLoaderDisabled, isHomepagePath } from "@/lib/boot-loader";
+import {
+  isBootLoaderDisabled,
+  DECK_PRESENTATION_PATH,
+} from "@/lib/boot-loader";
+import { useAssetPreloader } from "@/hooks/useAssetPreloader";
 import { setBootNavigationHandler } from "@/lib/boot-navigation";
 import {
   useBootAnimationReady,
@@ -323,6 +327,11 @@ function BootLoaderOverlay({
   const completedRef = useRef(false);
   const coveredRef = useRef(false);
 
+  const { progress: assetProgress, isReady } = useAssetPreloader({
+    active: phase === "holding",
+    timeoutMs: holdMs,
+  });
+
   const finish = useCallback(() => {
     if (completedRef.current) return;
     completedRef.current = true;
@@ -351,7 +360,7 @@ function BootLoaderOverlay({
     return () => window.clearTimeout(t);
   }, [phase]);
 
-  // Hold + progress, then exit.
+  // Hold + real asset progress, then exit.
   useEffect(() => {
     if (phase !== "holding") return;
 
@@ -363,32 +372,39 @@ function BootLoaderOverlay({
       return () => window.clearTimeout(t);
     }
 
+    const minHoldMs = isRoute ? 300 : 700;
     const start = performance.now();
     let raf = 0;
 
     const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / holdMs);
-      const eased = 1 - Math.pow(1 - t, 2.4);
-      setProgress(eased);
+      const elapsed = now - start;
+      const timeRatio = Math.min(1, elapsed / holdMs);
+      const targetProgress = Math.max(assetProgress, timeRatio * 0.45);
+      setProgress((prev) => Math.max(prev, targetProgress));
 
       const labelSpan = 1 / copy.progressLabels.length;
       setLabelIndex(
         Math.min(
           copy.progressLabels.length - 1,
-          Math.floor(t / labelSpan),
+          Math.floor(targetProgress / labelSpan),
         ),
       );
 
-      if (t < 1) {
-        raf = requestAnimationFrame(tick);
-      } else {
+      const hasPassedMin = elapsed >= minHoldMs;
+      const isFinished =
+        (isReady || targetProgress >= 1 || elapsed >= holdMs) && hasPassedMin;
+
+      if (isFinished) {
+        setProgress(1);
         setPhase("exiting");
+      } else {
+        raf = requestAnimationFrame(tick);
       }
     };
 
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [phase, reduced, holdMs, copy.progressLabels.length]);
+  }, [phase, reduced, holdMs, copy.progressLabels.length, assetProgress, isReady, isRoute]);
 
   useEffect(() => {
     if (phase !== "exiting") return;
@@ -535,8 +551,7 @@ export function BootLoader() {
   const reduced = Boolean(prefersReducedMotion);
   const router = useRouter();
   const pathname = usePathname();
-  const isDeckPresentation = pathname === "/course/arduino-mblock-deck";
-  const isHomepage = isHomepagePath(pathname);
+  const isDeckPresentation = pathname === DECK_PRESENTATION_PATH;
   const { beginBoot, endBoot } = useBootRevealActions();
   const pathnameRef = useRef(pathname);
   const pendingHrefRef = useRef<string | null>(null);
@@ -546,9 +561,9 @@ export function BootLoader() {
   const [session, setSession] = useState(0);
   const [pageLoadDone, setPageLoadDone] = useState(false);
 
-  // Every hard page open: run boot once this mount (skip homepage + deck).
+  // Every hard page open: run boot once this mount (skip deck only).
   useEffect(() => {
-    if (isBootLoaderDisabled() || isDeckPresentation || isHomepage) {
+    if (isBootLoaderDisabled() || isDeckPresentation) {
       return;
     }
     if (pageLoadDone || mode !== null) return;
@@ -558,8 +573,7 @@ export function BootLoader() {
       setMode("initial");
     }, 0);
     return () => window.clearTimeout(t);
-  }, [beginBoot, isDeckPresentation, isHomepage, pageLoadDone, mode]);
-
+  }, [beginBoot, isDeckPresentation, pageLoadDone, mode]);
   useEffect(() => {
     pathnameRef.current = pathname;
   }, [pathname]);
@@ -698,11 +712,9 @@ export function BootAwareMain({
   const ready = useBootAnimationReady();
   const disabled = isBootLoaderDisabled();
   const { endBoot } = useBootRevealActions();
-  const isDeckPresentation = pathname === "/course/arduino-mblock-deck";
-  const isHomepage = isHomepagePath(pathname);
-  const ownsEntrance = isDeckPresentation || isHomepage;
+  const isDeckPresentation = pathname === DECK_PRESENTATION_PATH;
+  const ownsEntrance = isDeckPresentation;
   const shellReady = disabled || ready || ownsEntrance;
-
   useEffect(() => {
     if (ownsEntrance && !disabled && !ready) {
       endBoot();
