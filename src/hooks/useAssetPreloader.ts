@@ -30,9 +30,6 @@ export function useAssetPreloader({
 
   useEffect(() => {
     if (!active) {
-      setProgress(0);
-      setIsReady(false);
-      completedRef.current = false;
       return;
     }
 
@@ -145,6 +142,8 @@ export function useAssetPreloader({
       clearTimeout(timer);
     };
   }, [active, timeoutMs, criticalImageUrls]);
-
-  return { progress, isReady };
+  return {
+    progress: active ? progress : 0,
+    isReady: active ? isReady : false,
+  };
 }
