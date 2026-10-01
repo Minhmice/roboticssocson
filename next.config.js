@@ -2,6 +2,15 @@
 const nextConfig = {
   outputFileTracingRoot: __dirname,
   skipTrailingSlashRedirect: true,
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-tabs",
+      "@radix-ui/react-slot",
+      "framer-motion",
+    ],
+  },
   images: {
     formats: ["image/avif", "image/webp"],
   },
@@ -43,6 +52,24 @@ const nextConfig = {
           },
           // CSP deferred: Next.js App Router + inline scripts need careful allowlists.
           // TODO: add Content-Security-Policy at Cloudflare/nginx edge once nonce/hash strategy is ready.
+        ],
+      },
+      {
+        source: "/Images/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/Logo/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
         ],
       },
     ];
