@@ -28,11 +28,11 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // Former sponsorship surfaces archived in src/legacy.
-      { source: "/sponsor", destination: "/", permanent: true },
-      { source: "/sponsorship", destination: "/", permanent: true },
-      { source: "/sponsor/:path*", destination: "/", permanent: true },
-      { source: "/sponsorship/:path*", destination: "/", permanent: true },
+      // Former sponsorship surfaces redirect to active fundraising page.
+      { source: "/sponsor", destination: "/fundraising", permanent: false },
+      { source: "/sponsorship", destination: "/fundraising", permanent: false },
+      { source: "/sponsor/:path*", destination: "/fundraising", permanent: false },
+      { source: "/sponsorship/:path*", destination: "/fundraising", permanent: false },
     ];
   },
   async headers() {

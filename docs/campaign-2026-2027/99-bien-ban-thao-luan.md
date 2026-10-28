@@ -23,14 +23,14 @@ flowchart TD
 | STT | Vấn đề | Quyết định tại thời điểm ghi nhận | Trạng thái sau quyết định chủ dự án 28/10/2026 |
 |:---:|---|---|---|
 | **01** | Cơ cấu gói tài trợ & SME | Cơ cấu ban đầu đã bị **thay thế hoàn toàn bởi Quyết định 8** | Chỉ còn 3M, 5M, 10M, 25M + hiện vật |
-| **02** | Vốn mồi Maker Day & Merch | Loại vốn mồi khỏi quỹ tài trợ; hoạt động dùng Pre-order và bán vé trước | **Giữ nguyên nguyên tắc:** Earned Revenue nằm ngoài mục tiêu 33.975.000 ₫ |
-| **03** | Pháp lý quyền lợi tài trợ & FIRST | Ký Thỏa thuận 3 bên; dùng quyền lợi tri ân STEM; logo tuân thủ FIRST | Còn hiệu lực; doanh nghiệp cần hồ sơ thuế xử lý qua trường theo 10 |
+| **02** | Vốn mồi Maker Day | Loại vốn mồi khỏi quỹ tài trợ; hoạt động dùng bán vé trước | **Giữ nguyên nguyên tắc:** Earned Revenue nằm ngoài mục tiêu 33.975.000 ₫ |
+| **03** | Pháp lý quyền lợi tài trợ & FIRST | Ký Thỏa thuận 3 bên; dùng quyền lợi tri ân STEM; logo tuân thủ FIRST | Còn hiệu lực; doanh nghiệp cần chứng từ kế toán xử lý qua trường theo 10 |
 | **04** | Tiến độ gom đơn linh kiện Mỹ | Giải ngân 2 đợt; đợt 1 mua Hub + Slide, đợt 2 mua phần còn lại | **Cập nhật bởi Quyết định 8:** Đợt 1 ≥ 17.546.000 ₫; Đợt 2 hoàn tất 33.975.000 ₫ trước 05/12/2026 |
 | **05** | Mã định danh đội | Khóa chính thức FTC #39256 cho mùa 2026–2027 | Còn hiệu lực |
 | **06** | Định giá tài trợ hiện vật | Quy đổi 1:1 theo giá thị trường/hóa đơn, trừ vào hạng mục được thay thế | Còn hiệu lực |
 | **07** | FIRST Championship | Quyết định ban đầu tách giải đấu khỏi mục tiêu | Phần nội dung cũ không còn hiệu lực; chỉ giữ fact giải đấu bên dưới |
 | **08** | Thu hẹp mục tiêu chiến dịch | — | **Quyết định chủ dự án 28/10/2026:** Chỉ vận động 11 linh kiện landed cost 30.975.000 ₫ + quỹ dự phòng 3.000.000 ₫; mục tiêu công khai **33.975.000 ₫**. |
-
+| **09** | Bỏ bán merch | Bỏ bán merch (860 follower, MOQ 30 áo, lãi ~84k/áo ⇒ tối đa ~2,5M, tốn công Media) — chủ dự án 28/10/2026 | Thay thế hoàn toàn kế hoạch bán hàng lưu niệm |
 ---
 
 ## CHI TIẾT CÁC QUYẾT ĐỊNH CÒN HIỆU LỰC
@@ -40,9 +40,9 @@ flowchart TD
 - Gói hiện vật kỹ thuật quy đổi 1:1 theo hóa đơn hoặc giá thị trường hợp pháp.
 - Cơ cấu gói ban đầu bị **superseded** bởi Quyết định 8.
 
-### Quyết định 2: Maker Day & Merch — phần còn hiệu lực
-- Không đưa vốn mồi Maker Day/Merch vào mục tiêu vận động.
-- Merch bán bằng Pre-order; Maker Day thu vé trước. Doanh thu tự tạo nằm ngoài mục tiêu **33.975.000 ₫** và tự cấp vốn cho chính hoạt động đó.
+### Quyết định 2: Maker Day — phần còn hiệu lực
+- Không đưa vốn mồi Maker Day vào mục tiêu vận động.
+- Maker Day thu vé trước. Doanh thu tự tạo nằm ngoài mục tiêu **33.975.000 ₫** và tự cấp vốn cho chính hoạt động đó (phần bán hàng lưu niệm đã bị hủy theo Quyết định 9).
 - Phần mục tiêu ngân sách trong Quyết định 2 cũ được **thay thế bởi Quyết định 8**; chỉ giữ nguyên cơ chế tự cấp vốn nêu trên.
 
 ### Quyết định 3: Pháp lý quyền lợi tài trợ
@@ -72,8 +72,11 @@ flowchart TD
 - **11 linh kiện phần cứng landed:** **30.975.000 ₫**.
 - **Quỹ dự phòng kỹ thuật & tỷ giá:** **3.000.000 ₫**; mục đích: tỷ giá, cước pin/motor, thay thế hỏng hóc.
 - **Công thức:** `30.975.000 + 3.000.000 = 33.975.000 ₫`.
-- **Mục tiêu công khai:** **33.975.000 ₫**, không gồm vật tư prototype, chi phí vận hành, nguồn thu Maker Day/Merch hoặc chi phí Championship.
+- **Mục tiêu công khai:** **33.975.000 ₫**, không gồm vật tư prototype, chi phí vận hành, nguồn thu Maker Day hoặc chi phí Championship.
 
+### Quyết định 9: Bỏ bán merch (860 follower, MOQ 30 áo, lãi ~84k/áo ⇒ tối đa ~2,5M, tốn công Media) — chủ dự án 28/10/2026
+- Bỏ bán merch (860 follower, MOQ 30 áo, lãi ~84k/áo ⇒ tối đa ~2,5M, tốn công Media) — chủ dự án 28/10/2026.
+- Giữ sticker pack DUY NHẤT làm quà tặng miễn phí trong Maker Day (đã tính trong chi phí vé).
 ---
 
 ## KIỂM TRA SỐ HỌC TOÀN DIỆN
@@ -101,4 +104,4 @@ $$13.566.000 + 7.202.500 + 4.650.500 + 5.556.000 + 3.000.000 = \mathbf{33.975.00
 
 ---
 
-*Biên bản cập nhật theo Quyết định 8; phần bị thay thế trong quyết định 1, 2, 4 và 7 không còn là cơ sở vận hành. Các vai trò cập nhật tại `docs/campaign-2026-2027/14-phan-cong-nhan-su.md`.*
+*Biên bản cập nhật theo Quyết định 8 và Quyết định 9; phần bị thay thế trong quyết định 1, 2, 4 và 7 không còn là cơ sở vận hành. Các vai trò cập nhật tại `docs/campaign-2026-2027/14-phan-cong-nhan-su.md`.*

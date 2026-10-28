@@ -17,7 +17,7 @@
 | Gói tài trợ | **3M · 5M · 10M · 25M + hiện vật quy đổi 1:1** |
 | Tỷ giá dùng | 25.800 ₫/USD |
 
-Maker Day và Merch là nguồn thu tự tạo, bán vé/preorder trước, nằm ngoài mục tiêu 33.975.000 ₫.
+Maker Day là nguồn thu tự tạo, bán vé trước, nằm ngoài mục tiêu 33.975.000 ₫.
 
 ## Mục lục
 
@@ -29,7 +29,7 @@ flowchart LR
   subgraph Tiền["Mô hình tiền"]
     F04[04 Ngân sách delta] --> F05[05 Gói doanh nghiệp]
     F04 --> F06[06 Mission cộng đồng]
-    F04 --> F08[08 Maker Day & Merch]
+    F04 --> F08[08 Maker Day]
   end
   subgraph Bán["Bán & tiếp cận"]
     F07[07 Nội dung] --> F09[09 Sales kit] --> F11[11 CRM]
@@ -49,25 +49,25 @@ flowchart LR
 | 05 | [05-goi-tai-tro-doanh-nghiep.md](05-goi-tai-tro-doanh-nghiep.md) | 4 gói tài trợ, hiện vật, thứ tự tiếp cận |
 | 06 | [06-mission-gay-quy-cong-dong.md](06-mission-gay-quy-cong-dong.md) | 4 mission phần cứng + quỹ dự phòng, tracker, CTA |
 | 07 | [07-chuyen-linh-kien-noi-dung.md](07-chuyen-linh-kien-noi-dung.md) | Các series nội dung, lịch 8 tuần, quảng cáo |
-| 08 | [08-maker-day-merch.md](08-maker-day-merch.md) | Maker Day và Merch: tự cấp vốn bằng vé/preorder |
+| 08 | [08-maker-day.md](08-maker-day.md) | Maker Day: tự cấp vốn bằng tiền vé |
 | 09 | [09-sales-kit.md](09-sales-kit.md) | One-pager, deck, email, kịch bản gọi điện, grant |
-| 10 | [10-support-thanh-toan-phap-ly.md](10-support-thanh-toan-phap-ly.md) | TT 16/2018, TT 20/2026, hợp đồng 3 bên, VietQR, NĐ 13/2023, `/support` |
+| 10 | [10-support-thanh-toan-phap-ly.md](10-support-thanh-toan-phap-ly.md) | Hướng dẫn pháp lý, thỏa thuận 3 bên, VietQR, NĐ 13/2023, `/support` |
 | 11 | [11-crm-prospect.md](11-crm-prospect.md) | Cấu trúc CRM, 53 prospect, pipeline grant |
 | 12 | [12-minh-bach-bao-cao-tac-dong.md](12-minh-bach-bao-cao-tac-dong.md) | Hành trình nhà tài trợ, sổ cái, báo cáo tác động |
 | 13 | [13-lo-trinh-phan-cong-kpi-rui-ro.md](13-lo-trinh-phan-cong-kpi-rui-ro.md) | Gantt, RACI, KPI, rủi ro, checklist |
 | 14 | [14-phan-cong-nhan-su.md](14-phan-cong-nhan-su.md) | Vai trò, nhiệm vụ, người phụ trách, BOM |
-| 99 | [99-bien-ban-thao-luan.md](99-bien-ban-thao-luan.md) | 8 quyết định có tranh luận |
+| 15 | [15-danh-sach-viec-can-lam.md](15-danh-sach-viec-can-lam.md) | Danh sách ấn phẩm, web, form cần làm |
+| — | [social/](social/00-README.md) | **Bộ đăng social:** brand guide, lịch đăng 9 tuần, hook & A/B, 8 poster, 4 nhóm video, caption, mẫu trả lời bình luận |
+| 99 | [99-bien-ban-thao-luan.md](99-bien-ban-thao-luan.md) | 9 quyết định có tranh luận |
 
-Research: [R1 mùa giải & đội](research/R1-season-team.md) · [R2 linh kiện & nhập khẩu](research/R2-parts-import.md) · [R3 vận hành, merch, sự kiện](research/R3-ops-merch-events.md) · [R4 pháp lý & thanh toán](research/R4-legal-payment.md) · [R5 nhà tài trợ & benchmark](research/R5-sponsors-benchmarks.md) · [R6 mạng xã hội & nhà tài trợ cũ](research/R6-social-sponsors.md) · [R7 bằng chứng & dữ liệu trận](research/R7-evidence.md) · [R8 thông tin trường, FTC VN, VietQR](research/R8-official-info.md)
+Research: [R1 mùa giải & đội](research/R1-season-team.md) · [R2 linh kiện & nhập khẩu](research/R2-parts-import.md) · [R3 vận hành & sự kiện](research/R3-ops-merch-events.md) · [R4 pháp lý & thanh toán](research/R4-legal-payment.md) · [R5 nhà tài trợ & benchmark](research/R5-sponsors-benchmarks.md) · [R6 mạng xã hội & nhà tài trợ cũ](research/R6-social-sponsors.md) · [R7 bằng chứng & dữ liệu trận](research/R7-evidence.md) · [R8 thông tin trường, FTC VN, VietQR](research/R8-official-info.md) · [R9 repo công cụ marketing](research/R9-github-marketing-repos.md) · [R10 hook](research/R10-hook-research.md) · [R11 Reels & quy định nền tảng](research/R11-reels-craft-platform.md) · [R12 case gây quỹ](research/R12-fundraising-content-cases.md) · [R13 nội dung Việt Nam](research/R13-vietnam-student-content.md)
 
 ## Trước khi công khai
 
-- Điền tên, lớp/chức vụ, SĐT trong [14 — Phân công nhân sự](14-phan-cong-nhan-su.md).
-- Gửi QR MB Bank (TRAN TUE MINH · 0962969817) và thay `[QR: sẽ gửi sau]`; cách tạo QR trong [R8 §4](research/R8-official-info.md).
-- Cập nhật số follower fanpage https://www.facebook.com/roboticssocson/ từ trang quản trị (Facebook chặn đọc công khai).
+- Điền tên chính thức, lớp/chức vụ, SĐT trong [14 — Phân công nhân sự](14-phan-cong-nhan-su.md) (hiện đang tạm điền Trần Tuệ Minh).
+- Thay ảnh mã QR chính thức vào assets/placeholder.jpg (hiện đang dùng ảnh placeholder).
+- Fanpage hiện tại: 860 followers (mục tiêu 1.200 `[ƯỚC TÍNH]`).
 - Chèn ảnh giấy khen Motions In Fire / VRC / VORC vào deck ([09](09-sales-kit.md)).
-- Tạo link Google Form đặt merch ([07](07-chuyen-linh-kien-noi-dung.md)) nếu chạy merch.
-- Xác nhận với Ban Giám hiệu quy trình cho doanh nghiệp cần Mẫu 01/TNDN ([10](10-support-thanh-toan-phap-ly.md)).
 - Không tìm thấy nhà tài trợ cũ công khai ([R6 §2](research/R6-social-sponsors.md)); nếu CLB có danh sách nội bộ, đưa vào [11](11-crm-prospect.md) làm nhóm gia hạn đầu tiên.
 - Kiểm tra checklist Go/No-Go tại [13](13-lo-trinh-phan-cong-kpi-rui-ro.md).
 

@@ -1,6 +1,8 @@
 # 14 - Phân công nhân sự
 
 > **Mục đích:** Tài liệu này chuẩn hóa toàn bộ sơ đồ tổ chức, danh mục vai trò trách nhiệm, đầu mối điều phối từng phân hệ và bảng phân công nhân sự chi tiết cho chiến dịch "BUILD THE NEXT ROBOT" của CLB Robotics Sóc Sơn (FTC #39256) tại mùa giải FIRST Tech Challenge 2026–2027.
+>
+> **Lưu ý nhân sự:** Tạm điền Trần Tuệ Minh; thay khi phân công chính thức.
 
 ---
 
@@ -9,7 +11,7 @@ graph TD
     subgraph BAN_CHỈ_ĐẠO_NHÀ_TRƯỜNG["BAN CHỈ ĐẠO & PHÁP LÝ NHÀ TRƯỜNG"]
         H1["Hiệu trưởng THPT Sóc Sơn<br>(Đại diện pháp luật, phê duyệt TT16, ký Thỏa thuận 3 bên)"]
         H2["Giáo viên Cố vấn STEM<br>(Chủ nhiệm dự án, giám sát an toàn & chuyên môn)"]
-        H3["Kế toán & Thủ quỹ trường<br>(Phối hợp tiếp nhận qua trường cho DN cần Mẫu 01/TNDN)"]
+        H3["Kế toán & Thủ quỹ trường<br>(Phối hợp tiếp nhận qua trường cho DN cần chứng từ)"]
     end
 
     subgraph BAN_ĐIỀU_HÀNH_CLB["BAN ĐIỀU HÀNH & TỔ CHỨC CHIẾN DỊCH"]
@@ -21,7 +23,7 @@ graph TD
         B1["Ban Kỹ thuật Cơ khí<br>(Thiết kế CAD 3D, gia công, lắp ráp ray trượt & gầm)"]
         B2["Ban Lập trình & Điều khiển<br>(Java SDK, OpenCV thị giác, Autonomous 30s)"]
         B3["Ban Đối ngoại & Gây quỹ<br>(Vận hành Sales Kit, CRM 53 DN, chăm sóc Nhà tài trợ)"]
-        B4["Ban Truyền thông & Sự kiện<br>(Quản trị Fanpage, Video unbox, Maker Day, Merch)"]
+        B4["Ban Truyền thông & Sự kiện<br>(Quản trị Fanpage, Video unbox, Maker Day)"]
         B5["Phụ trách Kỹ thuật Web /support<br>(Giao diện trang quyên góp, tích hợp form & webhook)"]
     end
 
@@ -44,28 +46,27 @@ graph TD
 |---|---|---|---|---|---|
 | **LÃNH ĐẠO & PHÁP LÝ NHÀ TRƯỜNG** | | | | | |
 | Người ký thỏa thuận tài trợ / Ban Giám hiệu | Ký duyệt chủ trương, ký thỏa thuận 3 bên, chịu trách nhiệm pháp lý cao nhất theo TT 16/2018 | `10`, `12`, `13` | Nguyễn Thị Diệu Thanh | Hiệu trưởng | (024) 3884 1042 (trường) |
-| Giáo viên Cố vấn STEM / Chủ nhiệm dự án | Điều phối chuyên môn, đại diện liên lạc với PDP FPT, giám sát an toàn phòng Lab | `02`, `09`, `10`, `13` | | Giáo viên | |
-| Kế toán / Thủ quỹ nhà trường | Hướng dẫn thủ tục tiếp nhận qua tài khoản trường cho DN cần chứng từ thuế, lập Mẫu 01/TNDN | `10`, `12`, `13` | | Kế toán trường | |
+| Giáo viên Cố vấn STEM / Chủ nhiệm dự án | Điều phối chuyên môn, đại diện liên lạc với PDP FPT, giám sát an toàn phòng Lab | `02`, `09`, `10`, `13` | Trần Tuệ Minh | Giáo viên | |
+| Kế toán / Thủ quỹ nhà trường | Hướng dẫn thủ tục tiếp nhận qua tài khoản trường cho DN cần chứng từ kế toán | `10`, `12`, `13` | Trần Tuệ Minh | Kế toán trường | |
 | **BAN ĐIỀU HÀNH & TÀI CHÍNH CLB** | | | | | |
-| Đội trưởng CLB (Team Captain) | Quản lý tiến độ tổng thể, phân công công việc, đại diện học sinh phát biểu | `02`, `09`, `13` | | Học sinh | |
-| Thủ quỹ CLB & Đối soát Sổ cái | Quản lý tài khoản tiếp nhận MB Bank (0962969817, chủ TK Trần Tuệ Minh), đối chiếu sao kê, cập nhật Public Tracker trong 24h | `04`, `06`, `10`, `12` | | Học sinh | |
+| Đội trưởng CLB (Team Captain) | Quản lý tiến độ tổng thể, phân công công việc, đại diện học sinh phát biểu | `02`, `09`, `13` | Trần Tuệ Minh | Học sinh | |
+| Thủ quỹ CLB & Đối soát Sổ cái | Quản lý tài khoản tiếp nhận MB Bank (0962969817, chủ TK Trần Tuệ Minh), đối chiếu sao kê, cập nhật Public Tracker trong 24h | `04`, `06`, `10`, `12` | Trần Tuệ Minh | Học sinh | |
 | **CHUYÊN MÔN KỸ THUẬT & VẬN HÀNH ROBOT** | | | | | |
-| Trưởng ban Kỹ thuật Cơ khí | Chủ trì thiết kế 3D CAD, gia công tấm đáy nhôm, lắp ráp cơ cấu tháp nâng và tay gắp | `02`, `04`, `06`, `13` | | Học sinh | |
-| Trưởng ban Lập trình & Điều khiển | Lập trình Java SDK, xử lý hình ảnh OpenCV cho camera C920 trong 30s Autonomous, Driver Station | `02`, `04`, `06`, `13` | | Học sinh | |
-| Kỹ thuật Điện & Cấp nguồn | Lắp đặt mạng điện, cảm biến, đấu nối pin REV NiMH an toàn, kiểm tra sụt áp | `04`, `06` | | Học sinh | |
+| Trưởng ban Kỹ thuật Cơ khí | Chủ trì thiết kế 3D CAD, gia công tấm đáy nhôm, lắp ráp cơ cấu tháp nâng và tay gắp | `02`, `04`, `06`, `13` | Trần Tuệ Minh | Học sinh | |
+| Trưởng ban Lập trình & Điều khiển | Lập trình Java SDK, xử lý hình ảnh OpenCV cho camera C920 trong 30s Autonomous, Driver Station | `02`, `04`, `06`, `13` | Trần Tuệ Minh | Học sinh | |
+| Kỹ thuật Điện & Cấp nguồn | Lắp đặt mạng điện, cảm biến, đấu nối pin REV NiMH an toàn, kiểm tra sụt áp | `04`, `06` | Trần Tuệ Minh | Học sinh | |
 | **ĐỐI NGOẠI, CRM & TIẾP CẬN NHÀ TÀI TRỢ** | | | | | |
-| Trưởng ban Đối ngoại & Gây quỹ | Quản trị quy trình tiếp cận nhà tài trợ B2B, quản lý Sales Kit và điều phối phễu CRM | `05`, `09`, `11`, `13` | | Học sinh | |
-| Phụ trách CRM Đợt 1 (Warm Leads) | Tiếp cận doanh nghiệp KCN Nội Bài và chi nhánh ngân hàng địa phương trước 20/11 | `05`, `11` | | Học sinh | |
-| Phụ trách CRM Đợt 2 (Cơ khí & Hàng không) | Tiếp cận doanh nghiệp cụm Hàng không Nội Bài và KCN Quang Minh trước 05/12 | `05`, `11` | | Học sinh | |
-| Phụ trách Hồ sơ Quỹ Quốc tế & Nhà nước | Chuẩn bị hồ sơ ứng vốn Quỹ Gene Haas, U.S. Embassy Small Grants, Quỹ Khuyến học | `09`, `11` | | Học sinh | |
+| Trưởng ban Đối ngoại & Gây quỹ | Quản trị quy trình tiếp cận nhà tài trợ B2B, quản lý Sales Kit và điều phối phễu CRM | `05`, `09`, `11`, `13` | Trần Tuệ Minh | Học sinh | |
+| Phụ trách CRM Đợt 1 (Warm Leads) | Tiếp cận doanh nghiệp KCN Nội Bài và chi nhánh ngân hàng địa phương trước 20/11 | `05`, `11` | Trần Tuệ Minh | Học sinh | |
+| Phụ trách CRM Đợt 2 (Cơ khí & Hàng không) | Tiếp cận doanh nghiệp cụm Hàng không Nội Bài và KCN Quang Minh trước 05/12 | `05`, `11` | Trần Tuệ Minh | Học sinh | |
+| Phụ trách Hồ sơ Quỹ Quốc tế & Nhà nước | Chuẩn bị hồ sơ ứng vốn Quỹ Gene Haas, U.S. Embassy Small Grants, Quỹ Khuyến học | `09`, `11` | Trần Tuệ Minh | Học sinh | |
 | **TRUYỀN THÔNG, SỰ KIỆN & CÔNG CỤ SỐ** | | | | | |
-| Trưởng ban Truyền thông & Sự kiện | Quản trị Fanpage, điều phối lịch biên tập 8 tuần, phê duyệt nội dung bài đăng | `07`, `13` | | Học sinh | |
-| Phụ trách Biên tập & Bài viết (Copywriter) | Viết bài 5 tuyến nội dung chiến dịch | `07` | | Học sinh | |
-| Phụ trách Media, Nhiếp ảnh & Video | Quay dựng video POV, phóng sự unbox, chụp ảnh tư liệu Lab | `07` | | Học sinh | |
-| Phụ trách Đội Thuyết trình / Engineering Portfolio | Chuẩn bị hồ sơ kỹ thuật, thuyết trình trước giám khảo và phối hợp đón tiếp đối tác tại Pit | `09`, `13` | | Học sinh | |
-| Phụ trách Sự kiện Maker Day | Lên kịch bản, quản lý vé, chuẩn bị kit và điều phối các trạm | `08`, `13` | | Học sinh | |
-| Phụ trách Sản xuất & Vận hành Merch | Thiết kế merch, quản lý pre-order và liên hệ xưởng may/in | `07`, `08` | | Học sinh | |
-| Phụ trách Kỹ thuật Web /support | Quản trị trang `/support`, cấu hình form và tích hợp webhook | `02`, `10` | | Học sinh | |
+| Trưởng ban Truyền thông & Sự kiện | Quản trị Fanpage, điều phối lịch biên tập 8 tuần, phê duyệt nội dung bài đăng | `07`, `13` | Trần Tuệ Minh | Học sinh | |
+| Phụ trách Biên tập & Bài viết (Copywriter) | Viết bài 5 tuyến nội dung chiến dịch | `07` | Trần Tuệ Minh | Học sinh | |
+| Phụ trách Media, Nhiếp ảnh & Video | Quay dựng video POV, phóng sự unbox, chụp ảnh tư liệu Lab | `07` | Trần Tuệ Minh | Học sinh | |
+| Phụ trách Đội Thuyết trình / Engineering Portfolio | Chuẩn bị hồ sơ kỹ thuật, thuyết trình trước giám khảo và phối hợp đón tiếp đối tác tại Pit | `09`, `13` | Trần Tuệ Minh | Học sinh | |
+| Phụ trách Sự kiện Maker Day | Lên kịch bản, quản lý vé, chuẩn bị kit và điều phối các trạm | `08`, `13` | Trần Tuệ Minh | Học sinh | |
+| Phụ trách Kỹ thuật Web /support | Quản trị trang `/support`, cấu hình form và tích hợp webhook | `02`, `10` | Trần Tuệ Minh | Học sinh | |
 | **NGƯỜI PHỤ TRÁCH TỪNG LINH KIỆN TRONG BOM (THEO CSV)** | | | | | |
 | REV Control Hub (`FTC-CTRL-01`) | Đặt hàng REV Robotics Mỹ, nghiệm thu kỹ thuật và nạp hệ điều hành | `04`, `06` | Nguyễn Minh | Trưởng nhóm | |
 | Bộ ray trượt Viper Slide Kit 4-Stage (`FTC-STR-01`) | Đặt hàng goBILDA Mỹ, lắp ráp cụm trượt tháp nâng | `04`, `06` | Lê Hoàng | Trưởng cơ khí | |

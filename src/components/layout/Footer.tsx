@@ -79,6 +79,11 @@ export const Footer: React.FC = () => {
                   href: "#achievements",
                   sectionId: "achievements",
                 },
+                {
+                  label: t("nav.fundraising"),
+                  href: "/fundraising",
+                  isRoute: true,
+                },
                 ...(courseSurfacesEnabled
                   ? [
                       {

@@ -36,7 +36,7 @@ Bước vào mùa giải quốc tế **FIRST Tech Challenge 2026–2027 (BIOBUZZ
 > **Robotics Sóc Sơn (FTC #39256)** là đội tuyển robotics học sinh THPT công lập ngoại thành giàu bản lĩnh và tinh thần tự lực nhất,  
 > **Cung cấp** cơ hội đồng hành đầu tư trực tiếp vào thế hệ kỹ sư công nghệ tương lai thông qua giải đấu quốc tế danh giá nhất toàn cầu (FIRST Tech Challenge),  
 > **Khác với** các mô hình câu lạc bộ phong trào ngắn hạn,  
-> **Chúng tôi** sở hữu bề dày thành tích được kiểm chứng (Top 4 VRC, Top 8 VORC, Á quân Motions In Fire), quy trình vận hành tài chính minh bạch theo pháp luật Việt Nam (Thông tư 16/2018/TT-BGDĐT và Thông tư 20/2026/TT-BTC) cùng cam kết kiến tạo tác động giáo dục lâu dài cho địa phương.
+> **Chúng tôi** sở hữu bề dày thành tích được kiểm chứng (Top 4 VRC, Top 8 VORC, Á quân Motions In Fire), quy trình vận hành tài chính minh bạch dưới sự bảo trợ của Trường THPT Sóc Sơn cùng cam kết kiến tạo tác động giáo dục lâu dài cho địa phương.
 
 ---
 
@@ -105,12 +105,12 @@ Mỗi sự chung tay hôm nay là một mảnh ghép tiếp sức để cỗ má
 ### 4.1. Bản Tiếng Việt (Vietnamese Standard Boilerplate)
 > **Về Robotics Sóc Sơn (FTC #39256):**  
 > Robotics Sóc Sơn là câu lạc bộ sáng tạo kỹ thuật và nghiên cứu STEM trực thuộc Trường THPT Sóc Sơn (Hà Nội), chính thức mang mã định danh quốc tế **FTC #39256** tại giải đấu FIRST Tech Challenge. Trải qua hơn 3 năm trưởng thành từ tinh thần tự lực của học sinh trường huyện, đội đã khẳng định bản lĩnh với các thành tích xuất sắc: Hạng 4 toàn quốc Vietnam Robotics Challenge (VRC) 2023, Top 8 Vietnam Open Robotics Challenge (VORC) 2024 và Á quân Motions In Fire 2025. Tại mùa giải FTC 2026–2027 chủ đề BIOBUZZ™ presented by RTX, Robotics Sóc Sơn triển khai chiến dịch gây quỹ *"BUILD THE NEXT ROBOT — Mỗi mảnh ghép, một bước tiến"* với mục tiêu huy động **33.975.000 VNĐ** cho 11 linh kiện phần cứng cốt lõi và quỹ dự phòng kỹ thuật, đại diện cho trí tuệ tuổi trẻ Thủ đô tranh tài tại Vòng chung kết quốc gia.  
-> *Thông tin liên hệ & Pháp lý:* Trường THPT Sóc Sơn, Phố Mai Đình, Thị trấn Sóc Sơn, Hà Nội. Tiếp nhận tài trợ giáo dục hợp pháp theo Thông tư 16/2018/TT-BGDĐT và Thông tư 20/2026/TT-BTC.
+> *Thông tin liên hệ & Pháp lý:* Trường THPT Sóc Sơn, Phố Mai Đình, Thị trấn Sóc Sơn, Hà Nội. Tiếp nhận tài trợ giáo dục hợp pháp dưới sự bảo trợ của Ban Giám hiệu Trường THPT Sóc Sơn.
 
 ### 4.2. Bản Tiếng Anh (English Standard Boilerplate)
 > **About Robotics Soc Son (FTC #39256):**  
 > Robotics Soc Son is a student-led STEM and robotics club based at Soc Son High School in Hanoi, Vietnam, officially competing under team number **FTC #39256** in the FIRST Tech Challenge. Originating from a suburban public school, the team has achieved national milestones including 4th Place at the Vietnam Robotics Challenge (VRC) 2023, Top 8 at the Vietnam Open Robotics Challenge (VORC) 2024, and 1st Runner-up at the Motions In Fire 2025 National Festival. For the 2026–2027 FIRST season (BIOBUZZ™ presented by RTX), the team is running the sponsorship campaign *"BUILD THE NEXT ROBOT — Every piece, a leap forward"* to raise **33,975,000 VND** for 11 core hardware components and a technical contingency buffer, to compete at the Vietnam national championship.
-> *Contact & Governance:* Soc Son High School, Mai Dinh, Soc Son, Hanoi, Vietnam. Legally structured under Circular 16/2018/TT-BGDDT and Circular 20/2026/TT-BTC for corporate tax deductibility.
+> *Contact & Governance:* Soc Son High School, Mai Dinh, Soc Son, Hanoi, Vietnam. Operating under the official sponsorship and governance of Soc Son High School.
 
 ---
 
@@ -130,6 +130,6 @@ Mỗi sự chung tay hôm nay là một mảnh ghép tiếp sức để cỗ má
 
 ## NGUỒN TÀI LIỆU THAM CHIẾU
 - `docs/campaign-2026-2027/research/R1-season-team.md` (Chi tiết mùa giải BIOBUZZ, lịch sử đội #28762, #33518, #39256, thành tích xác thực VRC/VORC, nghiên cứu Brandeis 10-year Study).
-- `docs/campaign-2026-2027/research/R4-legal-payment.md` (Quy định TT 16/2018, TT 20/2026/TT-BTC, chuẩn mực truyền thông tài trợ trường công lập).
+- `docs/campaign-2026-2027/research/R4-legal-payment.md` (Quy định vận động tài trợ và chuẩn mực truyền thông tài trợ trường công lập).
 - `docs/campaign-2026-2027/research/R5-sponsors-benchmarks.md` (Benchmark tài trợ FTC quốc tế, mạng lưới doanh nghiệp Sóc Sơn & KCN Nội Bài).
 - `docs/campaign-2026-2027/99-bien-ban-thao-luan.md` (Biên bản đồng thuận chiến lược giữa Strategist, Operator và Grower).

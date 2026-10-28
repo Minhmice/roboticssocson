@@ -21,12 +21,12 @@ gantt
     section GĐ 2: Dòng Tiền & Mua Hàng
     Tiếp cận 53 Nhà tài trợ Doanh nghiệp     :active, p3, 2026-11-05, 2026-12-05
     MỐC GIẢI NGÂN ĐỢT 1 (17.546.000 VNĐ)     :crit, milestone, m_ord1, 2026-11-20, 0d
-    Mở bán vé Maker Day & Preorder Merch     :p4, 2026-11-15, 2026-12-05
+    Mở bán vé Maker Day                     :p4, 2026-11-15, 2026-12-05
     MỐC GIẢI NGÂN ĐỢT 2 (33.975.000 VNĐ)     :crit, milestone, m_ord2, 2026-12-05, 0d
     section GĐ 3: Chế Tạo & Kỹ Thuật
     Thiết kế 3D CAD & Cắt laser nhôm Hà Nội :p5, 2026-11-05, 2026-11-25
     Lắp ráp Khung gầm Mecanum & Tháp nâng   :p6, 2026-12-10, 2026-12-30
-    Tổ chức Maker Day 'Can You Beat Robot'   :milestone, m_maker, 2026-12-20, 0d
+    Tổ chức Maker Day 'Can You Beat Robot'   :milestone, m_maker, 2026-12-13, 0d
     Lập trình Autonomous 30s & Cảm biến màu :p7, 2026-12-25, 2027-01-15
     Đấu tập Scrimmage & Tối ưu Treo Endgame  :p8, 2027-01-15, 2027-01-25
     Hoàn thiện Engineering Portfolio màu     :p9, 2027-01-10, 2027-01-22
@@ -46,7 +46,7 @@ gantt
 | **05/11/2026** | **Chính thức phát động** | - Phát hành bài truyền thông phát động trên Fanpage kèm video thông điệp "BUILD THE NEXT ROBOT".<br>- Gửi đồng loạt Email mở đầu (Sales Kit) tới 53 doanh nghiệp mục tiêu. | Trưởng ban Truyền thông, Trưởng ban Đối ngoại |
 | **20/11/2026** | **MỐC GIẢI NGÂN ĐỢT 1** | - Tích lũy tối thiểu **17.546.000 VNĐ**.<br>- Đặt hàng ngay: 01 REV Control Hub (11.716.000đ) và 01 Ray trượt goBILDA Viper Slide (5.830.000đ). | Trưởng ban Kỹ thuật, Thủ quỹ |
 | **05/12/2026** | **MỐC GIẢI NGÂN ĐỢT 2** | - Cán tổng mục tiêu **33.975.000 VNĐ** (bao gồm 11 linh kiện phần cứng 30.975.000đ và dự phòng 3.000.000đ).<br>- Đặt phần còn lại: 2 Motor Yellow Jacket, 2 Motor HD Hex, 2 Pin REV NiMH, camera & dụng cụ. | Trưởng ban Kỹ thuật, Thủ quỹ |
-| **20/12/2026** | **Sự kiện Maker Day Sóc Sơn** | - Tổ chức workshop "Can You Beat the Robot?" cho 40 học sinh.<br>- Hoạt động và Merch tự cấp vốn bằng vé trả trước và pre-order, nằm ngoài mục tiêu 33.975.000đ. | Trưởng ban Sự kiện, Trưởng ban Truyền thông |
+| **13/12/2026** | **Sự kiện Maker Day Sóc Sơn** | - Tổ chức workshop "Can You Beat the Robot?" cho 40 học sinh.<br>- Hoạt động tự cấp vốn bằng tiền vé trả trước, nằm ngoài mục tiêu 33.975.000đ. | Trưởng ban Sự kiện, Trưởng ban Truyền thông |
 | **10/01/2027** | **Linh kiện về xưởng & Lắp ráp hoàn thiện** | - Toàn bộ linh kiện Mỹ cập bến Lab THPT Sóc Sơn.<br>- Hoàn thiện lắp ráp khung xe cơ khí, thử nghiệm cơ cấu nạp phấn hoa và tời kéo Endgame. | Toàn bộ Đội Kỹ thuật |
 | **20/01/2027** | **Đấu tập & Khóa hồ sơ Portfolio** | - Tham gia đấu tập Scrimmage với các đội bạn khu vực Hà Nội (GreenAms, FPT).<br>- Tối ưu thuật toán Autonomous đạt ngưỡng >= 30 điểm.<br>- Hoàn thiện in ấn cuốn Engineering Portfolio nộp ban giám khảo. | Đội Lập trình, Đội Thuyết trình |
 | **Cuối T1 – T2/2027 `[ƯỚC TÍNH]`** | **FTC Vietnam Championship (VNCMP)** | - Tham gia thi đấu chính thức tại Trường ĐH FPT Hòa Lạc.<br>- Đón tiếp nhà tài trợ tại Pit Lane.<br>- Mục tiêu: Top 4 Liên minh & Đạt Giải thưởng Kỹ thuật. | Toàn đội tuyển |
@@ -62,7 +62,7 @@ Cơ cấu phân quyền bảo đảm trách nhiệm giải trình rõ ràng gi�
 graph TD
     subgraph BAN_CHỈ_ĐẠO_NHÀ_TRƯỜNG
         H1["1. Ban Giám hiệu / Hiệu trưởng<br>(Chịu trách nhiệm pháp lý cao nhất, duyệt TT16, ký hợp đồng)"]
-        H2["2. Kế toán & Thủ quỹ trường<br>(Phối hợp tiếp nhận, cấp Mẫu 01/TNDN, quyết toán)"]
+        H2["2. Kế toán & Thủ quỹ trường<br>(Phối hợp tiếp nhận qua trường cho DN cần chứng từ, quyết toán)"]
         H3["3. Giáo viên Cố vấn STEM<br>(Giám sát an toàn Lab, điều phối mua sắm, quản lý học sinh)"]
     end
     subgraph BAN_ĐIỀU_HÀNH_CLB_HỌC_SINH
@@ -70,7 +70,7 @@ graph TD
         S2["5. Đội Kỹ thuật & Cơ khí<br>(Thiết kế CAD 3D, gia công, lắp ráp ray trượt & gầm)"]
         S3["6. Đội Lập trình & Điều khiển<br>(Java SDK, OpenCV, Autonomous 30s, Driver Station)"]
         S4["7. Đội Đối ngoại & Gây quỹ<br>(Vận hành Sales Kit, CRM 53 doanh nghiệp, chăm sóc donor)"]
-        S5["8. Đội Truyền thông & Sự kiện<br>(Quản trị Fanpage, Video unbox, Maker Day, Merch)"]
+        S5["8. Đội Truyền thông & Sự kiện<br>(Quản trị Fanpage, Video unbox, Maker Day)"]
         S6["9. Thủ quỹ CLB & Đối soát Sổ cái<br>(Đối soát và cập nhật Public Tracker)"]
         S7["10. Phụ trách Web /support<br>(Quản trị trang và form chiến dịch)"]
     end
@@ -90,12 +90,12 @@ graph TD
 | Hạng mục công việc trọng tâm | Hiệu trưởng THPT Sóc Sơn | Giáo viên Cố vấn STEM | Đội trưởng CLB | Đội Kỹ thuật (Mech/Code) | Đội Đối ngoại (Fundraising) | Đội Media & Sự kiện | Kế toán Nhà trường |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Phê duyệt Kế hoạch vận động & Báo cáo Sở GD&ĐT | **A** | R | C | I | C | I | C |
-| Ký kết Thỏa thuận tài trợ 3 bên & Xuất Mẫu 01/TNDN | **A** | C | C | I | R | I | R |
+| Ký kết Thỏa thuận tài trợ 3 bên & Hướng dẫn chứng từ | **A** | C | C | I | R | I | R |
 | Tiếp nhận dòng tiền qua tài khoản MB Bank & sổ cái | I | C | I | I | C | I | **A / R** |
 | Tiếp cận 53 doanh nghiệp & Vận hành CRM | I | C | A | I | **R** | C | I |
 | Đặt hàng linh kiện Mỹ (goBILDA / REV qua forwarder) | I | **A** | C | **R** | C | I | C |
 | Chế tạo cơ khí & Lập trình robot BIOBUZZ | I | C | A | **R** | I | C | I |
-| Tổ chức Maker Day & Sản xuất Merch Preorder | I | C | A | C | C | **R** | I |
+| Tổ chức sự kiện Maker Day | I | C | A | C | C | **R** | I |
 | Cập nhật Sổ cái công khai (Live Public Tracker) | I | C | A | I | C | **R** | C |
 | Vận hành thi đấu tại FTC Vietnam Championship | I | **A** | **R** | **R** | C | C | I |
 | Lập Báo cáo Tác động & Niêm yết quyết toán tài chính | C | C | A | C | **R** | R | **A** |
@@ -113,7 +113,7 @@ flowchart TD
         K1["Mục tiêu công khai: 33.975.000 VNĐ (100%)"]
         K2["Mốc 1 (20/11): Tối thiểu 17.546.000đ cho Hub + Slide"]
         K3["Mốc 2 (05/12): Hoàn tất 33.975.000đ"]
-        K4["Earned Revenue: Tự chủ qua Maker Day & Merch, ngoài mục tiêu gây quỹ"]
+        K4["Earned Revenue: Tự chủ qua vé Maker Day, ngoài mục tiêu gây quỹ"]
     end
     subgraph KPI_KỸ_THUẬT["2. KPI KỸ THUẬT & CHUYÊN MÔN"]
         K5["Hoàn thành CAD 3D trước 25/11"]
@@ -141,7 +141,7 @@ flowchart TD
 | **Tài chính** | Tổng quỹ tiền mặt huy động cho mục tiêu công khai | 17.546.000 VNĐ | **33.975.000 VNĐ** |
 | **Doanh nghiệp** | Số doanh nghiệp tài trợ chính thức | 3 doanh nghiệp | 5–7 doanh nghiệp |
 | **In-kind** | Giá trị tài trợ hiện vật quy đổi vào 11 linh kiện BOM | Tùy nhu cầu BOM | Theo mức hiện vật thay thế hạng mục BOM |
-| **Earned Rev** | Maker Day + Merch | Tự cấp vốn bằng pre-order | Hoạt động ngoài mục tiêu 33.975.000đ |
+| **Earned Rev** | Maker Day | Tự cấp vốn bằng tiền vé | Hoạt động ngoài mục tiêu 33.975.000đ |
 | **Kỹ thuật** | Điểm tự hành (Autonomous 30s) | >= 20 điểm | >= 30 điểm |
 | **Giải đấu** | Xếp hạng vòng bảng VNCMP | Top 15 / 40 đội | **Top 8 / 40 đội** |
 | **Giải thưởng** | Giải thưởng chính thức từ FIRST PDP | Không | Đạt 01 Giải Kỹ thuật |
@@ -173,7 +173,7 @@ quadrantChart
 | Mã | Rủi ro nhận diện | Khả năng / Tác động | Biện pháp phòng ngừa chủ động (Mitigation) | Kế hoạch dự phòng khẩn cấp khi xảy ra sự cố (Contingency Plan) |
 |---|---|:---:|---|---|
 | **R1** | **Chậm hàng nhập khẩu Mỹ (goBILDA / REV) do cao điểm cuối năm** | Cao / Nghiêm trọng | - Tách đợt đặt hàng: Đặt Control Hub và Viper Slide ngay ngày **20/11/2026**.<br>- Chọn gói chuyển phát nhanh hàng không Priority (10–14 ngày). | - Liên hệ mượn tạm Control Hub từ các đội bạn kỳ cựu (GreenAms, FRITS) để nạp code thử nghiệm trước.<br>- Gia công tạm khung trượt nhôm mô phỏng để test cơ cấu nạp. |
-| **R2** | **Không đạt mục tiêu gây quỹ 33.975.000 VNĐ** | Trung bình / Nghiêm trọng | - Đa dạng hóa 4 gói tài trợ tiền mặt (3M, 5M, 10M, 25M).<br>- Tập trung tiếp cận doanh nghiệp, cựu học sinh và phụ huynh; Maker Day/Merch chỉ tự cấp vốn ngoài mục tiêu. | - Ưu tiên đặt hàng theo trình tự 2 đợt đã duyệt; tiếp nhận hiện vật thay thế trực tiếp linh kiện trong BOM. |
+| **R2** | **Không đạt mục tiêu gây quỹ 33.975.000 VNĐ** | Trung bình / Nghiêm trọng | - Đa dạng hóa 4 gói tài trợ tiền mặt (3M, 5M, 10M, 25M).<br>- Tập trung tiếp cận doanh nghiệp, cựu học sinh và phụ huynh; Maker Day chỉ tự cấp vốn ngoài mục tiêu. | - Ưu tiên đặt hàng theo trình tự 2 đợt đã duyệt; tiếp nhận hiện vật thay thế trực tiếp linh kiện trong BOM. |
 | **R3** | **Sự cố kỹ thuật trên sân thi đấu** | Trung bình / Nghiêm trọng | - Chuẩn hóa toàn diện phần cứng theo danh mục Delta BOM: REV Control Hub chính hãng, ray trượt công nghiệp goBILDA Viper Slide, 2 bộ pin REV Slim NiMH 12V mới.<br>- Theo dữ liệu mùa 2025–26 ([03 §2.1](03-thanh-tich-chuan-hoa.md)): ưu tiên chương trình Auto (camera C920 + AprilTag) và luyện lái tránh lỗi Major — hai điểm mất nhiều nhất. | - Xây dựng quy trình kiểm tra trước trận (Pre-flight Inspection Checklist) bắt buộc trước mỗi lượt đấu.<br>- Chuẩn bị sẵn bộ linh kiện sơ cua và dụng cụ thay thế nhanh tại Pit Lane. |
 | **R4** | **Thủ tục phê duyệt TT 16/2018 tại Sở GD&ĐT Hà Nội bị kéo dài** | Trung bình / Đáng kể | - Hoàn thiện hồ sơ Kế hoạch vận động trình Sở ngay trong tuần cuối tháng 10/2026.<br>- BGH trực tiếp liên hệ phòng Kế hoạch - Tài chính của Sở để giải trình ý nghĩa STEM. | - Thông báo Ban Giám hiệu và doanh nghiệp, chỉ tiếp nhận theo hướng dẫn pháp lý được phê duyệt; sẵn sàng điều chỉnh thời điểm tiếp nhận. |
 | **R5** | **Xung đột thời gian: Mùa thi Học kỳ 1 của học sinh (Tháng 12/2026)** | Rất cao / Trung bình | - Lập thời khóa biểu trực Lab linh hoạt theo ca.<br>- Ưu tiên học sinh khối 12 ôn thi; giao trọng trách thi công thực hành cho học sinh khối 10 và 11. | - Dành riêng 2 tuần cao điểm thi học kỳ chỉ bảo dưỡng máy móc nhẹ nhàng, không phát sinh hạng mục thiết kế mới. Đẩy mạnh tiến độ trước và sau kỳ thi. |
@@ -205,11 +205,11 @@ flowchart TD
 - [ ] **05.** Mẫu Thỏa thuận tài trợ 3 bên (Doanh nghiệp - Nhà trường - CLB) đã được kiểm duyệt nội dung pháp lý.
 
 #### Nhóm 2: Tài chính & Kênh tiếp nhận
-- [ ] **06.** Đã sẵn sàng hướng dẫn trường hợp doanh nghiệp yêu cầu chuyển khoản qua trường để nhận Mẫu 01/TNDN.
+- [ ] **06.** Đã sẵn sàng hướng dẫn trường hợp doanh nghiệp yêu cầu chuyển khoản qua trường để nhận chứng từ kế toán.
 - [ ] **07.** Đã cấu hình mã thanh toán VietQR với cú pháp chuẩn: `BIOBUZZ [MÃ_GÓI] [TÊN_DONOR] [SĐT]`.
-- [ ] **08.** Tài khoản tiếp nhận chiến dịch đã sẵn sàng: Chủ TK TRAN TUE MINH · STK 0962969817 · MB Bank · `[QR: sẽ gửi sau]`.
+- [ ] **08.** Tài khoản tiếp nhận chiến dịch đã sẵn sàng: Chủ TK TRAN TUE MINH · STK 0962969817 · MB Bank · QR: assets/placeholder.jpg.
 - [ ] **09.** Bảng tính Google Sheets Public Tracker đã thiết lập chế độ bảo mật tự động che (mask) số điện thoại/số tài khoản.
-- [ ] **10.** Quy trình phối hợp xuất Biên bản xác nhận Mẫu 01/TNDN theo Thông tư 20/2026/TT-BTC đã được thống nhất với bộ phận kế toán trường.
+- [ ] **10.** Quy trình tiếp nhận qua trường cho doanh nghiệp cần chứng từ kế toán đã được thống nhất với bộ phận kế toán trường.
 
 #### Nhóm 3: Kỹ thuật & Chuỗi cung ứng
 - [ ] **11.** Danh mục mua sắm delta 11 món (BOM 30.975.000 VNĐ) đã được rà soát tồn kho tại Lab và đối soát mã sản phẩm trên goBILDA & REV.
@@ -223,14 +223,13 @@ flowchart TD
 - [ ] **17.** Bộ Sales Kit hoàn chỉnh (One-pager song ngữ, Pitch Deck 5 slide, Mẫu Email, Kịch bản gọi điện) đã sẵn sàng gửi đi.
 - [ ] **18.** Bảng danh sách CRM 53 doanh nghiệp mục tiêu đã phân bổ người phụ trách theo `docs/campaign-2026-2027/14-phan-cong-nhan-su.md` và có thông tin liên hệ xác thực.
 - [ ] **19.** Kịch bản video phát động "BUILD THE NEXT ROBOT" và bài viết mở màn Fanpage đã được duyệt nội dung.
-- [ ] **20.** Biểu mẫu đăng ký sự kiện Maker Day và Preorder Merch Season 01 đã cấu hình xong luồng thu tiền vé tự động.
+- [ ] **20.** Biểu mẫu đăng ký sự kiện Maker Day đã cấu hình xong luồng thu tiền vé tự động.
 
 ---
 
 ## Nguồn
 
 1. **Bộ Giáo dục và Đào tạo:** *Thông tư số 16/2018/TT-BGDĐT ngày 03/08/2018 quy định về tài trợ cho các cơ sở giáo dục thuộc hệ thống giáo dục quốc dân.*
-2. **Bộ Tài chính:** *Thông tư số 20/2026/TT-BTC ngày 12/03/2026 quy định chi tiết Luật Thuế thu nhập doanh nghiệp.*
 3. **FIRST Inspires:** *FIRST Tech Challenge Season Timeline & Event Manual 2026–2027.*
 4. **Báo cáo nghiên cứu cơ sở:**
    - Báo cáo R1: `docs/campaign-2026-2027/research/R1-season-team.md`

@@ -42,10 +42,10 @@ Chi phí vận hành và vật tư chế tạo khác nằm ngoài mục tiêu v�
 - ĐỐI TÁC HIỆN VẬT (In-kind Partner): Quy đổi 1:1 cho linh kiện/dụng cụ đúng danh mục 11 món tại mục 2.2 của 04.
 
 5. CĂN CỨ PHÁP LÝ & MINH BẠCH
-Vận động tài trợ tuân thủ Thông tư 16/2018/TT-BGDĐT. Doanh nghiệp tài trợ được xác nhận chứng từ hợp lệ để hạch toán chi phí được trừ khi tính thuế TNDN (CIT) theo quy định Luật Thuế và Thông tư 20/2026/TT-BTC (Mẫu 01/TNDN).
+Vận động tài trợ giáo dục dưới sự bảo trợ của Ban Giám hiệu Trường THPT Sóc Sơn. Mọi khoản đóng góp được mở sổ công khai minh bạch. Doanh nghiệp cần chứng từ kế toán: CLB chuyển Ban Giám hiệu THPT Sóc Sơn hướng dẫn.
 
 LIÊN HỆ ĐỐI NGOẠI:
-- Trưởng ban Đối ngoại: → Xem chi tiết tại docs/campaign-2026-2027/14-phan-cong-nhan-su.md
+- Trưởng ban Đối ngoại: Trần Tuệ Minh · (Xem docs/campaign-2026-2027/14-phan-cong-nhan-su.md)
 - Giáo viên cố vấn / Phụ trách CLB: → Xem chi tiết tại docs/campaign-2026-2027/14-phan-cong-nhan-su.md
 - Trường THPT Sóc Sơn: Quốc lộ 2, xã Phù Lỗ, huyện Sóc Sơn, TP. Hà Nội · (024) 3884 1042.
 - Email: contact@roboticssocson.com · Website: https://roboticssocson.com/support
@@ -88,11 +88,11 @@ The public campaign target covers only these core hardware items and contingency
 - DIAMOND / SEASON PARTNER (25,000,000 VND / ~$969 USD): All above + Center-stage logo on competition robot chassis + Largest logo on jersey + Maker Day recognition plaque + 2 VIP Pit Passes.
 - TECHNICAL / IN-KIND PARTNER: 1:1 value credit only for components/tools in the 11-item hardware list in document 04, section 2.2.
 
-5. LEGAL COMPLIANCE & TAX ADVANTAGE
-Authorized under Circular 16/2018/TT-BGDDT for public school funding. Corporate donations qualify as non-profit educational contributions deductible for Corporate Income Tax (CIT) under Vietnamese Tax Law and Circular 20/2026/TT-BTC.
+5. LEGAL COMPLIANCE & GOVERNANCE
+Authorized under the official sponsorship and governance of Soc Son High School. All contributions are publicly disclosed and transparent. For accounting documents, the school administration provides direct guidance.
 
 CONTACT INFORMATION:
-- External Relations Lead: → See docs/campaign-2026-2027/14-phan-cong-nhan-su.md
+- External Relations Lead: Tran Tue Minh · (See docs/campaign-2026-2027/14-phan-cong-nhan-su.md)
 - Faculty Mentor / Advisor: → See docs/campaign-2026-2027/14-phan-cong-nhan-su.md
 - Soc Son High School: Thinh Duc Street, Soc Son Town, Hanoi, Vietnam.
 - Email: contact@roboticssocson.com · Website: https://roboticssocson.com/support
@@ -129,11 +129,11 @@ graph LR
 - **Slide 4: Cơ Hội Hợp Tác & Quyền Lợi Doanh Nghiệp (The Value Proposition & Packages)**
   - *Tiêu đề:* Đầu Tư Cho Tương Lai — Khẳng Định Trách Nhiệm Xã Hội (CSR).
   - *Nội dung chính:* Bảng so sánh trực quan quyền lợi 4 cấp độ tài trợ: Đồng Hành (3M), Bạc (5M), Vàng (10M), Kim Cương (25M) và Đối tác Hiện vật In-kind.
-  - *Cam kết lợi ích:* Xuất hiện trang trọng trên thân robot, áo đấu, standee giải đấu tại FPT Hòa Lạc; bài PR truyền thông địa phương; chứng từ hợp pháp theo Thông tư 16/2018 và khấu trừ thuế TNDN theo Thông tư 20/2026/TT-BTC.
+  - *Cam kết lợi ích:* Xuất hiện trang trọng trên thân robot, áo đấu, standee giải đấu tại FPT Hòa Lạc; bài PR truyền thông địa phương; chứng nhận tri ân chính thức từ Ban Giám hiệu Trường THPT Sóc Sơn.
 - **Slide 5: Lời Kêu Gọi Hành Động & Kế Hoạch Vận Hành (The Call-to-Action & Contact)**
   - *Tiêu đề:* Hãy Là Mảnh Ghép Quyết Định Cùng Chúng Tôi Bước Ra Sân Khấu Lớn.
   - *Mốc thời gian cấp bách:* 20/11/2026 — Đạt mốc ≥ 17.546.000 VNĐ đặt Control Hub & Viper Slide; 05/12/2026 — Hoàn tất 33.975.000 VNĐ chốt đơn hàng Đợt 2.
-  - *Thông tin liên hệ:* Vai trò/người phụ trách xem 14; tài khoản: **TRAN TUE MINH · 0962969817 · MB Bank** · `[QR: sẽ gửi sau]`.
+  - *Thông tin liên hệ:* Vai trò/người phụ trách xem 14; tài khoản: **TRAN TUE MINH · 0962969817 · MB Bank** · ![Mã QR MB Bank](assets/placeholder.jpg).
 
 ---
 
@@ -159,8 +159,8 @@ Em xin phép gửi đính kèm Hồ sơ Dự án (One-Pager). Chúng em rất mo
 Kính chúc Quý Doanh nghiệp ngày càng phát triển vững mạnh!
 
 Trân trọng,
-Ban Đối ngoại CLB Robotics Sóc Sơn
-Hotline: (Xem docs/campaign-2026-2027/14-phan-cong-nhan-su.md) · Trường THPT Sóc Sơn, Hà Nội
+Trần Tuệ Minh — Trưởng ban Đối ngoại
+CLB Robotics Sóc Sơn · Trường THPT Sóc Sơn, Hà Nội
 Website: https://roboticssocson.com/support · Email: contact@roboticssocson.com
 ```
 
@@ -186,8 +186,8 @@ Please find our 1-page Project Summary attached. We would love the opportunity f
 Thank you very much for your time and consideration.
 
 Warm regards,
-External Relations Team, Robotics Soc Son
-Contact: See docs/campaign-2026-2027/14-phan-cong-nhan-su.md · Soc Son High School, Hanoi
+Tran Tue Minh — External Relations Lead
+Robotics Soc Son Team · Soc Son High School, Hanoi
 Website: https://roboticssocson.com/support · Email: contact@roboticssocson.com
 ```
 
@@ -233,7 +233,7 @@ timeline
     00:00 - 05:00 : Chào hỏi, kết nối & Trình thư giới thiệu của BGH
     05:00 - 12:00 : Trình bày Slide (Video clip giải đấu, robot thực tế, bài toán BIOBUZZ)
     12:00 - 20:00 : Đề xuất tài trợ tiền hoặc hiện vật đúng danh mục 11 món
-    20:00 - 25:00 : Giải đáp thắc mắc về pháp lý TT16, chứng từ thuế CIT & Biên bản 3 bên
+    20:00 - 25:00 : Giải đáp thắc mắc về thỏa thuận 3 bên, tiến độ & cam kết quyền lợi
     25:00 - 30:00 : Thống nhất bước tiếp theo (Ký biên bản ghi nhớ MOU, ấn định ngày giao hàng)
 ```
 
@@ -244,7 +244,7 @@ timeline
 | Lời từ chối phổ biến của Doanh nghiệp | Phân tích tâm lý / Nguyên nhân gốc | Lập luận phản hồi chuẩn (Script xử lý) |
 |---|---|---|
 | **1. "Công ty không có ngân sách tài trợ tiền cho hoạt động này."** | Doanh nghiệp khó giải ngân tiền. | *"Dạ, Quý Công ty có thể tài trợ trực tiếp linh kiện hoặc dụng cụ đúng danh mục 11 món tại mục 2.2 của 04. Chúng em đối chiếu nhu cầu còn thiếu, định giá hợp lệ và ghi nhận quyền lợi theo giá trị thực nhận; không vận động vật tư hay gia công ngoài danh mục."* |
-| **2. "CLB học sinh cấp 3 có đáng tin cậy không? Có xuất được hóa đơn VAT không?"** | Doanh nghiệp e ngại tính minh bạch, sợ chuyển tiền cá nhân không hợp lệ bị cơ quan thuế phạt. | *"Dạ Quý công ty hoàn toàn yên tâm ạ! CLB hoạt động dưới sự bảo trợ chính thức của Trường THPT Sóc Sơn. Doanh nghiệp cần hồ sơ thuế sẽ được Ban Vận động báo cáo Ban Giám hiệu và hướng dẫn xử lý qua trường theo từng trường hợp, đúng Thông tư 16/2018/TT-BGDĐT và Thông tư 20/2026/TT-BTC ạ."* |
+| **2. "CLB học sinh cấp 3 có đáng tin cậy không? Có xuất được hóa đơn VAT không?"** | Doanh nghiệp e ngại tính minh bạch, sợ chuyển tiền cá nhân không hợp lệ bị cơ quan thuế phạt. | *"Dạ Quý công ty hoàn toàn yên tâm ạ! CLB hoạt động dưới sự bảo trợ chính thức của Trường THPT Sóc Sơn. Nhà trường tiếp nhận tài trợ giáo dục phi thương mại và ký Thỏa thuận 3 bên đầy đủ dấu mộc đỏ. Trường hợp Doanh nghiệp cần chứng từ kế toán: CLB sẽ báo cáo Ban Giám hiệu THPT Sóc Sơn hướng dẫn chi tiết theo quy định ạ."* |
 | **3. "Tài trợ cho đội robotics học sinh mang lại lợi ích gì cho công ty chúng tôi?"** | Nghi ngờ về hiệu quả truyền thông (ROI) và độ phủ thương hiệu. | *"Dạ, giải đấu FTC Vietnam được bảo trợ bởi FPT và phát sóng trên báo chí quốc gia (Báo Nhân Dân, Báo Giáo Dục & Thời Đại). Logo của Quý Công ty sẽ xuất hiện trang trọng trên thân robot thi đấu trước hàng nghìn khán giả công nghệ. Đặc biệt, tại địa bàn Sóc Sơn, đây là bằng chứng tuyệt vời nhất cho cam kết CSR an sinh xã hội vì giáo dục của doanh nghiệp, giúp nâng cao thiện cảm của người lao động và chính quyền địa phương ạ!"* |
 | **4. "Thời điểm này cuối năm bận quá, hẹn sang năm nhé."** | Trì hoãn lịch sự vì chưa thấy tính cấp bách. | *"Dạ em hiểu cuối năm là cao điểm chạy chỉ tiêu sản xuất của công ty ạ. Tuy nhiên, linh kiện chuyên dụng FTC chỉ có thể đặt từ Mỹ và phải mất 14–18 ngày vận chuyển. Nếu không chốt đợt 1 trước 20/11, các em học sinh sẽ không kịp có bộ não Control Hub để nạp code Autonomous trước giải đấu tháng 1. Chúng em chỉ xin phép gửi trước bản thiết kế chi tiết để Quý Công ty xem xét trong 2 ngày thôi ạ!"* |
 
@@ -275,7 +275,7 @@ Theo dữ liệu nghiên cứu thị trường R5, có 3 quỹ tài trợ tổ c
 
 ## Nguồn Tham Chiếu
 - `docs/campaign-2026-2027/research/R1-season-team.md` (Lịch trình giải đấu, mã đội FTC #39256, thành tích Á quân Motions In Fire).
-- `docs/campaign-2026-2027/research/R4-legal-payment.md` (Thủ tục vận động tài trợ Thông tư 16/2018/TT-BGDĐT, điều kiện khấu trừ thuế TNDN theo Thông tư 20/2026/TT-BTC, mẫu thỏa thuận tài trợ 3 bên).
+- `docs/campaign-2026-2027/research/R4-legal-payment.md` (Thủ tục vận động tài trợ giáo dục, mẫu thỏa thuận tài trợ 3 bên).
 - `docs/campaign-2026-2027/research/R5-sponsors-benchmarks.md` (Tiêu chí Quỹ Gene Haas Foundation, U.S. Embassy Grants, 53 doanh nghiệp mục tiêu).
 - `docs/campaign-2026-2027/04-ngan-sach-delta.md` (Kế hoạch tài chính 11 linh kiện và quỹ dự phòng: 33.975.000 VNĐ).
 - `docs/campaign-2026-2027/14-phan-cong-nhan-su.md` (Phân công chi tiết nhân sự Ban Đối ngoại và điều phối viên).

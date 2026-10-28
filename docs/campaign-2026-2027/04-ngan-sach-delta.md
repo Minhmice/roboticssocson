@@ -18,7 +18,7 @@ flowchart TD
         HW --> HW4["Động Cơ (2 Yellow Jacket + 2 HD Hex): 6.023.000 VNĐ"]
         HW --> HW5["Camera C920 & Bộ Dụng Cụ (3 món): 3.350.000 VNĐ"]
         
-        CONT --> CONT1["Biến động tỷ giá USD/VND & thuế phí nhập khẩu"]
+        CONT --> CONT1["Biến động tỷ giá USD/VND & chi phí phát sinh"]
         CONT --> CONT2["Cước cân nặng air cargo pin/motor"]
         CONT --> CONT3["Vật tư thay thế hỏng hóc đột xuất khi đấu tập"]
     end
@@ -43,21 +43,10 @@ pie title CƠ CẤU CHI PHÍ MỤC TIÊU (33.975.000 VNĐ)
 - **Căn cứ xác lập:**
   - Tỷ giá bán ra chính thức của Vietcombank ngày 27–28/10/2026.
   - Khi thanh toán mua hàng quốc tế (REV Robotics tại Texas, goBILDA tại Kansas) bằng thẻ thanh toán quốc tế (Visa/Mastercard), ngân hàng thương mại thu phí chuyển đổi ngoại tệ từ 2.5% đến 3.5%.
-  - Mức tỷ giá 25.800 VNĐ/USD đóng vai trò lớp đệm an toàn (Safety Buffer), giúp dự toán ngân sách không bị thâm hụt trước các biến động tỷ giá và định giá tính thuế hải quan tại thời điểm mở tờ khai.
+  - Mức tỷ giá 25.800 VNĐ/USD đóng vai trò lớp đệm an toàn (Safety Buffer), giúp dự toán ngân sách không bị thâm hụt trước các biến động tỷ giá và chi phí phát sinh thực tế khi mở thẻ.
 
-### 1.2. Hệ số chi phí về tay (Landed Cost Multiplier)
-Theo Báo cáo nghiên cứu nhập khẩu `docs/campaign-2026-2027/research/R2-parts-import.md`:
-$$\text{Landed Cost (VNĐ)} = [\text{Giá Web niêm yết (USD)} \times 25.800] \times \text{Multiplier}$$
-Các thành phần cấu thành hệ số Multiplier bao gồm:
-1. Phí thanh toán thẻ quốc tế / dịch vụ mua hộ: **+2.5% – 3.5%**
-2. Cước chuyển phát nội địa Mỹ (từ Texas/Kansas về kho trung chuyển forwarder): **+2.0% – 4.0%**
-3. Cước vận chuyển hàng không chuyên tuyến Mỹ – Hà Nội ($11 – $14/kg): **+6.0% – 15.0%**
-4. Thuế nhập khẩu ưu đãi (MFN) theo mã HS (0% đối với mạch vi xử lý, 0%–3% đối với động cơ, 5% đối với pin): **0% – 5.0%**
-5. Thuế giá trị gia tăng (VAT): **10.0%** tính trên trị giá CIF + Thuế NK.
-6. Phụ thu an toàn hàng không cho pin NiMH và phí mở tờ khai hải quan: **+3.0% – 5.0%**
-
-*Lưu ý thay đổi pháp lý quan trọng:* Kể từ ngày **18/02/2025**, **Quyết định 01/2025/QĐ-TTg** đã chính thức bãi bỏ Quyết định 78/2010/QĐ-TTg. Do đó, **không còn chính sách miễn thuế NK và VAT cho hàng hóa nhập khẩu dưới 1.000.000 VNĐ gửi qua chuyển phát nhanh**. Toàn bộ linh kiện mua lẻ từ nước ngoài đều phải kê khai nộp thuế 10% VAT và chịu phí dịch vụ hải quan. Toàn đội phải gom chung thành các đơn hàng tập trung để tiết kiệm chi phí thủ tục.
-
+### 1.2. Chi phí về tay (Landed Cost)
+Giá đã gồm ship quốc tế, thuế nhập khẩu và VAT (chi tiết: research/R2).
 ---
 
 ## 2. DỰ TOÁN CHI TIẾT 11 LINH KIỆN PHẦN CỨNG DELTA (HARDWARE LANDED COSTS)
@@ -91,7 +80,7 @@ Trong file quản lý nội bộ `docs/INVENTORY - PURCHASE PLAN 2026.csv`, danh
 ### 3.1. Quỹ dự phòng kỹ thuật & tỷ giá (Contingency Buffer)
 - **Mức trích lập:** **3.000.000 VNĐ**.
 - **Mục đích sử dụng:**
-  1. Bù đắp chênh lệch biến động tỷ giá ngoại tệ thực tế khi mở thẻ thanh toán quốc tế và phát sinh thuế hải quan.
+  1. Bù đắp chênh lệch biến động tỷ giá ngoại tệ thực tế khi mở thẻ thanh toán quốc tế và chi phí thủ tục.
   2. Bù đắp phụ thu an toàn hàng không, chênh lệch cước cân nặng air cargo đối với kiện hàng pin NiMH và động cơ nặng.
   3. Mua vật tư thay thế nhanh các chi tiết cơ khí bị gãy hỏng đột xuất trong quá trình thi đấu tập (scrimmage) và hiệu chỉnh robot.
 
@@ -102,7 +91,7 @@ $$\text{Mục tiêu Gây quỹ Công khai} = \text{Phần cứng cốt lõi (11 
 
 $$\text{Mục tiêu} = 30.975.000\text{ VNĐ} + 3.000.000\text{ VNĐ} = \mathbf{33.975.000\text{ VNĐ}}$$
 
-*Lưu ý về hoạt động ngoài mục tiêu:* Maker Day và Merch được tự cấp vốn bằng pre-order và vé, không nằm trong mục tiêu gây quỹ 33.975.000 VNĐ.
+*Lưu ý về hoạt động ngoài mục tiêu:* Maker Day được tự cấp vốn bằng tiền vé, không nằm trong mục tiêu gây quỹ 33.975.000 VNĐ.
 *Fact giải đấu:* FTC Vietnam trao 02 suất dự FIRST Championship (Houston, 28/04–01/05/2027) theo điểm Advancement; mùa gần nhất 2 suất thuộc đội giải Nhất Inspire Award và đội trưởng Liên minh Vô địch (R8). Nguồn: `docs/campaign-2026-2027/research/R1-season-team.md`.
 
 ---
@@ -138,7 +127,7 @@ gantt
 ---
 
 ## NGUỒN TÀI LIỆU THAM CHIẾU
-- `docs/campaign-2026-2027/research/R2-parts-import.md` (Chi tiết giá web REV/goBILDA, biểu thuế hải quan, bãi bỏ QĐ 78/2010 theo QĐ 01/2025/QĐ-TTg, hệ số Landed Cost Multiplier 1.25x – 1.32x).
+- `docs/campaign-2026-2027/research/R2-parts-import.md` (Chi tiết giá web REV/goBILDA, chi phí vận chuyển, hệ số Landed Cost Multiplier 1.25x – 1.32x).
 - `docs/campaign-2026-2027/research/R1-season-team.md` (Quy chế thi đấu FTC Vietnam, 02 suất tham dự FIRST Championship tại Houston).
 - `docs/campaign-2026-2027/99-bien-ban-thao-luan.md` (Biên bản thống nhất mục tiêu chiến dịch 11 linh kiện + 3M dự phòng, tổng 33.975.000 VNĐ).
 - File dữ liệu gốc: `docs/INVENTORY - PURCHASE PLAN 2026.csv`.

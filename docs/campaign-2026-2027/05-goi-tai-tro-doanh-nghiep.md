@@ -1,6 +1,6 @@
 # 05 — DANH MỤC GÓI TÀI TRỢ DOANH NGHIỆP & CHÍNH SÁCH ĐỒNG HÀNH
 
-> **Mục đích:** Tài liệu này quy định chi tiết cấu trúc các gói tài trợ doanh nghiệp, ma trận quyền lợi tri ân, cơ chế khấu trừ 100% thuế TNDN theo Thông tư 20/2026/TT-BTC, nguyên tắc quy đổi tài trợ hiện vật (In-kind 1:1) và chiến lược thứ tự tiếp cận mạng lưới doanh nghiệp mục tiêu cho Robotics Sóc Sơn (FTC #39256) tại mùa giải FIRST Tech Challenge 2026–2027.
+> **Mục đích:** Tài liệu này quy định chi tiết cấu trúc các gói tài trợ doanh nghiệp, ma trận quyền lợi tri ân, nguyên tắc quy đổi tài trợ hiện vật (In-kind 1:1) và chiến lược thứ tự tiếp cận mạng lưới doanh nghiệp mục tiêu cho Robotics Sóc Sơn (FTC #39256) tại mùa giải FIRST Tech Challenge 2026–2027.
 
 ---
 
@@ -27,32 +27,13 @@ flowchart TD
 
 ---
 
-## 1. CĂN CỨ PHÁP LÝ & LỢI ÍCH THUẾ TNDN CHO DOANH NGHIỆP
+## 1. CĂN CỨ PHÁP LÝ & BẢN CHẤT TÀI TRỢ
 
 ### 1.1. Bản chất pháp lý: Tài trợ giáo dục STEM (Education Donation)
 Căn cứ Thông tư 16/2018/TT-BGDĐT và Luật Giáo dục 2019:
 - Trường THPT Sóc Sơn là đơn vị sự nghiệp công lập, không kinh doanh dịch vụ quảng cáo và không xuất hóa đơn giá trị gia tăng (VAT) quảng cáo thương mại.
-- Mối quan hệ hợp tác giữa Nhà tài trợ và Đội tuyển được xác lập dưới hình thức **Hợp đồng / Thỏa thuận tài trợ giáo dục 3 bên** (Doanh nghiệp tài trợ — Trường THPT Sóc Sơn — CLB Robotics Sóc Sơn).
+- Mối quan hệ hợp tác giữa Nhà tài trợ và Đội tuyển được xác lập dưới hình thức **Thỏa thuận tài trợ giáo dục 3 bên** (Doanh nghiệp tài trợ — Trường THPT Sóc Sơn — CLB Robotics Sóc Sơn).
 - Quyền lợi truyền thông của doanh nghiệp được định vị chuẩn mực là **"Tri ân / Ghi nhận nhà tài trợ giáo dục STEM"** (Sponsor Recognition), hoàn toàn hợp pháp và phù hợp với thuần phong mỹ tục học đường.
-
-### 1.2. Khấu trừ 100% Thuế TNDN theo Thông tư 20/2026/TT-BTC
-Căn cứ khoản 5 Điều 3 **Thông tư 20/2026/TT-BTC** (Bộ Tài chính ban hành ngày 12/03/2026, thay thế toàn bộ Thông tư 78/2014/TT-BTC và Thông tư 96/2015/TT-BTC):
-- Doanh nghiệp tài trợ cho các cơ sở giáo dục công lập thuộc hệ thống giáo dục quốc dân được **tính 100% vào chi phí được trừ khi xác định thu nhập chịu thuế TNDN**.
-- Thuế suất thuế TNDN phổ thông hiện hành: **20%**.
-
-#### Bảng tính toán lợi ích tiết kiệm thuế thực tế cho doanh nghiệp:
-
-| Gói tài trợ | Giá trị đóng góp (VNĐ) | Số tiền thuế TNDN được tiết kiệm (20%) | Chi phí thực tế của Doanh nghiệp | Tỷ lệ tiết kiệm chi phí |
-|:---|:---:|:---:|:---:|:---:|
-| **Đồng Hành (Community)** | 3.000.000 ₫ | **600.000 ₫** | 2.400.000 ₫ | 20% |
-| **Bạc (Silver / Mission)** | 5.000.000 ₫ | **1.000.000 ₫** | 4.000.000 ₫ | 20% |
-| **Vàng (Gold / Build)** | 10.000.000 ₫ | **2.000.000 ₫** | 8.000.000 ₫ | 20% |
-| **Kim Cương (Diamond / Season)** | 25.000.000 ₫ | **5.000.000 ₫** | 20.000.000 ₫ | 20% |
-
-#### Bộ hồ sơ chứng từ quyết toán thuế gồm 02 tài liệu chuẩn:
-1. **Biên bản xác nhận khoản tài trợ cho giáo dục:** Lập theo **Mẫu số 01/TNDN** ban hành kèm Thông tư 20/2026/TT-BTC, có chữ ký của người đại diện pháp luật doanh nghiệp và Hiệu trưởng Trường THPT Sóc Sơn kèm đóng dấu mộc đỏ pháp nhân.
-2. **Chứng từ thanh toán không dùng tiền mặt:** Giấy báo Nợ hoặc Ủy nhiệm chi của ngân hàng thể hiện việc chuyển tiền từ tài khoản doanh nghiệp (đối với doanh nghiệp cần chứng từ thuế, khoản tài trợ được hướng dẫn tiếp nhận qua tài khoản trường theo quy định).
-
 ---
 
 ## 2. MA TRẬN QUYỀN LỢI CHI TIẾT CÁC BẬC TÀI TRỢ
@@ -64,7 +45,7 @@ classDiagram
         +Ấn phẩm & Nhận diện đội (Print & Uniform)
         +Hiện diện trên Robot thi đấu (Robot Placement)
         +Sự kiện & Trải nghiệm Pit Lane (VIP & Events)
-        +Tối ưu hóa thuế (Tax Benefits)
+        +Chứng nhận & Tri ân (Recognition)
     }
 ```
 
@@ -72,7 +53,6 @@ classDiagram
 
 | Danh mục quyền lợi | Đồng Hành (3M) | Bạc (5M) | Vàng (10M) | Kim Cương (25M) |
 |:---|:---:|:---:|:---:|:---:|
-| **Hồ sơ thuế TNDN Mẫu 01/TNDN (TT 20/2026)** | Có | Có | Có | Có |
 | **Thư tri ân đóng dấu mộc đỏ Ban Giám Hiệu** | Có | Có | Có | Có |
 | **Kỷ yếu & Báo cáo tổng kết mùa giải** | Logo nhỏ | Logo vừa | Logo chuẩn | Logo trang trọng |
 | **Logo & Lời cảm ơn trên Fanpage CLB** | 01 bài cảm ơn chung | 01 bài cảm ơn riêng | 02 bài PR chuyên sâu | Chiến dịch PR riêng |
@@ -166,7 +146,7 @@ graph TD
 ---
 
 ## NGUỒN TÀI LIỆU THAM CHIẾU
-- `docs/campaign-2026-2027/research/R4-legal-payment.md` (Thông tư 16/2018/TT-BGDĐT, Thông tư 20/2026/TT-BTC về Mẫu 01/TNDN trừ thuế 100%, quy định quảng cáo trường học).
+- `docs/campaign-2026-2027/research/R4-legal-payment.md` (Quy định vận động tài trợ giáo dục và chuẩn mực truyền thông trường học).
 - `docs/campaign-2026-2027/research/R5-sponsors-benchmarks.md` (Hệ thống benchmark tài trợ quốc tế, danh bạ chi tiết 53 doanh nghiệp mục tiêu tại Sóc Sơn và lân cận).
 - `docs/campaign-2026-2027/research/R1-season-team.md` (Quy chuẩn kích thước robot FIRST 18"x18"x18", quy định gắn số hiệu đội #39256).
 - `docs/campaign-2026-2027/99-bien-ban-thao-luan.md` (Biên bản đồng thuận cấu trúc 4 gói tài trợ tiền mặt 3M/5M/10M/25M và cơ chế In-kind 1:1).

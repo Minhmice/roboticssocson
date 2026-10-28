@@ -31,6 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ]
       : []),
     {
+      url: `${origin}/fundraising`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${origin}/recruitment`,
       lastModified,
       changeFrequency: "monthly",

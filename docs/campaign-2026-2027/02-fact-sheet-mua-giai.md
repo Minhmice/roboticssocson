@@ -151,7 +151,7 @@ graph TD
 - **Giáo viên phụ trách / Cố vấn CLB:** → Xem chi tiết tại `docs/campaign-2026-2027/14-phan-cong-nhan-su.md`.
 - **Đại diện Ban chủ nhiệm CLB:** → Xem chi tiết tại `docs/campaign-2026-2027/14-phan-cong-nhan-su.md`.
 - **Email chính thức:** `contact@roboticssocson.com`
-- **Fanpage chính thức:** https://www.facebook.com/roboticssocson/ (số người theo dõi: Facebook chặn đọc công khai, CLB tự cập nhật từ trang quản trị trước khi in hồ sơ — xem [research/R6-social-sponsors.md](research/R6-social-sponsors.md)).
+- **Fanpage chính thức:** https://www.facebook.com/roboticssocson/ (hiện có 860 followers, mục tiêu 1.200 `[ƯỚC TÍNH]`).
 - **Cổng thông tin chiến dịch:** `https://roboticssocson.com/support`
 
 ---

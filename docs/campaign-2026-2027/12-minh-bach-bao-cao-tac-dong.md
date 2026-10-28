@@ -11,7 +11,7 @@ Chúng tôi không xem mối quan hệ tài trợ là giao dịch một chiều 
 ```mermaid
 flowchart LR
     subgraph G1["GIAI ĐOẠN 1<br>Tiếp Nhận & Pháp Lý<br>(Tuần 1 - 2)"]
-        A1[Ký Thỏa thuận 3 bên] --> A2[Hồ sơ Mẫu 01/TNDN nếu DN yêu cầu]
+        A1[Ký Thỏa thuận 3 bên] --> A2[Hồ sơ kế toán nếu DN yêu cầu]
         A2 --> A3[Thư cảm ơn từ BGH & Welcome Kit]
     end
     subgraph G2["GIAI ĐOẠN 2<br>Chế Tạo & Báo Cáo Tuần<br>(Tháng 11 - 12/2026)"]
@@ -33,7 +33,7 @@ flowchart LR
 
 | Giai đoạn | Thời điểm thực hiện | Hành động cụ thể của Đội tuyển & Nhà trường | Ấn phẩm / Sản phẩm bàn giao cho Đối tác |
 |---|---|---|---|
-| **Giai đoạn 1: Onboarding & Pháp lý** | Trong 48h sau khi nhận chuyển khoản | - Gửi thư điện tử xác nhận tài trợ chính thức.<br>- Ký Thỏa thuận 3 bên (nếu doanh nghiệp yêu cầu).<br>- Phối hợp kế toán trường phát hành Biên bản Mẫu 01/TNDN (cho DN chuyển qua trường). | - Bản scan & bản gốc Mẫu 01/TNDN có dấu đỏ.<br>- Thư cảm ơn chính thức từ Hiệu trưởng.<br>- Welcome Kit số (ảnh đại diện đối tác, banner đồng hành). |
+| **Giai đoạn 1: Onboarding & Pháp lý** | Trong 48h sau khi nhận chuyển khoản | - Gửi thư điện tử xác nhận tài trợ chính thức.<br>- Ký Thỏa thuận 3 bên (nếu doanh nghiệp yêu cầu).<br>- Doanh nghiệp cần chứng từ kế toán: CLB chuyển Ban Giám hiệu THPT Sóc Sơn hướng dẫn. | - Chứng từ kế toán và thư cảm ơn chính thức từ Hiệu trưởng.<br>- Welcome Kit số (ảnh đại diện đối tác, banner đồng hành). |
 | **Giai đoạn 2: Chế tạo & Cập nhật tiến độ** | Định kỳ 14 ngày/lần (15/11 – 15/01) | - Gửi email Bản tin Kỹ thuật (Technical Newsletter).<br>- Đăng tải video unbox linh kiện kèm tag thương hiệu.<br>- Mời đại diện doanh nghiệp tham dự ngày hội Maker Day. | - Video thực tế cụm cơ cấu có gắn linh kiện tài trợ.<br>- Thư mời tham quan phòng Lab STEM tại THPT Sóc Sơn.<br>- 02 vé VIP tham dự Maker Day "Can You Beat the Robot?". |
 | **Giai đoạn 3: Giải đấu & Tỏa sáng** | Tuần thi đấu VNCMP (Cuối T1 – T2/2027 `[ƯỚC TÍNH]`) | - Hoàn thiện dán decal logo chuẩn FIRST lên thân robot.<br>- Bố trí standee và ấn phẩm nhận diện tại Pit Lane Hòa Lạc.<br>- Đón tiếp đại diện đối tác đến thăm gian pit. | - Ảnh chụp độ phân giải cao của robot thi đấu trên sân.<br>- Thẻ VIP Pit Pass tham quan hậu trường giải đấu.<br>- Livestream trận đấu có tag tên thương hiệu đối tác. |
 | **Giai đoạn 4: Hậu mùa giải & Tác động** | Trong vòng 20 ngày sau khi bế mạc giải | - Tổ chức lễ tổng kết mùa giải tại Trường THPT Sóc Sơn.<br>- Trao kỷ niệm chương tri ân đối tác.<br>- Bàn giao Báo cáo tác động và Quyết toán tài chính. | - **Cuốn Báo cáo Tác động (Impact Report)** in màu trang trọng.<br>- Kỷ niệm chương chế tác từ nhôm CNC và mica cao cấp.<br>- Giấy chứng nhận đồng hành giáo dục STEM từ nhà trường. |
@@ -73,7 +73,7 @@ Bảng tính Google Sheets được nhúng công khai (chế độ View Only) tr
 | **Ngày ghi nhận** | `DD/MM/YYYY` | Ngày ngân hàng báo Có hoặc ngày ký biên bản giao nhận hiện vật |
 | **Mã chứng từ / Hash** | `String` | 4 chữ số cuối mã giao dịch ngân hàng hoặc số phiếu thu/biên bản |
 | **Bên tài trợ** | `String` | Tên Doanh nghiệp HOẶC Họ tên cá nhân đã che (Ví dụ: `Nguyễn V** A`) |
-| **Kênh tiếp nhận** | `Dropdown` | `TK Tiếp nhận MB Bank (0962969817)` / `Hiện vật In-kind`; hồ sơ thuế doanh nghiệp xử lý qua trường theo từng trường hợp |
+| **Kênh tiếp nhận** | `Dropdown` | `TK Tiếp nhận MB Bank (0962969817)` / `Hiện vật In-kind`; chứng từ kế toán doanh nghiệp xử lý qua trường |
 | **Hạng mục chỉ định** | `Dropdown` | Gói tài trợ (Đồng hành/Bạc/Vàng/Kim cương) hoặc Mission (M1/M2/M3/M4/M5) / Chung |
 | **Số tiền / Định giá** | `Number (VND)` | Số tiền thực nhận ghi có (hoặc giá trị định giá hiện vật theo BOM) |
 | **Hạng mục chi xuất** | `String` | Chi tiết nội dung chi (Ví dụ: Mua REV Control Hub, Cước vận chuyển Mỹ) |
@@ -119,15 +119,15 @@ graph TD
 
 #### Phần III: Số Liệu Đo Lường Tác Động Giáo Dục (Student STEM Metrics)
 Báo cáo cung cấp các chỉ số đo lường cụ thể về sự phát triển của học sinh:
-- **Tổng số giờ nghiên cứu & thực hành STEM tại Lab:** Đạt `[CẦN ĐIỀN: tổng số giờ thực tế tại Lab]` nghiên cứu ngoài giờ học.
-- **Quy mô thành viên thụ hưởng trực tiếp:** `[CẦN ĐIỀN: số lượng thành viên đội tuyển chính thức]` cùng các thành viên CLB học sinh THPT Sóc Sơn.
-- **Tỷ lệ nữ sinh tham gia kỹ thuật (Gender Balance):** `[CẦN ĐIỀN: tỷ lệ nữ sinh thực tế trong đội]`.
+- **Tổng số giờ nghiên cứu & thực hành STEM tại Lab:** Điền sau mùa giải.
+- **Quy mô thành viên thụ hưởng trực tiếp:** Điền sau mùa giải.
+- **Tỷ lệ nữ sinh tham gia kỹ thuật (Gender Balance):** Điền sau mùa giải.
 - **Kỹ năng nghề nghiệp tích lũy:** Rèn luyện kỹ năng thiết kế CAD 3D, lập trình Java trên FIRST Tech Challenge SDK, kỹ năng quản lý dự án và thuyết trình kỹ thuật.
 
 #### Phần IV: Tác Động Lan Tỏa Cộng Đồng (Community Outreach)
 - **Ngày hội STEM Maker Day "Can You Beat the Robot?":**
   - Số lượng học sinh tham gia: 40 học sinh THCS và THPT trên địa bàn huyện Sóc Sơn.
-  - Tỷ lệ hài lòng của học sinh và phụ huynh: `[CẦN ĐIỀN: Khảo sát sau sự kiện, mục tiêu >= 90%]`.
+  - Tỷ lệ hài lòng của học sinh và phụ huynh: Điền sau mùa giải.
   - Hoạt động tự chủ, tạo hiệu ứng lan tỏa STEM địa phương.
 - **Chiến dịch truyền thông số:** Tổng lượt tiếp cận (Reach), lượt tương tác (Engagement) trên Fanpage và các phóng sự báo chí truyền thông ghi nhận về đội.
 
@@ -136,17 +136,18 @@ Bảng cân đối chi tiết toàn bộ các khoản thực chi của chiến d
 
 | STT | Hạng mục chi phí phần cứng & dự phòng | Dự toán duyệt (VND) | Thực chi quyết toán (VND) | Chênh lệch (VND) | Ghi chú & Chứng từ đối soát |
 |:---:|---|---:|---:|---:|---|
-| 1 | **REV Control Hub** (SKU REV-31-1595, SL: 1) | 11.716.000 | `[CẦN ĐIỀN: Thực tế]` | `[± ...]` | Hóa đơn REV Robotics Mỹ |
-| 2 | **Viper Slide Kit 4-Stage** (SL: 1) | 5.830.000 | `[CẦN ĐIỀN: Thực tế]` | `[± ...]` | Hóa đơn goBILDA |
-| 3 | **Pin REV 12V Slim NiMH** (SL: 2) | 4.056.000 | `[CẦN ĐIỀN: Thực tế]` | `[± ...]` | Hóa đơn REV Robotics & cước air cargo |
-| 4 | **Động cơ goBILDA 5202 Yellow Jacket 435 RPM** (SL: 2) | 2.745.000 | `[CẦN ĐIỀN: Thực tế]` | `[± ...]` | Hóa đơn goBILDA Mỹ |
-| 5 | **Động cơ REV UltraPlanetary HD Hex Motor** (SL: 2) | 3.278.000 | `[CẦN ĐIỀN: Thực tế]` | `[± ...]` | Hóa đơn REV Robotics Mỹ |
-| 6 | **Camera Logitech C920 Pro HD** (SL: 1) | 1.850.000 | `[CẦN ĐIỀN: Thực tế]` | `[± ...]` | Hóa đơn đại lý chính hãng VN |
-| 7 | **Bộ chìa lục giác Inch & Mét Wera** (SL: 1) | 850.000 | `[CẦN ĐIỀN: Thực tế]` | `[± ...]` | Hóa đơn nhà phân phối Wera VN |
-| 8 | **Bộ tua vít điện chính xác Wowstick 1F+** (SL: 1) | 650.000 | `[CẦN ĐIỀN: Thực tế]` | `[± ...]` | Hóa đơn đơn vị cung ứng Hà Nội |
-| 9 | **Quỹ dự phòng kỹ thuật & tỷ giá** | 3.000.000 | `[CẦN ĐIỀN: Thực tế]` | `[± ...]` | Nhật ký chi tỷ giá, cước pin/motor, thay thế hỏng hóc |
-| | **TỔNG CỘNG QUYẾT TOÁN** | **33.975.000** | `[CẦN ĐIỀN]` | `[± ...]` | **Khớp 100% với Sổ cái công khai** |
+| 1 | **REV Control Hub** (SKU REV-31-1595, SL: 1) | 11.716.000 | Chưa chi | — | Hóa đơn REV Robotics Mỹ |
+| 2 | **Viper Slide Kit 4-Stage** (SL: 1) | 5.830.000 | Chưa chi | — | Hóa đơn goBILDA |
+| 3 | **Pin REV 12V Slim NiMH** (SL: 2) | 4.056.000 | Chưa chi | — | Hóa đơn REV Robotics & cước air cargo |
+| 4 | **Động cơ goBILDA 5202 Yellow Jacket 435 RPM** (SL: 2) | 2.745.000 | Chưa chi | — | Hóa đơn goBILDA Mỹ |
+| 5 | **Động cơ REV UltraPlanetary HD Hex Motor** (SL: 2) | 3.278.000 | Chưa chi | — | Hóa đơn REV Robotics Mỹ |
+| 6 | **Camera Logitech C920 Pro HD** (SL: 1) | 1.850.000 | Chưa chi | — | Hóa đơn đại lý chính hãng VN |
+| 7 | **Bộ chìa lục giác Inch & Mét Wera** (SL: 1) | 850.000 | Chưa chi | — | Hóa đơn nhà phân phối Wera VN |
+| 8 | **Bộ tua vít điện chính xác Wowstick 1F+** (SL: 1) | 650.000 | Chưa chi | — | Hóa đơn đơn vị cung ứng Hà Nội |
+| 9 | **Quỹ dự phòng kỹ thuật & tỷ giá** | 3.000.000 | Chưa chi | — | Nhật ký chi tỷ giá, cước pin/motor, thay thế hỏng hóc |
+| | **TỔNG CỘNG QUYẾT TOÁN** | **33.975.000** | Chưa chi | — | **Khớp 100% với Sổ cái công khai** |
 
+*(Điền sau khi mua hàng)*
 *(Ghi chú: Nếu có kết dư ngân sách sau khi mua sắm và giải đấu, toàn bộ số dư sẽ được bảo lưu tại quỹ hoạt động STEM của nhà trường để duy trì phòng Lab cho thế hệ học sinh khóa sau theo đúng Điều 7 Thông tư 16/2018/TT-BGDĐT).*
 
 #### Phần VI: Album Bằng Chứng Thực Thi Quyền Lợi (Proof of Execution)
@@ -175,7 +176,6 @@ flowchart LR
 ## Nguồn
 
 1. **Bộ Giáo dục và Đào tạo:** *Thông tư số 16/2018/TT-BGDĐT ngày 03/08/2018 (Điều 6: Tiếp nhận tài trợ; Điều 8: Công khai, báo cáo quyết toán tài trợ).* [thuvienphapluat.vn/van-ban/Giao-duc/Thong-tu-16-2018-TT-BGDDT-393562.aspx](https://thuvienphapluat.vn/van-ban/Giao-duc/Thong-tu-16-2018-TT-BGDDT-quy-dinh-ve-tai-tro-cho-co-so-giao-duc-thuoc-he-thong-giao-duc-quoc-dan-393562.aspx)
-2. **Bộ Tài chính:** *Thông tư số 20/2026/TT-BTC ngày 12/03/2026 (Điều 3: Chi phí được trừ khi xác định thu nhập chịu thuế TNDN).*
 3. **Chính phủ:** *Nghị định số 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân (Quy chuẩn ẩn danh hóa và che thông tin).*
 4. **Báo cáo nghiên cứu cơ sở:**
    - Báo cáo R4: `docs/campaign-2026-2027/research/R4-legal-payment.md`

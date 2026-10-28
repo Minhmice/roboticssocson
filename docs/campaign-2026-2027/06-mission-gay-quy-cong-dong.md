@@ -131,11 +131,11 @@ Dành cho học sinh, sinh viên, cựu học sinh và phụ huynh ủng hộ tr
 
 | Mức đóng góp | Tên gói ủng hộ | Hình tượng quy đổi kỹ thuật | Quyền lợi tri ân cộng đồng |
 |:---:|:---|:---|:---|
-| **50.000 ₫** | **Một Mảnh Ghép (One Piece)** | Tương đương 01 vòng bi chịu lực hoặc bộ ốc chống tuột Nyloc | - Ghi danh trên "Bảng Vàng Tri Ân Online" trên Fanpage CLB.<br>- Nhận thiệp cảm ơn kỹ thuật số (E-Certificate). |
-| **100.000 ₫** | **Bánh Răng Tiếp Sức (Gear Maker)** | Tương đương 01 con trượt T-nut hoặc bánh răng truyền động | - Toàn bộ quyền lợi trên.<br>- Nhận 01 bộ Sticker Pack vinyl chống nước chủ đề BIOBUZZ.<br>- Tên xuất hiện trong phần credit video recap chiến dịch. |
-| **200.000 ₫** | **Nguồn Xung Nhịp (Pulse Starter)** | Tương đương 01 cảm biến hành trình chạm hoặc cáp nối JST chuyên dụng | - Toàn bộ quyền lợi trên.<br>- Nhận 01 móc khóa mica Robotics Sóc Sơn cắt laser độc bản.<br>- Cập nhật bản tin nội bộ "Behind-the-scenes" hàng tuần. |
-| **500.000 ₫** | **Trợ Lực Cơ Khí (Force Booster)** | Tương đương 01 bracket gá motor hoặc 0.5m ray trượt nhôm | - Toàn bộ quyền lợi trên.<br>- Tặng 01 áo thun Season 01 phiên bản giới hạn.<br>- Lời mời danh dự tham dự buổi Open Day chạy thử robot tại trường. |
-| **1.000.000 ₫** | **Kỹ Sư Danh Dự (Honorary Builder)** | Tương đương bảo trợ 01 động cơ REV UltraPlanetary hoặc 0.5 cục pin | - Toàn bộ quyền lợi trên.<br>- Khắc tên cá nhân/gia đình bằng laser lên tấm ốp bảo vệ danh dự của robot.<br>- Nhận kỷ niệm chương mô hình bánh xe Mecanum tri ân. |
+| **50.000 ₫** | **Một Mảnh Ghép (One Piece)** | Góp vào một con ốc, một vòng bi của robot | - Tên trên bài "Cảm ơn người ủng hộ" hằng tuần ở fanpage (nếu đồng ý công khai).<br>- Thiệp cảm ơn bản số. |
+| **100.000 ₫** | **Bánh Răng Tiếp Sức (Gear Maker)** | Góp vào một bánh răng, một đoạn đai truyền | - Toàn bộ quyền lợi trên.<br>- Tên trong phần cảm ơn cuối video tổng kết chiến dịch. |
+| **200.000 ₫** | **Nguồn Xung Nhịp (Pulse Starter)** | Góp vào cáp nối, cảm biến nhỏ | - Toàn bộ quyền lợi trên.<br>- Nhận bản tin hậu trường qua email/Messenger mỗi 2 tuần. |
+| **500.000 ₫** | **Trợ Lực Cơ Khí (Force Booster)** | Góp vào một giá đỡ motor, một đoạn ray trượt | - Toàn bộ quyền lợi trên.<br>- Lời mời dự buổi chạy thử robot tại trường. |
+| **1.000.000 ₫** | **Kỹ Sư Danh Dự (Honorary Builder)** | Gần bằng một động cơ REV HD Hex (1.639.000 ₫) | - Toàn bộ quyền lợi trên.<br>- Tên trên bảng "Kỹ sư danh dự" dán ở khu pit ngày thi (không dán lên robot). |
 
 ---
 
@@ -163,7 +163,7 @@ Trên Landing page và các bài đăng định kỳ của chiến dịch, tiế
   - **Chủ tài khoản:** TRAN TUE MINH
   - **Số tài khoản:** 0962969817
   - **Ngân hàng:** MB Bank (Ngân hàng TMCP Quân đội)
-  - **Mã QR:** `[QR: sẽ gửi sau]`
+  - **Mã QR:** ![Mã QR MB Bank](assets/placeholder.jpg)
 - Bảng cập nhật biến động số dư và sao kê định kỳ được công khai trên website `https://roboticssocson.com` và Fanpage CLB (tự động ẩn 3–4 số cuối tài khoản/số điện thoại theo Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân).
 
 ---
@@ -174,18 +174,18 @@ Trên Landing page và các bài đăng định kỳ của chiến dịch, tiế
 > *"Các anh chị cựu học sinh thân mến,  
 > Dưới mái trường Sóc Sơn năm ấy, chúng ta từng ấp ủ biết bao ước mơ. Hôm nay, các em khóa dưới đang mang màu cờ sắc áo trường huyện ra đấu trường FIRST Tech Challenge. Chỉ cần bớt một ly cà phê, góp 50k – 100k, anh chị đang trực tiếp lắp thêm một bánh răng, một thanh ray giúp cỗ máy robot Sóc Sơn tranh tài tại Vòng chung kết Quốc gia. Hãy cùng các em viết tiếp niềm tự hào Sóc Sơn!"*  
 > **👉 Quét mã VietQR ủng hộ Mission ngay:**  
-> **Chủ TK: TRAN TUE MINH · STK: 0962969817 · MB Bank** · `[QR: sẽ gửi sau]`
+> **Chủ TK: TRAN TUE MINH · STK: 0962969817 · MB Bank** · ![Mã QR MB Bank](assets/placeholder.jpg)
 
 ### 6.2. Dành cho Phụ huynh & Thầy cô giáo (Parents & Educators)
 > *"Kính gửi quý phụ huynh và các thầy cô,  
 > Giáo dục STEM không phải là lý thuyết trên trang sách, mà là giọt mồ hôi bên bàn cơ khí, là những đêm thức trắng cùng dòng lệnh lập trình của con em chúng ta. Mỗi sự tiếp sức hôm nay không chỉ giúp hoàn thiện một cỗ máy, mà là đầu tư cho bản lĩnh, tư duy giải quyết vấn đề và tương lai nghề nghiệp của các con. Hãy đồng hành cùng con tại chiến dịch BUILD THE NEXT ROBOT!"*  
 > **👉 Thông tin đóng góp quỹ:**  
-> **Chủ TK: TRAN TUE MINH · STK: 0962969817 · MB Bank** · `[QR: sẽ gửi sau]`
+> **Chủ TK: TRAN TUE MINH · STK: 0962969817 · MB Bank** · ![Mã QR MB Bank](assets/placeholder.jpg)
 
 ### 6.3. Dành cho Học sinh & Giới trẻ (Students & Gen Z)
 > *"Này Gen Z Sóc Sơn! Ai bảo trường huyện thì không thể chế tạo robot công nghệ cao?  
-> Hãy trở thành một 'Honorary Builder' ngay hôm nay bằng cách đăng ký trải nghiệm Maker Day hoặc sở hữu set sticker BIOBUZZ cực chất. Sự ủng hộ của bạn chính là nguồn năng lượng đưa robot Sóc Sơn đại náo sàn đấu FPT Hòa Lạc!"*  
-> **👉 Đặt vé Maker Day & Merch Pre-order: [Link Form]**
+> Hãy trở thành một 'Honorary Builder' ngay hôm nay bằng cách đăng ký trải nghiệm Maker Day. Sự ủng hộ của bạn chính là nguồn năng lượng đưa robot Sóc Sơn đại náo sàn đấu FPT Hòa Lạc!"*  
+> **👉 Đặt vé Maker Day: [Link Form]**
 
 ---
 

@@ -63,6 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   const navLinks: NavLink[] = useMemo(
     () => [
       { label: t("nav.home"), href: "/" },
+      { label: t("nav.fundraising"), href: "/fundraising" },
       { label: t("nav.recruitment"), href: "/recruitment" },
       ...(courseSurfacesEnabled
         ? [{ label: t("nav.course"), href: "/course" }]

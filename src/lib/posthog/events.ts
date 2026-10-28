@@ -16,6 +16,7 @@ export const AnalyticsEvents = {
   RECRUITMENT_SUBMIT_CLICKED: "recruitment_submit_clicked",
   RECRUITMENT_SUBMITTED: "recruitment_submitted",
   BOOT_LOADER_COMPLETED: "boot_loader_completed",
+  FUNDRAISING_PAGE_VIEWED: "fundraising_page_viewed",
 } as const;
 
 export type AnalyticsEventName =

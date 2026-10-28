@@ -22,3 +22,4 @@ export * from "./courseOffer";
 export * from "./courseTrust";
 export * from "./coursePricing";
 export * from "./arduinoMblockDeck";
+export * from "./fundraising";
