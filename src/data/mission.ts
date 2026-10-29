@@ -3,21 +3,20 @@
  * Input data for Mission component
  */
 
+import type { Localized } from "@/lib/i18n/localized";
+
 export type MissionItem = {
   type: "text" | "image" | "value" | "stats";
   id: string;
-  title_vi?: string;
-  title_en?: string;
-  content_vi?: string;
-  content_en?: string;
+  title?: Localized<string>;
+  content?: Localized<string>;
   // Mobile grid span classes (e.g., "col-span-2")
   mobileSpan?: string;
   span: string; // Grid span classes (e.g., "md:col-span-2 md:row-span-2")
   height?: string; // Desktop height class (e.g., "md:h-[500px]")
   mobileHeight?: string; // Mobile min-height class (e.g., "min-h-[200px]")
   icon?: string; // Icon name for Lucide icons
-  caption_vi?: string;
-  caption_en?: string;
+  caption?: Localized<string>;
   src?: string; // Image source path
   color?: string; // Gradient color classes
   bgColor?: string; // Background color on hover
@@ -29,12 +28,8 @@ export const missionData: readonly MissionItem[] = [
   {
     type: "text",
     id: "mission",
-    title_vi: "Sứ mệnh",
-    title_en: "Our Mission",
-    content_vi:
-      "Mục tiêu và sứ mệnh của Robotics Sóc Sơn khi tham gia FIRST Tech Challenge là phát triển năng lực khoa học – kỹ thuật của học sinh thông qua trải nghiệm thực tiễn, đồng thời lan tỏa tinh thần STEM đến cộng đồng học sinh tại Sóc Sơn và khu vực lân cận.\n\nĐội hướng tới việc xây dựng một môi trường học tập sáng tạo, nơi mỗi thành viên được khuyến khích tư duy độc lập, hợp tác nhóm và giải quyết vấn đề bằng công nghệ.\n\nTham gia FIRST không chỉ là hành trình chinh phục thử thách kỹ thuật, mà còn là cơ hội để Robotics Sóc Sơn rèn luyện bản lĩnh, tinh thần chuyên nghiệp và ý thức trách nhiệm xã hội – trở thành những người trẻ sẵn sàng đóng góp cho tương lai công nghệ Việt Nam.",
-    content_en:
-      "The goal and mission of Robotics Sóc Sơn in participating in the FIRST Tech Challenge is to develop students' scientific and technical abilities through hands-on experience, while promoting the spirit of STEM within the student community in Sóc Sơn and surrounding areas.\n\nThe team aims to build a creative learning environment where every member is encouraged to think independently, collaborate effectively, and solve problems through technology.\n\nFor Robotics Sóc Sơn, joining FIRST is not only a journey of overcoming technical challenges but also an opportunity to cultivate professionalism, resilience, and social responsibility — shaping young innovators ready to contribute to Vietnam's technological future.",
+    title: { vi: "Sứ mệnh", en: "Our Mission" },
+    content: { vi: "Mục tiêu và sứ mệnh của Robotics Sóc Sơn khi tham gia FIRST Tech Challenge là phát triển năng lực khoa học – kỹ thuật của học sinh thông qua trải nghiệm thực tiễn, đồng thời lan tỏa tinh thần STEM đến cộng đồng học sinh tại Sóc Sơn và khu vực lân cận.\n\nĐội hướng tới việc xây dựng một môi trường học tập sáng tạo, nơi mỗi thành viên được khuyến khích tư duy độc lập, hợp tác nhóm và giải quyết vấn đề bằng công nghệ.\n\nTham gia FIRST không chỉ là hành trình chinh phục thử thách kỹ thuật, mà còn là cơ hội để Robotics Sóc Sơn rèn luyện bản lĩnh, tinh thần chuyên nghiệp và ý thức trách nhiệm xã hội – trở thành những người trẻ sẵn sàng đóng góp cho tương lai công nghệ Việt Nam.", en: "The goal and mission of Robotics Sóc Sơn in participating in the FIRST Tech Challenge is to develop students' scientific and technical abilities through hands-on experience, while promoting the spirit of STEM within the student community in Sóc Sơn and surrounding areas.\n\nThe team aims to build a creative learning environment where every member is encouraged to think independently, collaborate effectively, and solve problems through technology.\n\nFor Robotics Sóc Sơn, joining FIRST is not only a journey of overcoming technical challenges but also an opportunity to cultivate professionalism, resilience, and social responsibility — shaping young innovators ready to contribute to Vietnam's technological future." },
     span: "md:col-span-2 md:row-span-2",
     mobileSpan: "col-span-2",
     mobileHeight: "min-h-[260px]",
@@ -51,20 +46,15 @@ export const missionData: readonly MissionItem[] = [
     span: "md:col-span-2 md:row-span-1",
     mobileHeight: "h-[200px]",
     height: "md:h-[215px]",
-    caption_vi: "Robotics Sóc Sơn - Hoạt động đội",
-    caption_en: "Robotics Sóc Sơn - Team activities",
+    caption: { vi: "Robotics Sóc Sơn - Hoạt động đội", en: "Robotics Sóc Sơn - Team activities" },
     src: "/Images/Mission/Image (1).webp",
   },
   // Vision - Medium text card
   {
     type: "text",
     id: "vision",
-    title_vi: "Tầm nhìn",
-    title_en: "Our Vision",
-    content_vi:
-      "Tạo ra một thế hệ học sinh am hiểu công nghệ, đam mê sáng tạo và có khả năng đóng góp tích cực cho xã hội.",
-    content_en:
-      "Create a generation of tech-savvy students passionate about innovation and capable of making positive contributions to society.",
+    title: { vi: "Tầm nhìn", en: "Our Vision" },
+    content: { vi: "Tạo ra một thế hệ học sinh am hiểu công nghệ, đam mê sáng tạo và có khả năng đóng góp tích cực cho xã hội.", en: "Create a generation of tech-savvy students passionate about innovation and capable of making positive contributions to society." },
     mobileSpan: "col-span-2",
     span: "md:col-span-2 md:row-span-1",
     mobileHeight: "min-h-[160px]",
@@ -81,8 +71,7 @@ export const missionData: readonly MissionItem[] = [
     span: "col-span-1 md:col-span-1 md:row-span-1",
     mobileHeight: "h-[200px]",
     height: "md:h-[215px]",
-    caption_vi: "Robotics Sóc Sơn - Thiết kế và lắp ráp",
-    caption_en: "Robotics Sóc Sơn - Design and assembly",
+    caption: { vi: "Robotics Sóc Sơn - Thiết kế và lắp ráp", en: "Robotics Sóc Sơn - Design and assembly" },
     src: "/Images/Mission/Image (2).webp",
   },
   // Image 3
@@ -93,19 +82,15 @@ export const missionData: readonly MissionItem[] = [
     span: "col-span-2 md:col-span-2 md:row-span-1",
     mobileHeight: "min-h-[150px]",
     height: "md:h-[215px]",
-    caption_vi: "Robotics Sóc Sơn - Làm việc nhóm",
-    caption_en: "Robotics Sóc Sơn - Team collaboration",
+    caption: { vi: "Robotics Sóc Sơn - Làm việc nhóm", en: "Robotics Sóc Sơn - Team collaboration" },
     src: "/Images/Mission/Image (3).webp",
   },
   // Core Value 1 - Dynamic
   {
     type: "value",
     id: "value-dynamic",
-    title_vi: "Năng động",
-    title_en: "Dynamic",
-    content_vi:
-      "Luôn sẵn sàng đón nhận thách thức mới và thích ứng nhanh chóng",
-    content_en: "Always ready to embrace new challenges and adapt quickly",
+    title: { vi: "Năng động", en: "Dynamic" },
+    content: { vi: "Luôn sẵn sàng đón nhận thách thức mới và thích ứng nhanh chóng", en: "Always ready to embrace new challenges and adapt quickly" },
     span: "md:col-span-1 md:row-span-1",
     mobileSpan: "col-span-2 sm:col-span-1",
     mobileHeight: "min-h-[170px]",
@@ -119,10 +104,8 @@ export const missionData: readonly MissionItem[] = [
   {
     type: "value",
     id: "value-creative",
-    title_vi: "Sáng tạo",
-    title_en: "Creative",
-    content_vi: "Tư duy đổi mới, giải pháp sáng tạo và ý tưởng độc đáo",
-    content_en: "Innovative thinking, creative solutions, and unique ideas",
+    title: { vi: "Sáng tạo", en: "Creative" },
+    content: { vi: "Tư duy đổi mới, giải pháp sáng tạo và ý tưởng độc đáo", en: "Innovative thinking, creative solutions, and unique ideas" },
     mobileSpan: "col-span-2 sm:col-span-1",
     span: "md:col-span-1 md:row-span-1",
     mobileHeight: "min-h-[170px]",
@@ -140,20 +123,15 @@ export const missionData: readonly MissionItem[] = [
     span: "md:col-span-1 md:row-span-1",
     mobileHeight: "min-h-[170px]",
     height: "md:h-[215px]",
-    caption_vi: "Robotics Sóc Sơn - Thử nghiệm robot",
-    caption_en: "Robotics Sóc Sơn - Robot testing",
+    caption: { vi: "Robotics Sóc Sơn - Thử nghiệm robot", en: "Robotics Sóc Sơn - Robot testing" },
     src: "/Images/Mission/Image (4).webp",
   },
   // Core Value 3 - Discovery
   {
     type: "value",
     id: "value-discovery",
-    title_vi: "Khám phá",
-    title_en: "Discovery",
-    content_vi:
-      "Không ngừng khám phá tri thức và mở rộng giới hạn của bản thân",
-    content_en:
-      "Continuously exploring knowledge and pushing personal boundaries",
+    title: { vi: "Khám phá", en: "Discovery" },
+    content: { vi: "Không ngừng khám phá tri thức và mở rộng giới hạn của bản thân", en: "Continuously exploring knowledge and pushing personal boundaries" },
     mobileSpan: "col-span-2 sm:col-span-1",
     span: "md:col-span-1 md:row-span-1",
     mobileHeight: "min-h-[170px]",
@@ -171,8 +149,7 @@ export const missionData: readonly MissionItem[] = [
     span: "md:col-span-1 md:row-span-1",
     mobileHeight: "h-[200px]",
     height: "md:h-[215px]",
-    caption_vi: "Robotics Sóc Sơn - Thành tích và giải thưởng",
-    caption_en: "Robotics Sóc Sơn - Achievements and awards",
+    caption: { vi: "Robotics Sóc Sơn - Thành tích và giải thưởng", en: "Robotics Sóc Sơn - Achievements and awards" },
     src: "/Images/Mission/Image (5).webp",
   },
   // Image 6
@@ -183,8 +160,7 @@ export const missionData: readonly MissionItem[] = [
     span: "md:col-span-2 md:row-span-1",
     mobileHeight: "h-[200px]",
     height: "md:h-[215px]",
-    caption_vi: "Robotics Sóc Sơn - Hoạt động đội",
-    caption_en: "Robotics Sóc Sơn - Team activities",
+    caption: { vi: "Robotics Sóc Sơn - Hoạt động đội", en: "Robotics Sóc Sơn - Team activities" },
     src: "/Images/Mission/Image (6).webp",
   },
   // Image 7
@@ -195,8 +171,7 @@ export const missionData: readonly MissionItem[] = [
     span: "md:col-span-2 md:row-span-1",
     mobileHeight: "h-[200px]",
     height: "md:h-[215px]",
-    caption_vi: "Robotics Sóc Sơn - Làm việc nhóm",
-    caption_en: "Robotics Sóc Sơn - Team collaboration",
+    caption: { vi: "Robotics Sóc Sơn - Làm việc nhóm", en: "Robotics Sóc Sơn - Team collaboration" },
     src: "/Images/Mission/Image (7).webp",
   },
 ] as const;

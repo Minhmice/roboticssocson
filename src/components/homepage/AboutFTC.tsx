@@ -13,6 +13,8 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { GlowCard } from "@/components/shared/GlowCard";
 import { ImageGallery } from "@/components/shared/ImageGallery";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { localize } from "@/lib/i18n/localized";
+import type { Locale } from "@/lib/i18n/locales";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ftcFeatures, ftcStats, ftcHeader } from "@/data/aboutFTC";
@@ -94,7 +96,8 @@ export default function AboutFTCSection() {
   const featureIds = useMemo(
     () =>
       ftcFeatures.map((_, idx) => ({
-        tab: `${rootId}-ftc-tab-${idx}`,
+        mobileTab: `${rootId}-ftc-mobtab-${idx}`,
+        desktopTab: `${rootId}-ftc-desktab-${idx}`,
         panel: `${rootId}-ftc-panel-${idx}`,
       })),
     [rootId],
@@ -102,10 +105,13 @@ export default function AboutFTCSection() {
 
   const moveFocusToTab = useCallback(
     (nextIdx: number) => {
-      const el = document.getElementById(featureIds[nextIdx]?.tab ?? "");
+      const targetId = isMobile
+        ? featureIds[nextIdx]?.mobileTab
+        : featureIds[nextIdx]?.desktopTab;
+      const el = document.getElementById(targetId ?? "");
       if (el instanceof HTMLButtonElement) el.focus();
     },
-    [featureIds],
+    [featureIds, isMobile],
   );
 
   const handleTabKeyDown = useCallback(
@@ -140,9 +146,9 @@ export default function AboutFTCSection() {
     <section id="about-ftc" className="relative py-12 sm:py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <SectionHeader
-          title={locale === "vi" ? ftcHeader.title_vi : ftcHeader.title_en}
+          title={localize(ftcHeader.title, locale)}
           subtitle={
-            locale === "vi" ? ftcHeader.subtitle_vi : ftcHeader.subtitle_en
+            localize(ftcHeader.subtitle, locale)
           }
           align="center"
         />
@@ -163,7 +169,7 @@ export default function AboutFTCSection() {
                   {stat.value}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  {locale === "vi" ? stat.label_vi : stat.label_en}
+                  {localize(stat.label, locale)}
                 </p>
               </div>
             );
@@ -248,13 +254,13 @@ export default function AboutFTCSection() {
                   >
                     {ftcFeatures.map((feature, idx) => {
                       const title =
-                        locale === "vi" ? feature.title_vi : feature.title_en;
+                        localize(feature.title, locale);
                       const isActive = idx === activeIndex;
 
                       return (
                         <button
-                          key={feature.title_en}
-                          id={featureIds[idx]?.tab}
+                          key={feature.title.en}
+                          id={featureIds[idx]?.mobileTab}
                           role="tab"
                           type="button"
                           aria-selected={isActive}
@@ -305,12 +311,12 @@ export default function AboutFTCSection() {
                     const Icon = feature.icon;
                     const isActive = idx === activeIndex;
                     const title =
-                      locale === "vi" ? feature.title_vi : feature.title_en;
+                      localize(feature.title, locale);
 
                     return (
                       <button
-                        key={feature.title_en}
-                        id={featureIds[idx]?.tab}
+                        key={feature.title.en}
+                        id={featureIds[idx]?.desktopTab}
                         role="tab"
                         type="button"
                         onClick={() => handleSelect(idx)}
@@ -397,8 +403,11 @@ export default function AboutFTCSection() {
                       key={activeIndex}
                       id={featureIds[activeIndex]?.panel}
                       role="tabpanel"
-                      aria-labelledby={featureIds[activeIndex]?.tab}
-                      initial={{ opacity: 0, y: 8 }}
+                      aria-labelledby={
+                        isMobile
+                          ? featureIds[activeIndex]?.mobileTab
+                          : featureIds[activeIndex]?.desktopTab
+                      }
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
                       transition={{
@@ -415,7 +424,16 @@ export default function AboutFTCSection() {
                     </motion.div>
                   </AnimatePresence>
                 ) : (
-                  <div className="space-y-4">
+                  <div
+                    id={featureIds[activeIndex]?.panel}
+                    role="tabpanel"
+                    aria-labelledby={
+                      isMobile
+                        ? featureIds[activeIndex]?.mobileTab
+                        : featureIds[activeIndex]?.desktopTab
+                    }
+                    className="space-y-4"
+                  >
                     <FeaturePanel
                       locale={locale}
                       feature={activeFeature}
@@ -440,13 +458,13 @@ function FeaturePanel({
   feature,
   Icon,
 }: {
-  locale: string;
+  locale: Locale;
   feature: (typeof ftcFeatures)[number];
   Icon: (typeof ftcFeatures)[number]["icon"];
 }) {
-  const title = locale === "vi" ? feature.title_vi : feature.title_en;
+  const title = localize(feature.title, locale);
   const description =
-    locale === "vi" ? feature.description_vi : feature.description_en;
+    localize(feature.description, locale);
 
   return (
     <>
@@ -468,7 +486,7 @@ function FeaturePanel({
           animated={false}
           images={[
             {
-              caption: feature.images[0]?.caption,
+              caption: localize(feature.images[0].caption, locale),
               src: feature.images[0]?.src,
             },
           ]}
@@ -480,7 +498,7 @@ function FeaturePanel({
           layout={feature.imageLayout || "1"}
           animated={false}
           images={feature.images.map((img) => ({
-            caption: img.caption,
+            caption: localize(img.caption, locale),
             src: img.src,
           }))}
         />

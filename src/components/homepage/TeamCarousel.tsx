@@ -5,8 +5,9 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { GlowCard } from "@/components/shared/GlowCard";
 import { MemberCard } from "@/components/ui/member-card";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { localize } from "@/lib/i18n/localized";
 import { teamCarouselData } from "@/data/team";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -18,15 +19,17 @@ export default function TeamCarouselSection() {
   const [itemsPerView, setItemsPerView] = useState(2); // Mobile: 2, Desktop: 3
   const resumeTimeoutRef = useRef<number | null>(null);
 
-  // Update itemsPerView based on screen size
+  // Responsive items per view: mobile 1, tablet 2, desktop 3
   useEffect(() => {
     const updateItemsPerView = () => {
-      if (window.innerWidth >= 768) {
-        setItemsPerView(3); // md: desktop - 3 items
+      if (window.innerWidth >= 1024) {
+        setItemsPerView(3);
+      } else if (window.innerWidth >= 640) {
+        setItemsPerView(2);
       } else {
-        setItemsPerView(2); // mobile - 2 items
+        setItemsPerView(1);
       }
-      setCurrentIndex(0); // Reset to first slide on resize
+      setCurrentIndex(0);
     };
 
     updateItemsPerView();
@@ -97,26 +100,6 @@ export default function TeamCarouselSection() {
     setCurrentIndex((prev) => (prev + 1) % totalSlides);
   }, [pauseAutoFor, totalSlides]);
 
-  // Map role names for MemberCard (from teamCarouselData to MemberCard Role type)
-  const mapRole = useCallback(
-    (role: string): string => {
-      const isVi = locale === "vi";
-      if (role === "President") return isVi ? "Chủ tịch" : "President";
-      if (role === "Vice President") return isVi ? "Phó chủ tịch" : "Vice President";
-      if (role === "Head of Engineering") return "Head of Engineering";
-      if (role === "Head of Programming") return "Head of Programming";
-      if (role === "Head of Media Design") return "Head of Media Design";
-      if (role === "Engineering") return isVi ? "Kỹ thuật" : "Engineering";
-      if (role === "Coding") return isVi ? "Lập trình" : "Coding";
-      if (role === "Media - Design") return isVi ? "Truyền thông - Thiết kế" : "Media - Design";
-      if (role === "Captain") return isVi ? "Đội trưởng" : "Leader";
-      if (role === "Vice Captain") return isVi ? "Đội phó" : "Vice Leader";
-      if (role === "Member") return isVi ? "Thành viên" : "Member";
-      return role;
-    },
-    [locale],
-  );
-
   const i18n = useMemo(() => {
     const isVi = locale === "vi";
     return {
@@ -168,7 +151,6 @@ export default function TeamCarouselSection() {
     <section id="team-carousel" className="relative py-12 sm:py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <SectionHeader
-          badge={i18n.badge}
           title={i18n.title}
           subtitle={i18n.subtitle}
           align="center"
@@ -225,26 +207,28 @@ export default function TeamCarouselSection() {
                 </div>
               ) : (
                 slides.map((members, slideIndex) => {
-                  const isActiveSlide = slideIndex === safeIndex;
                   return (
-                    <div key={slideIndex} className="min-w-full px-3 sm:px-6">
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                  <div key={slideIndex} className="min-w-full px-2 sm:px-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                         {members.map((member, memberIndex) => {
                           const globalIndex = slideIndex * itemsPerView + memberIndex;
+                          const roleText = localize(member.role, locale);
+                          const sloganText = member.slogan ? localize(member.slogan, locale) : undefined;
+                          const classText = member.classInfo ? localize(member.classInfo, locale) : undefined;
 
                           return (
                             <div key={globalIndex} className="group min-w-0">
                               <MemberCard
                                 name={member.name}
-                                role={mapRole(member.role)}
+                                role={roleText}
                                 image={member.image}
                                 src={member.src}
-                                classInfo={member.classInfo}
+                                classInfo={classText}
                                 tags={member.tags}
-                                slogan={member.slogan}
+                                slogan={sloganText}
                                 href={member.href}
                                 showButton={false}
-                                imagePriority={isActiveSlide}
+                                imagePriority={false}
                                 className="h-full w-full"
                               />
                             </div>
@@ -258,52 +242,48 @@ export default function TeamCarouselSection() {
             </div>
           </div>
 
-          <div className="absolute right-2 sm:right-6 bottom-0 z-10 flex gap-2 sm:gap-3">
-            <button
-              onClick={handlePrev}
-              className="h-11 w-11 rounded-full bg-card backdrop-blur-sm border border-border hover:border-primary flex items-center justify-center text-primary hover:text-primary transition-all hover:shadow-glow-blue min-h-[44px] min-w-[44px] disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              aria-label={i18n.prev}
-              disabled={totalSlides <= 1}
-            >
-              <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
-            </button>
+          {/* Control Bar: Autoplay Toggle, Slide Count, Prev / Next */}
+          <div className="mt-6 flex items-center justify-between gap-3 px-1">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsAutoPlaying((prev) => !prev)}
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground/80 hover:text-primary hover:border-primary/40 min-h-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors"
+                aria-label={isAutoPlaying ? (locale === "vi" ? "Tạm dừng tự trượt" : "Pause autoplay") : (locale === "vi" ? "Bật tự trượt" : "Resume autoplay")}
+                aria-pressed={isAutoPlaying}
+              >
+                {isAutoPlaying ? (
+                  <Pause className="h-3.5 w-3.5 text-primary" aria-hidden />
+                ) : (
+                  <Play className="h-3.5 w-3.5 text-primary" aria-hidden />
+                )}
+                <span>{isAutoPlaying ? (locale === "vi" ? "Tự động" : "Auto") : (locale === "vi" ? "Tạm dừng" : "Paused")}</span>
+              </button>
 
-            <button
-              onClick={handleNext}
-              className="h-11 w-11 rounded-full bg-card backdrop-blur-sm border border-border hover:border-primary flex items-center justify-center text-primary hover:text-primary transition-all hover:shadow-glow-blue min-h-[44px] min-w-[44px] disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              aria-label={i18n.next}
-              disabled={totalSlides <= 1}
-            >
-              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
-            </button>
-          </div>
-
-          {/* Dots Indicator */}
-          {totalSlides > 1 && (
-            <div className="flex justify-center gap-2 mt-8">
-              {Array.from({ length: totalSlides }).map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    setCurrentIndex(idx);
-                    pauseAutoFor(9000);
-                  }}
-                  className="group h-11 w-11 min-h-[44px] min-w-[44px] rounded-full grid place-items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                  aria-label={i18n.slide(idx + 1)}
-                >
-                  <span
-                    className={cn(
-                      "h-2 rounded-full transition-all",
-                      idx === safeIndex
-                        ? "w-8 bg-primary"
-                        : "w-2 bg-primary/20 group-hover:bg-primary/30",
-                    )}
-                    aria-hidden
-                  />
-                </button>
-              ))}
+              <span className="text-xs font-medium tabular-nums text-muted-foreground px-2">
+                <strong className="text-foreground">{safeIndex + 1}</strong> / {totalSlides}
+              </span>
             </div>
-          )}
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handlePrev}
+                className="h-11 w-11 rounded-full bg-card border border-border hover:border-primary flex items-center justify-center text-primary transition-all hover:shadow-sm min-h-[44px] min-w-[44px] disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                aria-label={i18n.prev}
+                disabled={totalSlides <= 1}
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+
+              <button
+                onClick={handleNext}
+                className="h-11 w-11 rounded-full bg-card border border-border hover:border-primary flex items-center justify-center text-primary transition-all hover:shadow-sm min-h-[44px] min-w-[44px] disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                aria-label={i18n.next}
+                disabled={totalSlides <= 1}
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

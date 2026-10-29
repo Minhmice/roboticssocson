@@ -7,19 +7,17 @@ import type { ImageGalleryLayout } from "@/components/shared/ImageGallery";
 import { Clock, Target, Box, Users, Award, PersonStanding } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 
+import type { Localized } from "@/lib/i18n/localized";
+
 export interface FTCFeatureImage {
-  readonly caption: string;
-  readonly caption_vi?: string;
-  readonly caption_en?: string;
+  readonly caption: Localized<string>;
   readonly src?: string;
 }
 
 export interface FTCFeature {
   readonly icon: LucideIcon;
-  readonly title_vi: string;
-  readonly title_en: string;
-  readonly description_vi: string;
-  readonly description_en: string;
+  readonly title: Localized<string>;
+  readonly description: Localized<string>;
   readonly iconColor: string;
   readonly bgColor: string;
   readonly imageLayout: ImageGalleryLayout;
@@ -28,150 +26,105 @@ export interface FTCFeature {
 
 export interface FTCStat {
   readonly icon: LucideIcon;
-  readonly label_vi: string;
-  readonly label_en: string;
+  readonly label: Localized<string>;
   readonly value: string;
 }
 
 export interface FTCHeader {
   readonly badge: string;
-  readonly title_vi: string;
-  readonly title_en: string;
-  readonly subtitle_vi: string;
-  readonly subtitle_en: string;
+  readonly title: Localized<string>;
+  readonly subtitle: Localized<string>;
 }
 
 export const ftcHeader: FTCHeader = {
   badge: "FIRST Tech Challenge",
-  title_vi: "FIRST Tech Challenge là gì?",
-  title_en: "What is FTC?",
-  subtitle_vi:
-    "Cuộc thi robotics yêu cầu kỹ thuật cao, tập trung vào STEM và kỹ năng thế kỷ 21",
-  subtitle_en:
-    "High-tech robotics competition focused on STEM and 21st century skills",
+  title: { vi: "FIRST Tech Challenge là gì?", en: "What is FTC?" },
+  subtitle: { vi: "Cuộc thi robotics yêu cầu kỹ thuật cao, tập trung vào STEM và kỹ năng thế kỷ 21", en: "High-tech robotics competition focused on STEM and 21st century skills" },
 } as const;
 
 export const ftcFeatures: readonly FTCFeature[] = [
   {
     icon: Clock,
-    title_vi: "Mùa giải DECODE™ 2025-2026",
-    title_en: "DECODE™ 2025-2026 Season",
-    description_vi:
-      "Mùa giải bắt đầu kickoff 06/09/2025. Robot cần đáp ứng tiêu chuẩn kỹ thuật cao để thi đấu.",
-    description_en:
-      "Season starts with kickoff on September 6, 2025. Robots must meet high technical standards to compete.",
+    title: { vi: "Mùa giải DECODE™ 2025-2026", en: "DECODE™ 2025-2026 Season" },
+    description: { vi: "Mùa giải bắt đầu kickoff 06/09/2025. Robot cần đáp ứng tiêu chuẩn kỹ thuật cao để thi đấu.", en: "Season starts with kickoff on September 6, 2025. Robots must meet high technical standards to compete." },
     iconColor: "text-primary",
     bgColor: "bg-primary/[0.08]",
     imageLayout: "1",
     images: [
       {
-        caption: "Mùa giải DECODE™ 2025-2026",
-        caption_vi: "Mùa giải DECODE™ 2025-2026",
-        caption_en: "DECODE™ 2025-2026 Season",
+        caption: { vi: "Mùa giải DECODE™ 2025-2026", en: "DECODE™ 2025-2026 Season" },
         src: "/Images/About FTC/1.1.webp",
       },
     ],
   },
   {
     icon: Target,
-    title_vi: "Cuộc thi Robotics Khối 7-12",
-    title_en: "Robotics Competition for Grades 7-12",
-    description_vi:
-      "Giải robotics cho học sinh từ lớp 7 đến lớp 12, nơi các đội (tối đa 15 thành viên) thiết kế, chế tạo, lập trình và vận hành robot.",
-    description_en:
-      "Robotics competition for students from grade 7 to 12, where teams (max 15 members) design, build, program and operate robots.",
+    title: { vi: "Cuộc thi Robotics Khối 7-12", en: "Robotics Competition for Grades 7-12" },
+    description: { vi: "Giải robotics cho học sinh từ lớp 7 đến lớp 12, nơi các đội (tối đa 15 thành viên) thiết kế, chế tạo, lập trình và vận hành robot.", en: "Robotics competition for students from grade 7 to 12, where teams (max 15 members) design, build, program and operate robots." },
     iconColor: "text-primary",
     bgColor: "bg-primary/5",
     imageLayout: "2",
     images: [
       {
-        caption: "Sân đấu giải robotics khối 7-12",
-        caption_vi: "Sân đấu giải robotics khối 7-12",
-        caption_en: "Competition field for grades 7-12",
+        caption: { vi: "Sân đấu giải robotics khối 7-12", en: "Competition field for grades 7-12" },
         src: "/Images/About FTC/2.1.webp",
       },
       {
-        caption: "Các đội chuẩn bị thi đấu",
-        caption_vi: "Các đội chuẩn bị thi đấu",
-        caption_en: "Teams preparing for matches",
+        caption: { vi: "Các đội chuẩn bị thi đấu", en: "Teams preparing for matches" },
         src: "/Images/About FTC/2.2.webp",
       },
     ],
   },
   {
     icon: Box,
-    title_vi: "Robot 18x18x18 inch",
-    title_en: "18x18x18 inch Robot",
-    description_vi:
-      'Robot phải lọt trong khối 18"×18"×18" khi xuất phát, sau đó có thể mở rộng theo giới hạn trong Competition Manual.',
-    description_en:
-      "Robot must fit in an 18x18x18 inch cube at match start, then can expand within Competition Manual limits.",
+    title: { vi: "Robot 18x18x18 inch", en: "18x18x18 inch Robot" },
+    description: { vi: 'Robot phải lọt trong khối 18"×18"×18" khi xuất phát, sau đó có thể mở rộng theo giới hạn trong Competition Manual.', en: "Robot must fit in an 18x18x18 inch cube at match start, then can expand within Competition Manual limits." },
     iconColor: "text-primary",
     bgColor: "bg-primary/[0.08]",
     imageLayout: "4",
     images: [
       {
-        caption: "Khối giới hạn 18x18x18 inch",
-        caption_vi: "Khối giới hạn 18x18x18 inch",
-        caption_en: "18x18x18 inch starting cube sizing",
+        caption: { vi: "Khối giới hạn 18x18x18 inch", en: "18x18x18 inch starting cube sizing" },
         src: "/Images/About FTC/3.1.webp",
       },
       {
-        caption: "Kiểm tra kích thước kỹ thuật",
-        caption_vi: "Kiểm tra kích thước kỹ thuật",
-        caption_en: "Technical robot sizing inspection",
+        caption: { vi: "Kiểm tra kích thước kỹ thuật", en: "Technical robot sizing inspection" },
         src: "/Images/About FTC/3.2.webp",
       },
       {
-        caption: "Khung cơ khí chuẩn thi đấu",
-        caption_vi: "Khung cơ khí chuẩn thi đấu",
-        caption_en: "Competition-spec chassis build",
+        caption: { vi: "Khung cơ khí chuẩn thi đấu", en: "Competition-spec chassis build" },
         src: "/Images/About FTC/3.3.webp",
       },
       {
-        caption: "Cơ cấu mở rộng sau xuất phát",
-        caption_vi: "Cơ cấu mở rộng sau xuất phát",
-        caption_en: "Post-start expansion mechanism",
+        caption: { vi: "Cơ cấu mở rộng sau xuất phát", en: "Post-start expansion mechanism" },
         src: "/Images/About FTC/3.4.webp",
       },
     ],
   },
   {
     icon: Users,
-    title_vi: "Mô hình Liên minh",
-    title_en: "Alliance Model",
-    description_vi:
-      "Các đội thi đấu theo mô hình liên minh, tăng cường kỹ năng hợp tác và làm việc nhóm.",
-    description_en:
-      "Teams compete in alliance model, fostering collaboration and teamwork skills.",
+    title: { vi: "Mô hình Liên minh", en: "Alliance Model" },
+    description: { vi: "Các đội thi đấu theo mô hình liên minh, tăng cường kỹ năng hợp tác và làm việc nhóm.", en: "Teams compete in alliance model, fostering collaboration and teamwork skills." },
     iconColor: "text-primary",
     bgColor: "bg-primary/[0.08]",
     imageLayout: "1",
     images: [
       {
-        caption: "Mô hình liên minh thi đấu",
-        caption_vi: "Mô hình liên minh thi đấu",
-        caption_en: "Alliance competition match",
+        caption: { vi: "Mô hình liên minh thi đấu", en: "Alliance competition match" },
         src: "/Images/About FTC/4.1.webp",
       },
     ],
   },
   {
     icon: Award,
-    title_vi: "Kỹ năng Kỹ thuật & Thiết kế",
-    title_en: "Technical & Design Skills",
-    description_vi:
-      "Chương trình nhấn mạnh kỹ năng kỹ thuật, tư duy thiết kế, làm việc nhóm và tinh thần thi đấu công bằng.",
-    description_en:
-      "Program emphasizes technical skills, design thinking, teamwork and sportsmanship.",
+    title: { vi: "Kỹ năng Kỹ thuật & Thiết kế", en: "Technical & Design Skills" },
+    description: { vi: "Chương trình nhấn mạnh kỹ năng kỹ thuật, tư duy thiết kế, làm việc nhóm và tinh thần thi đấu công bằng.", en: "Program emphasizes technical skills, design thinking, teamwork and sportsmanship." },
     iconColor: "text-primary",
     bgColor: "bg-primary/[0.08]",
     imageLayout: "1",
     images: [
       {
-        caption: "Tư duy kỹ thuật và thiết kế",
-        caption_vi: "Tư duy kỹ thuật và thiết kế",
-        caption_en: "Engineering notebook and design iteration",
+        caption: { vi: "Tư duy kỹ thuật và thiết kế", en: "Engineering notebook and design iteration" },
         src: "/Images/About FTC/5.1.webp",
       },
     ],
@@ -180,26 +133,22 @@ export const ftcFeatures: readonly FTCFeature[] = [
 
 export const ftcStats: readonly FTCStat[] = [
   {
-    label_vi: "Đội tối đa",
-    label_en: "Max Teams",
+    label: { vi: "Đội tối đa", en: "Max Teams" },
     value: "15",
     icon: Users,
   },
   {
-    label_vi: "Học sinh khối",
-    label_en: "Grades",
+    label: { vi: "Học sinh khối", en: "Grades" },
     value: "7-12",
     icon: PersonStanding,
   },
   {
-    label_vi: "Kích thước robot",
-    label_en: "Robot Size",
+    label: { vi: "Kích thước robot", en: "Robot Size" },
     value: '18"',
     icon: Target,
   },
   {
-    label_vi: "Mùa giải",
-    label_en: "Season",
+    label: { vi: "Mùa giải", en: "Season" },
     value: "2025",
     icon: Clock,
   },

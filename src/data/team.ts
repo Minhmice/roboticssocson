@@ -4,30 +4,15 @@
  * Supports full MemberCard props
  */
 
+import type { Localized } from "@/lib/i18n/localized";
+
 export type TeamCarouselMember = {
   name: string;
-  role:
-    | "President"
-    | "Vice President"
-    | "Head of Engineering"
-    | "Head of Programming"
-    | "Head of Media Design"
-    | "Captain"
-    | "Vice Captain"
-    | "Member"
-    | "Engineering"
-    | "Coding"
-    | "Media - Design";
-  role_vi?: string;
-  role_en?: string;
+  role: Localized<string>;
   image?: string;
   src?: string;
-  slogan?: string;
-  slogan_vi?: string;
-  slogan_en?: string;
-  classInfo?: string;
-  classInfo_vi?: string;
-  classInfo_en?: string;
+  slogan?: Localized<string>;
+  classInfo?: Localized<string>;
   tags?: string[];
   href?: string;
 };
@@ -35,184 +20,106 @@ export type TeamCarouselMember = {
 export const teamCarouselData: readonly TeamCarouselMember[] = [
   {
     name: "Ngọc",
-    role: "President",
-    role_vi: "Chủ tịch",
-    role_en: "President",
+    role: { vi: "Chủ tịch", en: "President" },
     src: "/Images/Teams/ngoc.webp",
-    slogan: "Định hướng và dẫn dắt Robotics Sóc Sơn",
-    slogan_vi: "Định hướng và dẫn dắt Robotics Sóc Sơn",
-    slogan_en: "Leading the strategic vision of Robotics Sóc Sơn",
-    classInfo: "Class of 2026",
-    classInfo_vi: "Khóa 2026",
-    classInfo_en: "Class of 2026",
+    slogan: { vi: "Định hướng và dẫn dắt Robotics Sóc Sơn", en: "Leading the strategic vision of Robotics Sóc Sơn" },
+    classInfo: { vi: "Khóa 2026", en: "Class of 2026" },
     tags: ["#Leadership", "#FTC2026", "#STEM"],
   },
   {
     name: "Dung",
-    role: "Vice President",
-    role_vi: "Phó chủ tịch",
-    role_en: "Vice President",
+    role: { vi: "Phó chủ tịch", en: "Vice President" },
     src: "/Images/Teams/dung.webp",
-    slogan: "Đồng hành quản lý và phát triển đội tuyển",
-    slogan_vi: "Đồng hành quản lý và phát triển đội tuyển",
-    slogan_en: "Coordinating team operations and growth",
-    classInfo: "Class of 2026",
-    classInfo_vi: "Khóa 2026",
-    classInfo_en: "Class of 2026",
+    slogan: { vi: "Đồng hành quản lý và phát triển đội tuyển", en: "Coordinating team operations and growth" },
+    classInfo: { vi: "Khóa 2026", en: "Class of 2026" },
     tags: ["#Leadership", "#FTC2026", "#STEM"],
   },
   {
     name: "Nguyễn Thành Đạt",
-    role: "Head of Engineering",
-    role_vi: "Trưởng ban Kỹ thuật",
-    role_en: "Head of Engineering",
+    role: { vi: "Trưởng ban Kỹ thuật", en: "Head of Engineering" },
     src: "/Images/Teams/dat.webp",
-    slogan: "Thiết kế cơ khí và tối ưu hóa kết cấu robot",
-    slogan_vi: "Thiết kế cơ khí và tối ưu hóa kết cấu robot",
-    slogan_en: "Mechanical design and structural robot optimization",
-    classInfo: "Class of 2026",
-    classInfo_vi: "Khóa 2026",
-    classInfo_en: "Class of 2026",
+    slogan: { vi: "Thiết kế cơ khí và tối ưu hóa kết cấu robot", en: "Mechanical design and structural robot optimization" },
+    classInfo: { vi: "Khóa 2026", en: "Class of 2026" },
     tags: ["#Engineering", "#FTC2026", "#Hardware"],
   },
   {
     name: "Võ Danh Sơn",
-    role: "Head of Programming",
-    role_vi: "Trưởng ban Lập trình",
-    role_en: "Head of Programming",
+    role: { vi: "Trưởng ban Lập trình", en: "Head of Programming" },
     src: "/Images/Teams/son.webp",
-    slogan: "Phát triển thuật toán điều khiển và tự hành robot",
-    slogan_vi: "Phát triển thuật toán điều khiển và tự hành robot",
-    slogan_en: "Autonomous algorithms and robot control systems",
-    classInfo: "Class of 2026",
-    classInfo_vi: "Khóa 2026",
-    classInfo_en: "Class of 2026",
+    slogan: { vi: "Phát triển thuật toán điều khiển và tự hành robot", en: "Autonomous algorithms and robot control systems" },
+    classInfo: { vi: "Khóa 2026", en: "Class of 2026" },
     tags: ["#Programming", "#Autonomous", "#FTC2026"],
   },
   {
     name: "Chí Huy",
-    role: "Head of Media Design",
-    role_vi: "Trưởng ban Truyền thông",
-    role_en: "Head of Media Design",
+    role: { vi: "Trưởng ban Truyền thông", en: "Head of Media Design" },
     src: "/Images/Teams/chi-huy.webp",
-    slogan: "Sáng tạo hình ảnh và truyền thông câu chuyện của đội",
-    slogan_vi: "Sáng tạo hình ảnh và truyền thông câu chuyện của đội",
-    slogan_en: "Visual storytelling and team identity design",
-    classInfo: "Class of 2026",
-    classInfo_vi: "Khóa 2026",
-    classInfo_en: "Class of 2026",
+    slogan: { vi: "Sáng tạo hình ảnh và truyền thông câu chuyện của đội", en: "Visual storytelling and team identity design" },
+    classInfo: { vi: "Khóa 2026", en: "Class of 2026" },
     tags: ["#Media", "#Design", "#Outreach"],
   },
   {
     name: "Lê Quang Trình",
-    role: "Member",
-    role_vi: "Thành viên",
-    role_en: "Member",
+    role: { vi: "Thành viên", en: "Member" },
     src: "/Images/Teams/trinh.webp",
-    slogan: "Dẫn dắt đội đến thành công",
-    slogan_vi: "Nhiệt huyết thi đấu và chế tạo robot",
-    slogan_en: "Passionate about robotics engineering and competition",
-    classInfo: "Class of 2025",
-    classInfo_vi: "Khóa 2025",
-    classInfo_en: "Class of 2025",
+    slogan: { vi: "Nhiệt huyết thi đấu và chế tạo robot", en: "Passionate about robotics engineering and competition" },
+    classInfo: { vi: "Khóa 2025", en: "Class of 2025" },
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
   {
     name: "Đoàn Thị Thuỳ Ngân",
-    role: "Member",
-    role_vi: "Thành viên",
-    role_en: "Member",
+    role: { vi: "Thành viên", en: "Member" },
     src: "/Images/Teams/ngan.webp",
-    slogan: "Chuyên sâu về kỹ thuật robot và phát triển kỹ năng STEM",
-    slogan_vi: "Chuyên sâu về kỹ thuật robot và phát triển kỹ năng STEM",
-    slogan_en: "Focusing on robot mechanisms and STEM development",
-    classInfo: "Class of 2025",
-    classInfo_vi: "Khóa 2025",
-    classInfo_en: "Class of 2025",
+    slogan: { vi: "Chuyên sâu về kỹ thuật robot và phát triển kỹ năng STEM", en: "Focusing on robot mechanisms and STEM development" },
+    classInfo: { vi: "Khóa 2025", en: "Class of 2025" },
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
   {
     name: "Trần Minh Hiếu",
-    role: "Member",
-    role_vi: "Thành viên",
-    role_en: "Member",
+    role: { vi: "Thành viên", en: "Member" },
     src: "/Images/Teams/hieu.webp",
-    slogan: "Chế tạo cơ khí và hỗ trợ thử nghiệm thực địa",
-    slogan_vi: "Chế tạo cơ khí và hỗ trợ thử nghiệm thực địa",
-    slogan_en: "Mechanical fabrication and field testing",
-    classInfo: "Class of 2026",
-    classInfo_vi: "Khóa 2026",
-    classInfo_en: "Class of 2026",
+    slogan: { vi: "Chế tạo cơ khí và hỗ trợ thử nghiệm thực địa", en: "Mechanical fabrication and field testing" },
+    classInfo: { vi: "Khóa 2026", en: "Class of 2026" },
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
   {
     name: "Nguyễn Anh Duy",
-    role: "Member",
-    role_vi: "Thành viên",
-    role_en: "Member",
+    role: { vi: "Thành viên", en: "Member" },
     src: "/Images/Teams/anh-duy.webp",
-    slogan: "Hỗ trợ lập trình điều khiển và tự hành",
-    slogan_vi: "Hỗ trợ lập trình điều khiển và tự hành",
-    slogan_en: "Control programming and autonomous assistance",
-    classInfo: "Class of 2026",
-    classInfo_vi: "Khóa 2026",
-    classInfo_en: "Class of 2026",
+    slogan: { vi: "Hỗ trợ lập trình điều khiển và tự hành", en: "Control programming and autonomous assistance" },
+    classInfo: { vi: "Khóa 2026", en: "Class of 2026" },
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
   {
     name: "Nguyễn Đoàn Duy Phong",
-    role: "Member",
-    role_vi: "Thành viên",
-    role_en: "Member",
+    role: { vi: "Thành viên", en: "Member" },
     src: "/Images/Teams/duy-phong.webp",
-    slogan: "Lắp ráp phần cứng và bảo trì hệ thống",
-    slogan_vi: "Lắp ráp phần cứng và bảo trì hệ thống",
-    slogan_en: "Hardware assembly and system maintenance",
-    classInfo: "Class of 2026",
-    classInfo_vi: "Khóa 2026",
-    classInfo_en: "Class of 2026",
+    slogan: { vi: "Lắp ráp phần cứng và bảo trì hệ thống", en: "Hardware assembly and system maintenance" },
+    classInfo: { vi: "Khóa 2026", en: "Class of 2026" },
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
   {
     name: "Nguyễn Ngọc Thảo",
-    role: "Member",
-    role_vi: "Thành viên",
-    role_en: "Member",
+    role: { vi: "Thành viên", en: "Member" },
     src: "/Images/Teams/thao.webp",
-    slogan: "Hậu cần đội tuyển và truyền thông sự kiện",
-    slogan_vi: "Hậu cần đội tuyển và truyền thông sự kiện",
-    slogan_en: "Team logistics and event outreach",
-    classInfo: "Class of 2026",
-    classInfo_vi: "Khóa 2026",
-    classInfo_en: "Class of 2026",
+    slogan: { vi: "Hậu cần đội tuyển và truyền thông sự kiện", en: "Team logistics and event outreach" },
+    classInfo: { vi: "Khóa 2026", en: "Class of 2026" },
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
   {
     name: "Nguyễn Hoàng Anh",
-    role: "Member",
-    role_vi: "Thành viên",
-    role_en: "Member",
+    role: { vi: "Thành viên", en: "Member" },
     src: "/Images/Teams/hoang-anh.webp",
-    slogan: "Thử nghiệm cơ cấu nạp và bắn bóng",
-    slogan_vi: "Thử nghiệm cơ cấu nạp và bắn bóng",
-    slogan_en: "Intake and launch mechanism testing",
-    classInfo: "Class of 2026",
-    classInfo_vi: "Khóa 2026",
-    classInfo_en: "Class of 2026",
+    slogan: { vi: "Thử nghiệm cơ cấu nạp và bắn bóng", en: "Intake and launch mechanism testing" },
+    classInfo: { vi: "Khóa 2026", en: "Class of 2026" },
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
   {
     name: "Phạm Đức Vinh",
-    role: "Member",
-    role_vi: "Thành viên",
-    role_en: "Member",
+    role: { vi: "Thành viên", en: "Member" },
     src: "/Images/Teams/vinh.webp",
-    slogan: "Kiểm tra hệ thống điện và cảm biến",
-    slogan_vi: "Kiểm tra hệ thống điện và cảm biến",
-    slogan_en: "Electrical wiring and sensor validation",
-    classInfo: "Class of 2026",
-    classInfo_vi: "Khóa 2026",
-    classInfo_en: "Class of 2026",
+    slogan: { vi: "Kiểm tra hệ thống điện và cảm biến", en: "Electrical wiring and sensor validation" },
+    classInfo: { vi: "Khóa 2026", en: "Class of 2026" },
     tags: ["#FTC2026", "#STEM", "#Innovation"],
   },
 ];
