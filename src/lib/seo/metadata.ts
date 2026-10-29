@@ -5,7 +5,7 @@ import {
   DEFAULT_OG_WIDTH,
 } from "./site-url";
 
-export type Locale = "vi" | "en";
+export type { Locale } from "@/lib/i18n/locales";
 
 export type RouteSeo = {
   title: string;

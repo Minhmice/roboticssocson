@@ -7,7 +7,7 @@ import {
   courseCapstone,
   type CapstoneMedia,
 } from "@/data/courseProjects";
-import { getLocalized, getLocalizedList } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import { cn } from "@/lib/utils";
 import {
   motion,
@@ -174,8 +174,8 @@ function CapstoneShot({
       <MediaPlaceholder
         type="image"
         src={src}
-        alt={getLocalized(media.alt, locale)}
-        caption={getLocalized(media.caption, locale)}
+        alt={localize(media.alt, locale)}
+        caption={localize(media.caption, locale)}
         sizes={sizes}
         className={cn(
           "aspect-16/10 min-h-[180px] w-full sm:min-h-[200px] md:min-h-[220px]",
@@ -215,9 +215,9 @@ export default function CourseProjects() {
   const introHeader = (
     <RevealBlock animated={animated} grouped className="order-1 lg:order-2">
       <SectionHeader
-        title={getLocalized(d.title, locale)}
-        subtitle={getLocalized(d.subtitle, locale)}
-        badge={getLocalized(d.badge, locale)}
+        title={localize(d.title, locale)}
+        subtitle={localize(d.subtitle, locale)}
+        badge={localize(d.badge, locale)}
         align="left"
       />
     </RevealBlock>
@@ -240,10 +240,10 @@ export default function CourseProjects() {
         </span>
         <div className="min-w-0">
           <h3 className="text-xl font-extrabold tracking-tight text-foreground text-balance sm:text-2xl">
-            {getLocalized(d.platformTitle, locale)}
+            {localize(d.platformTitle, locale)}
           </h3>
           <ul className="mt-4 space-y-3 text-sm leading-relaxed text-foreground/90 sm:text-base">
-            {getLocalizedList(d.platformItems, locale).map((item) => (
+            {localize(d.platformItems, locale).map((item) => (
               <li
                 key={item}
                 className={cn(
@@ -275,7 +275,7 @@ export default function CourseProjects() {
     </RevealBlock>
   );
 
-  const arenaRules = getLocalizedList(d.arenaRules, locale).map((rule, i) => (
+  const arenaRules = localize(d.arenaRules, locale).map((rule, i) => (
     <li
       key={rule}
       className={cn(
@@ -299,11 +299,11 @@ export default function CourseProjects() {
       <div className="flex items-center gap-2">
         <Trophy className="h-6 w-6 text-primary" aria-hidden />
         <h3 className="text-xl font-extrabold tracking-tight text-foreground text-balance sm:text-2xl">
-          {getLocalized(d.arenaTitle, locale)}
+          {localize(d.arenaTitle, locale)}
         </h3>
       </div>
       <p className="mt-3 max-w-[65ch] text-pretty text-sm text-foreground/90 sm:text-base">
-        {getLocalized(d.arenaSetup, locale)}
+        {localize(d.arenaSetup, locale)}
       </p>
       <ol className="mt-6 grid gap-3 sm:grid-cols-2 sm:gap-4">{arenaRules}</ol>
     </RevealBlock>
@@ -317,10 +317,10 @@ export default function CourseProjects() {
         </span>
         <div>
           <h3 className="text-[clamp(1.5rem,3.5vw,2.25rem)] font-extrabold tracking-tight text-foreground text-balance">
-            {getLocalized(d.variantsTitle, locale)}
+            {localize(d.variantsTitle, locale)}
           </h3>
           <p className="mt-2 max-w-[62ch] text-pretty text-base text-foreground/85">
-            {getLocalized(d.variantsLead, locale)}
+            {localize(d.variantsLead, locale)}
           </p>
         </div>
       </div>
@@ -355,10 +355,10 @@ export default function CourseProjects() {
                   : "mt-2 text-xl sm:text-2xl",
               )}
             >
-              {getLocalized(variant.title, locale)}
+              {localize(variant.title, locale)}
             </h4>
             <p className="mt-1 max-w-[62ch] text-sm font-semibold text-primary text-pretty sm:text-base">
-              {getLocalized(variant.tagline, locale)}
+              {localize(variant.tagline, locale)}
             </p>
 
             <dl className="mt-5 max-w-[70ch] space-y-5 text-sm leading-relaxed sm:text-base">
@@ -367,7 +367,7 @@ export default function CourseProjects() {
                   {vi ? "Setup" : "Setup"}
                 </dt>
                 <dd className="mt-1 text-pretty text-foreground/85">
-                  {getLocalized(variant.setup, locale)}
+                  {localize(variant.setup, locale)}
                 </dd>
               </div>
               <div>
@@ -376,7 +376,7 @@ export default function CourseProjects() {
                 </dt>
                 <dd className="mt-1.5">
                   <ul className="space-y-2 text-foreground/85">
-                    {getLocalizedList(variant.creative, locale).map((line) => (
+                    {localize(variant.creative, locale).map((line) => (
                       <li key={line} className="flex gap-2.5">
                         <span
                           className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
@@ -393,7 +393,7 @@ export default function CourseProjects() {
                   {vi ? "Cách chơi" : "Gameplay"}
                 </dt>
                 <dd className="mt-1 text-pretty text-foreground/85">
-                  {getLocalized(variant.gameplay, locale)}
+                  {localize(variant.gameplay, locale)}
                 </dd>
               </div>
             </dl>

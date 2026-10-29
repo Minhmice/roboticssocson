@@ -4,7 +4,7 @@ import { FadeInSection } from "@/components/shared/FadeInSection";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { courseLevelingCards, courseSectionCopy } from "@/data/courseSections";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import { getLucideIcon } from "@/lib/course/lucideFromName";
 
 export default function CourseLeveling() {
@@ -18,8 +18,8 @@ export default function CourseLeveling() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <SectionHeader
-          title={getLocalized(copy.title, locale)}
-          subtitle={getLocalized(copy.subtitle, locale)}
+          title={localize(copy.title, locale)}
+          subtitle={localize(copy.subtitle, locale)}
         />
         <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
           {courseLevelingCards.map((level) => {
@@ -31,10 +31,10 @@ export default function CourseLeveling() {
               >
                 <Icon className="h-8 w-8 text-primary mb-4" aria-hidden />
                 <h3 className="text-xl font-bold text-foreground mb-3">
-                  {getLocalized(level.title, locale)}
+                  {localize(level.title, locale)}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  {getLocalized(level.description, locale)}
+                  {localize(level.description, locale)}
                 </p>
               </div>
             );

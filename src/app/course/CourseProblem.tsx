@@ -7,7 +7,7 @@ import {
   courseSectionCopy,
   courseSolutionCards,
 } from "@/data/courseSections";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import { getLucideIcon } from "@/lib/course/lucideFromName";
 import { cn } from "@/lib/utils";
 import {
@@ -406,24 +406,24 @@ export default function CourseProblem() {
   const problemListLabelId = useId();
   const solutionListLabelId = useId();
 
-  const problemTitle = getLocalized(problemCopy.title, locale);
-  const problemSubtitle = getLocalized(problemCopy.subtitle, locale);
+  const problemTitle = localize(problemCopy.title, locale);
+  const problemSubtitle = localize(problemCopy.subtitle, locale);
   const badge = problemCopy.badge
-    ? getLocalized(problemCopy.badge, locale)
+    ? localize(problemCopy.badge, locale)
     : null;
 
-  const solutionTitleLine1 = getLocalized(solutionCopy.title, locale);
+  const solutionTitleLine1 = localize(solutionCopy.title, locale);
   const solutionTitleLine2 = solutionCopy.titleLine2
-    ? getLocalized(solutionCopy.titleLine2, locale)
+    ? localize(solutionCopy.titleLine2, locale)
     : null;
-  const solutionSubtitle = getLocalized(solutionCopy.subtitle, locale);
+  const solutionSubtitle = localize(solutionCopy.subtitle, locale);
 
   const painItems = courseProblemCards.map((item) => {
     const Icon = getLucideIcon(item.icon ?? "Circle");
     return {
       id: item.id,
-      title: getLocalized(item.title, locale),
-      description: getLocalized(item.description, locale),
+      title: localize(item.title, locale),
+      description: localize(item.description, locale),
       Icon,
     };
   });
@@ -431,8 +431,8 @@ export default function CourseProblem() {
   const CapstoneIcon = getLucideIcon(courseProblemCapstone.icon);
   const capstoneItem = {
     id: "problem-capstone",
-    title: getLocalized(courseProblemCapstone.title, locale),
-    description: getLocalized(courseProblemCapstone.description, locale),
+    title: localize(courseProblemCapstone.title, locale),
+    description: localize(courseProblemCapstone.description, locale),
     Icon: CapstoneIcon,
   };
 
@@ -440,8 +440,8 @@ export default function CourseProblem() {
     const Icon = getLucideIcon(item.icon ?? "Circle");
     return {
       id: item.id,
-      title: getLocalized(item.title, locale),
-      description: getLocalized(item.description, locale),
+      title: localize(item.title, locale),
+      description: localize(item.description, locale),
       Icon,
     };
   });

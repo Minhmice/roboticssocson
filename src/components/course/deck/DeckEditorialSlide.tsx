@@ -6,7 +6,7 @@ import { McuFlowDiagram } from "@/components/course/deck/diagrams/McuFlowDiagram
 import type { LayoutRenderContext } from "@/components/course/deck/DeckSlideLayouts";
 import { deckImageReveal, deckRevealTransform } from "@/components/course/deck/deck-motion";
 import { deckBulletList, deckType } from "@/components/course/deck/deck-typography";
-import { getLocalized, type LocalizedText } from "@/lib/course/getLocalized";
+import { localize, type LocalizedText } from "@/lib/i18n/localized";
 import { cn } from "@/lib/utils";
 
 type DeckEditorialSlideProps = {
@@ -49,7 +49,7 @@ export function DeckEditorialSlide({ ctx, imageSide }: DeckEditorialSlideProps) 
   const imageReveal = deckImageReveal(imageSide, imageDelayIndex);
 
   const src = mediaSources[0];
-  const imageLabel = getLocalized(altOf(ctx), locale);
+  const imageLabel = localize(altOf(ctx), locale);
 
   const textColumn = (
     <div
@@ -119,7 +119,7 @@ export function DeckEditorialSlide({ ctx, imageSide }: DeckEditorialSlideProps) 
             )}
           >
             {bullets.map((item, i) => {
-              const text = getLocalized(item, locale);
+              const text = localize(item, locale);
               return (
                 <motion.li
                   key={text}
@@ -153,7 +153,7 @@ export function DeckEditorialSlide({ ctx, imageSide }: DeckEditorialSlideProps) 
             initial={reduced ? false : "hidden"}
             animate="show"
           >
-            {getLocalized(slide.notes, locale)}
+            {localize(slide.notes, locale)}
           </motion.p>
         ) : null}
       </div>

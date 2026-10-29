@@ -1,4 +1,4 @@
-import type { LocalizedText, LocalizedStringList } from "@/lib/course/getLocalized";
+import type { LocalizedStringList, LocalizedText } from "@/lib/i18n/localized";
 
 /** Optional path under /public — leave empty to show MediaPlaceholder. */
 export type CapstoneMedia = {

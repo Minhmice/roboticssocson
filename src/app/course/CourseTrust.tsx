@@ -4,7 +4,7 @@ import { FadeInSection } from "@/components/shared/FadeInSection";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { courseMentors, courseReviews } from "@/data/courseTrust";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 
 export default function CourseTrust() {
   const { locale } = useLanguage();
@@ -35,14 +35,14 @@ export default function CourseTrust() {
               className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-sm"
             >
               <p className="text-pretty text-sm sm:text-base leading-relaxed text-foreground/90">
-                &ldquo;{getLocalized(review.quote, locale)}&rdquo;
+                &ldquo;{localize(review.quote, locale)}&rdquo;
               </p>
               <footer className="mt-4 border-t border-border pt-3">
                 <p className="text-sm font-semibold text-foreground">
-                  {getLocalized(review.name, locale)}
+                  {localize(review.name, locale)}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  {getLocalized(review.role, locale)}
+                  {localize(review.role, locale)}
                 </p>
               </footer>
             </blockquote>
@@ -63,17 +63,17 @@ export default function CourseTrust() {
                   className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-border bg-muted text-sm font-bold text-primary"
                   aria-hidden
                 >
-                  {getLocalized(mentor.name, locale).slice(0, 1)}
+                  {localize(mentor.name, locale).slice(0, 1)}
                 </div>
                 <div className="min-w-0">
                   <h4 className="font-semibold text-foreground">
-                    {getLocalized(mentor.name, locale)}
+                    {localize(mentor.name, locale)}
                   </h4>
                   <p className="text-sm text-primary">
-                    {getLocalized(mentor.title, locale)}
+                    {localize(mentor.title, locale)}
                   </p>
                   <p className="mt-2 text-sm text-foreground/80 text-pretty leading-relaxed">
-                    {getLocalized(mentor.bio, locale)}
+                    {localize(mentor.bio, locale)}
                   </p>
                 </div>
               </article>

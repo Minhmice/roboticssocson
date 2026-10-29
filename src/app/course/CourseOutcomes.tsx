@@ -3,7 +3,7 @@
 import { GlowCard } from "@/components/shared/GlowCard";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { courseOutcomeCards, courseSectionCopy } from "@/data/courseSections";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import { getLucideIcon } from "@/lib/course/lucideFromName";
 import {
   motion,
@@ -117,8 +117,8 @@ export default function CourseOutcomes() {
   const prefersReducedMotion = useReducedMotion();
   const animated = !prefersReducedMotion;
 
-  const title = getLocalized(copy.title, locale);
-  const subtitleFull = getLocalized(copy.subtitle, locale);
+  const title = localize(copy.title, locale);
+  const subtitleFull = localize(copy.subtitle, locale);
   const { lead: subtitleLead, trail: subtitleTrail } =
     splitSubtitle(subtitleFull);
 
@@ -145,8 +145,8 @@ export default function CourseOutcomes() {
     const Icon = getLucideIcon(card.icon ?? "Circle");
     const content = (
       <OutcomeCardContent
-        title={getLocalized(card.title, locale)}
-        description={getLocalized(card.description, locale)}
+        title={localize(card.title, locale)}
+        description={localize(card.description, locale)}
         Icon={Icon}
         animated={animated}
       />

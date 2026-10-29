@@ -1,4 +1,4 @@
-import type { LocalizedText } from "@/lib/course/getLocalized";
+import { type LocalizedText } from "@/lib/i18n/localized";
 
 /** Single-package tuition — Option 1 (no tiers, no comparison table). */
 export const coursePricingConfig = {

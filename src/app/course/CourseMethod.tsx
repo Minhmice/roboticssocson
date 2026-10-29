@@ -6,7 +6,8 @@ import {
   courseMethodSteps,
   courseSectionCopy,
 } from "@/data/courseSections";
-import { getLocalized, type CourseLocale } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
+import type { Locale as CourseLocale } from "@/lib/i18n/locales";
 import { getLucideIcon } from "@/lib/course/lucideFromName";
 import { cn } from "@/lib/utils";
 import {
@@ -64,7 +65,7 @@ function interpolateLabel(
   values: Record<string, string | number>
 ): string {
   if (!template) return "";
-  let text = getLocalized(template, locale);
+  let text = localize(template, locale);
   for (const [key, value] of Object.entries(values)) {
     text = text.replace(`{${key}}`, String(value));
   }
@@ -420,11 +421,11 @@ export default function CourseMethod() {
   const inputLockRef = useRef(false);
   const inputLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const titleLine1 = getLocalized(copy.title, locale);
+  const titleLine1 = localize(copy.title, locale);
   const titleLine2 = copy.titleLine2
-    ? getLocalized(copy.titleLine2, locale)
+    ? localize(copy.titleLine2, locale)
     : null;
-  const subtitle = getLocalized(copy.subtitle, locale);
+  const subtitle = localize(copy.subtitle, locale);
   const progressLabel = interpolateLabel(copy.progressLabel, locale, {
     current: activeIndex + 1,
     total: STEP_COUNT,
@@ -539,7 +540,7 @@ export default function CourseMethod() {
   );
 
   const railContent = courseMethodPhases.map((phase, phaseIndex) => {
-    const phaseTitle = getLocalized(phase.title, locale);
+    const phaseTitle = localize(phase.title, locale);
     const phaseLabelId = `course-method-phase-${phase.id}`;
     const phaseSteps = phase.stepIds
       .map((id) => stepById[id])
@@ -564,7 +565,7 @@ export default function CourseMethod() {
         </li>
         {phaseSteps.map(({ step, index }) => {
           const Icon = getLucideIcon(step.icon ?? "Circle");
-          const title = getLocalized(step.title, locale);
+          const title = localize(step.title, locale);
 
           return (
             <RailItem
@@ -572,7 +573,7 @@ export default function CourseMethod() {
               stepId={step.id}
               index={index}
               title={title}
-              description={getLocalized(step.description, locale)}
+              description={localize(step.description, locale)}
               Icon={Icon}
               animated={animated}
               isActive={activeIndex === index}

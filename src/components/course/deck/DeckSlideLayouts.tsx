@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowLeftRight, ArrowRight, Blocks, Bot, Bug, Cable, Code2, Cog, Cpu, LockOpen, Mic, Monitor, ScanEye, Sparkles, Trophy, Zap } from "lucide-react";
@@ -34,11 +33,8 @@ import { deckBulletList, deckType } from "@/components/course/deck/deck-typograp
 import type { DeckSlide, DeckSlideLayout } from "@/data/arduinoMblockDeck";
 import { domain } from "@/data/settings";
 import { useLanguage } from "@/contexts/LanguageContext";
-import {
-  getLocalized,
-  type CourseLocale,
-  type LocalizedText,
-} from "@/lib/course/getLocalized";
+import { localize, type LocalizedText } from "@/lib/i18n/localized";
+import type { Locale as CourseLocale } from "@/lib/i18n/locales";
 import { cn } from "@/lib/utils";
 
 export type LayoutRenderContext = {
@@ -107,7 +103,7 @@ function Bullets({ items, locale, large = true }: { items: LocalizedText[]; loca
   return (
     <ul className={deckBulletList(large)}>
       {items.map((item) => {
-        const text = getLocalized(item, locale);
+        const text = localize(item, locale);
         return (
           <li key={text} className="flex gap-3" data-deck-enter="item">
             <span className="mt-3 size-2 shrink-0 rounded-full bg-primary" />
@@ -133,7 +129,7 @@ function SlideImage({
   sizes?: string;
 }) {
   const { locale } = useLanguage();
-  const label = getLocalized(alt, locale);
+  const label = localize(alt, locale);
   if (!src) {
     return (
       <div className={cn("flex min-h-[120px] items-center justify-center rounded-xl border border-border bg-muted/40", className)}>
@@ -153,8 +149,8 @@ function SlideImage({
 
 function localizeColumn(col: NonNullable<DeckSlide["left"]>, locale: CourseLocale) {
   return {
-    label: getLocalized(col.label, locale),
-    items: col.items.map((i) => getLocalized(i, locale)),
+    label: localize(col.label, locale),
+    items: col.items.map((i) => localize(i, locale)),
   };
 }
 
@@ -167,7 +163,7 @@ function BridgeCompareLayout({ ctx }: { ctx: LayoutRenderContext }) {
   if (!slide.left || !slide.right) return null;
   const left = localizeColumn(slide.left, locale);
   const right = localizeColumn(slide.right, locale);
-  const notes = slide.notes ? getLocalized(slide.notes, locale) : undefined;
+  const notes = slide.notes ? localize(slide.notes, locale) : undefined;
   const imgA = mediaSources[0];
   const imgB = mediaSources[1] ?? mediaSources[0];
 
@@ -290,7 +286,7 @@ function BridgeToCppLayout({ ctx }: { ctx: LayoutRenderContext }) {
   if (!slide.left || !slide.right) return null;
   const left = localizeColumn(slide.left, locale);
   const right = localizeColumn(slide.right, locale);
-  const notes = slide.notes ? getLocalized(slide.notes, locale) : undefined;
+  const notes = slide.notes ? localize(slide.notes, locale) : undefined;
   const imgA = mediaSources[0];
   const imgB = mediaSources[1] ?? mediaSources[0];
   const headerOffset = section ? 2 : 1;
@@ -512,7 +508,7 @@ function sectionImageAlt(ctx: LayoutRenderContext, index = 0): LocalizedText {
 
 function SectionImageBottom({ ctx, variant }: { ctx: LayoutRenderContext; variant: "split" | "band" | "wide" | "compact" | "emotive" }) {
   const { slide, title, subtitle, section, sectionPartIndex, mediaSources, locale } = ctx;
-  const imageAlt = getLocalized(sectionImageAlt(ctx), locale);
+  const imageAlt = localize(sectionImageAlt(ctx), locale);
   if (slide.id === 8 && variant === "wide") {
     return (
       <DeckSectionChapterSlide
@@ -663,7 +659,7 @@ function MosaicFourUpLayout({ ctx }: { ctx: LayoutRenderContext }) {
           <div className="mt-5 shrink-0 border-t border-border/70 pt-5">
             <ul className="grid grid-cols-4 gap-x-5">
               {bullets.map((b, i) => {
-                const { label, detail } = splitDeckBullet(getLocalized(b, locale));
+                const { label, detail } = splitDeckBullet(localize(b, locale));
                 return (
                   <motion.li
                     key={b.vi}
@@ -711,7 +707,7 @@ function MosaicThreeRowLayout({ ctx }: { ctx: LayoutRenderContext }) {
 
         <div className="mt-5 grid min-h-0 flex-1 grid-cols-3 items-end gap-5 overflow-hidden md:gap-6">
           {cells.map((alt, i) => {
-            const bulletText = bullets[i] ? getLocalized(bullets[i], locale) : "";
+            const bulletText = bullets[i] ? localize(bullets[i], locale) : "";
             const { label } = splitDeckBullet(bulletText);
             return (
               <motion.div
@@ -743,7 +739,7 @@ function MosaicThreeRowLayout({ ctx }: { ctx: LayoutRenderContext }) {
           <div className="mt-5 shrink-0 border-t border-border/70 pt-5">
             <ul className="grid grid-cols-3 gap-x-6">
               {bullets.map((b, i) => {
-                const { label, detail } = splitDeckBullet(getLocalized(b, locale));
+                const { label, detail } = splitDeckBullet(localize(b, locale));
                 const stripText = detail || label;
                 return (
                   <motion.li
@@ -788,7 +784,7 @@ function extractLogicQuote(text: string): { prefix?: string; quote: string } {
 function SoftwareRoleLayout({ ctx }: { ctx: LayoutRenderContext }) {
   const { slide, title, section, locale, mediaSources } = ctx;
   const reduced = Boolean(useReducedMotion());
-  const bullets = slide.bullets?.map((b) => getLocalized(b, locale)) ?? [];
+  const bullets = slide.bullets?.map((b) => localize(b, locale)) ?? [];
   const [intro, ...logicBullets] = bullets;
   const headerOffset = section ? 2 : 1;
   const logicStart = headerOffset + (intro ? 1 : 0);
@@ -908,7 +904,7 @@ function SoftwareRoleLayout({ ctx }: { ctx: LayoutRenderContext }) {
 function FlowBehaviorDiagramLayout({ ctx }: { ctx: LayoutRenderContext }) {
   const { slide, title, section, locale, mediaSources } = ctx;
   const reduced = Boolean(useReducedMotion());
-  const lines = slide.diagram?.map((l) => getLocalized(l, locale)) ?? [];
+  const lines = slide.diagram?.map((l) => localize(l, locale)) ?? [];
   const headerOffset = section ? 2 : 1;
   const flowItems = lines.reduce<
     Array<
@@ -1037,7 +1033,7 @@ function FlowBehaviorDiagramLayout({ ctx }: { ctx: LayoutRenderContext }) {
 
 function DiagramLayout({ ctx, variant }: { ctx: LayoutRenderContext; variant: "side" | "card" | "loop" | "pillars" }) {
   const { slide, title, section, locale, mediaSources } = ctx;
-  const lines = slide.diagram?.map((l) => getLocalized(l, locale)) ?? [];
+  const lines = slide.diagram?.map((l) => localize(l, locale)) ?? [];
 
   if (variant === "pillars" && lines.length >= 3) {
     return (
@@ -1292,7 +1288,7 @@ function RealWorldDebuggingLayout({ ctx }: { ctx: LayoutRenderContext }) {
 
   const left = localizeColumn(slide.left, locale);
   const right = localizeColumn(slide.right, locale);
-  const notes = slide.notes ? getLocalized(slide.notes, locale) : undefined;
+  const notes = slide.notes ? localize(slide.notes, locale) : undefined;
   const headerOffset = section ? 2 : 1;
   const introVariants = reduced ? deckRevealTransform : deckTeachingIntroReveal;
   const bandVariants = reduced ? deckRevealTransform : deckShowcaseBandVariants;
@@ -1478,7 +1474,7 @@ function DebugChecklist({ ctx }: { ctx: LayoutRenderContext }) {
     <Shell>
       <SlideImage src={mediaSources[0]} alt={altOf(slide)} className="mb-4 max-h-[38%] min-h-[120px] w-full" />
       <Header section={section} title={title} />
-      {slide.notes ? <p className={cn("mt-2", deckType.bodyLg)}>{getLocalized(slide.notes, locale)}</p> : null}
+      {slide.notes ? <p className={cn("mt-2", deckType.bodyLg)}>{localize(slide.notes, locale)}</p> : null}
       <div className="mt-4 grid flex-1 gap-4 md:grid-cols-2">
         {cols.map((col) => (
           <div key={col.label} className="rounded-xl border border-dashed border-primary/30 bg-accent/20 p-5">
@@ -1506,7 +1502,7 @@ function RecapThreeCol({ ctx }: { ctx: LayoutRenderContext }) {
         {bullets.map((b, i) => (
           <div key={b.vi} className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-5">
             <SlideImage src={mediaSources[i]} alt={alts[i] ?? b} className="min-h-[100px]" />
-            <p className={deckType.bodyLg}>{getLocalized(b, locale)}</p>
+            <p className={deckType.bodyLg}>{localize(b, locale)}</p>
           </div>
         ))}
       </div>
@@ -1685,7 +1681,7 @@ function MechatronicsHandsOnLayout({ ctx }: { ctx: LayoutRenderContext }) {
                   <Icon className="size-4 md:size-[1.125rem]" strokeWidth={2} aria-hidden />
                 </span>
                 <p className={cn(deckType.body, "min-w-0 flex-1 pt-0.5 font-semibold text-pretty leading-snug")}>
-                  {getLocalized(item, locale)}
+                  {localize(item, locale)}
                 </p>
               </motion.div>
             );
@@ -1761,7 +1757,7 @@ function highlightMblockTitle(title: string, locale: CourseLocale): React.ReactN
 function MblockSectionIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
   const { title, subtitle, section, locale, mediaSources } = ctx;
   const reduced = Boolean(useReducedMotion());
-  const imageAlt = getLocalized(sectionImageAlt(ctx), locale);
+  const imageAlt = localize(sectionImageAlt(ctx), locale);
   const sectionGhost = section ?? "2.2";
   const titleIndex = section ? 1 : 0;
   const bandIndex = section ? 2 : 1;
@@ -2015,7 +2011,7 @@ function highlightBlockTitle(title: string, locale: CourseLocale): React.ReactNo
 function BlockProgrammingLayout({ ctx }: { ctx: LayoutRenderContext }) {
   const { slide, title, section, locale, mediaSources } = ctx;
   const reduced = Boolean(useReducedMotion());
-  const lines = slide.diagram?.map((line) => getLocalized(line, locale)) ?? [];
+  const lines = slide.diagram?.map((line) => localize(line, locale)) ?? [];
   const codeLines = lines.slice(0, 3);
   const outcomes = (lines[3] ?? "")
     .split("·")
@@ -2124,7 +2120,7 @@ function BlockProgrammingLayout({ ctx }: { ctx: LayoutRenderContext }) {
           <div className="absolute inset-0 pt-7 md:pt-8">
             <Image
               src={mediaSources[0]}
-              alt={getLocalized(altOf(slide), locale)}
+              alt={localize(altOf(slide), locale)}
               fill
               className="object-cover object-center"
               sizes="(max-width: 768px) 100vw, 52vw"
@@ -2197,7 +2193,7 @@ function MechanicalFreedomLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 animate="show"
               >
                 <p className={cn(deckType.bodyLg, "font-semibold text-pretty leading-snug")}>
-                  {getLocalized(item, locale)}
+                  {localize(item, locale)}
                 </p>
               </motion.div>
             ))}
@@ -2334,7 +2330,7 @@ function TeachingDualAdvantageBand({
 function TeachingPartIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
   const { title, subtitle, section, locale, mediaSources } = ctx;
   const reduced = Boolean(useReducedMotion());
-  const imageAlt = getLocalized(sectionImageAlt(ctx), locale);
+  const imageAlt = localize(sectionImageAlt(ctx), locale);
   const partGhost = "02";
   const titleIndex = section ? 1 : 0;
   const bandIndex = section ? 2 : 1;
@@ -2561,7 +2557,7 @@ function DisciplineTriadRow({
 function RoboticsPartThreeIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
   const { title, subtitle, section, locale, mediaSources } = ctx;
   const reduced = Boolean(useReducedMotion());
-  const imageAlt = getLocalized(sectionImageAlt(ctx), locale);
+  const imageAlt = localize(sectionImageAlt(ctx), locale);
   const partDigits = section?.replace(/\D/g, "") ?? "3";
   const partGhost = partDigits.padStart(2, "0");
   const disciplines =
@@ -2746,7 +2742,7 @@ const PILLAR_ROLE_LABELS: LocalizedText[] = [
 function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
   const { slide, title, section, locale, mediaSources } = ctx;
   const reduced = Boolean(useReducedMotion());
-  const lines = slide.diagram?.map((line) => getLocalized(line, locale)) ?? [];
+  const lines = slide.diagram?.map((line) => localize(line, locale)) ?? [];
   const pillars = lines.slice(0, 3).map(parsePillarLine);
   const titleIndex = section ? 1 : 0;
   const pillarStart = section ? 2 : 1;
@@ -2838,7 +2834,7 @@ function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
           {pillars.flatMap((pillar, i) => {
             const Icon = PILLAR_ICONS[i] ?? Cog;
             const isCenter = i === 1;
-            const roleLabel = getLocalized(PILLAR_ROLE_LABELS[i] ?? PILLAR_ROLE_LABELS[0], locale);
+            const roleLabel = localize(PILLAR_ROLE_LABELS[i] ?? PILLAR_ROLE_LABELS[0], locale);
             const column = (
               <motion.div
                 key={pillar.label}
@@ -3094,7 +3090,7 @@ function AiIotIntegrationLayout({ ctx }: { ctx: LayoutRenderContext }) {
           {bullets.map((item, i) => {
             const Icon = AI_IOT_FEATURE_ICONS[i] ?? Zap;
             const isHero = i === 1;
-            const capLabel = getLocalized(capabilityLabels[i] ?? capabilityLabels[0], locale);
+            const capLabel = localize(capabilityLabels[i] ?? capabilityLabels[0], locale);
             const panel = (
               <motion.div
                 key={item.vi}
@@ -3128,7 +3124,7 @@ function AiIotIntegrationLayout({ ctx }: { ctx: LayoutRenderContext }) {
                       isHero ? "font-extrabold" : "font-semibold",
                     )}
                   >
-                    {getLocalized(item, locale)}
+                    {localize(item, locale)}
                   </p>
                 </div>
               </motion.div>
@@ -3270,7 +3266,7 @@ function VoiceControlledRobotLayout({ ctx }: { ctx: LayoutRenderContext }) {
         <div className="flex flex-col gap-2 sm:grid sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] sm:items-stretch md:gap-2.5">
           {bullets.map((item, i) => {
             const Icon = VOICE_FLOW_ICONS[i] ?? Zap;
-            const phaseLabel = getLocalized(VOICE_FLOW_PHASES[i] ?? VOICE_FLOW_PHASES[0], locale);
+            const phaseLabel = localize(VOICE_FLOW_PHASES[i] ?? VOICE_FLOW_PHASES[0], locale);
             const isHero = i === 1;
             const panel = (
               <motion.div
@@ -3306,7 +3302,7 @@ function VoiceControlledRobotLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     isHero ? "font-extrabold" : "font-semibold",
                   )}
                 >
-                  {getLocalized(item, locale)}
+                  {localize(item, locale)}
                 </p>
               </motion.div>
             );
@@ -3434,7 +3430,7 @@ function FaceRecognitionExampleLayout({ ctx }: { ctx: LayoutRenderContext }) {
                   <Icon className="size-5 md:size-6" strokeWidth={2.15} />
                 </span>
                 <p className={cn(deckType.body, "min-w-0 flex-1 pt-1 font-bold text-pretty leading-snug")}>
-                  {getLocalized(item, locale)}
+                  {localize(item, locale)}
                 </p>
               </motion.div>
             );
@@ -3530,7 +3526,7 @@ function highlightKidsRoboticsTitle(title: string, locale: CourseLocale): React.
 function KidsRoboticsPartFourLayout({ ctx }: { ctx: LayoutRenderContext }) {
   const { title, subtitle, section, locale, mediaSources } = ctx;
   const reduced = Boolean(useReducedMotion());
-  const imageAlt = getLocalized(sectionImageAlt(ctx), locale);
+  const imageAlt = localize(sectionImageAlt(ctx), locale);
   const partDigits = section?.replace(/\D/g, "") ?? "4";
   const partGhost = partDigits.padStart(2, "0");
   const titleIndex = section ? 1 : 0;
@@ -3794,7 +3790,7 @@ function LearnByDoingActionLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     isHero ? "font-extrabold" : i === 2 ? "font-bold" : "font-semibold",
                   )}
                 >
-                  {getLocalized(item, locale)}
+                  {localize(item, locale)}
                 </p>
               </motion.div>
             );
@@ -3959,7 +3955,7 @@ function TechCompetitionReadyLayout({ ctx }: { ctx: LayoutRenderContext }) {
                       isHero ? "font-extrabold" : isCapstone ? "font-bold" : "font-semibold",
                     )}
                   >
-                    {getLocalized(item, locale)}
+                    {localize(item, locale)}
                   </p>
                 </div>
 
@@ -4059,11 +4055,11 @@ function ShowcaseTrio({ ctx }: { ctx: LayoutRenderContext }) {
         {cells.map((alt, i) => (
           <div key={alt.vi} className="flex flex-col gap-2">
             <SlideImage src={mediaSources[i]} alt={alt} />
-            {labels[i] ? <p className={cn("text-center", deckType.body)}>{getLocalized(labels[i], locale)}</p> : null}
+            {labels[i] ? <p className={cn("text-center", deckType.body)}>{localize(labels[i], locale)}</p> : null}
           </div>
         ))}
       </div>
-      {slide.notes ? <p className={cn("mt-4", deckType.caption)}>{getLocalized(slide.notes, locale)}</p> : null}
+      {slide.notes ? <p className={cn("mt-4", deckType.caption)}>{localize(slide.notes, locale)}</p> : null}
     </Shell>
   );
 }
@@ -4269,7 +4265,7 @@ export function renderDeckLayout(ctx: LayoutRenderContext): React.ReactNode {
       return <RecapThreeCol ctx={ctx} />;
 
     case "closing-qr": {
-      const qrAlt = getLocalized(altOf(slide), locale);
+      const qrAlt = localize(altOf(slide), locale);
       const qrSrc = mediaSources[0];
       const courseUrl = `https://${domain}/course`;
       const scanHint =

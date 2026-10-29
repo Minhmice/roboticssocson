@@ -27,7 +27,7 @@ export interface FIRSTImageCaption {
 }
 
 export const firstHeader: FIRSTHeader = {
-  badge: "About FIRST",
+  badge: "About FIRST®",
   title_vi: "Về FIRST®",
   title_en: "About FIRST®",
   subtitle_vi: "Tổ chức phi lợi nhuận truyền cảm hứng STEM toàn cầu",
@@ -45,8 +45,8 @@ export const firstInfoCard = {
     "FIRST tổ chức nhiều chương trình và cuộc thi robotics ở các cấp độ khác nhau: FIRST LEGO League (FLL), FIRST Tech Challenge (FTC) và FIRST Robotics Competition (FRC).",
   paragraph2_en:
     "FIRST organizes robotics programs at different levels: FIRST LEGO League (FLL), FIRST Tech Challenge (FTC) and FIRST Robotics Competition (FRC).",
-  host_vi: "Vietnam",
-  host_en: "Việt Nam",
+  host_vi: "Việt Nam",
+  host_en: "Vietnam",
   hostOrganization: "FPT University",
 } as const;
 
@@ -68,7 +68,7 @@ export const firstImpactCard = {
     },
     {
       icon: Rocket,
-      value: "Thousands",
+      value: "10,000+",
       label_vi: "hàng nghìn đội thi trên toàn cầu",
       label_en: "thousands of teams globally",
     },

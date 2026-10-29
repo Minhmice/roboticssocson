@@ -9,7 +9,7 @@ import {
   coursePricingConfig,
   coursePricingCopy,
 } from "@/data/coursePricing";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import {
   COURSE_SCROLL_VIEWPORT,
   EASE_OUT_QUART,
@@ -100,14 +100,14 @@ function PricingCard({
     <div className="relative">
       <p className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/10 px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-[0.12em] text-primary">
         <Sparkles className="size-3.5 shrink-0" aria-hidden />
-        {getLocalized(coursePricingCopy.eyebrow, locale)}
+        {localize(coursePricingCopy.eyebrow, locale)}
       </p>
 
       <h2
         id={HEADING_ID}
         className="mt-5 text-balance text-[clamp(1.75rem,4.2vw,2.5rem)] font-black leading-[1.1] tracking-tight text-foreground"
       >
-        {getLocalized(coursePricingCopy.title, locale)}
+        {localize(coursePricingCopy.title, locale)}
       </h2>
 
       {reduced ? (
@@ -127,7 +127,7 @@ function PricingCard({
       )}
 
       <p className="mt-4 max-w-[52ch] text-pretty text-sm leading-relaxed text-foreground/85 sm:text-base">
-        {getLocalized(coursePricingCopy.transparency, locale)}
+        {localize(coursePricingCopy.transparency, locale)}
       </p>
 
       <BenefitChecklist locale={locale} reduced={reduced} />
@@ -184,10 +184,10 @@ function PriceDisplay({ locale }: { locale: "vi" | "en" }) {
   return (
     <>
       <p className="font-mono text-[clamp(2.75rem,8vw,4rem)] font-black tabular-nums leading-none tracking-tight text-foreground">
-        {getLocalized(coursePricingCopy.priceDisplay, locale)}
+        {localize(coursePricingCopy.priceDisplay, locale)}
       </p>
       <p className="mt-3 text-base font-bold text-foreground sm:text-lg">
-        {getLocalized(coursePricingCopy.supporting, locale)}
+        {localize(coursePricingCopy.supporting, locale)}
       </p>
     </>
   );
@@ -212,7 +212,7 @@ function BenefitChecklist({
               <Check className="size-4 text-primary" strokeWidth={2.75} />
             </span>
             <span className="text-pretty text-sm font-semibold leading-snug text-foreground/90 sm:text-base">
-              {getLocalized(benefit.text, locale)}
+              {localize(benefit.text, locale)}
             </span>
           </li>
         ))}
@@ -241,7 +241,7 @@ function BenefitChecklist({
             <Check className="size-4 text-primary" strokeWidth={2.75} />
           </span>
           <span className="text-pretty text-sm font-semibold leading-snug text-foreground/90 sm:text-base">
-            {getLocalized(benefit.text, locale)}
+            {localize(benefit.text, locale)}
           </span>
         </motion.li>
       ))}
@@ -262,14 +262,14 @@ function CtaPanel({
     <>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
         <CTAButton
-          label={getLocalized(coursePricingCopy.ctaPrimary, locale)}
+          label={localize(coursePricingCopy.ctaPrimary, locale)}
           variant="primary"
           href="/course-register-form"
           onClick={onPrimaryClick}
           className="w-full min-h-[48px] flex-1 text-base font-bold shadow-[0_8px_24px_rgba(37,99,235,0.32)] sm:text-lg"
         />
         <CTAButton
-          label={getLocalized(coursePricingCopy.ctaSecondary, locale)}
+          label={localize(coursePricingCopy.ctaSecondary, locale)}
           variant="secondary"
           href="#course-curriculum"
           onClick={onSecondaryClick}
@@ -278,7 +278,7 @@ function CtaPanel({
       </div>
       <p className="flex items-center justify-center gap-2 text-center text-xs font-medium text-foreground/75 sm:text-sm">
         <ArrowRight className="size-3.5 shrink-0 text-primary" aria-hidden />
-        {getLocalized(coursePricingCopy.onboardHint, locale)}
+        {localize(coursePricingCopy.onboardHint, locale)}
       </p>
     </>
   );
@@ -315,14 +315,14 @@ export default function CoursePricing() {
   const onPrimaryClick = useCallback(() => {
     trackPricingCta(
       "/course-register-form",
-      getLocalized(coursePricingCopy.ctaPrimary, locale),
+      localize(coursePricingCopy.ctaPrimary, locale),
     );
   }, [locale]);
 
   const onSecondaryClick = useCallback(() => {
     trackPricingCta(
       "#course-curriculum",
-      getLocalized(coursePricingCopy.ctaSecondary, locale),
+      localize(coursePricingCopy.ctaSecondary, locale),
     );
   }, [locale]);
 

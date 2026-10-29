@@ -9,7 +9,7 @@ import {
   courseAiUsageCards,
   courseSectionCopy,
 } from "@/data/courseSections";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import { getLucideIcon } from "@/lib/course/lucideFromName";
 
 export default function CourseAIUsage() {
@@ -23,8 +23,8 @@ export default function CourseAIUsage() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <SectionHeader
-          title={getLocalized(copy.title, locale)}
-          subtitle={getLocalized(copy.subtitle, locale)}
+          title={localize(copy.title, locale)}
+          subtitle={localize(copy.subtitle, locale)}
         />
         <GlowCard hover={false} className="max-w-4xl mx-auto">
           <ul className="grid gap-4 sm:grid-cols-2">
@@ -35,10 +35,10 @@ export default function CourseAIUsage() {
                   <Icon className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden />
                   <div>
                     <h3 className="font-medium text-foreground text-sm">
-                      {getLocalized(item.title, locale)}
+                      {localize(item.title, locale)}
                     </h3>
                     <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-                      {getLocalized(item.description, locale)}
+                      {localize(item.description, locale)}
                     </p>
                   </div>
                 </li>
@@ -46,7 +46,7 @@ export default function CourseAIUsage() {
             })}
           </ul>
           <p className="mt-6 pt-6 border-t border-border text-sm font-medium text-foreground">
-            {getLocalized(courseAiClosingLine, locale)}
+            {localize(courseAiClosingLine, locale)}
           </p>
         </GlowCard>
       </div>

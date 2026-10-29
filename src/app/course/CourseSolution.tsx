@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import { courseSectionCopy, courseSolutionCards } from "@/data/courseSections";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import { getLucideIcon } from "@/lib/course/lucideFromName";
 import {
   motion,
@@ -148,11 +148,11 @@ export default function CourseSolution() {
   const prefersReducedMotion = useReducedMotion();
   const animated = !prefersReducedMotion;
 
-  const titleLine1 = getLocalized(copy.title, locale);
+  const titleLine1 = localize(copy.title, locale);
   const titleLine2 = copy.titleLine2
-    ? getLocalized(copy.titleLine2, locale)
+    ? localize(copy.titleLine2, locale)
     : null;
-  const subtitle = getLocalized(copy.subtitle, locale);
+  const subtitle = localize(copy.subtitle, locale);
 
   const railItems = courseSolutionCards.map((item, index) => {
     const Icon = getLucideIcon(item.icon ?? "Circle");
@@ -161,8 +161,8 @@ export default function CourseSolution() {
     return (
       <RailItem
         key={item.id}
-        title={getLocalized(item.title, locale)}
-        description={getLocalized(item.description, locale)}
+        title={localize(item.title, locale)}
+        description={localize(item.description, locale)}
         Icon={Icon}
         isLast={isLast}
         animated={animated}

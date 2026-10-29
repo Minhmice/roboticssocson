@@ -1,4 +1,4 @@
-import type { LocalizedText } from "@/lib/course/getLocalized";
+import { type LocalizedText } from "@/lib/i18n/localized";
 
 /**
  * TODO(curriculum): Marketing promises 16 sessions (`coursePricingConfig.sessionCount`).

@@ -1,4 +1,4 @@
-import type { LocalizedText } from "@/lib/course/getLocalized";
+import { type LocalizedText } from "@/lib/i18n/localized";
 
 /** FTC 2025-2026 season budget. Totals are derived, never hardcoded. */
 export type FundraisingCategoryId = "hardware" | "tools" | "fees";

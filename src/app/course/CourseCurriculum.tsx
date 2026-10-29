@@ -10,7 +10,8 @@ import {
   type CoursePart,
 } from "@/data/courseCurriculum";
 import { courseSectionCopy } from "@/data/courseSections";
-import { getLocalized, type CourseLocale } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
+import type { Locale as CourseLocale } from "@/lib/i18n/locales";
 import { cn } from "@/lib/utils";
 import {
   motion,
@@ -68,7 +69,7 @@ function interpolateLabel(
   locale: CourseLocale,
   values: Record<string, string | number>
 ): string {
-  let text = getLocalized(template, locale);
+  let text = localize(template, locale);
   for (const [key, value] of Object.entries(values)) {
     text = text.replace(`{${key}}`, String(value));
   }
@@ -87,7 +88,7 @@ type PhaseNavProps = {
 
 function PhaseNav({ activePhase, onSelectPhase, layout }: PhaseNavProps) {
   const { locale } = useLanguage();
-  const navLabel = getLocalized(curriculumFieldLabels.phaseNavLabel, locale);
+  const navLabel = localize(curriculumFieldLabels.phaseNavLabel, locale);
 
   if (layout === "chips") {
     return (
@@ -112,7 +113,7 @@ function PhaseNav({ activePhase, onSelectPhase, layout }: PhaseNavProps) {
                     : "border-border bg-card text-foreground hover:border-primary/30 hover:bg-accent"
                 )}
               >
-                {getLocalized(meta.label, locale)}
+                {localize(meta.label, locale)}
               </button>
             );
           })}
@@ -146,10 +147,10 @@ function PhaseNav({ activePhase, onSelectPhase, layout }: PhaseNavProps) {
                     isActive ? "text-primary" : "text-foreground"
                   )}
                 >
-                  {getLocalized(meta.label, locale)}
+                  {localize(meta.label, locale)}
                 </span>
                 <span className="mt-0.5 block text-sm text-foreground/70 leading-snug">
-                  {getLocalized(meta.description, locale)}
+                  {localize(meta.description, locale)}
                 </span>
               </button>
             </li>
@@ -385,7 +386,7 @@ function LessonRailItem({
   animated,
 }: LessonRailItemProps) {
   const { locale } = useLanguage();
-  const title = getLocalized(lesson.title, locale);
+  const title = localize(lesson.title, locale);
   const titleId = `curriculum-lesson-${lesson.id}-title`;
 
   const isCapstone = lesson.id === CAPSTONE_ID;
@@ -442,7 +443,7 @@ function LessonRailItem({
           {title}
         </h3>
         <p className="mt-1.5 text-sm text-foreground/75 leading-relaxed text-pretty break-words">
-          {getLocalized(lesson.product, locale)}
+          {localize(lesson.product, locale)}
         </p>
       </div>
     </>
@@ -584,20 +585,17 @@ export default function CourseCurriculum() {
     return () => sessionObserver.disconnect();
   }, [locale]);
 
-  const title = getLocalized(copy.title, locale);
+  const title = localize(copy.title, locale);
   const titleLine2 = copy.titleLine2
-    ? getLocalized(copy.titleLine2, locale)
+    ? localize(copy.titleLine2, locale)
     : null;
-  const subtitle = getLocalized(copy.subtitle, locale);
+  const subtitle = localize(copy.subtitle, locale);
   const progressLabel = interpolateLabel(
     curriculumFieldLabels.progressLabel,
     locale,
     { current: activeSessionIndex + 1, total: SESSION_COUNT }
   );
-  const lessonsListLabel = getLocalized(
-    curriculumFieldLabels.lessonsListLabel,
-    locale
-  );
+  const lessonsListLabel = localize(curriculumFieldLabels.lessonsListLabel, locale);
   const staticProgress =
     SESSION_COUNT > 1 ? activeSessionIndex / (SESSION_COUNT - 1) : 0;
 
@@ -627,7 +625,7 @@ export default function CourseCurriculum() {
               className="text-sm font-semibold text-foreground/90 break-words"
               style={{ paddingInlineStart: PHASE_LABEL_OFFSET }}
             >
-              {getLocalized(meta.label, locale)}
+              {localize(meta.label, locale)}
             </p>
           </div>
         </li>

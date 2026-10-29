@@ -4,7 +4,7 @@ import { BootLink } from "@/components/shared/BootLink";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { coursePricingCopy } from "@/data/coursePricing";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import {
   COURSE_SCROLL_VIEWPORT,
   EASE_OUT_QUART,
@@ -228,7 +228,7 @@ export default function CourseRegister() {
               {reduced ? (
                 <>
                   <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/12 px-4 py-1.5 text-sm font-bold text-white shadow-sm">
-                    {getLocalized(coursePricingCopy.priceDisplay, locale)}
+                    {localize(coursePricingCopy.priceDisplay, locale)}
                     <span className="text-white/75">·</span>
                     <span className="font-semibold text-blue-50/90">
                       {locale === "vi" ? "trọn khóa" : "full course"}
@@ -253,7 +253,7 @@ export default function CourseRegister() {
                     {...stagger(0.04)}
                     className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/12 px-4 py-1.5 text-sm font-bold text-white shadow-sm"
                   >
-                    {getLocalized(coursePricingCopy.priceDisplay, locale)}
+                    {localize(coursePricingCopy.priceDisplay, locale)}
                     <span className="text-white/75">·</span>
                     <span className="font-semibold text-blue-50/90">
                       {locale === "vi" ? "trọn khóa" : "full course"}

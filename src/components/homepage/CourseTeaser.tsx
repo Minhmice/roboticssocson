@@ -5,7 +5,7 @@ import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { courseHeroData } from "@/data/courseHero";
 import { courseTeaserCopy, courseTeaserSteps } from "@/data/courseTeaser";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import { cn } from "@/lib/utils";
 import { ArrowRight, BookOpen } from "lucide-react";
 import {
@@ -47,8 +47,8 @@ export default function CourseTeaser() {
   const prefersReducedMotion = useReducedMotion();
   const animated = !prefersReducedMotion;
 
-  const title = getLocalized(courseTeaserCopy.title, locale);
-  const titleHighlight = getLocalized(courseTeaserCopy.titleHighlight, locale);
+  const title = localize(courseTeaserCopy.title, locale);
+  const titleHighlight = localize(courseTeaserCopy.titleHighlight, locale);
   const heroImage = courseHeroData.heroImage;
 
   return (
@@ -70,7 +70,7 @@ export default function CourseTeaser() {
           <header className="min-w-0">
             <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card px-4 py-1.5 text-sm font-medium text-primary shadow-sm">
               <BookOpen className="h-3.5 w-3.5" aria-hidden />
-              {getLocalized(courseTeaserCopy.badge, locale)}
+              {localize(courseTeaserCopy.badge, locale)}
             </span>
 
             <h2 className="text-balance text-[clamp(2.125rem,5vw,3.5rem)] font-bold leading-[1.08] tracking-[-0.025em] text-foreground">
@@ -78,19 +78,20 @@ export default function CourseTeaser() {
             </h2>
 
             <p className="mt-5 max-w-[36rem] text-pretty text-[clamp(1.0625rem,1.8vw,1.3125rem)] leading-[1.55] text-foreground/80">
-              {getLocalized(courseTeaserCopy.subtitle, locale)}
+              {localize(courseTeaserCopy.subtitle, locale)}
             </p>
 
-            <div className="mt-7 flex flex-col sm:flex-row items-stretch gap-3 sm:gap-4">
-              <span className="inline-flex w-full sm:flex-1 items-center justify-center rounded-xl border border-primary/20 bg-card px-6 sm:px-8 py-3 text-base font-medium text-primary shadow-sm min-h-[48px] text-center">
-                {getLocalized(courseTeaserCopy.stat, locale)}
-              </span>
+            <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
               <CTAButton
-                label={getLocalized(courseTeaserCopy.cta, locale)}
+                label={localize(courseTeaserCopy.cta, locale)}
                 variant="primary"
                 href="/course"
-                className="w-full sm:flex-1 min-h-[48px] px-6 sm:px-8 text-base shadow-[0_4px_14px_rgba(37,99,235,0.28)]"
+                className="min-h-[48px] px-8 text-base shadow-sm justify-center"
               />
+              <span className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-4 py-2.5 text-xs sm:text-sm font-medium text-foreground/80">
+                <span className="h-2 w-2 rounded-full bg-primary" aria-hidden />
+                {localize(courseTeaserCopy.stat, locale)}
+              </span>
             </div>
           </header>
 
@@ -100,14 +101,14 @@ export default function CourseTeaser() {
                 <MediaPlaceholder
                   type="image"
                   src={heroImage.src}
-                  alt={getLocalized(heroImage.alt, locale)}
+                  alt={localize(heroImage.alt, locale)}
                   flush
                   className="absolute inset-0 m-0"
                   sizes="(max-width: 1024px) 100vw, 680px"
                 />
               </div>
               <figcaption className="border-t border-border bg-card px-4 py-3 text-sm font-medium text-foreground/85">
-                {getLocalized(heroImage.caption, locale)}
+                {localize(heroImage.caption, locale)}
               </figcaption>
             </div>
           </figure>
@@ -115,7 +116,7 @@ export default function CourseTeaser() {
 
         <div className="mt-14 md:mt-16">
           <p className="mb-6 text-base font-semibold text-foreground">
-            {getLocalized(courseTeaserCopy.journeyLabel, locale)}
+            {localize(courseTeaserCopy.journeyLabel, locale)}
           </p>
 
           <ol className="grid gap-5 md:grid-cols-3 md:gap-4">
@@ -134,7 +135,7 @@ export default function CourseTeaser() {
                 >
                   <span
                     aria-hidden
-                    className="pointer-events-none absolute -right-1 -top-3 select-none text-[4.5rem] font-black leading-none text-primary/[0.08] sm:text-[5.5rem]"
+                    className="pointer-events-none absolute -right-1 -top-2 select-none text-4xl sm:text-5xl font-black leading-none text-primary/10"
                   >
                     {stepNumber}
                   </span>
@@ -144,10 +145,10 @@ export default function CourseTeaser() {
                       {stepNumber}
                     </p>
                     <h3 className="mt-2 text-xl font-bold text-foreground">
-                      {getLocalized(step.title, locale)}
+                      {localize(step.title, locale)}
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-foreground/80 text-pretty">
-                      {getLocalized(step.description, locale)}
+                      {localize(step.description, locale)}
                     </p>
                   </div>
 

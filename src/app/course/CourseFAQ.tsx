@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { courseFaq, courseFaqSectionCopy } from "@/data/courseFaq";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import {
   COURSE_SCROLL_VIEWPORT,
   COURSE_SCROLL_VIEWPORT_DEEP,
@@ -65,8 +65,8 @@ export default function CourseFAQ() {
           transition={{ duration: 0.4, ease: motionEase }}
         >
           <SectionHeader
-            title={getLocalized(courseFaqSectionCopy.title, locale)}
-            subtitle={getLocalized(courseFaqSectionCopy.subtitle, locale)}
+            title={localize(courseFaqSectionCopy.title, locale)}
+            subtitle={localize(courseFaqSectionCopy.subtitle, locale)}
           />
         </motion.div>
 
@@ -110,13 +110,13 @@ export default function CourseFAQ() {
                   )}
                 >
                   <span className="min-w-0 flex-1 pt-1.5 text-pretty leading-snug sm:pt-1">
-                    {getLocalized(item.question, locale)}
+                    {localize(item.question, locale)}
                   </span>
                   <CourseFaqToggle />
                 </AccordionTrigger>
                 <AccordionContent className="px-0 pb-0 pt-0">
                   <div className="w-full px-4 pb-5 text-left text-sm leading-relaxed text-pretty text-foreground/85 sm:px-5">
-                    {getLocalized(item.answer, locale)}
+                    {localize(item.answer, locale)}
                   </div>
                 </AccordionContent>
               </AccordionItem>

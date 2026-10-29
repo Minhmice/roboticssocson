@@ -6,6 +6,10 @@
 export interface AchievementImage {
   readonly src: string;
   readonly caption: string;
+  readonly caption_vi?: string;
+  readonly caption_en?: string;
+  readonly loading?: "lazy" | "eager";
+  readonly priority?: boolean;
 }
 
 export interface Achievement {
@@ -18,6 +22,8 @@ export interface Achievement {
   readonly description_en: string;
   readonly competition: string;
   readonly participants?: string;
+  readonly participants_vi?: string;
+  readonly participants_en?: string;
   readonly images?: readonly AchievementImage[];
 }
 

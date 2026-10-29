@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { deckRevealStagger } from "@/components/course/deck/deck-motion";
@@ -98,13 +98,10 @@ export function DeckSectionSlide({
             initial={reduced ? false : "hidden"}
             animate="show"
           >
-            {getLocalized(
-              {
-                vi: "Góc nhìn đội Robotics Sóc Sơn",
-                en: "Robotics Sóc Sơn team perspective",
-              },
-              locale,
-            )}
+            {localize({
+              vi: "Góc nhìn đội Robotics Sóc Sơn",
+              en: "Robotics Sóc Sơn team perspective",
+            }, locale)}
           </motion.p>
         </div>
       </div>
@@ -115,6 +112,7 @@ export function DeckSectionSlide({
             src={imageSrc}
             alt={imageAlt ?? ""}
             fill
+            priority
             sizes="(max-width: 768px) 100vw, 45vw"
             className="object-cover object-center"
           />

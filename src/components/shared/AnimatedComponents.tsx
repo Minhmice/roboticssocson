@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { GlowCard } from "./GlowCard";
 
 interface AnimatedComponentProps {
@@ -9,12 +9,11 @@ interface AnimatedComponentProps {
   className?: string;
   delay?: number;
   onClick?: () => void;
-  once?: boolean;
 }
 
 // Base animation configuration
 const animationConfig = {
-  once: false,
+  once: true,
   margin: "0px 0px -50px 0px" as const,
   amount: 0.3,
 } as const;
@@ -33,6 +32,15 @@ export function AnimatedCard({
 }: AnimatedComponentProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
+  const prefersReduced = useReducedMotion();
+
+  if (prefersReduced) {
+    return (
+      <div className={className} onClick={onClick}>
+        <GlowCard className="h-full">{children}</GlowCard>
+      </div>
+    );
+  }
 
   return (
     <motion.div
@@ -73,10 +81,6 @@ export function AnimatedImageCard({
   );
 }
 
-/**
- * AnimatedSection - Wrapper cho section với fade animation
- * Animation: opacity + y movement (subtle)
- */
 export function AnimatedSection({
   children,
   className,
@@ -84,6 +88,11 @@ export function AnimatedSection({
 }: AnimatedComponentProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, animationConfig);
+  const prefersReduced = useReducedMotion();
+
+  if (prefersReduced) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
@@ -137,35 +146,6 @@ export function AnimatedGrid({
           {child}
         </motion.div>
       ))}
-    </motion.div>
-  );
-}
-
-/**
- * AnimatedText - Wrapper cho text với slide animation
- * Animation: opacity + x movement (từ trái hoặc phải)
- */
-export function AnimatedText({
-  children,
-  className,
-  direction = "left",
-  delay = 0,
-  once = false,
-}: AnimatedComponentProps & { direction?: "left" | "right" }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { ...animationConfig, once });
-
-  const xValue = direction === "left" ? -30 : 30;
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial={{ opacity: 0, x: xValue }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: xValue }}
-      transition={{ ...transitionConfig, delay }}
-    >
-      {children}
     </motion.div>
   );
 }

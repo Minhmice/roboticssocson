@@ -3,8 +3,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { Cpu, Blocks } from "lucide-react";
-import type { LocalizedText } from "@/lib/course/getLocalized";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { type LocalizedText } from "@/lib/i18n/localized";
+import { localize } from "@/lib/i18n/localized";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { deckRevealStagger } from "@/components/course/deck/deck-motion";
 import { deckType } from "@/components/course/deck/deck-typography";
@@ -80,14 +80,11 @@ export function DeckTitleSlide({
   const { locale } = useLanguage();
   const reduced = Boolean(useReducedMotion());
   const kickerText = kicker
-    ? getLocalized(kicker, locale)
-    : getLocalized(
-        {
-          vi: "Robotics Sóc Sơn · Trình chiếu nội bộ",
-          en: "Robotics Sóc Sơn · Internal deck",
-        },
-        locale,
-      );
+    ? localize(kicker, locale)
+    : localize({
+      vi: "Robotics Sóc Sơn · Trình chiếu nội bộ",
+      en: "Robotics Sóc Sơn · Internal deck",
+    }, locale);
 
   return (
     <div
@@ -168,9 +165,9 @@ export function DeckTitleSlide({
             animate="show"
           >
             {[
-              getLocalized({ vi: "Khối lệnh", en: "Blocks" }, locale),
-              getLocalized({ vi: "Phần cứng", en: "Hardware" }, locale),
-              getLocalized({ vi: "Robot thật", en: "Real robots" }, locale),
+              localize({ vi: "Khối lệnh", en: "Blocks" }, locale),
+              localize({ vi: "Phần cứng", en: "Hardware" }, locale),
+              localize({ vi: "Robot thật", en: "Real robots" }, locale),
             ].map((tag) => (
               <span
                 key={tag}

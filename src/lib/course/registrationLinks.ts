@@ -1,4 +1,4 @@
-import type { CourseLocale } from "@/lib/course/getLocalized";
+import type { Locale as CourseLocale } from "@/lib/i18n/locales";
 
 export function isRegistrationUrlAvailable(url?: string): boolean {
   return Boolean(url?.trim());

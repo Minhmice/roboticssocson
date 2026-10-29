@@ -9,7 +9,7 @@ import { DECK_STAGE_BG } from "@/components/course/deck/deck-motion";
 import { deckType } from "@/components/course/deck/deck-typography";
 import type { DeckSlide } from "@/data/arduinoMblockDeck";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import { cn } from "@/lib/utils";
 
 interface DeckPlayerProps {
@@ -88,7 +88,7 @@ export function DeckPlayer({ slides }: DeckPlayerProps) {
   const slideLayerRef = useRef<HTMLDivElement>(null);
 
   const slideTitle = slide
-    ? getLocalized(slide.title, locale)
+    ? localize(slide.title, locale)
     : "";
 
   const liveMessage = useMemo(() => {

@@ -9,6 +9,8 @@ import { LucideIcon } from "lucide-react";
 
 export interface FTCFeatureImage {
   readonly caption: string;
+  readonly caption_vi?: string;
+  readonly caption_en?: string;
   readonly src?: string;
 }
 
@@ -62,9 +64,11 @@ export const ftcFeatures: readonly FTCFeature[] = [
     bgColor: "bg-primary/[0.08]",
     imageLayout: "1",
     images: [
-      { 
-        caption: "DECODE™ 2025-2026 Season",
-        src: "/Images/About FTC/1.1.webp"
+      {
+        caption: "Mùa giải DECODE™ 2025-2026",
+        caption_vi: "Mùa giải DECODE™ 2025-2026",
+        caption_en: "DECODE™ 2025-2026 Season",
+        src: "/Images/About FTC/1.1.webp",
       },
     ],
   },
@@ -79,8 +83,20 @@ export const ftcFeatures: readonly FTCFeature[] = [
     iconColor: "text-primary",
     bgColor: "bg-primary/5",
     imageLayout: "2",
-    images: [{ caption: "Cuộc thi Robotics Khối 7-12", src: "/Images/About FTC/2.1.webp" },
-    { caption: "Cuộc thi Robotics Khối 7-12", src: "/Images/About FTC/2.2.webp" }],
+    images: [
+      {
+        caption: "Sân đấu giải robotics khối 7-12",
+        caption_vi: "Sân đấu giải robotics khối 7-12",
+        caption_en: "Competition field for grades 7-12",
+        src: "/Images/About FTC/2.1.webp",
+      },
+      {
+        caption: "Các đội chuẩn bị thi đấu",
+        caption_vi: "Các đội chuẩn bị thi đấu",
+        caption_en: "Teams preparing for matches",
+        src: "/Images/About FTC/2.2.webp",
+      },
+    ],
   },
   {
     icon: Box,
@@ -94,10 +110,30 @@ export const ftcFeatures: readonly FTCFeature[] = [
     bgColor: "bg-primary/[0.08]",
     imageLayout: "4",
     images: [
-      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.1.webp" },
-      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.2.webp" },
-      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.3.webp" },
-      { caption: "Robot 18x18x18 inch", src: "/Images/About FTC/3.4.webp" },
+      {
+        caption: "Khối giới hạn 18x18x18 inch",
+        caption_vi: "Khối giới hạn 18x18x18 inch",
+        caption_en: "18x18x18 inch starting cube sizing",
+        src: "/Images/About FTC/3.1.webp",
+      },
+      {
+        caption: "Kiểm tra kích thước kỹ thuật",
+        caption_vi: "Kiểm tra kích thước kỹ thuật",
+        caption_en: "Technical robot sizing inspection",
+        src: "/Images/About FTC/3.2.webp",
+      },
+      {
+        caption: "Khung cơ khí chuẩn thi đấu",
+        caption_vi: "Khung cơ khí chuẩn thi đấu",
+        caption_en: "Competition-spec chassis build",
+        src: "/Images/About FTC/3.3.webp",
+      },
+      {
+        caption: "Cơ cấu mở rộng sau xuất phát",
+        caption_vi: "Cơ cấu mở rộng sau xuất phát",
+        caption_en: "Post-start expansion mechanism",
+        src: "/Images/About FTC/3.4.webp",
+      },
     ],
   },
   {
@@ -112,7 +148,12 @@ export const ftcFeatures: readonly FTCFeature[] = [
     bgColor: "bg-primary/[0.08]",
     imageLayout: "1",
     images: [
-      { caption: "Mô hình liên minh - Alliance Model", src: "/Images/About FTC/4.1.webp" },
+      {
+        caption: "Mô hình liên minh thi đấu",
+        caption_vi: "Mô hình liên minh thi đấu",
+        caption_en: "Alliance competition match",
+        src: "/Images/About FTC/4.1.webp",
+      },
     ],
   },
   {
@@ -127,7 +168,12 @@ export const ftcFeatures: readonly FTCFeature[] = [
     bgColor: "bg-primary/[0.08]",
     imageLayout: "1",
     images: [
-      { caption: "Technical & Design Skills", src: "/Images/About FTC/5.1.webp" }
+      {
+        caption: "Tư duy kỹ thuật và thiết kế",
+        caption_vi: "Tư duy kỹ thuật và thiết kế",
+        caption_en: "Engineering notebook and design iteration",
+        src: "/Images/About FTC/5.1.webp",
+      },
     ],
   },
 ] as const;

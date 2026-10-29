@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { coursePricingConfig, coursePricingCopy } from "@/data/coursePricing";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import { captureEvent } from "@/lib/posthog/client";
 import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,7 @@ export default function CoursePricingStickyCta() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const label = getLocalized(coursePricingCopy.stickyLabel, locale);
+  const label = localize(coursePricingCopy.stickyLabel, locale);
 
   return (
     <div

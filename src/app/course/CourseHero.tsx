@@ -6,7 +6,7 @@ import { AuroraBackground } from "@/components/ui/aurora-background";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { courseHeroData } from "@/data/courseHero";
 import { coursePricingCopy } from "@/data/coursePricing";
-import { getLocalized } from "@/lib/course/getLocalized";
+import { localize } from "@/lib/i18n/localized";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion, type Transition } from "framer-motion";
 import {
@@ -116,11 +116,9 @@ function AnimatedWords({
 
 function CourseHeroImageWash({
   src,
-  alt,
   reduced,
 }: {
   src: string;
-  alt: string;
   reduced: boolean;
 }) {
   return (
@@ -144,7 +142,6 @@ function CourseHeroImageWash({
           sizes="680px"
           className="object-cover object-center saturate-[1.35] contrast-[1.05]"
           style={{ filter: "blur(42px)" }}
-          priority
         />
       </motion.div>
       <div
@@ -212,17 +209,14 @@ export default function CourseHero() {
   const prefersReducedMotion = useReducedMotion();
   const reduced = Boolean(prefersReducedMotion);
 
-  const badge = getLocalized(courseHeroData.badge, locale);
-  const headline = getLocalized(courseHeroData.headline, locale);
-  const headlineHighlight = getLocalized(
-    courseHeroData.headlineHighlight,
-    locale,
-  );
-  const lead = getLocalized(courseHeroData.lead, locale);
-  const teaser = getLocalized(coursePricingCopy.heroTeaser, locale);
-  const proofLine = getLocalized(courseHeroData.proofLine, locale);
-  const imageCaption = getLocalized(courseHeroData.heroImage.caption, locale);
-  const imageAlt = getLocalized(courseHeroData.heroImage.alt, locale);
+  const badge = localize(courseHeroData.badge, locale);
+  const headline = localize(courseHeroData.headline, locale);
+  const headlineHighlight = localize(courseHeroData.headlineHighlight, locale);
+  const lead = localize(courseHeroData.lead, locale);
+  const teaser = localize(coursePricingCopy.heroTeaser, locale);
+  const proofLine = localize(courseHeroData.proofLine, locale);
+  const imageCaption = localize(courseHeroData.heroImage.caption, locale);
+  const imageAlt = localize(courseHeroData.heroImage.alt, locale);
 
   const headlineWords = headline.split(/\s+/).filter(Boolean);
 
@@ -247,7 +241,6 @@ export default function CourseHero() {
     >
       <CourseHeroImageWash
         src={courseHeroData.heroImage.src}
-        alt={imageAlt}
         reduced={reduced}
       />
       <CourseHeroGridBackdrop />
@@ -369,7 +362,7 @@ export default function CourseHero() {
                     className="h-3.5 w-3.5 shrink-0 text-primary/70"
                     aria-hidden
                   />
-                  {getLocalized(chip, locale)}
+                  {localize(chip, locale)}
                 </motion.span>
               );
             })}
@@ -385,7 +378,7 @@ export default function CourseHero() {
               whileTap={reduced ? undefined : { scale: 0.98 }}
             >
               <CTAButton
-                label={getLocalized(courseHeroData.ctaPrimary, locale)}
+                label={localize(courseHeroData.ctaPrimary, locale)}
                 variant="primary"
                 href="/course-register-form"
                 className="w-full text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 min-h-[44px] shadow-[0_8px_28px_rgba(37,99,235,0.22)]"
@@ -400,7 +393,7 @@ export default function CourseHero() {
               whileTap={reduced ? undefined : { scale: 0.98 }}
             >
               <CTAButton
-                label={getLocalized(courseHeroData.ctaSecondary, locale)}
+                label={localize(courseHeroData.ctaSecondary, locale)}
                 variant="secondary"
                 href="#course-curriculum"
                 className="w-full text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 min-h-[44px]"
@@ -447,6 +440,7 @@ export default function CourseHero() {
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="h-full min-h-[260px] sm:min-h-[300px] shadow-[0_12px_40px_rgba(37,99,235,0.16)] ring-1 ring-primary/15"
               priority
+              loading="eager"
             />
             <motion.div
               className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-slate-900/55 via-slate-900/20 to-transparent px-4 pt-3 pb-8"
