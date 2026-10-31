@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { CourseFunnelTrendChart } from "@/app/analytics/CourseFunnelTrendChart";
+import { CourseFunnelTrendChart } from "./CourseFunnelTrendChart";
 import type { AnalyticsSummary } from "@/lib/posthog/query";
 import { cn } from "@/lib/utils";
 

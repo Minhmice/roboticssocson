@@ -4,16 +4,13 @@ import { useEffect, useState } from "react";
 import { DeckLogin } from "@/components/course/deck/DeckLogin";
 import { DeckPlayer } from "@/components/course/deck/DeckPlayer";
 import type { DeckSlide } from "@/data/arduinoMblockDeck";
-import {
-  useLanguage,
-  VietnameseOnlyLanguageProvider,
-} from "@/contexts/LanguageContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type DeckGateProps = {
   slides: DeckSlide[];
 };
 
-function DeckGateContent({ slides }: DeckGateProps) {
+export function DeckGate({ slides }: DeckGateProps) {
   const { t } = useLanguage();
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
 
@@ -58,12 +55,4 @@ function DeckGateContent({ slides }: DeckGateProps) {
   }
 
   return <DeckPlayer slides={slides} />;
-}
-
-export function DeckGate({ slides }: DeckGateProps) {
-  return (
-    <VietnameseOnlyLanguageProvider>
-      <DeckGateContent slides={slides} />
-    </VietnameseOnlyLanguageProvider>
-  );
 }

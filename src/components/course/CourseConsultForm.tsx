@@ -13,6 +13,7 @@ import {
   type ReactNode,
 } from "react";
 import { useRouter } from "next/navigation";
+import { localizedHref } from "@/lib/i18n/routes";
 import {
   AnimatePresence,
   motion,
@@ -263,7 +264,7 @@ export function CourseConsultForm() {
           captureEvent(AnalyticsEvents.COURSE_REGISTER_SUBMITTED, {
             surface: "/course-register-form",
           });
-          router.push("/course-register-form/success");
+          router.push(localizedHref("/course-register-form/success", locale));
         };
         if (
           typeof document !== "undefined" &&

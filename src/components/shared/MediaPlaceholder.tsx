@@ -15,6 +15,7 @@ interface MediaPlaceholderProps {
   sizes?: string;
   unoptimized?: boolean;
   priority?: boolean;
+  loading?: "lazy" | "eager";
 }
 
 export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
@@ -27,6 +28,7 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
   sizes = "100vw",
   unoptimized,
   priority,
+  loading,
 }) => {
   const { locale } = useLanguage();
   const Icon = type === "image" ? ImageIcon : Video;
@@ -53,7 +55,7 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
     })();
 
     return (
-      <div className={cn("relative h-full w-full", className)}>
+      <div className={cn("relative h-full w-full overflow-hidden", !flush && "rounded-2xl", className)}>
         <Image
           src={imageSrc}
           alt={alt || caption || "Image"}
@@ -62,6 +64,7 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
           className={cn("object-cover", !flush && "rounded-2xl")}
           unoptimized={unoptimized}
           priority={priority}
+          loading={priority && loading === "lazy" ? undefined : loading}
         />
         {caption && (
           <div

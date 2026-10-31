@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AnalyticsGate } from "@/app/analytics/AnalyticsGate";
+import { AnalyticsGate } from "./AnalyticsGate";
 
 export const metadata: Metadata = {
   title: "Analytics | Robotics Sóc Sơn",

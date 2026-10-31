@@ -1,106 +1,52 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState, ReactNode } from "react";
-import { captureEvent } from "@/lib/posthog/client";
-import { AnalyticsEvents } from "@/lib/posthog/events";
-import enMessages from "../../messages/en.json";
-import viMessages from "../../messages/vi.json";
-
-type Locale = "vi" | "en";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Messages = Record<string, any>;
-
-const MESSAGE_CATALOG: Record<Locale, Messages> = {
-  vi: viMessages,
-  en: enMessages,
-};
+import { createContext, useContext, useMemo, type ReactNode } from "react";
+import type { Locale } from "@/lib/i18n/locales";
+import type { Messages } from "@/lib/i18n/messages";
 
 interface LanguageContextType {
   locale: Locale;
-  messages: Messages;
-  setLocale: (locale: Locale) => void;
   t: (key: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
-function getInitialLocale(): Locale {
-  if (typeof window === "undefined") return "vi";
-  const saved = localStorage.getItem("locale");
-  if (saved === "vi" || saved === "en") return saved;
-  return "vi";
-}
-
 function createTranslator(messages: Messages) {
   return (key: string): string => {
     if (!key || typeof key !== "string") return "";
 
-    const keys = key.split(".");
-    let value: Record<string, unknown> | string = messages;
-    for (const k of keys) {
-      if (typeof value === "object" && value !== null) {
-        value = value[k] as Record<string, unknown> | string;
+    let value: unknown = messages;
+    for (const k of key.split(".")) {
+      if (typeof value !== "object" || value === null) {
+        value = undefined;
+        break;
       }
-      if (value === undefined) break;
+      value = (value as Record<string, unknown>)[k];
     }
     return typeof value === "string" ? value : key;
   };
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(getInitialLocale);
-
-  const setLocale = (newLocale: Locale) => {
-    if (newLocale === locale) return;
-
-    captureEvent(AnalyticsEvents.LANGUAGE_SWITCHED, {
-      from: locale,
-      to: newLocale,
-    });
-
-    document.body.style.opacity = "0";
-    document.body.style.transition = "opacity 0.3s ease-out";
-
-    setTimeout(() => {
-      setLocaleState(newLocale);
-      localStorage.setItem("locale", newLocale);
-
-      setTimeout(() => {
-        document.body.style.opacity = "1";
-      }, 50);
-    }, 300);
-  };
-
-  const messages = MESSAGE_CATALOG[locale] ?? MESSAGE_CATALOG.vi;
-
-  const t = createTranslator(messages);
-
-  return (
-    <LanguageContext.Provider value={{ locale, messages, setLocale, t }}>
-      {children}
-    </LanguageContext.Provider>
-  );
-}
-
-export function VietnameseOnlyLanguageProvider({
+/**
+ * Locale comes from the URL and is resolved on the server, so server render and
+ * hydration always agree. Switching language is a navigation, not client state.
+ */
+export function LanguageProvider({
+  locale,
+  messages,
   children,
 }: {
+  locale: Locale;
+  messages: Messages;
   children: ReactNode;
 }) {
   const value = useMemo<LanguageContextType>(
-    () => ({
-      locale: "vi",
-      messages: MESSAGE_CATALOG.vi,
-      setLocale: () => {},
-      t: createTranslator(MESSAGE_CATALOG.vi),
-    }),
-    [],
+    () => ({ locale, t: createTranslator(messages) }),
+    [locale, messages],
   );
 
   return (
-    <LanguageContext.Provider value={value}>
-      {children}
-    </LanguageContext.Provider>
+    <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
   );
 }
 

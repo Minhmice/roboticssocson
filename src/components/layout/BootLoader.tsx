@@ -25,6 +25,7 @@ import {
   useBootAnimationReady,
   useBootRevealActions,
 } from "@/contexts/BootRevealContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { captureEvent } from "@/lib/posthog/client";
 import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
@@ -32,31 +33,51 @@ import { cn } from "@/lib/utils";
 /** Tune durations, copy, and labels here. */
 export const BOOT_LOADER_CONFIG = {
   /** Hard page-load choreography length before exit (ms). */
-  initialDurationMs: 2200,
+  initialDurationMs: 1400,
   /** Route transition hold while destination loads (ms). */
-  routeDurationMs: 1100,
+  routeDurationMs: 850,
   /** Cover wipe / overlay enter (ms) — page OUT. */
-  enterMs: 380,
+  enterMs: 320,
   /** Exit wipe / scale tail (ms) — page IN. */
-  exitMs: 420,
+  exitMs: 360,
   /** Reduced-motion total hold. */
-  reducedMs: 400,
+  reducedMs: 250,
   wordmark: "Robotics Sóc Sơn",
   initial: {
-    statusText: "INITIALIZING ROBOTICS COURSE SYSTEM",
-    progressLabels: [
-      "Loading curriculum",
-      "Preparing robotics modules",
-      "Calibrating learning path",
-    ] as const,
+    vi: {
+      statusText: "KHỞI TẠO HỆ THỐNG ROBOTICS SÓC SƠN",
+      progressLabels: [
+        "Đang tải hồ sơ đội tuyển",
+        "Đang đồng bộ tư liệu kỹ thuật",
+        "Sẵn sàng hiển thị",
+      ] as const,
+    },
+    en: {
+      statusText: "INITIALIZING ROBOTICS SÓC SƠN",
+      progressLabels: [
+        "Loading team profile",
+        "Syncing engineering archive",
+        "Calibrating view",
+      ] as const,
+    },
   },
   route: {
-    statusText: "ROUTING ROBOTICS SURFACE",
-    progressLabels: [
-      "Leaving current page",
-      "Loading destination",
-      "Calibrating view",
-    ] as const,
+    vi: {
+      statusText: "ĐANG CHUYỂN TRANG ROBOTICS SÓC SƠN",
+      progressLabels: [
+        "Đang rời trang hiện tại",
+        "Đang tải nội dung đích",
+        "Hoàn tất hiển thị",
+      ] as const,
+    },
+    en: {
+      statusText: "ROUTING ROBOTICS SURFACE",
+      progressLabels: [
+        "Leaving current page",
+        "Loading destination",
+        "Calibrating view",
+      ] as const,
+    },
   },
 } as const;
 
@@ -101,7 +122,8 @@ function resolveInternalHref(
     if (url.origin !== window.location.origin) return null;
 
     const nextPath = normalizePath(url.pathname);
-    const current = normalizePath(currentPath);
+    // usePathname() reports the rewritten URL (/vi/...); Vietnamese hrefs are unprefixed.
+    const current = normalizePath(currentPath.replace(/^\/vi(?=\/|$)/, "") || "/");
     if (nextPath === current && !url.search) {
       // Same page; allow hash-only / same-path scroll without boot.
       return null;
@@ -309,10 +331,12 @@ function BootLoaderOverlay({
   onCovered?: () => void;
   onComplete: () => void;
 }) {
+  const { locale } = useLanguage();
   const isRoute = mode === "route";
-  const copy = isRoute
+  const copyGroup = isRoute
     ? BOOT_LOADER_CONFIG.route
     : BOOT_LOADER_CONFIG.initial;
+  const copy = locale === "en" ? copyGroup.en : copyGroup.vi;
   const holdMs = reduced
     ? BOOT_LOADER_CONFIG.reducedMs
     : isRoute
@@ -331,7 +355,10 @@ function BootLoaderOverlay({
     active: phase === "holding",
     timeoutMs: holdMs,
   });
-
+  const assetStateRef = useRef({ assetProgress, isReady });
+  useEffect(() => {
+    assetStateRef.current = { assetProgress, isReady };
+  }, [assetProgress, isReady]);
   const finish = useCallback(() => {
     if (completedRef.current) return;
     completedRef.current = true;
@@ -361,6 +388,7 @@ function BootLoaderOverlay({
   }, [phase]);
 
   // Hold + real asset progress, then exit.
+  // Hold + real asset progress, then exit (timer-backed so background tabs never hang).
   useEffect(() => {
     if (phase !== "holding") return;
 
@@ -372,14 +400,27 @@ function BootLoaderOverlay({
       return () => window.clearTimeout(t);
     }
 
-    const minHoldMs = isRoute ? 300 : 700;
+    const minHoldMs = isRoute ? 260 : 520;
     const start = performance.now();
     let raf = 0;
+    let exited = false;
+
+    const triggerExit = () => {
+      if (exited) return;
+      exited = true;
+      setProgress(1);
+      setPhase("exiting");
+    };
+
+    const maxTimer = window.setTimeout(triggerExit, holdMs);
 
     const tick = (now: number) => {
+      if (exited) return;
       const elapsed = now - start;
+      const { assetProgress: curProgress, isReady: curReady } =
+        assetStateRef.current;
       const timeRatio = Math.min(1, elapsed / holdMs);
-      const targetProgress = Math.max(assetProgress, timeRatio * 0.45);
+      const targetProgress = Math.max(curProgress, timeRatio * 0.65);
       setProgress((prev) => Math.max(prev, targetProgress));
 
       const labelSpan = 1 / copy.progressLabels.length;
@@ -391,20 +432,30 @@ function BootLoaderOverlay({
       );
 
       const hasPassedMin = elapsed >= minHoldMs;
-      const isFinished =
-        (isReady || targetProgress >= 1 || elapsed >= holdMs) && hasPassedMin;
-
-      if (isFinished) {
-        setProgress(1);
-        setPhase("exiting");
+      if ((curReady || targetProgress >= 1 || elapsed >= holdMs) && hasPassedMin) {
+        triggerExit();
       } else {
         raf = requestAnimationFrame(tick);
       }
     };
 
+    const pollTimer = window.setInterval(() => {
+      const elapsed = performance.now() - start;
+      if (
+        (assetStateRef.current.isReady || elapsed >= holdMs) &&
+        elapsed >= minHoldMs
+      ) {
+        triggerExit();
+      }
+    }, 100);
+
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [phase, reduced, holdMs, copy.progressLabels.length, assetProgress, isReady, isRoute]);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(maxTimer);
+      window.clearInterval(pollTimer);
+    };
+  }, [phase, reduced, holdMs, copy.progressLabels.length, isRoute]);
 
   useEffect(() => {
     if (phase !== "exiting") return;
@@ -426,7 +477,7 @@ function BootLoaderOverlay({
 
   return (
     <motion.div
-      className="boot-loader fixed inset-0 z-100 flex items-center justify-center overflow-hidden bg-[#f8fafc]"
+      className="boot-loader fixed inset-0 z-100 flex items-center justify-center overflow-hidden bg-muted"
       role="status"
       aria-live="polite"
       aria-busy={phase !== "exiting"}
@@ -449,7 +500,7 @@ function BootLoaderOverlay({
       }}
     >
       <div
-        className="boot-loader__hairline pointer-events-none absolute inset-x-0 top-0 h-px bg-[#0f172a]/90"
+        className="boot-loader__hairline pointer-events-none absolute inset-x-0 top-0 h-px bg-foreground/90"
         aria-hidden
       />
 

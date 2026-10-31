@@ -12,7 +12,7 @@ export function PostHogPageView() {
   useEffect(() => {
     if (!pathname) return;
     const search = searchParams?.toString();
-    capturePageview(pathname, search ? `?${search}` : "");
+    capturePageview(pathname.replace(/^\/vi(?=\/|$)/, "") || "/", search ? `?${search}` : "");
   }, [pathname, searchParams]);
 
   return null;

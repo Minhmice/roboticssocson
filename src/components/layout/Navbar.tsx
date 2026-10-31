@@ -7,6 +7,7 @@ import { X, Menu } from "lucide-react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { stripLocale } from "@/lib/i18n/routes";
 import { captureEvent } from "@/lib/posthog/client";
 import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
@@ -25,7 +26,7 @@ interface NavbarProps {
 /** Site Navbar — light tech-blue system always (DESIGN.md). Immersive pages keep this chrome. */
 export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   const { t } = useLanguage();
-  const pathname = usePathname();
+  const pathname = stripLocale(usePathname());
   const isCourseFlow =
     courseSurfacesEnabled &&
     (pathname === "/course" ||
@@ -65,6 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
       { label: t("nav.home"), href: "/" },
       { label: t("nav.fundraising"), href: "/fundraising" },
       { label: t("nav.recruitment"), href: "/recruitment" },
+      { label: t("nav.rules"), href: "/luat-ftc" },
       ...(courseSurfacesEnabled
         ? [{ label: t("nav.course"), href: "/course" }]
         : []),
@@ -76,17 +78,17 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
 
   const linkClassName = (link: NavLink) =>
     cn(
-      "text-sm font-medium transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      "inline-flex min-h-11 items-center px-1.5 text-sm font-medium transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       isLinkActive(link)
-        ? "text-primary"
+        ? "text-primary font-semibold"
         : "text-muted-foreground hover:text-primary",
     );
 
   const mobileLinkClassName = (link: NavLink) =>
     cn(
-      "flex items-center px-4 py-3 text-sm font-medium transition-colors hover:bg-muted rounded-lg min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      "flex items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-muted rounded-lg min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       isLinkActive(link)
-        ? "text-primary bg-primary/5"
+        ? "text-primary bg-primary/5 font-semibold"
         : "text-muted-foreground hover:text-primary",
     );
 
@@ -136,7 +138,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
       <div className="container mx-auto flex h-14 sm:h-16 items-center justify-between px-4 md:px-6">
         <BootLink
           href="/"
-          className="flex items-center gap-1.5 sm:gap-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="flex items-center gap-1.5 sm:gap-2 rounded-sm min-h-11 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           onClick={closeMobileMenu}
         >
           <BrandLogo className="h-5 w-auto sm:h-6" />
@@ -154,7 +156,12 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
               aria-current={isLinkActive(link) ? "page" : undefined}
               onClick={() => trackNavClick(link)}
             >
-              {link.label}
+              <span>{link.label}</span>
+              {link.href === "/recruitment" && (
+                <span className="ml-1.5 inline-flex items-center rounded-full bg-muted border border-border px-1.5 py-0.5 text-xs font-semibold text-muted-foreground tracking-tight">
+                  {t("nav.recruitmentClosedBadge")}
+                </span>
+              )}
             </BootLink>
           ))}
         </div>
@@ -196,7 +203,12 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
                 className={mobileLinkClassName(link)}
                 aria-current={isLinkActive(link) ? "page" : undefined}
               >
-                {link.label}
+                <span>{link.label}</span>
+                {link.href === "/recruitment" && (
+                  <span className="inline-flex items-center rounded-full bg-muted border border-border px-2 py-0.5 text-xs font-semibold text-muted-foreground">
+                    {t("nav.recruitmentClosedBadge")}
+                  </span>
+                )}
               </BootLink>
             ))}
             <div className="pt-2 border-t border-border space-y-2">

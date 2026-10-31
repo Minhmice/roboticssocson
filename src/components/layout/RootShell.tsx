@@ -1,49 +1,41 @@
-import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { Suspense } from "react";
-import "./globals.css";
+import { Suspense, type ReactNode } from "react";
+import "@/app/globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AppShell } from "@/components/layout/AppShell";
-import { DynamicMetadata } from "@/components/layout/DynamicMetadata";
 import { Analytics } from "@/components/shared/Analytics";
 import { PostHogPageView } from "@/components/shared/PostHogPageView";
 import { getBootLoaderPreloadScript } from "@/lib/boot-loader";
-import { buildMetadata } from "@/lib/seo/metadata";
-import { homeSeo } from "@/lib/seo/routes-seo";
-import { getSiteUrl } from "@/lib/seo/site-url";
+import type { Locale } from "@/lib/i18n/locales";
+import { loadMessages } from "@/lib/i18n/messages";
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   variable: "--font-inter",
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(getSiteUrl()),
-  ...buildMetadata(homeSeo.vi),
-  authors: [{ name: "Robotics Sóc Sơn" }],
-  icons: {
-    icon: "/Logo/RBS Logo.svg",
-    shortcut: "/Logo/RBS Logo.svg",
-    apple: "/Logo/RBS Logo.svg",
-  },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-};
-
-export default function RootLayout({
+/**
+ * Shared `<html>` shell for every root layout. Loads exactly one dictionary on the
+ * server; the other locale's JSON never ships to the client.
+ */
+export async function RootShell({
+  locale,
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  locale: Locale;
+  children: ReactNode;
+}) {
+  const messages = await loadMessages(locale);
   const bootPreload = getBootLoaderPreloadScript();
 
   return (
-    <html lang="vi" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html
+      lang={locale}
+      className="scroll-smooth"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       {bootPreload ? (
         <head>
           <script
@@ -53,8 +45,7 @@ export default function RootLayout({
         </head>
       ) : null}
       <body className={`${inter.variable} antialiased overflow-x-clip`}>
-        <LanguageProvider>
-          <DynamicMetadata />
+        <LanguageProvider locale={locale} messages={messages}>
           <Analytics />
           <Suspense fallback={null}>
             <PostHogPageView />

@@ -13,6 +13,7 @@ const nextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 31536000,
   },
   async rewrites() {
     return [
@@ -28,11 +29,15 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // Former sponsorship surfaces redirect to active fundraising page.
+      // Former sponsorship surfaces redirect to active fundraising page (both locales).
       { source: "/sponsor", destination: "/fundraising", permanent: false },
       { source: "/sponsorship", destination: "/fundraising", permanent: false },
       { source: "/sponsor/:path*", destination: "/fundraising", permanent: false },
       { source: "/sponsorship/:path*", destination: "/fundraising", permanent: false },
+      { source: "/en/sponsor", destination: "/en/fundraising", permanent: false },
+      { source: "/en/sponsorship", destination: "/en/fundraising", permanent: false },
+      { source: "/en/sponsor/:path*", destination: "/en/fundraising", permanent: false },
+      { source: "/en/sponsorship/:path*", destination: "/en/fundraising", permanent: false },
     ];
   },
   async headers() {

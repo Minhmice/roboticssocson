@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnalyticsDashboardClient } from "@/app/analytics/AnalyticsDashboardClient";
-import { AnalyticsLogin } from "@/app/analytics/AnalyticsLogin";
+import { AnalyticsDashboardClient } from "./AnalyticsDashboardClient";
+import { AnalyticsLogin } from "./AnalyticsLogin";
 
 export function AnalyticsGate() {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);

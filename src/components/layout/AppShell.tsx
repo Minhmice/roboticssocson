@@ -9,12 +9,13 @@ import {
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { BootRevealProvider } from "@/contexts/BootRevealContext";
+import { stripLocale } from "@/lib/i18n/routes";
 import { cn } from "@/lib/utils";
 
 /** Full-bleed contact/register experiences — keep Navbar + Footer, drop main top pad. */
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
+  const pathname = stripLocale(usePathname());
   const deckPresentation = pathname === "/course/arduino-mblock-deck";
   const immersive =
     pathname === "/contact-us" ||

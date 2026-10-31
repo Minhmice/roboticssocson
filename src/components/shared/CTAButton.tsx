@@ -2,10 +2,12 @@
 
 import type { LucideIcon } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   isInternalAppPath,
   requestBootNavigation,
 } from "@/lib/boot-navigation";
+import { localizedHref } from "@/lib/i18n/routes";
 import { captureEvent } from "@/lib/posthog/client";
 import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
@@ -34,7 +36,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   label,
   variant = "primary",
   icon: Icon,
-  href,
+  href: rawHref,
   onClick,
   className,
   type = "button",
@@ -43,6 +45,8 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   rel,
   "aria-current": ariaCurrent,
 }) => {
+  const { locale } = useLanguage();
+  const href = rawHref ? localizedHref(rawHref, locale) : rawHref;
   const brandClass = cn(
     buttonVariants({
       variant: ctaVariantMap[variant],

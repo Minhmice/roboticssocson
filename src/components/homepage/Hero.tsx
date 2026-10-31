@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { LocaleLink as Link } from "@/components/shared/LocaleLink";
 import { motion, useReducedMotion } from "framer-motion";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { AuroraBackground } from "@/components/ui/aurora-background";

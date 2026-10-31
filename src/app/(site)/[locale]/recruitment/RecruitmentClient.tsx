@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { LocaleLink as Link } from "@/components/shared/LocaleLink";
 import { ArrowRight, Clock3, House } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PageAnalytics } from "@/components/shared/PageAnalytics";

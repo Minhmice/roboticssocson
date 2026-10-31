@@ -6,10 +6,12 @@ import {
   type MouseEvent,
   type ReactNode,
 } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   isInternalAppPath,
   requestBootNavigation,
 } from "@/lib/boot-navigation";
+import { localizedHref } from "@/lib/i18n/routes";
 import { cn } from "@/lib/utils";
 
 type BootLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
@@ -25,9 +27,11 @@ type BootLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
  */
 export const BootLink = forwardRef<HTMLAnchorElement, BootLinkProps>(
   function BootLink(
-    { href, onClick, noBoot = false, children, className, ...rest },
+    { href: rawHref, onClick, noBoot = false, children, className, ...rest },
     ref,
   ) {
+    const { locale } = useLanguage();
+    const href = localizedHref(rawHref, locale);
     const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
       onClick?.(event);
       if (event.defaultPrevented || noBoot) return;

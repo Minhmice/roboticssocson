@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { LocaleLink as Link } from "@/components/shared/LocaleLink";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { ArrowRight, CalendarX2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -88,6 +88,8 @@ export function RecruitmentDialog() {
               src="/Images/Achievements/FTC 2024-2025/Image  (2).webp"
               alt=""
               fill
+              priority
+              loading="eager"
               sizes="(min-width: 640px) 42vw, 100vw"
               className="object-cover object-center saturate-[0.88]"
             />
