@@ -6,7 +6,7 @@ import { BrandLogo } from "@/components/shared/BrandLogo";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { LocaleLink as Link } from "@/components/shared/LocaleLink";
 import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
 
 type Role =
@@ -55,20 +55,23 @@ export function MemberCard({
   
   // Encode URL để xử lý ký tự đặc biệt (dấu tiếng Việt)
   // Chỉ encode filename (phần cuối), giữ nguyên path
-  const encodedImageSrc = imageSrc
-    ? (() => {
-        const lastSlashIndex = imageSrc.lastIndexOf("/");
-        if (lastSlashIndex === -1) return encodeURIComponent(imageSrc);
-        const path = imageSrc.substring(0, lastSlashIndex + 1);
-        const filename = imageSrc.substring(lastSlashIndex + 1);
-        return path + encodeURIComponent(filename);
-      })()
+  const normalizedImageSrc = imageSrc
+    ? imageSrc.startsWith("/")
+      ? imageSrc
+      : `/${imageSrc}`
     : undefined;
 
   const isLeadershipRole = React.useMemo(() => {
     if (!role) return false;
-    const normalized = role.toLowerCase().trim();
-    return normalized !== "member" && normalized !== "thành viên";
+    const n = role.toLowerCase().trim();
+    return (
+      n.includes("president") ||
+      n.includes("chủ tịch") ||
+      n.includes("head of") ||
+      n.includes("trưởng ban") ||
+      n.includes("captain") ||
+      n.includes("đội trưởng")
+    );
   }, [role]);
 
   return (
@@ -81,15 +84,15 @@ export function MemberCard({
       )}
     >
       {/* Cover image - Full card */}
-      {encodedImageSrc ? (
+      {normalizedImageSrc ? (
         <Image
-          src={encodedImageSrc}
+          src={normalizedImageSrc}
           alt={`${name}${role ? ` - ${role}` : ""} cover`}
           fill
           className="object-cover"
           priority={imagePriority}
           loading={imagePriority ? undefined : "lazy"}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 350px"
+          sizes="(max-width: 640px) 85vw, (max-width: 1024px) 45vw, 350px"
         />
       ) : (
         <div className="absolute inset-0">
@@ -117,19 +120,19 @@ export function MemberCard({
           </div>
         </div>
 
-        {/* Role Badge - hardened against text overflow, collision, and contrast bugs */}
+        {/* Role Badge */}
         {role && (
           <div className="min-w-0 flex-1 flex justify-end pointer-events-auto">
             <span
               className={cn(
-                "inline-flex items-center justify-center text-center font-semibold leading-tight tracking-tight shadow-md backdrop-blur-md transition-all duration-200",
-                "px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs rounded-xl sm:rounded-full max-w-[125px] sm:max-w-none",
+                "inline-flex items-center justify-center text-center font-semibold leading-tight tracking-tight shadow-sm backdrop-blur-md transition-all duration-200",
+                "px-2.5 py-1 text-xs rounded-full max-w-[140px] sm:max-w-none",
                 isLeadershipRole
-                  ? "bg-blue-600 text-white border border-blue-400/40 shadow-[0_2px_12px_rgba(37,99,235,0.4)]"
+                  ? "bg-primary text-primary-foreground border border-primary/30"
                   : "bg-slate-900/85 text-slate-100 border border-white/20 shadow-sm"
               )}
             >
-              <span className="whitespace-normal sm:whitespace-nowrap break-words line-clamp-2">
+              <span className="whitespace-normal sm:whitespace-nowrap break-words line-clamp-1">
                 {role}
               </span>
             </span>
@@ -147,30 +150,14 @@ export function MemberCard({
             </h3>
           </div>
 
-          {/* Role & Class meta line */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1.5 mb-2 text-xs leading-normal">
-            {role && (
-              <span
-                className={cn(
-                  "font-semibold drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]",
-                  isLeadershipRole ? "text-blue-300" : "text-slate-200"
-                )}
-              >
-                {role}
+          {/* Class metadata line */}
+          {classInfo && (
+            <div className="flex items-center gap-1.5 mb-2 text-xs text-white/80">
+              <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] font-medium">
+                {classInfo}
               </span>
-            )}
-            <div className="flex items-center gap-1.5 text-white/80">
-              {role && classInfo && (
-                <span className="hidden sm:inline text-white/40 select-none">•</span>
-              )}
-              {classInfo && (
-                <span className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
-                  {classInfo}
-                </span>
-              )}
             </div>
-          </div>
-
+          )}
           {/* Slogan */}
           {slogan && (
             <p className="text-xs italic text-white/75 drop-shadow-[0_1px_6px_rgba(0,0,0,0.7)] line-clamp-2 mb-2.5">
@@ -184,7 +171,7 @@ export function MemberCard({
               {tags.map((t, idx) => (
                 <span
                   key={idx}
-                  className="rounded-full border border-white/10 bg-black/40 px-2 py-0.5 text-[10px] uppercase tracking-wide text-white/85 backdrop-blur-sm"
+                  className="rounded-full border border-white/15 bg-black/50 px-2.5 py-0.5 text-xs font-medium uppercase tracking-wide text-white/90 backdrop-blur-sm"
                 >
                   {t}
                 </span>

@@ -11,6 +11,10 @@ if (token) {
     capture_pageview: false,
     capture_pageleave: true,
     defaults: "2026-01-30",
+    capture_performance: {
+      web_vitals: true,
+      web_vitals_allowed_metrics: ["LCP", "CLS", "INP", "FCP"],
+    },
   });
 }
 

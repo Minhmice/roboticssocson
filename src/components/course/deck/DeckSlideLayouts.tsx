@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowLeftRight, ArrowRight, Blocks, Bot, Bug, Cable, Code2, Cog, Cpu, LockOpen, Mic, Monitor, ScanEye, Sparkles, Trophy, Zap } from "lucide-react";
 import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
 import { DeckEditorialSlide } from "@/components/course/deck/DeckEditorialSlide";
@@ -321,7 +321,7 @@ function BridgeToCppLayout({ ctx }: { ctx: LayoutRenderContext }) {
       <div className="flex h-full min-h-0 flex-col gap-2.5 md:gap-3">
         <div className="shrink-0">
           {section ? (
-            <motion.div
+            <m.div
               className="mb-1.5 md:mb-2"
               custom={0}
               variants={introVariants}
@@ -329,9 +329,9 @@ function BridgeToCppLayout({ ctx }: { ctx: LayoutRenderContext }) {
               animate="show"
             >
               <Chip text={section} />
-            </motion.div>
+            </m.div>
           ) : null}
-          <motion.h2
+          <m.h2
             className={cn(
               deckType.heading,
               "max-w-[16ch] text-balance text-[clamp(1.875rem,4.4vw,3.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em]",
@@ -342,14 +342,14 @@ function BridgeToCppLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {highlightCppBridgeTitle(title, locale)}
-          </motion.h2>
+          </m.h2>
         </div>
 
         <div className="grid min-h-0 flex-1 grid-rows-[1fr_auto] gap-2.5 md:gap-3">
           <div className="grid min-h-0 gap-2.5 md:grid-cols-[minmax(0,0.94fr)_auto_minmax(0,1.06fr)] md:items-stretch md:gap-3.5">
             {panels.map(({ col, side, icon: Icon, tone, iconTone, img, imgIndex, hero }, panelIndex) => {
               const panel = (
-                <motion.div
+                <m.div
                   key={col.label}
                   className={cn(
                     "flex min-h-0 flex-col gap-2.5 rounded-2xl border-2 p-3.5 shadow-lg md:gap-3 md:p-4",
@@ -381,7 +381,7 @@ function BridgeToCppLayout({ ctx }: { ctx: LayoutRenderContext }) {
                   </div>
 
                   {img ? (
-                    <motion.div
+                    <m.div
                       className="min-h-[88px] flex-1 md:min-h-[100px]"
                       custom={headerOffset + panelIndex}
                       variants={deckCompareImageVariants}
@@ -395,7 +395,7 @@ function BridgeToCppLayout({ ctx }: { ctx: LayoutRenderContext }) {
                         className="h-full min-h-[88px] md:min-h-[100px]"
                         sizes="(max-width: 768px) 44vw, 22vw"
                       />
-                    </motion.div>
+                    </m.div>
                   ) : null}
 
                   <ul className={cn(deckBulletList(true), "mt-0 shrink-0 space-y-1.5 md:space-y-2")}>
@@ -412,14 +412,14 @@ function BridgeToCppLayout({ ctx }: { ctx: LayoutRenderContext }) {
                       </li>
                     ))}
                   </ul>
-                </motion.div>
+                </m.div>
               );
 
               if (panelIndex === 0) {
                 return (
                   <div key={col.label} className="contents">
                     {panel}
-                    <motion.div
+                    <m.div
                       className="order-2 flex flex-row items-center justify-center gap-2 py-0.5 md:flex-col md:gap-2 md:px-1.5 md:py-0"
                       custom={headerOffset}
                       variants={deckCompareConnectorVariants}
@@ -429,26 +429,26 @@ function BridgeToCppLayout({ ctx }: { ctx: LayoutRenderContext }) {
                       <span className="hidden h-12 w-px bg-border/80 md:block" aria-hidden />
                       <div className="relative flex size-12 shrink-0 items-center justify-center md:size-14">
                         {!reduced ? (
-                          <motion.span
+                          <m.span
                             className="pointer-events-none absolute inset-0 rounded-full border-2 border-primary/35"
                             animate={{ scale: [1, 1.45], opacity: [0.55, 0] }}
                             transition={deckOverdriveConnectorPulseTransition}
                             aria-hidden
                           />
                         ) : null}
-                        <motion.div
+                        <m.div
                           className="relative flex size-12 items-center justify-center rounded-full border-2 border-primary/60 bg-background shadow-[0_8px_28px_rgba(37,99,235,0.18)] md:size-14"
                           animate={reduced ? undefined : { scale: [1, 1.07, 1] }}
                           transition={deckOverdriveConnectorPulseTransition}
                         >
                           <ArrowRight className="size-6 text-primary md:size-7" strokeWidth={2.4} />
-                        </motion.div>
+                        </m.div>
                       </div>
                       <p className="text-center font-mono text-sm font-extrabold tracking-[0.06em] text-primary md:text-base">
                         mBlock → C++
                       </p>
                       <span className="hidden h-12 w-px bg-border/80 md:block" aria-hidden />
-                    </motion.div>
+                    </m.div>
                   </div>
                 );
               }
@@ -458,7 +458,7 @@ function BridgeToCppLayout({ ctx }: { ctx: LayoutRenderContext }) {
           </div>
 
           {notes ? (
-            <motion.div
+            <m.div
               className={cn(
                 "shrink-0 rounded-xl border-2 border-primary/42 bg-primary/12 px-4 py-2.5 text-center md:px-5 md:py-3",
                 "shadow-[0_8px_28px_rgba(37,99,235,0.12)]",
@@ -471,7 +471,7 @@ function BridgeToCppLayout({ ctx }: { ctx: LayoutRenderContext }) {
               <p className={cn(deckType.bodyLg, "font-extrabold text-balance leading-snug text-foreground")}>
                 {notes}
               </p>
-            </motion.div>
+            </m.div>
           ) : null}
         </div>
       </div>
@@ -591,7 +591,7 @@ function MosaicSlideHeader({
   return (
     <div className="relative z-10 shrink-0 overflow-visible pb-1">
       {section ? (
-        <motion.div
+        <m.div
           className="mb-2"
           custom={0}
           variants={deckRevealStagger}
@@ -599,9 +599,9 @@ function MosaicSlideHeader({
           animate="show"
         >
           <Chip text={section} />
-        </motion.div>
+        </m.div>
       ) : null}
-      <motion.h2
+      <m.h2
         className={cn(deckType.heading, "text-pretty leading-[1.14]")}
         custom={titleIndex}
         variants={deckRevealStagger}
@@ -609,7 +609,7 @@ function MosaicSlideHeader({
         animate="show"
       >
         {title}
-      </motion.h2>
+      </m.h2>
     </div>
   );
 }
@@ -634,7 +634,7 @@ function MosaicFourUpLayout({ ctx }: { ctx: LayoutRenderContext }) {
 
         <div className="mt-5 grid min-h-0 flex-1 grid-cols-4 items-end gap-4 overflow-hidden">
           {cells.map((alt, i) => (
-            <motion.div
+            <m.div
               key={alt.vi}
               className="min-h-0 overflow-hidden"
               custom={mosaicStart + i}
@@ -651,7 +651,7 @@ function MosaicFourUpLayout({ ctx }: { ctx: LayoutRenderContext }) {
                   i % 2 === 0 ? "aspect-[5/4]" : "aspect-[4/5]",
                 )}
               />
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
@@ -661,7 +661,7 @@ function MosaicFourUpLayout({ ctx }: { ctx: LayoutRenderContext }) {
               {bullets.map((b, i) => {
                 const { label, detail } = splitDeckBullet(localize(b, locale));
                 return (
-                  <motion.li
+                  <m.li
                     key={b.vi}
                     className="flex flex-col gap-1.5"
                     custom={mosaicStart + cells.length + i}
@@ -676,7 +676,7 @@ function MosaicFourUpLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     {detail ? (
                       <span className={cn("pl-5 text-pretty", deckType.body)}>{detail}</span>
                     ) : null}
-                  </motion.li>
+                  </m.li>
                 );
               })}
             </ul>
@@ -710,7 +710,7 @@ function MosaicThreeRowLayout({ ctx }: { ctx: LayoutRenderContext }) {
             const bulletText = bullets[i] ? localize(bullets[i], locale) : "";
             const { label } = splitDeckBullet(bulletText);
             return (
-              <motion.div
+              <m.div
                 key={alt.vi}
                 className="flex min-h-0 flex-col justify-end overflow-hidden"
                 custom={mosaicStart + i}
@@ -730,7 +730,7 @@ function MosaicThreeRowLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 {label ? (
                   <p className={cn("mt-3 text-center text-pretty", deckType.label)}>{label}</p>
                 ) : null}
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
@@ -742,7 +742,7 @@ function MosaicThreeRowLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 const { label, detail } = splitDeckBullet(localize(b, locale));
                 const stripText = detail || label;
                 return (
-                  <motion.li
+                  <m.li
                     key={b.vi}
                     className="flex items-start gap-2.5"
                     custom={mosaicStart + cells.length + i}
@@ -752,7 +752,7 @@ function MosaicThreeRowLayout({ ctx }: { ctx: LayoutRenderContext }) {
                   >
                     <span className="mt-2.5 size-2.5 shrink-0 rounded-full bg-primary" aria-hidden />
                     <span className={cn("text-pretty", deckType.body)}>{stripText}</span>
-                  </motion.li>
+                  </m.li>
                 );
               })}
             </ul>
@@ -794,7 +794,7 @@ function SoftwareRoleLayout({ ctx }: { ctx: LayoutRenderContext }) {
       <div className="grid h-full min-h-0 gap-4 md:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] md:gap-5">
         <div className="flex min-h-0 flex-col justify-center gap-4 md:gap-5">
           {section ? (
-            <motion.div
+            <m.div
               className="mb-0.5"
               custom={0}
               variants={deckRevealTransform}
@@ -802,10 +802,10 @@ function SoftwareRoleLayout({ ctx }: { ctx: LayoutRenderContext }) {
               animate="show"
             >
               <Chip text={section} />
-            </motion.div>
+            </m.div>
           ) : null}
 
-          <motion.h2
+          <m.h2
             className={cn(
               deckType.heading,
               "max-w-[14ch] text-pretty text-[clamp(2.125rem,4.8vw,3.75rem)] leading-[1.06]",
@@ -816,10 +816,10 @@ function SoftwareRoleLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {title}
-          </motion.h2>
+          </m.h2>
 
           {intro ? (
-            <motion.p
+            <m.p
               className={cn(
                 deckType.bodyLg,
                 "max-w-[28ch] text-pretty font-semibold text-foreground/92",
@@ -830,7 +830,7 @@ function SoftwareRoleLayout({ ctx }: { ctx: LayoutRenderContext }) {
               animate="show"
             >
               {intro}
-            </motion.p>
+            </m.p>
           ) : null}
 
           {logicBullets.length > 0 ? (
@@ -838,7 +838,7 @@ function SoftwareRoleLayout({ ctx }: { ctx: LayoutRenderContext }) {
               {logicBullets.map((line, i) => {
                 const { prefix, quote } = extractLogicQuote(line);
                 return (
-                  <motion.div
+                  <m.div
                     key={line}
                     className="rounded-2xl border-2 border-primary/35 bg-gradient-to-br from-primary/[0.1] via-background to-accent/35 p-4 shadow-md md:p-5"
                     custom={logicStart + i}
@@ -861,14 +861,14 @@ function SoftwareRoleLayout({ ctx }: { ctx: LayoutRenderContext }) {
                         </p>
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </div>
           ) : null}
         </div>
 
-        <motion.div
+        <m.div
           className="relative min-h-[220px] md:min-h-0"
           custom={logicStart + logicBullets.length}
           variants={deckImageReveal("right", logicStart + logicBullets.length)}
@@ -895,7 +895,7 @@ function SoftwareRoleLayout({ ctx }: { ctx: LayoutRenderContext }) {
               </p>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </Shell>
   );
@@ -926,7 +926,7 @@ function FlowBehaviorDiagramLayout({ ctx }: { ctx: LayoutRenderContext }) {
       <div className="grid h-full min-h-0 gap-4 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:gap-5">
         <div className="flex min-h-0 flex-col">
           {section ? (
-            <motion.div
+            <m.div
               className="mb-2"
               custom={0}
               variants={deckRevealStagger}
@@ -934,9 +934,9 @@ function FlowBehaviorDiagramLayout({ ctx }: { ctx: LayoutRenderContext }) {
               animate="show"
             >
               <Chip text={section} />
-            </motion.div>
+            </m.div>
           ) : null}
-          <motion.h2
+          <m.h2
             className={cn("max-w-[16ch] text-pretty", deckType.heading)}
             custom={section ? 1 : 0}
             variants={deckRevealStagger}
@@ -944,7 +944,7 @@ function FlowBehaviorDiagramLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {title}
-          </motion.h2>
+          </m.h2>
 
           {flowItems.length > 0 ? (
             <div className="mt-3 flex-none rounded-xl border-2 border-primary/30 bg-gradient-to-br from-primary/[0.09] via-background to-accent/45 p-3 shadow-md md:mt-4 md:p-4">
@@ -953,7 +953,7 @@ function FlowBehaviorDiagramLayout({ ctx }: { ctx: LayoutRenderContext }) {
                   const animIndex = headerOffset + item.i;
                   if (item.kind === "arrow") {
                     return (
-                      <motion.div
+                      <m.div
                         key={`flow-arrow-${item.i}`}
                         className="flex justify-center py-0"
                         custom={animIndex}
@@ -962,11 +962,11 @@ function FlowBehaviorDiagramLayout({ ctx }: { ctx: LayoutRenderContext }) {
                         animate="show"
                       >
                         <ArrowDown className="size-6 text-primary md:size-7" strokeWidth={2.75} aria-hidden />
-                      </motion.div>
+                      </m.div>
                     );
                   }
                   return (
-                    <motion.div
+                    <m.div
                       key={`flow-step-${item.i}`}
                       className="flex items-start gap-2.5 md:gap-3"
                       custom={animIndex}
@@ -980,7 +980,7 @@ function FlowBehaviorDiagramLayout({ ctx }: { ctx: LayoutRenderContext }) {
                       <p className="pt-0.5 text-pretty text-[clamp(1rem,1.85vw,1.375rem)] font-bold leading-snug tracking-[-0.02em] text-foreground">
                         {item.line}
                       </p>
-                    </motion.div>
+                    </m.div>
                   );
                 })}
               </div>
@@ -988,7 +988,7 @@ function FlowBehaviorDiagramLayout({ ctx }: { ctx: LayoutRenderContext }) {
           ) : null}
 
           {mediaSources[0] ? (
-            <motion.div
+            <m.div
               className="mt-3 min-h-0 flex-1"
               custom={headerOffset + flowItems.length}
               variants={deckCompareImageVariants}
@@ -1002,13 +1002,13 @@ function FlowBehaviorDiagramLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 className="h-full min-h-[96px] md:min-h-[112px]"
                 sizes="(max-width: 768px) 90vw, 48vw"
               />
-            </motion.div>
+            </m.div>
           ) : null}
         </div>
 
         <div className="flex min-h-0 flex-col gap-3 md:gap-3.5">
           {mediaSources.slice(1, 2).map((src, imgIndex) => (
-            <motion.div
+            <m.div
               key={src}
               className="min-h-0 flex-1"
               custom={headerOffset + flowItems.length + 1 + imgIndex}
@@ -1023,7 +1023,7 @@ function FlowBehaviorDiagramLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 className="h-full min-h-[108px] md:min-h-[128px]"
                 sizes="(max-width: 768px) 90vw, 44vw"
               />
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
@@ -1131,7 +1131,7 @@ function ComparePanelsSide({ ctx }: { ctx: LayoutRenderContext }) {
       <div className="flex h-full min-h-0 flex-col gap-3 md:gap-4">
         <div className="shrink-0">
           {section ? (
-            <motion.div
+            <m.div
               className="mb-1.5"
               custom={0}
               variants={deckRevealStagger}
@@ -1139,9 +1139,9 @@ function ComparePanelsSide({ ctx }: { ctx: LayoutRenderContext }) {
               animate="show"
             >
               <Chip text={section} />
-            </motion.div>
+            </m.div>
           ) : null}
-          <motion.h2
+          <m.h2
             className={cn("max-w-[22ch] text-pretty", deckType.heading)}
             custom={section ? 1 : 0}
             variants={deckRevealStagger}
@@ -1149,14 +1149,14 @@ function ComparePanelsSide({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {title}
-          </motion.h2>
+          </m.h2>
         </div>
 
         <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,1fr)_minmax(220px,42%)] gap-2.5 md:grid-rows-[minmax(0,1fr)_minmax(260px,44%)] md:gap-3 lg:grid-rows-[minmax(0,1fr)_minmax(300px,46%)]">
           <div className="grid min-h-0 gap-3 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-stretch md:gap-4">
             {panels.map(({ col, labelParts, side, icon: Icon, tone, iconTone, bulletTone }, panelIndex) => {
               const panel = (
-                <motion.div
+                <m.div
                   key={col.label}
                   className={cn(
                     "flex min-h-0 flex-col rounded-2xl border-2 p-4 shadow-lg md:p-5",
@@ -1196,14 +1196,14 @@ function ComparePanelsSide({ ctx }: { ctx: LayoutRenderContext }) {
                       </li>
                     ))}
                   </ul>
-                </motion.div>
+                </m.div>
               );
 
               if (panelIndex === 0) {
                 return (
                   <div key={col.label} className="contents">
                     {panel}
-                    <motion.div
+                    <m.div
                       className="order-2 flex flex-row items-center justify-center gap-3 py-1 md:flex-col md:gap-2.5 md:px-2 md:py-0"
                       custom={headerOffset}
                       variants={deckCompareConnectorVariants}
@@ -1218,7 +1218,7 @@ function ComparePanelsSide({ ctx }: { ctx: LayoutRenderContext }) {
                         MCU
                       </p>
                       <span className="hidden h-12 w-px bg-border/80 md:block" aria-hidden />
-                    </motion.div>
+                    </m.div>
                   </div>
                 );
               }
@@ -1227,7 +1227,7 @@ function ComparePanelsSide({ ctx }: { ctx: LayoutRenderContext }) {
             })}
           </div>
 
-          <motion.div
+          <m.div
             className="relative min-h-[220px] shrink-0 md:min-h-[260px] lg:min-h-[300px]"
             custom={headerOffset + 2}
             variants={deckCompareImageVariants}
@@ -1241,7 +1241,7 @@ function ComparePanelsSide({ ctx }: { ctx: LayoutRenderContext }) {
               className="h-full min-h-[220px] rounded-2xl shadow-lg ring-1 ring-primary/15 md:min-h-[260px] lg:min-h-[300px]"
               sizes="(max-width: 768px) 95vw, 88vw"
             />
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </Shell>
@@ -1325,17 +1325,17 @@ function RealWorldDebuggingLayout({ ctx }: { ctx: LayoutRenderContext }) {
 
       <div className={cn("relative shrink-0 pt-6 md:pt-7", INSET, "pb-3 md:pb-4")}>
         {section ? (
-          <motion.div
+          <m.div
             custom={0}
             variants={introVariants}
             initial={reduced ? false : "hidden"}
             animate="show"
           >
             <Chip text={section} />
-          </motion.div>
+          </m.div>
         ) : null}
 
-        <motion.h2
+        <m.h2
           className={cn(
             deckType.heading,
             "mt-2 max-w-[16ch] text-balance text-[clamp(1.875rem,4.2vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.04em]",
@@ -1346,10 +1346,10 @@ function RealWorldDebuggingLayout({ ctx }: { ctx: LayoutRenderContext }) {
           animate="show"
         >
           {highlightDebuggingTitle(title)}
-        </motion.h2>
+        </m.h2>
 
         {notes ? (
-          <motion.p
+          <m.p
             className={cn(
               "mt-3 flex max-w-[40ch] flex-wrap items-center rounded-2xl border-2 border-primary/35 bg-background/92 px-4 py-3 font-semibold shadow-md backdrop-blur-sm md:mt-4 md:px-5 md:py-3.5",
               deckType.bodyLg,
@@ -1360,13 +1360,13 @@ function RealWorldDebuggingLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {renderDebugScenario(notes)}
-          </motion.p>
+          </m.p>
         ) : null}
       </div>
 
       <div className="relative grid min-h-0 flex-1 grid-cols-1 gap-3 px-6 pb-6 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.16fr)_minmax(0,0.92fr)] md:items-stretch md:gap-4 md:px-8 md:pb-7 lg:px-10 lg:pb-8">
         {panels.map(({ col, side, headerIcon: HeaderIcon, itemIcons, tone, headerTone }, panelIndex) => (
-          <motion.div
+          <m.div
             key={col.label}
             className={cn(
               "flex min-h-0 flex-col gap-3 rounded-2xl border-2 p-4 shadow-lg md:gap-3.5 md:p-4.5",
@@ -1396,7 +1396,7 @@ function RealWorldDebuggingLayout({ ctx }: { ctx: LayoutRenderContext }) {
               {col.items.map((item, i) => {
                 const ItemIcon = itemIcons[i] ?? Zap;
                 return (
-                  <motion.li
+                  <m.li
                     key={item}
                     className="flex items-center gap-3 rounded-xl border border-border/70 bg-background/88 px-3 py-2.5 md:px-3.5 md:py-3"
                     custom={headerOffset + panelIndex * 2 + i}
@@ -1410,15 +1410,15 @@ function RealWorldDebuggingLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     <span className={cn(deckType.body, "min-w-0 flex-1 font-semibold text-pretty leading-snug")}>
                       {item}
                     </span>
-                  </motion.li>
+                  </m.li>
                 );
               })}
             </ul>
-          </motion.div>
+          </m.div>
         ))}
 
         {mediaSources[0] ? (
-          <motion.div
+          <m.div
             className="relative order-first min-h-[168px] overflow-hidden rounded-2xl border-2 border-primary/35 shadow-[0_12px_40px_rgba(37,99,235,0.14)] md:order-none md:min-h-0"
             custom={0}
             variants={imageVariants}
@@ -1436,7 +1436,7 @@ function RealWorldDebuggingLayout({ ctx }: { ctx: LayoutRenderContext }) {
               className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/45 via-transparent to-transparent"
               aria-hidden
             />
-            <motion.span
+            <m.span
               className="absolute bottom-3 left-3 flex items-center gap-2 rounded-xl border-2 border-primary/50 bg-background/92 px-3 py-1.5 font-mono text-xs font-extrabold uppercase tracking-wide text-primary shadow-md backdrop-blur-sm md:bottom-4 md:left-4 md:px-3.5 md:py-2 md:text-sm"
               custom={1}
               variants={introVariants}
@@ -1445,11 +1445,11 @@ function RealWorldDebuggingLayout({ ctx }: { ctx: LayoutRenderContext }) {
             >
               <Bug className="size-4 md:size-4.5" strokeWidth={2.25} aria-hidden />
               {debugBadge}
-            </motion.span>
-          </motion.div>
+            </m.span>
+          </m.div>
         ) : null}
 
-        <motion.div
+        <m.div
           className="pointer-events-none absolute left-1/2 top-[52%] z-10 hidden -translate-x-1/2 -translate-y-1/2 md:flex"
           custom={headerOffset + 3}
           variants={connectorVariants}
@@ -1460,7 +1460,7 @@ function RealWorldDebuggingLayout({ ctx }: { ctx: LayoutRenderContext }) {
           <span className="flex size-11 items-center justify-center rounded-full border-2 border-primary/45 bg-background/95 text-primary shadow-lg">
             <ArrowLeftRight className="size-5" strokeWidth={2.35} />
           </span>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );
@@ -1561,7 +1561,7 @@ function TeachingSubtitlePills({ subtitle, reduced }: { subtitle: string; reduce
   return (
     <div className="flex max-w-[34ch] flex-wrap gap-2.5 md:gap-3">
       {parts.map((part, i) => (
-        <motion.span
+        <m.span
           key={part}
           className={cn(
             "inline-flex items-center rounded-xl border-2 border-primary/40 bg-gradient-to-br from-primary/[0.12] via-background to-accent/50",
@@ -1573,7 +1573,7 @@ function TeachingSubtitlePills({ subtitle, reduced }: { subtitle: string; reduce
           animate="show"
         >
           {part}
-        </motion.span>
+        </m.span>
       ))}
     </div>
   );
@@ -1619,7 +1619,7 @@ function MechatronicsHandsOnLayout({ ctx }: { ctx: LayoutRenderContext }) {
   return (
     <div className="grid h-full min-h-0 grid-cols-1 overflow-hidden bg-background md:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)]">
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="relative min-h-[200px] overflow-hidden border-b-2 border-primary/25 md:min-h-0 md:border-b-0 md:border-r-2"
           custom={0}
           variants={deckEditorialImageLeftVariants}
@@ -1637,22 +1637,22 @@ function MechatronicsHandsOnLayout({ ctx }: { ctx: LayoutRenderContext }) {
             className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background/15 md:to-background/30"
             aria-hidden
           />
-        </motion.div>
+        </m.div>
       ) : null}
 
       <div className={cn("flex min-h-0 flex-col justify-center gap-4 md:gap-5", INSET, "md:pl-8 lg:pl-10")}>
         {section ? (
-          <motion.div
+          <m.div
             custom={titleIndex - 1}
             variants={deckRevealStagger}
             initial={reduced ? false : "hidden"}
             animate="show"
           >
             <Chip text={section} />
-          </motion.div>
+          </m.div>
         ) : null}
 
-        <motion.h2
+        <m.h2
           className={cn(
             deckType.heading,
             "max-w-[14ch] text-pretty text-[clamp(1.875rem,4.2vw,3.25rem)] leading-[1.08]",
@@ -1663,13 +1663,13 @@ function MechatronicsHandsOnLayout({ ctx }: { ctx: LayoutRenderContext }) {
           animate="show"
         >
           {highlightHandsOnTitle(title, locale)}
-        </motion.h2>
+        </m.h2>
 
         <div className="flex flex-col gap-2.5 md:gap-3">
           {bullets.map((item, i) => {
             const Icon = MECH_BULLET_ICONS[i] ?? Zap;
             return (
-              <motion.div
+              <m.div
                 key={item.vi}
                 className="flex items-start gap-3 rounded-xl border border-border/80 bg-card/90 px-3.5 py-3 md:gap-3.5 md:px-4 md:py-3.5"
                 custom={bulletStart + i}
@@ -1683,7 +1683,7 @@ function MechatronicsHandsOnLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 <p className={cn(deckType.body, "min-w-0 flex-1 pt-0.5 font-semibold text-pretty leading-snug")}>
                   {localize(item, locale)}
                 </p>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
@@ -1800,7 +1800,7 @@ function MblockSectionIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
         >
           <div className="flex flex-wrap items-center justify-between gap-2">
             {section ? (
-              <motion.span
+              <m.span
                 className={cn(
                   deckType.chip,
                   "w-fit border-primary/50 bg-primary/16 px-3 py-1 text-xs font-extrabold md:text-sm",
@@ -1811,12 +1811,12 @@ function MblockSectionIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 animate="show"
               >
                 {section}
-              </motion.span>
+              </m.span>
             ) : (
               <span />
             )}
 
-            <motion.span
+            <m.span
               className="rounded-lg border-2 border-primary/42 bg-primary/12 px-2.5 py-1 font-mono text-[0.6875rem] font-extrabold tracking-[0.04em] text-primary shadow-sm sm:px-3 sm:py-1.5 sm:text-xs"
               custom={titleIndex + 1}
               variants={pillVariants}
@@ -1824,10 +1824,10 @@ function MblockSectionIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
               animate="show"
             >
               {flowLabel}
-            </motion.span>
+            </m.span>
           </div>
 
-          <motion.h2
+          <m.h2
             className={cn(
               deckType.heading,
               "max-w-[14ch] text-balance text-[clamp(1.75rem,3.6vw,3.25rem)] font-extrabold leading-[1.02] tracking-[-0.04em]",
@@ -1838,10 +1838,10 @@ function MblockSectionIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {highlightMblockTitle(title, locale)}
-          </motion.h2>
+          </m.h2>
 
           {subtitle ? (
-            <motion.div
+            <m.div
               className={cn(
                 "flex items-start gap-3 rounded-xl border-2 border-primary/42 bg-primary/[0.1] px-3.5 py-2.5",
                 "shadow-[0_10px_32px_rgba(37,99,235,0.15)] md:gap-3.5 md:px-4 md:py-3",
@@ -1871,10 +1871,10 @@ function MblockSectionIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
                   {subtitle}
                 </p>
               )}
-            </motion.div>
+            </m.div>
           ) : null}
 
-          <motion.div
+          <m.div
             className="h-1.5 w-[min(10rem,44vw)] origin-left rounded-full bg-primary/60"
             custom={ruleIndex}
             variants={ruleVariants}
@@ -1886,7 +1886,7 @@ function MblockSectionIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
       </div>
 
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="relative min-h-[200px] shrink-0 overflow-hidden border-t-[3px] border-primary/45 shadow-[0_-16px_52px_rgba(37,99,235,0.16)] ring-1 ring-primary/20 md:min-h-0 md:border-l-[3px] md:border-t-0"
           custom={0}
           variants={imageVariants}
@@ -1908,7 +1908,7 @@ function MblockSectionIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
             </span>
           </div>
           <div className="absolute inset-0 overflow-hidden pt-8 md:pt-9">
-            <motion.div
+            <m.div
               className="absolute inset-0"
               animate={reduced ? undefined : { scale: [1, 1.04, 1.015] }}
               transition={deckOverdriveHeroDriftTransition}
@@ -1921,11 +1921,11 @@ function MblockSectionIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 sizes="(max-width: 768px) 100vw, 48vw"
                 priority
               />
-            </motion.div>
+            </m.div>
           </div>
           <div className="pointer-events-none absolute inset-0 pt-8 md:pt-9" aria-hidden>
             {floatBlocks.map((label, i) => (
-              <motion.span
+              <m.span
                 key={label}
                 className={cn(
                   "absolute rounded-lg border-2 px-2 py-1 font-mono text-[0.5625rem] font-bold shadow-md backdrop-blur-sm md:text-[0.625rem]",
@@ -1939,14 +1939,14 @@ function MblockSectionIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 animate="show"
               >
                 {label}
-              </motion.span>
+              </m.span>
             ))}
           </div>
           <div
             className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/28 via-transparent to-transparent md:from-background/38"
             aria-hidden
           />
-          <motion.span
+          <m.span
             className="absolute bottom-3 left-3 z-10 rounded-lg border-2 border-primary/55 bg-background/94 px-2.5 py-1 font-mono text-[0.6875rem] font-extrabold uppercase tracking-[0.06em] text-primary shadow-md backdrop-blur-sm md:bottom-4 md:left-4 md:px-3 md:py-1.5 md:text-xs"
             custom={1}
             variants={pillVariants}
@@ -1954,8 +1954,8 @@ function MblockSectionIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {modeBadge}
-          </motion.span>
-        </motion.div>
+          </m.span>
+        </m.div>
       ) : null}
     </div>
   );
@@ -2032,7 +2032,7 @@ function BlockProgrammingLayout({ ctx }: { ctx: LayoutRenderContext }) {
 
       <div className="relative flex min-h-0 flex-col justify-center px-6 py-7 md:px-9 md:py-8 lg:px-11">
         {section ? (
-          <motion.span
+          <m.span
             className={cn(deckType.chip, "mb-3 w-fit border-primary/40 bg-primary/12 px-3.5 py-1 font-semibold")}
             custom={0}
             variants={introVariants}
@@ -2040,10 +2040,10 @@ function BlockProgrammingLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {section}
-          </motion.span>
+          </m.span>
         ) : null}
 
-        <motion.h2
+        <m.h2
           className={cn(
             deckType.heading,
             "max-w-[14ch] text-balance text-[clamp(2rem,4.6vw,3.75rem)] font-extrabold leading-[1.05] tracking-[-0.04em]",
@@ -2054,14 +2054,14 @@ function BlockProgrammingLayout({ ctx }: { ctx: LayoutRenderContext }) {
           animate="show"
         >
           {highlightBlockTitle(title, locale)}
-        </motion.h2>
+        </m.h2>
 
         {codeLines.length > 0 ? (
           <div className="mt-5 space-y-1 md:mt-6" role="group" aria-label={locale === "vi" ? "Luồng khối lệnh" : "Block flow"}>
             {codeLines.map((line, i) => {
               const { kind, label } = classifyLogicBlock(line);
               return (
-                <motion.div
+                <m.div
                   key={`${kind}-${i}`}
                   className={cn("px-4 py-3 font-mono text-[clamp(0.875rem,1.65vw,1.125rem)] font-bold leading-snug tracking-[-0.01em] text-foreground md:px-5 md:py-3.5", logicBlockTone(kind))}
                   custom={headerOffset + i}
@@ -2070,7 +2070,7 @@ function BlockProgrammingLayout({ ctx }: { ctx: LayoutRenderContext }) {
                   animate="show"
                 >
                   {label}
-                </motion.div>
+                </m.div>
               );
             })}
           </div>
@@ -2079,7 +2079,7 @@ function BlockProgrammingLayout({ ctx }: { ctx: LayoutRenderContext }) {
         {outcomes.length > 0 ? (
           <div className="mt-5 flex flex-wrap gap-2 md:mt-6 md:gap-2.5">
             {outcomes.map((outcome, i) => (
-              <motion.span
+              <m.span
                 key={outcome}
                 className={cn(
                   deckType.body,
@@ -2091,14 +2091,14 @@ function BlockProgrammingLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 animate="show"
               >
                 {outcome}
-              </motion.span>
+              </m.span>
             ))}
           </div>
         ) : null}
       </div>
 
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="relative min-h-[220px] overflow-hidden border-t-2 border-primary/30 shadow-[0_-10px_36px_rgba(37,99,235,0.1)] ring-1 ring-primary/12 md:min-h-0 md:border-l-2 md:border-t-0"
           custom={0}
           variants={imageVariants}
@@ -2126,7 +2126,7 @@ function BlockProgrammingLayout({ ctx }: { ctx: LayoutRenderContext }) {
               sizes="(max-width: 768px) 100vw, 52vw"
             />
           </div>
-        </motion.div>
+        </m.div>
       ) : null}
     </div>
   );
@@ -2159,17 +2159,17 @@ function MechanicalFreedomLayout({ ctx }: { ctx: LayoutRenderContext }) {
       <div className="grid h-full min-h-0 gap-4 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] md:gap-5 lg:gap-6">
         <div className="flex min-h-0 flex-col justify-center gap-4 md:gap-5">
           {section ? (
-            <motion.div
+            <m.div
               custom={0}
               variants={deckRevealStagger}
               initial={reduced ? false : "hidden"}
               animate="show"
             >
               <Chip text={section} />
-            </motion.div>
+            </m.div>
           ) : null}
 
-          <motion.h2
+          <m.h2
             className={cn(
               deckType.heading,
               "max-w-[16ch] text-pretty text-[clamp(2rem,4.8vw,3.5rem)] leading-[1.06]",
@@ -2180,11 +2180,11 @@ function MechanicalFreedomLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {highlightArduinoLead(title)}
-          </motion.h2>
+          </m.h2>
 
           <div className="flex flex-col gap-3">
             {bullets.map((item, i) => (
-              <motion.div
+              <m.div
                 key={item.vi}
                 className="rounded-xl border border-primary/25 bg-primary/[0.07] px-4 py-3.5 md:px-5 md:py-4"
                 custom={bulletStart + i}
@@ -2195,14 +2195,14 @@ function MechanicalFreedomLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 <p className={cn(deckType.bodyLg, "font-semibold text-pretty leading-snug")}>
                   {localize(item, locale)}
                 </p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
 
         <div className="relative flex min-h-[220px] flex-1 flex-col md:min-h-0">
           {mediaSources[0] ? (
-            <motion.div
+            <m.div
               className="relative min-h-0 flex-[1.2]"
               custom={0}
               variants={deckPartIntroImageVariants}
@@ -2216,11 +2216,11 @@ function MechanicalFreedomLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 sizes="(max-width: 768px) 92vw, 48vw"
                 className="h-full min-h-[140px] shadow-[0_12px_40px_rgba(37,99,235,0.16)] ring-1 ring-primary/25 md:min-h-[180px]"
               />
-            </motion.div>
+            </m.div>
           ) : null}
 
           {mediaSources[1] ? (
-            <motion.div
+            <m.div
               className="relative z-10 -mt-5 ml-8 min-h-0 flex-[0.82] md:-mt-8 md:ml-12"
               custom={1}
               variants={deckDualStackImageVariants}
@@ -2234,7 +2234,7 @@ function MechanicalFreedomLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 sizes="(max-width: 768px) 78vw, 40vw"
                 className="h-full min-h-[120px] shadow-lg ring-2 ring-background md:min-h-[150px]"
               />
-            </motion.div>
+            </m.div>
           ) : null}
         </div>
       </div>
@@ -2272,7 +2272,7 @@ function TeachingDualAdvantageBand({
         return (
           <div key={part} className="flex flex-col">
             {i > 0 ? (
-              <motion.div
+              <m.div
                 className="flex justify-center py-1 md:py-1.5"
                 custom={i}
                 variants={connectorVariants}
@@ -2281,9 +2281,9 @@ function TeachingDualAdvantageBand({
                 aria-hidden
               >
                 <ArrowDown className="size-5 text-primary/75 md:size-6" strokeWidth={2.35} />
-              </motion.div>
+              </m.div>
             ) : null}
-            <motion.div
+            <m.div
               className={cn(
                 "flex w-full items-center gap-3 rounded-xl border-2 px-3.5 py-2.5 shadow-md md:gap-3.5 md:px-4 md:py-3",
                 isSoftware
@@ -2318,7 +2318,7 @@ function TeachingDualAdvantageBand({
               >
                 {part}
               </p>
-            </motion.div>
+            </m.div>
           </div>
         );
       })}
@@ -2366,7 +2366,7 @@ function TeachingPartIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
         >
           <div className="flex flex-wrap items-center justify-between gap-2">
             {section ? (
-              <motion.span
+              <m.span
                 className={cn(
                   deckType.chip,
                   "w-fit border-primary/50 bg-primary/16 px-3.5 py-1.5 text-sm font-extrabold md:text-base",
@@ -2377,12 +2377,12 @@ function TeachingPartIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 animate="show"
               >
                 {section}
-              </motion.span>
+              </m.span>
             ) : (
               <span />
             )}
 
-            <motion.span
+            <m.span
               className="rounded-xl border-2 border-primary/42 bg-primary/12 px-2.5 py-1 font-mono text-[0.6875rem] font-extrabold tracking-[0.04em] text-primary shadow-sm sm:px-3 sm:py-1.5 sm:text-xs md:text-sm"
               custom={titleIndex + 1}
               variants={pillVariants}
@@ -2390,10 +2390,10 @@ function TeachingPartIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
               animate="show"
             >
               {flowLabel}
-            </motion.span>
+            </m.span>
           </div>
 
-          <motion.h2
+          <m.h2
             className={cn(
               deckType.display,
               "max-w-[14ch] text-balance text-[clamp(1.875rem,4.2vw,3.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em]",
@@ -2404,10 +2404,10 @@ function TeachingPartIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {highlightTeachingTitle(title, locale)}
-          </motion.h2>
+          </m.h2>
 
           {subtitle ? (
-            <motion.div
+            <m.div
               className="min-h-0 pt-0.5"
               custom={bandIndex}
               variants={introVariants}
@@ -2415,10 +2415,10 @@ function TeachingPartIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
               animate="show"
             >
               <TeachingDualAdvantageBand subtitle={subtitle} reduced={reduced} />
-            </motion.div>
+            </m.div>
           ) : null}
 
-          <motion.div
+          <m.div
             className="h-1.5 w-[min(11rem,46vw)] origin-left rounded-full bg-primary/60"
             custom={ruleIndex}
             variants={ruleVariants}
@@ -2430,14 +2430,14 @@ function TeachingPartIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
       </div>
 
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="relative min-h-[200px] shrink-0 overflow-hidden border-t-[3px] border-primary/45 shadow-[0_-16px_52px_rgba(37,99,235,0.16)] ring-1 ring-primary/20 md:min-h-0 md:border-l-[3px] md:border-t-0"
           custom={0}
           variants={imageVariants}
           initial={reduced ? false : "hidden"}
           animate="show"
         >
-          <motion.div
+          <m.div
             className="absolute inset-0"
             animate={reduced ? undefined : { scale: [1, 1.045, 1.02] }}
             transition={deckOverdriveHeroDriftTransition}
@@ -2450,7 +2450,7 @@ function TeachingPartIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
               className="object-cover object-[center_35%] md:object-center"
               priority
             />
-          </motion.div>
+          </m.div>
           <div
             className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-transparent md:from-background/48"
             aria-hidden
@@ -2459,7 +2459,7 @@ function TeachingPartIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/45 via-transparent to-transparent"
             aria-hidden
           />
-          <motion.span
+          <m.span
             className="absolute bottom-4 left-4 z-10 rounded-xl border-2 border-primary/55 bg-background/94 px-3 py-1.5 font-mono text-xs font-extrabold uppercase tracking-[0.06em] text-primary shadow-md backdrop-blur-sm md:bottom-5 md:left-5 md:px-3.5 md:py-2 md:text-sm"
             custom={1}
             variants={pillVariants}
@@ -2467,8 +2467,8 @@ function TeachingPartIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {sceneBadge}
-          </motion.span>
-        </motion.div>
+          </m.span>
+        </m.div>
       ) : null}
     </div>
   );
@@ -2531,7 +2531,7 @@ function DisciplineTriadRow({
                 +
               </span>
             ) : null}
-            <motion.div
+            <m.div
               className={cn(
                 "flex min-w-0 flex-1 items-center gap-2.5 rounded-xl border-2 border-primary/30 bg-card/95 px-3.5 py-3 shadow-[0_6px_20px_rgba(37,99,235,0.08)] md:min-w-[9.5rem] md:flex-none md:px-4 md:py-3.5",
                 i === 1 && "md:flex-1",
@@ -2545,7 +2545,7 @@ function DisciplineTriadRow({
                 <Icon className="size-[1.125rem] md:size-5" strokeWidth={2.25} />
               </span>
               <span className={cn(deckType.body, "min-w-0 font-bold text-pretty leading-snug")}>{label}</span>
-            </motion.div>
+            </m.div>
           </div>
         );
       })}
@@ -2588,7 +2588,7 @@ function RoboticsPartThreeIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
 
       <div className="relative flex min-h-0 flex-col justify-center px-6 py-7 md:px-10 md:py-9 lg:px-12">
         {section ? (
-          <motion.span
+          <m.span
             className={cn(
               deckType.chip,
               "relative z-10 mb-4 w-fit border-primary/45 bg-primary/14 px-4 py-1.5 text-base font-bold md:text-lg",
@@ -2599,10 +2599,10 @@ function RoboticsPartThreeIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {section}
-          </motion.span>
+          </m.span>
         ) : null}
 
-        <motion.h2
+        <m.h2
           className={cn(
             deckType.display,
             "relative z-10 max-w-[15ch] text-balance text-[clamp(2.35rem,5.4vw,4.75rem)] font-extrabold leading-[1.04] tracking-[-0.04em]",
@@ -2613,7 +2613,7 @@ function RoboticsPartThreeIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
           animate="show"
         >
           {highlightPartThreeTitle(title, locale)}
-        </motion.h2>
+        </m.h2>
 
         {disciplines.length > 0 ? (
           <div className="relative z-10 mt-6 max-w-[38ch] md:mt-7">
@@ -2621,7 +2621,7 @@ function RoboticsPartThreeIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
           </div>
         ) : null}
 
-        <motion.div
+        <m.div
           className="relative z-10 mt-7 h-1 w-[min(12rem,50vw)] origin-left rounded-full bg-primary/55 md:mt-8"
           custom={ruleIndex}
           variants={ruleVariants}
@@ -2632,7 +2632,7 @@ function RoboticsPartThreeIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
       </div>
 
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="relative min-h-[240px] overflow-hidden border-t-[3px] border-primary/40 shadow-[0_-14px_48px_rgba(37,99,235,0.14)] ring-1 ring-primary/18 md:min-h-0 md:border-l-[3px] md:border-t-0"
           custom={0}
           variants={imageVariants}
@@ -2651,7 +2651,7 @@ function RoboticsPartThreeIntroLayout({ ctx }: { ctx: LayoutRenderContext }) {
             className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/35 via-transparent to-transparent md:from-background/45"
             aria-hidden
           />
-        </motion.div>
+        </m.div>
       ) : null}
     </div>
   );
@@ -2780,7 +2780,7 @@ function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
         <div className="flex flex-wrap items-end justify-between gap-2 md:gap-2.5">
           <div className="min-w-0 flex-1">
             {section ? (
-              <motion.div
+              <m.div
                 className="mb-1.5 md:mb-2"
                 custom={0}
                 variants={introVariants}
@@ -2788,9 +2788,9 @@ function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 animate="show"
               >
                 <Chip text={section} />
-              </motion.div>
+              </m.div>
             ) : null}
-            <motion.h2
+            <m.h2
               className={cn(
                 deckType.display,
                 "max-w-[14ch] text-balance text-[clamp(1.875rem,4vw,3.45rem)] font-extrabold leading-[1.02] tracking-[-0.04em]",
@@ -2802,10 +2802,10 @@ function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
               data-testid="deck-three-pillars-title"
             >
               {highlightThreePillarsTitle(title, locale)}
-            </motion.h2>
+            </m.h2>
           </div>
 
-          <motion.span
+          <m.span
             className="rounded-xl border-2 border-primary/45 bg-primary/12 px-2.5 py-1 font-mono text-[0.6875rem] font-extrabold tracking-[0.04em] text-primary shadow-sm sm:px-3 sm:py-1.5 sm:text-xs md:text-sm"
             custom={titleIndex + 1}
             variants={pillVariants}
@@ -2813,10 +2813,10 @@ function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {flowLabel}
-          </motion.span>
+          </m.span>
         </div>
 
-        <motion.div
+        <m.div
           className="mt-1 h-1.5 w-[min(10rem,44vw)] origin-left rounded-full bg-primary/60"
           custom={titleIndex + 2}
           variants={ruleVariants}
@@ -2836,7 +2836,7 @@ function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
             const isCenter = i === 1;
             const roleLabel = localize(PILLAR_ROLE_LABELS[i] ?? PILLAR_ROLE_LABELS[0], locale);
             const column = (
-              <motion.div
+              <m.div
                 key={pillar.label}
                 data-testid={`deck-three-pillars-card-${i}`}
                 className={cn(
@@ -2901,13 +2901,13 @@ function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             );
 
             if (i === 0) return [column];
 
             const connector = (
-              <motion.div
+              <m.div
                 key={`pillar-connector-${i}`}
                 className="flex shrink-0 items-center justify-center py-0.5 md:py-1"
                 custom={pillarStart + i - 1}
@@ -2927,7 +2927,7 @@ function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     <ArrowLeftRight className="size-4 md:size-4.5" strokeWidth={2.35} aria-hidden />
                   </span>
                 </div>
-              </motion.div>
+              </m.div>
             );
 
             return [connector, column];
@@ -2936,7 +2936,7 @@ function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
       </div>
 
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="relative z-0 min-h-0 flex-1 overflow-hidden border-t-2 border-primary/38 shadow-[0_-12px_40px_rgba(37,99,235,0.12)]"
           custom={pillarStart + pillars.length}
           variants={bandVariants}
@@ -2957,7 +2957,7 @@ function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 via-background/8 to-transparent"
             aria-hidden
           />
-          <motion.span
+          <m.span
             className="absolute bottom-2.5 left-3 z-10 rounded-xl border-2 border-primary/55 bg-background/94 px-2.5 py-1 font-mono text-[0.6875rem] font-extrabold uppercase tracking-[0.06em] text-primary shadow-md backdrop-blur-sm md:bottom-3 md:left-5 md:px-3 md:py-1.5 md:text-xs"
             custom={pillarStart + pillars.length + 1}
             variants={pillVariants}
@@ -2965,8 +2965,8 @@ function ThreePillarsLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {capstoneBadge}
-          </motion.span>
-        </motion.div>
+          </m.span>
+        </m.div>
       ) : null}
     </div>
   );
@@ -3017,7 +3017,7 @@ function AiIotIntegrationLayout({ ctx }: { ctx: LayoutRenderContext }) {
       />
 
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="relative min-h-[200px] overflow-hidden border-b-2 border-primary/28 md:min-h-0 md:border-b-0 md:border-r-2"
           custom={0}
           variants={imageVariants}
@@ -3037,7 +3037,7 @@ function AiIotIntegrationLayout({ ctx }: { ctx: LayoutRenderContext }) {
           />
           <div className="absolute left-4 top-4 flex gap-2 md:left-5 md:top-5">
             {(["AI", "IoT"] as const).map((badge, i) => (
-              <motion.span
+              <m.span
                 key={badge}
                 className="rounded-lg border-2 border-primary/50 bg-background/92 px-3 py-1 font-mono text-sm font-extrabold tracking-wide text-primary shadow-md backdrop-blur-sm md:px-3.5 md:py-1.5 md:text-base"
                 custom={i}
@@ -3046,25 +3046,25 @@ function AiIotIntegrationLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 animate="show"
               >
                 {badge}
-              </motion.span>
+              </m.span>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       ) : null}
 
       <div className={cn("relative flex min-h-0 flex-col justify-center gap-3.5 md:gap-4", INSET, "md:pl-7 lg:pl-9")}>
         {section ? (
-          <motion.div
+          <m.div
             custom={titleIndex - 1}
             variants={introVariants}
             initial={reduced ? false : "hidden"}
             animate="show"
           >
             <Chip text={section} />
-          </motion.div>
+          </m.div>
         ) : null}
 
-        <motion.h2
+        <m.h2
           className={cn(
             deckType.heading,
             "max-w-[13ch] text-balance text-[clamp(1.875rem,4.2vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.04em]",
@@ -3075,9 +3075,9 @@ function AiIotIntegrationLayout({ ctx }: { ctx: LayoutRenderContext }) {
           animate="show"
         >
           {highlightAiIotTitle(title)}
-        </motion.h2>
+        </m.h2>
 
-        <motion.div
+        <m.div
           className="h-1 w-[min(9rem,40vw)] origin-left rounded-full bg-primary/55"
           custom={titleIndex + 1}
           variants={ruleVariants}
@@ -3092,7 +3092,7 @@ function AiIotIntegrationLayout({ ctx }: { ctx: LayoutRenderContext }) {
             const isHero = i === 1;
             const capLabel = localize(capabilityLabels[i] ?? capabilityLabels[0], locale);
             const panel = (
-              <motion.div
+              <m.div
                 key={item.vi}
                 className={cn(
                   "flex items-start gap-3 rounded-2xl border-2 p-3.5 shadow-md md:gap-3.5 md:p-4",
@@ -3127,14 +3127,14 @@ function AiIotIntegrationLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     {localize(item, locale)}
                   </p>
                 </div>
-              </motion.div>
+              </m.div>
             );
 
             if (i < bullets.length - 1) {
               return (
                 <div key={`ai-iot-${item.vi}`} className="flex flex-col gap-2 md:gap-2.5">
                   {panel}
-                  <motion.div
+                  <m.div
                     className="flex justify-center py-0.5"
                     custom={ladderStart + i}
                     variants={connectorVariants}
@@ -3143,7 +3143,7 @@ function AiIotIntegrationLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     aria-hidden
                   >
                     <ArrowDown className="size-5 text-primary/70 md:size-6" strokeWidth={2.3} />
-                  </motion.div>
+                  </m.div>
                 </div>
               );
             }
@@ -3208,7 +3208,7 @@ function VoiceControlledRobotLayout({ ctx }: { ctx: LayoutRenderContext }) {
   return (
     <div className="relative grid h-full min-h-0 grid-rows-[minmax(0,1.06fr)_minmax(0,0.94fr)] overflow-hidden bg-background">
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="relative min-h-[180px] overflow-hidden border-b-2 border-primary/25"
           custom={0}
           variants={imageVariants}
@@ -3226,7 +3226,7 @@ function VoiceControlledRobotLayout({ ctx }: { ctx: LayoutRenderContext }) {
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/75 via-background/15 to-transparent"
             aria-hidden
           />
-          <motion.span
+          <m.span
             className="absolute bottom-4 left-4 rounded-xl border-2 border-primary/50 bg-background/90 px-3.5 py-1.5 font-mono text-sm font-extrabold uppercase tracking-wide text-primary shadow-md backdrop-blur-sm md:bottom-5 md:left-6 md:px-4 md:py-2 md:text-base"
             custom={1}
             variants={badgeVariants}
@@ -3234,23 +3234,23 @@ function VoiceControlledRobotLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {flowLabel}
-          </motion.span>
-        </motion.div>
+          </m.span>
+        </m.div>
       ) : null}
 
       <div className={cn("relative flex min-h-0 flex-col justify-center gap-3 md:gap-4", INSET, "pt-4 md:pt-5")}>
         {section ? (
-          <motion.div
+          <m.div
             custom={titleIndex - 1}
             variants={introVariants}
             initial={reduced ? false : "hidden"}
             animate="show"
           >
             <Chip text={section} />
-          </motion.div>
+          </m.div>
         ) : null}
 
-        <motion.h2
+        <m.h2
           className={cn(
             deckType.heading,
             "max-w-[14ch] text-balance text-[clamp(1.875rem,4.2vw,3.45rem)] font-extrabold leading-[1.05] tracking-[-0.04em]",
@@ -3261,7 +3261,7 @@ function VoiceControlledRobotLayout({ ctx }: { ctx: LayoutRenderContext }) {
           animate="show"
         >
           {highlightVoiceControlTitle(title, locale)}
-        </motion.h2>
+        </m.h2>
 
         <div className="flex flex-col gap-2 sm:grid sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] sm:items-stretch md:gap-2.5">
           {bullets.map((item, i) => {
@@ -3269,7 +3269,7 @@ function VoiceControlledRobotLayout({ ctx }: { ctx: LayoutRenderContext }) {
             const phaseLabel = localize(VOICE_FLOW_PHASES[i] ?? VOICE_FLOW_PHASES[0], locale);
             const isHero = i === 1;
             const panel = (
-              <motion.div
+              <m.div
                 key={item.vi}
                 className={cn(
                   "flex min-h-0 flex-col gap-2 rounded-2xl border-2 p-3 shadow-md md:gap-2.5 md:p-3.5",
@@ -3304,14 +3304,14 @@ function VoiceControlledRobotLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 >
                   {localize(item, locale)}
                 </p>
-              </motion.div>
+              </m.div>
             );
 
             if (i < bullets.length - 1) {
               return (
                 <div key={`voice-flow-${item.vi}`} className="contents">
                   {panel}
-                  <motion.div
+                  <m.div
                     className="flex items-center justify-center self-center px-0.5 py-0.5 sm:py-0"
                     custom={pipelineStart + i}
                     variants={connectorVariants}
@@ -3321,7 +3321,7 @@ function VoiceControlledRobotLayout({ ctx }: { ctx: LayoutRenderContext }) {
                   >
                     <ArrowRight className="hidden size-6 text-primary/75 sm:block md:size-7" strokeWidth={2.35} aria-hidden />
                     <ArrowDown className="size-6 text-primary/75 sm:hidden" strokeWidth={2.35} aria-hidden />
-                  </motion.div>
+                  </m.div>
                 </div>
               );
             }
@@ -3385,17 +3385,17 @@ function FaceRecognitionExampleLayout({ ctx }: { ctx: LayoutRenderContext }) {
 
       <div className={cn("relative flex min-h-0 flex-col justify-center gap-4 md:gap-5", INSET, "md:pr-6 lg:pr-8")}>
         {section ? (
-          <motion.div
+          <m.div
             custom={0}
             variants={introVariants}
             initial={reduced ? false : "hidden"}
             animate="show"
           >
             <Chip text={section} />
-          </motion.div>
+          </m.div>
         ) : null}
 
-        <motion.h2
+        <m.h2
           className={cn(
             deckType.heading,
             "max-w-[14ch] text-balance text-[clamp(1.875rem,4.2vw,3.5rem)] font-extrabold leading-[1.06] tracking-[-0.04em]",
@@ -3406,14 +3406,14 @@ function FaceRecognitionExampleLayout({ ctx }: { ctx: LayoutRenderContext }) {
           animate="show"
         >
           {highlightFaceRecognitionTitle(title, locale)}
-        </motion.h2>
+        </m.h2>
 
         <div className="flex flex-col gap-2.5 sm:flex-row sm:items-stretch sm:gap-2 md:flex-col md:gap-2.5">
           {bullets.map((item, i) => {
             const Icon = FACE_EXAMPLE_ICONS[i] ?? Zap;
             const variants = i === 0 ? stepVariants : stepRightVariants;
             const panel = (
-              <motion.div
+              <m.div
                 key={item.vi}
                 className={cn(
                   "flex flex-1 items-start gap-3 rounded-2xl border-2 p-4 shadow-md md:p-4.5",
@@ -3432,14 +3432,14 @@ function FaceRecognitionExampleLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 <p className={cn(deckType.body, "min-w-0 flex-1 pt-1 font-bold text-pretty leading-snug")}>
                   {localize(item, locale)}
                 </p>
-              </motion.div>
+              </m.div>
             );
 
             if (i === 0 && bullets.length > 1) {
               return (
                 <div key={`flow-${item.vi}`} className="flex flex-col gap-2.5 sm:contents">
                   {panel}
-                  <motion.div
+                  <m.div
                     className="flex shrink-0 items-center justify-center py-0.5 sm:flex-col sm:px-1 sm:py-0 md:py-0.5"
                     custom={headerOffset}
                     variants={connectorVariants}
@@ -3447,7 +3447,7 @@ function FaceRecognitionExampleLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     animate="show"
                   >
                     <ArrowRight className="size-7 text-primary md:size-8" strokeWidth={2.35} aria-hidden />
-                  </motion.div>
+                  </m.div>
                 </div>
               );
             }
@@ -3456,7 +3456,7 @@ function FaceRecognitionExampleLayout({ ctx }: { ctx: LayoutRenderContext }) {
           })}
         </div>
 
-        <motion.p
+        <m.p
           className="w-fit rounded-full border border-primary/35 bg-primary/10 px-4 py-1.5 font-mono text-sm font-bold text-primary md:text-base"
           custom={headerOffset + 1}
           variants={connectorVariants}
@@ -3464,11 +3464,11 @@ function FaceRecognitionExampleLayout({ ctx }: { ctx: LayoutRenderContext }) {
           animate="show"
         >
           {flowLabel}
-        </motion.p>
+        </m.p>
       </div>
 
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="relative min-h-[220px] overflow-hidden border-t-2 border-primary/35 shadow-[0_-12px_40px_rgba(37,99,235,0.12)] ring-1 ring-primary/15 md:min-h-0 md:border-l-2 md:border-t-0"
           custom={0}
           variants={imageVariants}
@@ -3486,7 +3486,7 @@ function FaceRecognitionExampleLayout({ ctx }: { ctx: LayoutRenderContext }) {
             className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/30 via-transparent to-transparent md:from-background/40"
             aria-hidden
           />
-        </motion.div>
+        </m.div>
       ) : null}
     </div>
   );
@@ -3540,7 +3540,7 @@ function KidsRoboticsPartFourLayout({ ctx }: { ctx: LayoutRenderContext }) {
   return (
     <div className="relative h-full min-h-0 overflow-hidden bg-background">
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="absolute inset-0"
           custom={0}
           variants={bgVariants}
@@ -3555,7 +3555,7 @@ function KidsRoboticsPartFourLayout({ ctx }: { ctx: LayoutRenderContext }) {
             sizes="100vw"
             className="object-cover object-[center_35%] scale-105 md:object-center"
           />
-        </motion.div>
+        </m.div>
       ) : null}
 
       <div
@@ -3576,7 +3576,7 @@ function KidsRoboticsPartFourLayout({ ctx }: { ctx: LayoutRenderContext }) {
 
       <div className="relative flex h-full min-h-0 flex-col justify-end px-6 pb-8 pt-16 md:px-12 md:pb-10 md:pt-20 lg:px-14 lg:pb-12">
         {section ? (
-          <motion.span
+          <m.span
             className={cn(
               deckType.chip,
               "mb-4 w-fit border-primary/50 bg-primary/16 px-4 py-1.5 text-base font-bold shadow-sm md:text-lg",
@@ -3587,10 +3587,10 @@ function KidsRoboticsPartFourLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {section}
-          </motion.span>
+          </m.span>
         ) : null}
 
-        <motion.h2
+        <m.h2
           className={cn(
             deckType.display,
             "max-w-[13ch] text-balance text-[clamp(2.5rem,6vw,5rem)] font-extrabold leading-[1.03] tracking-[-0.04em] text-foreground",
@@ -3602,10 +3602,10 @@ function KidsRoboticsPartFourLayout({ ctx }: { ctx: LayoutRenderContext }) {
           animate="show"
         >
           {highlightKidsRoboticsTitle(title, locale)}
-        </motion.h2>
+        </m.h2>
 
         {subtitle ? (
-          <motion.p
+          <m.p
             className={cn(
               "mt-5 max-w-[32ch] rounded-2xl border-2 border-primary/40 bg-background/55 px-5 py-4 text-pretty font-bold shadow-[0_10px_36px_rgba(37,99,235,0.14)] backdrop-blur-sm md:mt-6 md:px-6 md:py-4.5",
               deckType.subhead,
@@ -3616,10 +3616,10 @@ function KidsRoboticsPartFourLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {subtitle}
-          </motion.p>
+          </m.p>
         ) : null}
 
-        <motion.div
+        <m.div
           className="mt-6 h-1 w-[min(11rem,48vw)] origin-left rounded-full bg-primary/60 md:mt-7"
           custom={ruleIndex}
           variants={ruleVariants}
@@ -3696,7 +3696,7 @@ function LearnByDoingActionLayout({ ctx }: { ctx: LayoutRenderContext }) {
       />
 
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="relative min-h-[220px] overflow-hidden border-b-2 border-primary/30 md:min-h-0 md:border-b-0 md:border-r-2"
           custom={0}
           variants={imageVariants}
@@ -3718,7 +3718,7 @@ function LearnByDoingActionLayout({ ctx }: { ctx: LayoutRenderContext }) {
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-transparent to-transparent md:from-background/35"
             aria-hidden
           />
-          <motion.span
+          <m.span
             className="absolute bottom-4 left-4 rounded-xl border-2 border-primary/50 bg-background/92 px-3.5 py-1.5 font-mono text-sm font-extrabold uppercase tracking-wide text-primary shadow-md backdrop-blur-sm md:bottom-5 md:left-5 md:px-4 md:py-2 md:text-base"
             custom={1}
             variants={introVariants}
@@ -3726,23 +3726,23 @@ function LearnByDoingActionLayout({ ctx }: { ctx: LayoutRenderContext }) {
             animate="show"
           >
             {actionBadge}
-          </motion.span>
-        </motion.div>
+          </m.span>
+        </m.div>
       ) : null}
 
       <div className={cn("relative flex min-h-0 flex-col justify-center gap-3.5 md:gap-4", INSET, "md:pl-7 lg:pl-9")}>
         {section ? (
-          <motion.div
+          <m.div
             custom={titleIndex - 1}
             variants={introVariants}
             initial={reduced ? false : "hidden"}
             animate="show"
           >
             <Chip text={section} />
-          </motion.div>
+          </m.div>
         ) : null}
 
-        <motion.h2
+        <m.h2
           className={cn(
             deckType.heading,
             "max-w-[13ch] text-balance text-[clamp(1.875rem,4vw,3.35rem)] font-extrabold leading-[1.06] tracking-[-0.04em]",
@@ -3753,14 +3753,14 @@ function LearnByDoingActionLayout({ ctx }: { ctx: LayoutRenderContext }) {
           animate="show"
         >
           {highlightLearnByDoingTitle(title, locale)}
-        </motion.h2>
+        </m.h2>
 
         <div className="flex flex-col gap-2 md:gap-2.5">
           {bullets.map((item, i) => {
             const Icon = LEARN_BY_DOING_ICONS[i] ?? Zap;
             const isHero = i === 1;
             const panel = (
-              <motion.div
+              <m.div
                 key={item.vi}
                 className={cn(
                   "flex items-start gap-3 rounded-2xl border-2 p-3.5 shadow-md md:gap-3.5 md:p-4",
@@ -3792,14 +3792,14 @@ function LearnByDoingActionLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 >
                   {localize(item, locale)}
                 </p>
-              </motion.div>
+              </m.div>
             );
 
             if (i === 0 && bullets.length > 1) {
               return (
                 <div key={`learn-flow-${item.vi}`} className="flex flex-col gap-2 md:gap-2.5">
                   {panel}
-                  <motion.div
+                  <m.div
                     className="flex items-center gap-2 px-1 py-0.5"
                     custom={bulletStart}
                     variants={connectorVariants}
@@ -3810,7 +3810,7 @@ function LearnByDoingActionLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     <span className="rounded-lg border border-primary/35 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-bold uppercase tracking-wide text-primary md:text-sm">
                       {flowLabel}
                     </span>
-                  </motion.div>
+                  </m.div>
                 </div>
               );
             }
@@ -3819,7 +3819,7 @@ function LearnByDoingActionLayout({ ctx }: { ctx: LayoutRenderContext }) {
               return (
                 <div key={`learn-hero-${item.vi}`} className="flex flex-col gap-2 md:gap-2.5">
                   {panel}
-                  <motion.div
+                  <m.div
                     className="flex justify-center py-0.5"
                     custom={bulletStart + 1}
                     variants={connectorVariants}
@@ -3827,7 +3827,7 @@ function LearnByDoingActionLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     animate="show"
                   >
                     <ArrowDown className="size-5 text-primary/70 md:size-6" strokeWidth={2.25} aria-hidden />
-                  </motion.div>
+                  </m.div>
                 </div>
               );
             }
@@ -3895,17 +3895,17 @@ function TechCompetitionReadyLayout({ ctx }: { ctx: LayoutRenderContext }) {
 
       <div className={cn("relative flex min-h-0 flex-col justify-center gap-3 md:gap-3.5", INSET, "md:pr-6 lg:pr-8")}>
         {section ? (
-          <motion.div
+          <m.div
             custom={titleIndex - 1}
             variants={introVariants}
             initial={reduced ? false : "hidden"}
             animate="show"
           >
             <Chip text={section} />
-          </motion.div>
+          </m.div>
         ) : null}
 
-        <motion.h2
+        <m.h2
           className={cn(
             deckType.heading,
             "max-w-[14ch] text-balance text-[clamp(1.875rem,4vw,3.4rem)] font-extrabold leading-[1.06] tracking-[-0.04em]",
@@ -3916,7 +3916,7 @@ function TechCompetitionReadyLayout({ ctx }: { ctx: LayoutRenderContext }) {
           animate="show"
         >
           {highlightCompetitionTitle(title, locale)}
-        </motion.h2>
+        </m.h2>
 
         <div className="flex flex-col gap-2 md:gap-2.5">
           {bullets.map((item, i) => {
@@ -3924,7 +3924,7 @@ function TechCompetitionReadyLayout({ ctx }: { ctx: LayoutRenderContext }) {
             const isHero = i === 1;
             const isCapstone = i === bullets.length - 1 && bullets.length > 1;
             const panel = (
-              <motion.div
+              <m.div
                 key={item.vi}
                 className={cn(
                   "flex flex-col gap-2.5 rounded-2xl border-2 p-3.5 shadow-md md:gap-3 md:p-4",
@@ -3962,7 +3962,7 @@ function TechCompetitionReadyLayout({ ctx }: { ctx: LayoutRenderContext }) {
                 {isHero ? (
                   <div className="flex flex-wrap gap-2 pl-[3.25rem] md:pl-14">
                     {COMPETITION_BADGES.map((badge, badgeIndex) => (
-                      <motion.span
+                      <m.span
                         key={badge}
                         className="rounded-lg border-2 border-primary/40 bg-background/92 px-2.5 py-1 font-mono text-xs font-extrabold tracking-wide text-primary md:px-3 md:py-1.5 md:text-sm"
                         custom={badgeIndex}
@@ -3971,18 +3971,18 @@ function TechCompetitionReadyLayout({ ctx }: { ctx: LayoutRenderContext }) {
                         animate="show"
                       >
                         {badge}
-                      </motion.span>
+                      </m.span>
                     ))}
                   </div>
                 ) : null}
-              </motion.div>
+              </m.div>
             );
 
             if (i < bullets.length - 1) {
               return (
                 <div key={`competition-path-${item.vi}`} className="flex flex-col gap-2 md:gap-2.5">
                   {panel}
-                  <motion.div
+                  <m.div
                     className="flex justify-center py-0.5"
                     custom={bulletStart + i}
                     variants={connectorVariants}
@@ -3990,7 +3990,7 @@ function TechCompetitionReadyLayout({ ctx }: { ctx: LayoutRenderContext }) {
                     animate="show"
                   >
                     <ArrowDown className="size-5 text-primary/70 md:size-6" strokeWidth={2.25} aria-hidden />
-                  </motion.div>
+                  </m.div>
                 </div>
               );
             }
@@ -4001,7 +4001,7 @@ function TechCompetitionReadyLayout({ ctx }: { ctx: LayoutRenderContext }) {
       </div>
 
       {mediaSources[0] ? (
-        <motion.div
+        <m.div
           className="relative min-h-[220px] overflow-hidden border-t-2 border-primary/30 md:min-h-0 md:border-l-2 md:border-t-0"
           custom={0}
           variants={imageVariants}
@@ -4028,7 +4028,7 @@ function TechCompetitionReadyLayout({ ctx }: { ctx: LayoutRenderContext }) {
             strokeWidth={1.5}
             aria-hidden
           />
-          <motion.span
+          <m.span
             className="absolute bottom-4 right-4 flex items-center gap-2 rounded-xl border-2 border-primary/50 bg-background/92 px-3.5 py-1.5 font-mono text-sm font-extrabold uppercase tracking-wide text-primary shadow-md backdrop-blur-sm md:bottom-5 md:right-5 md:px-4 md:py-2 md:text-base"
             custom={1}
             variants={introVariants}
@@ -4037,8 +4037,8 @@ function TechCompetitionReadyLayout({ ctx }: { ctx: LayoutRenderContext }) {
           >
             <Trophy className="size-4 md:size-4.5" strokeWidth={2.25} aria-hidden />
             {readyBadge}
-          </motion.span>
-        </motion.div>
+          </m.span>
+        </m.div>
       ) : null}
     </div>
   );

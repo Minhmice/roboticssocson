@@ -1,0 +1,43 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "entry": [
+    "src/app/**/{page,layout,template,default,loading,error,global-error,not-found,route,sitemap,robots}.{ts,tsx}",
+    "src/proxy.ts",
+    "src/instrumentation-client.ts",
+    "next.config.js",
+    "scripts/*.mjs",
+    "tests/**/*.ts",
+    "playwright.config.ts"
+  ],
+  "project": [
+    "src/**/*.{ts,tsx}",
+    "scripts/**/*.mjs"
+  ],
+  "ignore": [
+    "src/legacy/**",
+    ".agents/**",
+    ".impeccable/**",
+    ".serena/**",
+    ".tmp/**",
+    "src/app/(site)/[locale]/luat-ftc/**",
+    "src/app/luat-ftc/**",
+    "src/components/manual/**",
+    "src/types/manual.ts",
+    "scripts/*manual*",
+    "src/app/(site)/[locale]/course/CourseOffer.tsx",
+    "src/app/(site)/[locale]/course/CourseSolution.tsx",
+    "src/app/(site)/[locale]/course/CourseTrust.tsx",
+    "src/data/courseOffer.ts",
+    "src/data/courseTrust.ts",
+    "src/instrumentation.ts",
+    "src/instrumentation-node.ts"
+  ],
+  "ignoreDependencies": [
+    "tw-animate-css"
+  ],
+  "rules": {
+    "exports": "warn",
+    "types": "warn",
+    "duplicates": "warn"
+  }
+}

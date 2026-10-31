@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { MediaPlaceholder } from "@/components/shared/MediaPlaceholder";
 import { McuFlowDiagram } from "@/components/course/deck/diagrams/McuFlowDiagram";
 import type { LayoutRenderContext } from "@/components/course/deck/DeckSlideLayouts";
@@ -70,7 +70,7 @@ export function DeckEditorialSlide({ ctx, imageSide }: DeckEditorialSlideProps) 
 
       <div className="relative flex flex-col">
         {section ? (
-          <motion.div
+          <m.div
             className={cn(isSlide4 ? "mb-0" : "mb-3 md:mb-4")}
             custom={0}
             variants={deckRevealTransform}
@@ -78,10 +78,10 @@ export function DeckEditorialSlide({ ctx, imageSide }: DeckEditorialSlideProps) 
             animate="show"
           >
             <span className={deckType.chip}>{section}</span>
-          </motion.div>
+          </m.div>
         ) : null}
 
-        <motion.h2
+        <m.h2
           className={cn(
             isSlide4
               ? "max-w-[14ch] text-balance text-[clamp(3.625rem,5.5vw,4rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-foreground"
@@ -94,10 +94,10 @@ export function DeckEditorialSlide({ ctx, imageSide }: DeckEditorialSlideProps) 
           animate="show"
         >
           {title}
-        </motion.h2>
+        </m.h2>
 
         {subtitle ? (
-          <motion.p
+          <m.p
             className={cn("mt-3", deckType.subhead)}
             custom={section ? 2 : 1}
             variants={deckRevealTransform}
@@ -105,7 +105,7 @@ export function DeckEditorialSlide({ ctx, imageSide }: DeckEditorialSlideProps) 
             animate="show"
           >
             {subtitle}
-          </motion.p>
+          </m.p>
         ) : null}
 
         {bullets ? (
@@ -121,7 +121,7 @@ export function DeckEditorialSlide({ ctx, imageSide }: DeckEditorialSlideProps) 
             {bullets.map((item, i) => {
               const text = localize(item, locale);
               return (
-                <motion.li
+                <m.li
                   key={text}
                   className={cn(
                     "flex gap-4",
@@ -139,14 +139,14 @@ export function DeckEditorialSlide({ ctx, imageSide }: DeckEditorialSlideProps) 
                     )}
                   />
                   <span className="text-pretty">{text}</span>
-                </motion.li>
+                </m.li>
               );
             })}
           </ul>
         ) : null}
 
         {slide.notes ? (
-          <motion.p
+          <m.p
             className={cn("mt-5", deckType.caption)}
             custom={imageDelayIndex}
             variants={deckRevealTransform}
@@ -154,23 +154,23 @@ export function DeckEditorialSlide({ ctx, imageSide }: DeckEditorialSlideProps) 
             animate="show"
           >
             {localize(slide.notes, locale)}
-          </motion.p>
+          </m.p>
         ) : null}
       </div>
     </div>
   );
 
   const imageColumn = isSlide4 ? (
-    <motion.div
+    <m.div
       className="relative col-span-12 min-h-0 md:col-span-7 md:h-full"
       variants={imageReveal}
       initial={reduced ? false : "hidden"}
       animate="show"
     >
       <McuFlowDiagram className="h-full w-full" />
-    </motion.div>
+    </m.div>
   ) : (
-    <motion.div
+    <m.div
       className={cn(
         "relative min-h-[180px] md:min-h-0 md:h-full",
         isSlide3 && imageSide === "right" && "md:pl-1",
@@ -208,7 +208,7 @@ export function DeckEditorialSlide({ ctx, imageSide }: DeckEditorialSlideProps) 
           />
         </div>
       )}
-    </motion.div>
+    </m.div>
   );
 
   if (isSlide4) {

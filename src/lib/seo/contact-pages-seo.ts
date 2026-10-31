@@ -1,6 +1,7 @@
 import { buildMetadata } from "@/lib/seo/metadata";
+import type { Locale, RouteSeo } from "@/lib/seo/metadata";
 
-export const courseRegisterFormSeo = {
+export const courseRegisterFormSeo: Record<Locale, RouteSeo> = {
   vi: {
     title: "Đăng ký khóa học | Robotics Sóc Sơn",
     description:
@@ -29,7 +30,7 @@ export const courseRegisterFormSeo = {
   },
 };
 
-export const contactUsSeo = {
+export const contactUsSeo: Record<Locale, RouteSeo> = {
   vi: {
     title: "Liên hệ | Robotics Sóc Sơn",
     description:
@@ -46,7 +47,7 @@ export const contactUsSeo = {
   },
 };
 
-export const courseRegisterSuccessSeo = {
+export const courseRegisterSuccessSeo: Record<Locale, RouteSeo> = {
   vi: {
     title: "Đăng ký thành công | Robotics Sóc Sơn",
     description:
@@ -73,14 +74,14 @@ export const courseRegisterSuccessSeo = {
   },
 };
 
-export function courseRegisterSuccessMetadata() {
-  return buildMetadata(courseRegisterSuccessSeo.vi);
+export function courseRegisterSuccessMetadata(locale: Locale) {
+  return buildMetadata(courseRegisterSuccessSeo[locale], locale);
 }
 
-export function courseRegisterFormMetadata() {
-  return buildMetadata(courseRegisterFormSeo.vi);
+export function courseRegisterFormMetadata(locale: Locale) {
+  return buildMetadata(courseRegisterFormSeo[locale], locale);
 }
 
-export function contactUsMetadata() {
-  return buildMetadata(contactUsSeo.vi);
+export function contactUsMetadata(locale: Locale) {
+  return buildMetadata(contactUsSeo[locale], locale);
 }

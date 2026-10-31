@@ -5,7 +5,7 @@ import Hero from "@/components/homepage/Hero";
 import AboutSocSonHighSchool from "@/components/homepage/AboutSocSonHighSchool";
 import TeamCarouselSection from "@/components/homepage/TeamCarousel";
 import { courseSurfacesEnabled } from "@/data/courseRegistration";
-
+import { HomeClosingCTA } from "@/components/homepage/HomeClosingCTA";
 const AchievementsSection = dynamic(
   () => import("@/components/homepage/Achievements"),
   { ssr: true },
@@ -51,6 +51,7 @@ export function HomePage() {
       <AboutFTCSection />
       <MissionSection />
       {courseSurfacesEnabled ? <CourseTeaser /> : null}
+      <HomeClosingCTA />
     </div>
   );
 }

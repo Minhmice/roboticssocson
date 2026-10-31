@@ -11,7 +11,12 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: [
         ...(!courseSurfacesEnabled
-          ? ["/course", "/course-register-form"]
+          ? [
+              "/course",
+              "/course-register-form",
+              "/en/course",
+              "/en/course-register-form",
+            ]
           : []),
       ],
     },

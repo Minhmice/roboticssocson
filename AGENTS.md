@@ -44,18 +44,20 @@ The next active work is to shape a new education/curriculum surface for a course
 - **Class utilities:** `class-variance-authority`, `clsx`, and `tailwind-merge` via `src/lib/utils.ts`.
 - **Icons:** `lucide-react`.
 - **Motion:** `framer-motion` for hero text and animated UI components.
-- **Forms:** `react-hook-form` is installed; contact form implementation lives in `src/components/shared/ContactForm.tsx`.
+- **Forms:** forms are hand-rolled with local state; see `src/components/shared/ContactUsForm`-style clients under `src/app/(site)/[locale]/`.
 
 ## Application Entry Points
 
-- `src/app/layout.tsx`: root layout, metadata, Inter font, language provider, navbar, footer.
-- `src/app/page.tsx`: main landing page sequence.
-- `src/app/sponsor/page.tsx`: dedicated sponsor route.
+- `src/proxy.ts`: locale routing. Vietnamese keeps unprefixed URLs (`/x` is rewritten to `/vi/x`), English lives under `/en/...`, `/vi/...` redirects to `/...`. Decided by URL only, so pages stay statically prerendered.
+- `src/app/(site)/[locale]/layout.tsx`: root layout for public pages. Validates the locale, renders `RootShell` (`<html lang>`, one dictionary, `LanguageProvider`, `AppShell`) and the Organization JSON-LD.
+- `src/app/(site)/[locale]/{page,fundraising,recruitment,contact-us,course,course-register-form}`: public routes, each exports `generateMetadata({ params })`.
+- `src/app/(internal)/`: Vietnamese-only surfaces with their own root layout (`analytics`, `api`, `course/arduino-mblock-deck`). They are not under `[locale]` and are skipped by the proxy.
+- `src/app/sitemap.ts`, `src/app/robots.ts`: emit both locales with `hreflang` alternates.
 
 ## Content And Data
 
 - `src/data/*.ts`: typed, bilingual data modules for hero, about sections, team, achievements, mission, budget, sponsorship, sponsor page, and logos.
-- `messages/vi.json` and `messages/en.json`: UI copy loaded dynamically by `LanguageContext`.
+- `messages/vi.json` and `messages/en.json`: shared UI chrome (nav, footer, dialogs, deck). Loaded on the server by `src/lib/i18n/messages.ts`; only the active locale reaches the client.
 - `Documents/*.md`: source content and budget/sponsorship materials.
 - `public/Images/**`: optimized image assets.
 - `public/Logo/**`: SVG logo assets.
@@ -67,6 +69,8 @@ The next active work is to shape a new education/curriculum surface for a course
 - `npm run start`: production server on port 4000.
 - `npm run lint`: ESLint across the repo.
 - `npm run check:assets`: runs `scripts/check-assets.mjs` to ensure referenced `/Images/...` files exist under `public/`.
+- `npm run check:i18n`: key and `{token}` parity between locales, every `t("key")` call resolves, and no unused keys.
+- `npm run lint:unused`: Knip (`knip.json`) for unused files and dependencies. Unused exports are warnings.
 
 ## Configuration Files
 
@@ -117,11 +121,12 @@ The next active work is to shape a new education/curriculum surface for a course
 
 ## Localization Conventions
 
-- Global UI labels live in `messages/vi.json` and `messages/en.json`.
-- The `t(key)` function in `LanguageContext` resolves dotted keys.
-- Data modules use `_vi` and `_en` suffixes.
-- `useTranslatedData().getField(data, "fieldName")` returns `fieldName_vi` or `fieldName_en`.
-- Default locale is Vietnamese.
+- The locale comes from the URL, never from client state or `localStorage`. Switching language is a navigation (`LanguageToggle` renders real links).
+- Shared UI chrome lives in `messages/vi.json` and `messages/en.json`; read it with `const { t } = useLanguage()` and dotted keys. `npm run check:i18n` fails on missing, unused or mismatched keys, so add keys to both files in the same change.
+- Page content lives in `src/data/*.ts` as `Localized<T>` (`{ vi, en }`, both required). Read it with `localize(field, locale)` from `@/lib/i18n/localized`. Do not add `_vi`/`_en` suffixed fields.
+- Copy used by exactly one component may stay as an inline `locale === "vi" ? ... : ...`.
+- Internal links must be locale-aware: use `CTAButton`, `BootLink` or `LocaleLink` (they apply `localizedHref`), or call `localizedHref(path, locale)` yourself. `usePathname()` reports the rewritten path (`/vi/...`), so run it through `stripLocale` before comparing.
+- Default locale is Vietnamese (unprefixed).
 
 ## Data Conventions
 
@@ -147,7 +152,7 @@ The next active work is to shape a new education/curriculum surface for a course
 
 ## Error Handling Patterns
 
-- `LanguageContext` logs dynamic message import failures to console.
+- `loadMessages` (server) imports one dictionary per request; an unknown locale triggers `notFound()` in the layout.
 - `useLanguage()` throws if used outside `LanguageProvider`.
 - `MediaPlaceholder` falls back to placeholder UI when no image source exists.
 - Contact/form handling should add explicit validation and submission error states before production use.
@@ -171,9 +176,9 @@ The next active work is to shape a new education/curriculum surface for a course
 
 ### App Shell
 
-- `src/app/layout.tsx`
-- `src/app/page.tsx`
-- `src/app/sponsor/page.tsx`
+- `src/proxy.ts`
+- `src/app/(site)/[locale]/layout.tsx` and `src/app/(site)/[locale]/page.tsx`
+- `src/app/(internal)/layout.tsx`
 
 ### Feature Sections
 
@@ -209,15 +214,15 @@ The next active work is to shape a new education/curriculum surface for a course
 ### Data Layer
 
 - `src/data/*.ts` files export static content objects and arrays.
-- Bilingual fields use suffixes such as `_vi` and `_en`.
-- `src/hooks/useTranslatedData.ts` selects localized fields based on the current locale.
+- Bilingual fields are `Localized<T>` objects (`{ vi, en }`), resolved with `localize()`.
 - `messages/vi.json` and `messages/en.json` provide navigation and common UI strings.
 
 ### Localization Layer
 
-- `src/contexts/LanguageContext.tsx` owns locale state, message loading, and `t(key)`.
-- `src/components/shared/LanguageToggle.tsx` changes locale.
-- Components call either `t("nav.about")` for message keys or `getField(data, "headline")` for data-driven bilingual fields.
+- `src/lib/i18n/{locales,localized,routes,messages}.ts`: locale list, `Localized<T>` + `localize()`, `localizedHref`/`stripLocale`/`switchLocalePath`, and the server-only dictionary loader.
+- `src/contexts/LanguageContext.tsx`: props-driven provider exposing `{ locale, t }`. No client locale state.
+- `src/components/shared/LanguageToggle.tsx`: links to the same page in the other locale.
+- Components call `t("nav.home")` for message keys or `localize(data.headline, locale)` for page content.
 
 ## Data Flow
 
@@ -236,7 +241,7 @@ The next active work is to shape a new education/curriculum surface for a course
 
 ## Build Order Implications
 
-- New sections should start with data shape in `src/data/`, then a section component, then page composition in `src/app/page.tsx`.
+- New sections should start with data shape in `src/data/`, then a section component, then page composition in `src/app/(site)/[locale]/page.tsx`.
 - New reusable visual patterns should go in `src/components/shared/` if domain-specific or `src/components/ui/` if primitive.
 - Any new images should be placed under `public/Images/**` and validated with `npm run check:assets`.
 

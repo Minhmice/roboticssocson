@@ -16,7 +16,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { localize } from "@/lib/i18n/localized";
 import type { Locale } from "@/lib/i18n/locales";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion, LazyMotion } from "framer-motion";
 import { ftcFeatures, ftcStats, ftcHeader } from "@/data/aboutFTC";
 import { Pause, Play } from "lucide-react";
 import {
@@ -184,7 +184,8 @@ export default function AboutFTCSection() {
                 : "Explore FTC topics in detail"}
             </AccordionTrigger>
             <AccordionContent>
-        <div className="mt-2">
+              <LazyMotion features={() => import("@/lib/motion/features-max").then((mod) => mod.default)} strict>
+                <div className="mt-2">
           <GlowCard hover={false} className="h-full overflow-hidden">
             <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
               {/* Mobile segmented tabs */}
@@ -227,7 +228,7 @@ export default function AboutFTCSection() {
                       !isPaused &&
                       (!isMobile || autoAdvanceEnabled) && (
                         <div className="h-1 w-24 overflow-hidden rounded-full bg-muted">
-                          <motion.div
+                          <m.div
                             key={activeIndex}
                             className="h-full w-full origin-left bg-primary/60"
                             initial={{ scaleX: 0 }}
@@ -277,7 +278,7 @@ export default function AboutFTCSection() {
                           )}
                         >
                           {isActive && animated && (
-                            <motion.span
+                            <m.span
                               layoutId={`${rootId}-ftc-tab-highlight`}
                               className="absolute inset-0 -z-10 rounded-full bg-primary/10"
                               transition={{ duration: 0.28, ease: EASE_OUT }}
@@ -333,7 +334,7 @@ export default function AboutFTCSection() {
                         )}
                       >
                         {isActive && animated && (
-                          <motion.span
+                          <m.span
                             layoutId={`${rootId}-ftc-list-highlight`}
                             className="absolute inset-0 rounded-xl bg-primary/6"
                             transition={{ duration: 0.28, ease: EASE_OUT }}
@@ -383,7 +384,7 @@ export default function AboutFTCSection() {
                   </p>
                   {!prefersReducedMotion && !isPaused && (!isMobile || autoAdvanceEnabled) && (
                     <div className="h-1 w-32 overflow-hidden rounded-full bg-muted">
-                      <motion.div
+                      <m.div
                         key={activeIndex}
                         className="h-full w-full origin-left bg-primary/60"
                         initial={{ scaleX: 0 }}
@@ -399,7 +400,7 @@ export default function AboutFTCSection() {
 
                 {animated ? (
                   <AnimatePresence mode="wait">
-                    <motion.div
+                    <m.div
                       key={activeIndex}
                       id={featureIds[activeIndex]?.panel}
                       role="tabpanel"
@@ -421,7 +422,7 @@ export default function AboutFTCSection() {
                         feature={activeFeature}
                         Icon={ActiveIcon}
                       />
-                    </motion.div>
+                    </m.div>
                   </AnimatePresence>
                 ) : (
                   <div
@@ -444,7 +445,8 @@ export default function AboutFTCSection() {
               </div>
             </div>
           </GlowCard>
-        </div>
+                </div>
+              </LazyMotion>
             </AccordionContent>
           </AccordionItem>
         </Accordion>

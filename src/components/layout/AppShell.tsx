@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
+import { LazyMotion, domAnimation } from "framer-motion";
 import {
   BootAwareMain,
   BootLoader,
@@ -26,22 +27,24 @@ export function AppShell({ children }: { children: ReactNode }) {
   const hideNavbar = deckPresentation;
 
   return (
-    <BootRevealProvider>
-      <BootLoader />
-      <BootAwareMain>
-        {!hideNavbar ? <Navbar /> : null}
-        <main
-          className={cn(
-            "relative overflow-x-clip",
-            deckPresentation && "fixed inset-0 z-50 h-dvh overflow-hidden pt-0",
-            !deckPresentation && immersive && "pt-0",
-            !deckPresentation && !immersive && "pt-16",
-          )}
-        >
-          {children}
-        </main>
-        {!hideFooter ? <Footer /> : null}
-      </BootAwareMain>
-    </BootRevealProvider>
+    <LazyMotion features={domAnimation} strict>
+      <BootRevealProvider>
+        <BootLoader />
+        <BootAwareMain>
+          {!hideNavbar ? <Navbar /> : null}
+          <main
+            className={cn(
+              "relative overflow-x-clip",
+              deckPresentation && "fixed inset-0 z-50 h-dvh overflow-hidden pt-0",
+              !deckPresentation && immersive && "pt-0",
+              !deckPresentation && !immersive && "pt-16",
+            )}
+          >
+            {children}
+          </main>
+          {!hideFooter ? <Footer /> : null}
+        </BootAwareMain>
+      </BootRevealProvider>
+    </LazyMotion>
   );
 }

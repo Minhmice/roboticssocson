@@ -1,18 +1,19 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { isSupportedLocale } from "@/lib/i18n/locales";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { recruitmentSeo } from "@/lib/seo/routes-seo";
 import RecruitmentClient from "./RecruitmentClient";
 
-export const metadata = buildMetadata({
-  title: "Đợt tuyển thành viên đã kết thúc | Robotics Sóc Sơn",
-  description:
-    "Robotics Sóc Sơn đã kết thúc đợt tuyển thành viên RBS 4.0. Theo dõi các kênh chính thức của đội để cập nhật đợt tuyển tiếp theo.",
-  keywords: [
-    "tuyển thành viên robotics sóc sơn",
-    "RBS 4.0",
-    "FTC robotics team",
-    "STEM Sóc Sơn",
-  ],
-  canonicalPath: "/recruitment",
-});
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isSupportedLocale(locale)) notFound();
+  return buildMetadata(recruitmentSeo[locale], locale);
+}
 
 export default function RecruitmentPage() {
   return <RecruitmentClient />;

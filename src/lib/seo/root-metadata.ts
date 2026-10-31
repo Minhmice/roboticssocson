@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import type { Locale } from "@/lib/i18n/locales";
-import { buildMetadata } from "./metadata";
 import { homeSeo } from "./routes-seo";
 import { getSiteUrl } from "./site-url";
 
@@ -14,7 +13,11 @@ export const rootViewport: Viewport = {
 export function rootMetadata(locale: Locale): Metadata {
   return {
     metadataBase: new URL(getSiteUrl()),
-    ...buildMetadata(homeSeo[locale]),
+    title: {
+      template: "%s",
+      default: homeSeo[locale].title,
+    },
+    description: homeSeo[locale].description,
     authors: [{ name: "Robotics Sóc Sơn" }],
     icons: {
       icon: "/Logo/RBS Logo.svg",

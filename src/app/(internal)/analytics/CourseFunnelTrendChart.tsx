@@ -3,7 +3,8 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import {
   AnimatePresence,
-  motion,
+  LazyMotion,
+  m,
   useReducedMotion,
 } from "framer-motion";
 import { Eye, FileText, MousePointerClick, type LucideIcon } from "lucide-react";
@@ -175,41 +176,43 @@ function RangeToggle({
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <Tabs
-      value={range}
-      onValueChange={(value) => onChange(value as TrendRange)}
-      className="shrink-0"
-    >
-      <TabsList
-        aria-label="Chu kỳ biểu đồ"
-        className="relative inline-flex h-auto shrink-0 rounded-full border border-border bg-muted p-0.5"
+    <LazyMotion features={() => import("@/lib/motion/features-max").then((mod) => mod.default)} strict>
+      <Tabs
+        value={range}
+        onValueChange={(value) => onChange(value as TrendRange)}
+        className="shrink-0"
       >
-        {(["weekly", "monthly"] as const).map((option) => (
-          <TabsTrigger
-            key={option}
-            value={option}
-            className={cn(
-              "relative z-10 min-h-8 min-w-[4.75rem] rounded-full px-3 text-xs font-medium shadow-none transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] data-[state=active]:bg-transparent data-[state=active]:shadow-none sm:min-h-9 sm:min-w-[5.25rem] sm:px-3.5 sm:text-sm",
-            )}
-          >
-            {range === option ? (
-              <motion.span
-                layoutId="analytics-range-pill"
-                className="absolute inset-0 rounded-full bg-background shadow-sm"
-                transition={
-                  prefersReducedMotion
-                    ? { duration: 0 }
-                    : { duration: 0.22, ease: EASE_OUT }
-                }
-              />
-            ) : null}
-            <span className="relative">
-              {option === "weekly" ? "Theo tuần" : "Theo tháng"}
-            </span>
-          </TabsTrigger>
-        ))}
-      </TabsList>
-    </Tabs>
+        <TabsList
+          aria-label="Chu kỳ biểu đồ"
+          className="relative inline-flex h-auto shrink-0 rounded-full border border-border bg-muted p-0.5"
+        >
+          {(["weekly", "monthly"] as const).map((option) => (
+            <TabsTrigger
+              key={option}
+              value={option}
+              className={cn(
+                "relative z-10 min-h-8 min-w-[4.75rem] rounded-full px-3 text-xs font-medium shadow-none transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] data-[state=active]:bg-transparent data-[state=active]:shadow-none sm:min-h-9 sm:min-w-[5.25rem] sm:px-3.5 sm:text-sm",
+              )}
+            >
+              {range === option ? (
+                <m.span
+                  layoutId="analytics-range-pill"
+                  className="absolute inset-0 rounded-full bg-background shadow-sm"
+                  transition={
+                    prefersReducedMotion
+                      ? { duration: 0 }
+                      : { duration: 0.22, ease: EASE_OUT }
+                  }
+                />
+              ) : null}
+              <span className="relative">
+                {option === "weekly" ? "Theo tuần" : "Theo tháng"}
+              </span>
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
+    </LazyMotion>
   );
 }
 
@@ -349,7 +352,7 @@ export function CourseFunnelTrendChart({
           ref={plotRef}
           className="relative min-h-0 flex-1 bg-muted/25 px-2 py-2 sm:px-3"
         >
-          <motion.div
+          <m.div
             className="h-full min-h-[10rem]"
             animate={{ opacity: refreshing && !prefersReducedMotion ? 0.72 : 1 }}
             transition={{ duration: 0.2, ease: EASE_OUT }}
@@ -416,7 +419,7 @@ export function CourseFunnelTrendChart({
               ))}
 
               {activeIndex !== null ? (
-                <motion.line
+                <m.line
                   x1={crosshairX}
                   x2={crosshairX}
                   y1={CHART.pad.top}
@@ -462,7 +465,7 @@ export function CourseFunnelTrendChart({
                 }),
               )}
             </svg>
-          </motion.div>
+          </m.div>
 
           <div className="pointer-events-none absolute inset-x-3 top-2 flex flex-wrap gap-2">
             {SERIES.map((series) => (
@@ -482,7 +485,7 @@ export function CourseFunnelTrendChart({
 
           <AnimatePresence initial={false}>
             {activeBucket ? (
-              <motion.div
+              <m.div
                 key={`${range}-${activeBucket.key}`}
                 className="pointer-events-none absolute bottom-2 z-10 w-[min(100%,12.5rem)] rounded-lg border border-border bg-card/95 px-3 py-2 shadow-md backdrop-blur-sm motion-reduce:backdrop-blur-none"
                 style={{
@@ -516,7 +519,7 @@ export function CourseFunnelTrendChart({
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </m.div>
             ) : null}
           </AnimatePresence>
         </div>

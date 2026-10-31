@@ -20,7 +20,7 @@ import { captureEvent } from "@/lib/posthog/client";
 import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Check, Sparkles } from "lucide-react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { m, useReducedMotion, type Variants } from "framer-motion";
 
 const HEADING_ID = "course-pricing-heading";
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
@@ -115,7 +115,7 @@ function PricingCard({
           <PriceDisplay locale={locale} />
         </div>
       ) : (
-        <motion.div
+        <m.div
           className="mt-8"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -123,7 +123,7 @@ function PricingCard({
           transition={{ duration: 0.5, ease: EASE_OUT_EXPO, delay: 0.08 }}
         >
           <PriceDisplay locale={locale} />
-        </motion.div>
+        </m.div>
       )}
 
       <p className="mt-4 max-w-[52ch] text-pretty text-sm leading-relaxed text-foreground/85 sm:text-base">
@@ -141,7 +141,7 @@ function PricingCard({
           />
         </div>
       ) : (
-        <motion.div
+        <m.div
           className="mt-9 space-y-3"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -153,7 +153,7 @@ function PricingCard({
             onPrimaryClick={onPrimaryClick}
             onSecondaryClick={onSecondaryClick}
           />
-        </motion.div>
+        </m.div>
       )}
     </div>
   );
@@ -167,7 +167,7 @@ function PricingCard({
   }
 
   return (
-    <motion.article
+    <m.article
       aria-labelledby={HEADING_ID}
       className={CARD_SHELL_CLASS}
       initial="hidden"
@@ -176,7 +176,7 @@ function PricingCard({
       variants={cardReveal}
     >
       {body}
-    </motion.article>
+    </m.article>
   );
 }
 
@@ -221,7 +221,7 @@ function BenefitChecklist({
   }
 
   return (
-    <motion.ul
+    <m.ul
       className="mt-8 space-y-3.5 border-t border-border/80 pt-8"
       initial="hidden"
       whileInView="visible"
@@ -229,7 +229,7 @@ function BenefitChecklist({
       variants={benefitStagger}
     >
       {coursePricingBenefits.map((benefit) => (
-        <motion.li
+        <m.li
           key={benefit.id}
           variants={benefitItem}
           className="flex items-center gap-3"
@@ -243,9 +243,9 @@ function BenefitChecklist({
           <span className="text-pretty text-sm font-semibold leading-snug text-foreground/90 sm:text-base">
             {localize(benefit.text, locale)}
           </span>
-        </motion.li>
+        </m.li>
       ))}
-    </motion.ul>
+    </m.ul>
   );
 }
 

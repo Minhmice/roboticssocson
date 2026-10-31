@@ -24,10 +24,13 @@ export const Footer: React.FC = () => {
       const offset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
+      const reduced =
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth",
+        behavior: reduced ? "auto" : "smooth",
       });
     }
   };
@@ -64,15 +67,15 @@ export const Footer: React.FC = () => {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h4 className="mb-3 sm:mb-4 text-xs sm:text-xs md:text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <h2 className="mb-3 sm:mb-4 text-xs sm:text-xs md:text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               {t("footer.quickLinks")}
-            </h4>
+            </h2>
             <ul className="space-y-1.5 sm:space-y-2">
               {[
                 {
                   label: t("nav.about"),
-                  href: "#about-first",
-                  sectionId: "about-first",
+                  href: "#about-school",
+                  sectionId: "about-school",
                 },
                 {
                   label: t("nav.achievements"),
@@ -117,7 +120,7 @@ export const Footer: React.FC = () => {
                   {link.isRoute ? (
                     <BootLink
                       href={link.href}
-                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm flex items-center min-h-11 sm:min-h-0"
+                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm flex items-center min-h-11 sm:min-h-9 sm:py-1"
                     >
                       {link.label}
                     </BootLink>
@@ -129,7 +132,7 @@ export const Footer: React.FC = () => {
                           ? handleLinkClick(e, link.sectionId)
                           : undefined
                       }
-                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm flex items-center cursor-pointer min-h-11 sm:min-h-0"
+                      className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm flex items-center cursor-pointer min-h-11 sm:min-h-9 sm:py-1"
                     >
                       {link.label}
                     </a>
@@ -141,9 +144,9 @@ export const Footer: React.FC = () => {
 
           {/* Column 3: Social & Contact */}
           <div>
-            <h4 className="mb-3 sm:mb-4 text-xs sm:text-xs md:text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <h2 className="mb-3 sm:mb-4 text-xs sm:text-xs md:text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               {t("footer.contact")}
-            </h4>
+            </h2>
             <div className="space-y-1.5 sm:space-y-2">
               <CopyContactLink
                 kind="email"
@@ -165,7 +168,7 @@ export const Footer: React.FC = () => {
                 href={messengerUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-11 sm:min-h-0"
+                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-11 sm:min-h-9 sm:py-1"
               >
                 <svg
                   className="h-3.5 w-3.5 sm:h-4 sm:w-4"
@@ -181,14 +184,14 @@ export const Footer: React.FC = () => {
                 href={socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-11 sm:min-h-0"
+                className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm min-h-11 sm:min-h-9 sm:py-1"
               >
                 <FacebookIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
                 Facebook
               </a>
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground min-h-8">
                 <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
-                <span>THPT Sóc Sơn, Hà Nội</span>
+                <span>{t("footer.schoolLocation")}</span>
               </div>
             </div>
           </div>
@@ -197,7 +200,7 @@ export const Footer: React.FC = () => {
         {/* Copyright */}
         <div className="mt-6 sm:mt-8 border-t border-border pt-6 sm:pt-8 text-center text-xs text-muted-foreground">
           <p>{t("footer.copyright")}</p>
-          <p className="mt-1">Developed by @minhmice29</p>
+          <p className="mt-1">{t("footer.developedBy")}</p>
         </div>
       </div>
     </footer>

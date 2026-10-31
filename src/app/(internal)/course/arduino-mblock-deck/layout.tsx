@@ -9,12 +9,15 @@ export function generateMetadata(): Metadata {
     return { robots: { index: false, follow: false } };
   }
   return {
-    ...buildMetadata({
-      title: "Arduino & mBlock — Trình chiếu nội bộ",
-      description:
-        "Trình chiếu nội bộ cho đội Robotics Sóc Sơn — yêu cầu mật khẩu.",
-      canonicalPath: "/course/arduino-mblock-deck",
-    }),
+    ...buildMetadata(
+      {
+        title: "Arduino & mBlock — Trình chiếu nội bộ",
+        description:
+          "Trình chiếu nội bộ cho đội Robotics Sóc Sơn — yêu cầu mật khẩu.",
+        canonicalPath: "/course/arduino-mblock-deck",
+      },
+      "vi",
+    ),
     robots: { index: false, follow: false },
   };
 }

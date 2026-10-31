@@ -2,7 +2,7 @@
 
 import {
   animate,
-  motion,
+  m,
   useMotionValue,
   useReducedMotion,
   useTransform,
@@ -176,7 +176,7 @@ function DiagramModule({
       onBlur={onLeave}
       className="cursor-default outline-none"
     >
-      <motion.rect
+      <m.rect
         data-testid="mcu-node-box"
         x={x}
         y={y}
@@ -284,7 +284,7 @@ function WirePath({
         strokeLinecap="round"
         opacity={baseOpacity}
       />
-      <motion.path
+      <m.path
         d={path.d}
         fill="none"
         stroke={stroke}
@@ -393,12 +393,12 @@ function PulseParticle({
 
   return (
     <g filter={`url(#${glowFilterId})`}>
-      <motion.circle
+      <m.circle
         r={13}
         fill={MCU_DIAGRAM_COLORS.pulseGlow}
         style={{ cx, cy, opacity: glowOpacity }}
       />
-      <motion.circle
+      <m.circle
         r={7}
         fill={MCU_DIAGRAM_COLORS.pulse}
         style={{ cx, cy, opacity, scale: coreScale }}

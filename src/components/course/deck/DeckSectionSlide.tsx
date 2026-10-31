@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { localize } from "@/lib/i18n/localized";
 import { cn } from "@/lib/utils";
@@ -54,7 +54,7 @@ export function DeckSectionSlide({
 
         <div className="relative flex max-w-xl flex-col items-center gap-2.5 sm:gap-3 md:items-start">
           {section ? (
-            <motion.span
+            <m.span
               className={deckType.chip}
               custom={0}
               variants={deckRevealStagger}
@@ -62,10 +62,10 @@ export function DeckSectionSlide({
               animate="show"
             >
               {section}
-            </motion.span>
+            </m.span>
           ) : null}
 
-          <motion.h2
+          <m.h2
             className={cn("max-w-[14ch]", deckType.display)}
             custom={1}
             variants={deckRevealStagger}
@@ -73,10 +73,10 @@ export function DeckSectionSlide({
             animate="show"
           >
             {title}
-          </motion.h2>
+          </m.h2>
 
           {subtitle ? (
-            <motion.p
+            <m.p
               className={cn(
                 "max-w-[28ch]",
                 deckType.subhead,
@@ -88,10 +88,10 @@ export function DeckSectionSlide({
               animate="show"
             >
               {subtitle}
-            </motion.p>
+            </m.p>
           ) : null}
 
-          <motion.p
+          <m.p
             className={cn(deckType.caption, "text-foreground/80")}
             custom={3}
             variants={deckRevealStagger}
@@ -102,7 +102,7 @@ export function DeckSectionSlide({
               vi: "Góc nhìn đội Robotics Sóc Sơn",
               en: "Robotics Sóc Sơn team perspective",
             }, locale)}
-          </motion.p>
+          </m.p>
         </div>
       </div>
 

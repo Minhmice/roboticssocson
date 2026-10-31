@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { RootShell } from "@/components/layout/RootShell";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { LOCALES, isSupportedLocale } from "@/lib/i18n/locales";
+import { getOrganizationJsonLd } from "@/lib/seo/organization-jsonld";
 import { rootMetadata, rootViewport } from "@/lib/seo/root-metadata";
 
 export const dynamicParams = false;
@@ -31,5 +33,10 @@ export default async function SiteLayout({
 }) {
   const { locale } = await params;
   if (!isSupportedLocale(locale)) notFound();
-  return <RootShell locale={locale}>{children}</RootShell>;
+  return (
+    <RootShell locale={locale}>
+      <JsonLd data={getOrganizationJsonLd(locale)} />
+      {children}
+    </RootShell>
+  );
 }

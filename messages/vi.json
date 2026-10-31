@@ -3,66 +3,28 @@
     "home": "Trang chủ",
     "about": "Giới thiệu",
     "achievements": "Thành tích",
-    "community": "Cộng đồng",
     "contact": "Liên hệ",
     "fundraising": "Gây quỹ",
     "course": "Khóa học",
     "recruitment": "Tuyển thành viên",
-    "curriculum": "Lộ trình",
-    "projects": "Dự án",
-    "faq": "FAQ",
+    "rules": "Luật FTC",
+    "recruitmentClosedBadge": "Đã đóng",
     "registerCourse": "Đăng ký khóa học",
     "openMenu": "Mở menu điều hướng",
     "closeMenu": "Đóng menu điều hướng"
   },
-  "hero": {
-    "badge": "Robotics Sóc Sơn • Hanoi"
-  },
-  "metrics": {
-    "badge": "Highlights",
-    "title": "Thành tựu & Dấu ấn",
-    "subtitle": "Một vài con số thể hiện hành trình và ảnh hưởng cộng đồng."
-  },
-  "partners": {
-    "badge": "Partners",
-    "title": "Đối tác & Giải đấu",
-    "subtitle": "Những đơn vị đồng hành và sân chơi mà chúng tôi tham gia.",
-    "disclaimer": "* Logos are placeholders for positioning and do not imply endorsement."
-  },
   "cta": {
     "title": "Cùng Robotics Sóc Sơn xây nên ý tưởng tiếp theo",
-    "subtitle": "Khám phá đội, học qua thực hành và tìm bước tiếp theo của bạn.",
-    "button": "Tham gia đội",
-    "contact": "Liên hệ / Contact"
+    "subtitle": "Khám phá đội, học qua thực hành và tìm bước tiếp theo của bạn."
   },
   "footer": {
     "taglineMain": "Dynamic - Creative - Driven to Discover",
     "taglineSub": "Năng động - Sáng tạo - Không ngừng khám phá",
-    "quickLinks": "Quick Links",
+    "quickLinks": "Liên kết nhanh",
     "contact": "Liên hệ",
-    "followUs": "Theo dõi",
-    "copyright": "© 2025 Robotics Sóc Sơn. All rights reserved.",
-    "developed": "Developed with Next.js, Tailwind CSS, and shadcn/ui"
-  },
-  "about": {
-    "badge": "About Us",
-    "title": "Về Đội / About Us",
-    "subtitle": "Đội Robotics Sóc Sơn - Phát triển STEM qua sáng tạo và tinh thần đồng đội",
-    "missionTitle": "Sứ mệnh của chúng tôi / Our Mission",
-    "teamPhoto": "Ảnh đội / Team Photo",
-    "teamTitle": "Đội ngũ / Our Team"
-  },
-  "achievements": {
-    "badge": "Achievements",
-    "title": "Thành Tích / Achievements",
-    "subtitle": "Những dấu ấn của đội qua các mùa giải"
-  },
-  "community": {
-    "badge": "Community",
-    "title": "Cộng Đồng / Community",
-    "subtitle": "Hoạt động và tác động của đội trong cộng đồng",
-    "inviteUs": "Mời chúng tôi đến sự kiện của bạn",
-    "inviteUsSubtitle": "Tổ chức sự kiện STEM hoặc muốn hợp tác với đội? Hãy liên hệ!"
+    "schoolLocation": "Trường THPT Sóc Sơn, Hà Nội",
+    "copyright": "© 2026 Robotics Sóc Sơn. Bản quyền thuộc về đội.",
+    "developedBy": "Phát triển bởi đội ngũ kỹ thuật Robotics Sóc Sơn"
   },
   "recruitmentDialog": {
     "badge": "Thông báo tuyển thành viên",
@@ -76,21 +38,7 @@
     "copyEmail": "Sao chép email",
     "copyPhone": "Sao chép số điện thoại",
     "clickToCopy": "Nhấn để sao chép",
-    "copied": "Đã sao chép!",
-    "openEmail": "Mở ứng dụng email",
-    "openPhone": "Gọi điện",
-    "badge": "Contact",
-    "title": "Liên Hệ / Contact",
-    "subtitle": "Gửi câu hỏi cho đội về robotics, khóa học hoặc tuyển thành viên",
-    "formTitle": "Gửi tin nhắn / Send Message",
-    "infoTitle": "Thông tin liên hệ / Contact Info",
-    "name": "Họ tên / Name",
-    "email": "Email",
-    "company": "Công ty / Company",
-    "phone": "Số điện thoại / Phone",
-    "message": "Tin nhắn / Message",
-    "submit": "Gửi / Submit",
-    "infoSubtitle": "Liên hệ qua email hoặc Messenger để hỏi về đội, khóa học hoặc tuyển thành viên."
+    "copied": "Đã sao chép!"
   },
   "deck": {
     "checkingSession": "Đang kiểm tra phiên…",

@@ -83,9 +83,19 @@ export function useAssetPreloader({
         );
       }
 
-      // Check existing <img> tags currently in DOM
+      // Check visible, non-lazy <img> tags currently in the active viewport
       if (typeof document !== "undefined") {
-        const domImgs = Array.from(document.querySelectorAll("img")).slice(0, 8);
+        const maxTop = typeof window !== "undefined" ? window.innerHeight * 1.25 : 1200;
+        const domImgs = Array.from(document.querySelectorAll("img"))
+          .filter((img) => {
+            if (img.offsetParent === null) return false;
+            if (img.getAttribute("loading") === "lazy") {
+              const rect = img.getBoundingClientRect();
+              return rect.width > 0 && rect.top < maxTop;
+            }
+            return true;
+          })
+          .slice(0, 6);
         for (const domImg of domImgs) {
           if (domImg.complete) continue;
           targets.push(

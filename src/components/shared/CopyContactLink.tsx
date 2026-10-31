@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useCallback, useState } from "react";
 import {
   contactRowButtonResetClass,
@@ -47,7 +47,7 @@ const variantStyles: Record<CopyContactLinkVariant, { root: string; label: strin
       label: "",
     },
     footer: {
-      root: "inline-flex w-full min-h-[44px] max-w-full items-center rounded-sm sm:min-h-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      root: "inline-flex w-full min-h-11 sm:min-h-9 sm:py-1 max-w-full items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       label: "text-xs sm:text-sm text-muted-foreground no-underline",
     },
   };
@@ -97,7 +97,7 @@ export function CopyContactLink({
   const underlineNode = copied ? (
     <span className={cn(contactRowUnderlineClass, "h-0.5 bg-primary shadow-none")} />
   ) : animateUnderline ? (
-    <motion.span
+    <m.span
       className={contactRowUnderlineClass}
       initial={{ scaleX: 0, opacity: 0.6 }}
       animate={{ scaleX: 1, opacity: 0.9 }}

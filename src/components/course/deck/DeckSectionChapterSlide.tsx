@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import {
   deckChapterBandReveal,
   deckChapterRuleReveal,
@@ -74,7 +74,7 @@ export function DeckSectionChapterSlide({
       <div className="relative flex flex-col items-center justify-center px-12 py-10 text-center">
         <div className="flex max-w-4xl flex-col items-center gap-5">
           {section ? (
-            <motion.span
+            <m.span
               className={cn(deckType.chip, "px-4 py-1.5 text-lg")}
               custom={0}
               variants={deckRevealStagger}
@@ -82,10 +82,10 @@ export function DeckSectionChapterSlide({
               animate="show"
             >
               {section}
-            </motion.span>
+            </m.span>
           ) : null}
 
-          <motion.h2
+          <m.h2
             className={cn(
               deckType.display,
               "max-w-[18ch] text-[clamp(2.75rem,6.5vw,5.25rem)] leading-[1.02]",
@@ -96,10 +96,10 @@ export function DeckSectionChapterSlide({
             animate="show"
           >
             <QuotedAccentTitle title={title} />
-          </motion.h2>
+          </m.h2>
 
           {subtitle ? (
-            <motion.p
+            <m.p
               className={cn(
                 deckType.subhead,
                 "max-w-[32ch] text-[clamp(1.75rem,3.2vw,2.5rem)] font-medium text-foreground/78",
@@ -110,10 +110,10 @@ export function DeckSectionChapterSlide({
               animate="show"
             >
               {subtitle}
-            </motion.p>
+            </m.p>
           ) : null}
 
-          <motion.div
+          <m.div
             className="mt-2 h-0.5 w-[min(12rem,40vw)] origin-center rounded-full bg-primary/35"
             custom={section ? 3 : 2}
             variants={deckChapterRuleReveal}
@@ -125,7 +125,7 @@ export function DeckSectionChapterSlide({
       </div>
 
       {imageSrc ? (
-        <motion.div
+        <m.div
           className="relative min-h-[240px] overflow-hidden border-t-2 border-primary/25 shadow-[0_-12px_40px_rgba(15,23,42,0.08)]"
           custom={0}
           variants={deckChapterBandReveal}
@@ -144,7 +144,7 @@ export function DeckSectionChapterSlide({
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-background/10"
             aria-hidden
           />
-        </motion.div>
+        </m.div>
       ) : null}
     </div>
   );

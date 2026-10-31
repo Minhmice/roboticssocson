@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { Cpu, Blocks } from "lucide-react";
 import { type LocalizedText } from "@/lib/i18n/localized";
@@ -49,7 +49,7 @@ function FloatingBlocks({ reduced }: { reduced: boolean }) {
   return (
     <>
       {blocks.map(({ icon: Icon, top, left, delay }, i) => (
-        <motion.div
+        <m.div
           key={i}
           className="absolute flex size-11 items-center justify-center rounded-xl border border-primary/20 bg-white/90 text-primary shadow-md shadow-primary/10"
           style={{ top, left }}
@@ -66,7 +66,7 @@ function FloatingBlocks({ reduced }: { reduced: boolean }) {
           }
         >
           <Icon className="size-5" strokeWidth={1.75} />
-        </motion.div>
+        </m.div>
       ))}
     </>
   );
@@ -125,7 +125,7 @@ export function DeckTitleSlide({
         </div>
 
         <div className="relative flex min-h-0 flex-col justify-center gap-5 px-7 py-8 sm:px-10 md:order-1 md:px-12 lg:px-14">
-          <motion.p
+          <m.p
             className="text-sm font-medium tracking-wide text-primary"
             custom={0}
             variants={deckRevealStagger}
@@ -133,9 +133,9 @@ export function DeckTitleSlide({
             animate="show"
           >
             {kickerText}
-          </motion.p>
+          </m.p>
 
-          <motion.h1
+          <m.h1
             className={cn("max-w-[14ch]", deckType.display)}
             custom={1}
             variants={deckRevealStagger}
@@ -143,10 +143,10 @@ export function DeckTitleSlide({
             animate="show"
           >
             {title}
-          </motion.h1>
+          </m.h1>
 
           {subtitle ? (
-            <motion.p
+            <m.p
               className={cn("max-w-[30ch]", deckType.subhead)}
               custom={2}
               variants={deckRevealStagger}
@@ -154,10 +154,10 @@ export function DeckTitleSlide({
               animate="show"
             >
               {subtitle}
-            </motion.p>
+            </m.p>
           ) : null}
 
-          <motion.div
+          <m.div
             className="mt-1 flex flex-wrap gap-2"
             custom={3}
             variants={deckRevealStagger}
@@ -176,7 +176,7 @@ export function DeckTitleSlide({
                 {tag}
               </span>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </div>
 

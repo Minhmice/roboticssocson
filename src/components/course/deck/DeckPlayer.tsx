@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { Maximize2, Minimize2 } from "lucide-react";
 import { DeckSlideView } from "@/components/course/deck/DeckSlide";
 import { animateDeckSlideTransition, useGSAP } from "@/components/course/deck/deck-gsap";
@@ -264,7 +264,7 @@ export function DeckPlayer({ slides }: DeckPlayerProps) {
             aria-valuemax={total}
             aria-label={t("deck.player.progress")}
           >
-            <motion.div
+            <m.div
               className="h-full rounded-full bg-primary"
               animate={{ width: `${progress}%` }}
               transition={

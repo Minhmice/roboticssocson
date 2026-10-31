@@ -8,7 +8,7 @@ import { courseHeroData } from "@/data/courseHero";
 import { coursePricingCopy } from "@/data/coursePricing";
 import { localize } from "@/lib/i18n/localized";
 import { cn } from "@/lib/utils";
-import { motion, useReducedMotion, type Transition } from "framer-motion";
+import { m, useReducedMotion, type Transition } from "framer-motion";
 import {
   Blocks,
   CheckCircle2,
@@ -92,7 +92,7 @@ function AnimatedWords({
       {words.map((word, index) => {
         const isHighlight = highlightWords?.has(word) ?? false;
         return (
-          <motion.span
+          <m.span
             key={`${word}-${index}`}
             className={cn(
               "inline-block mr-[0.28em] last:mr-0",
@@ -107,7 +107,7 @@ function AnimatedWords({
             }}
           >
             {word}
-          </motion.span>
+          </m.span>
         );
       })}
     </Tag>
@@ -126,7 +126,7 @@ function CourseHeroImageWash({
       className="pointer-events-none absolute inset-0 z-[1] overflow-hidden"
       aria-hidden
     >
-      <motion.div
+      <m.div
         className={cn(
           "absolute -right-[8%] top-[6%] h-[88%] w-[min(92vw,680px)]",
           !reduced && "course-hero-image-wash",
@@ -143,7 +143,7 @@ function CourseHeroImageWash({
           className="object-cover object-center saturate-[1.35] contrast-[1.05]"
           style={{ filter: "blur(42px)" }}
         />
-      </motion.div>
+      </m.div>
       <div
         className="absolute inset-0"
         style={{
@@ -247,13 +247,13 @@ export default function CourseHero() {
 
       <div className="relative z-10 grid w-full max-w-7xl flex-1 gap-8 sm:gap-10 mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12 lg:grid-cols-2 lg:items-center lg:gap-12 lg:py-16">
         <div className="space-y-5 text-center lg:text-left">
-          <motion.p
+          <m.p
             className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/30 bg-primary/8 px-3 py-1.5 text-xs sm:text-sm font-semibold text-primary mx-auto lg:mx-0 shadow-[0_4px_18px_rgba(37,99,235,0.14)]"
             initial={reduced ? false : { opacity: 0, y: 14, scale: 0.92 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={revealTransition(reduced, SEQ.badge, 0.48)}
           >
-            <motion.span
+            <m.span
               className="inline-flex shrink-0"
               animate={
                 reduced
@@ -267,9 +267,9 @@ export default function CourseHero() {
               }
             >
               <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
-            </motion.span>
+            </m.span>
             {badge}
-          </motion.p>
+          </m.p>
 
           <AnimatedWords
             as="h1"
@@ -281,16 +281,16 @@ export default function CourseHero() {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight text-foreground leading-[1.12] text-balance"
           />
 
-          <motion.p
+          <m.p
             className="text-base sm:text-lg text-foreground max-w-[65ch] mx-auto lg:mx-0 leading-relaxed text-pretty"
             initial={reduced ? false : { opacity: 0, y: 16, filter: "blur(6px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={revealTransition(reduced, leadStart, 0.62)}
           >
             {lead}
-          </motion.p>
+          </m.p>
 
-          <motion.p
+          <m.p
             className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-primary/40 bg-primary/10 px-4 py-2.5 text-sm sm:text-base font-bold text-primary mx-auto lg:mx-0 shadow-[0_6px_24px_rgba(37,99,235,0.18)]"
             initial={reduced ? false : { opacity: 0, y: 16, scale: 0.94 }}
             animate={
@@ -336,13 +336,13 @@ export default function CourseHero() {
             }
           >
             {teaser}
-          </motion.p>
+          </m.p>
 
           <div className="flex flex-wrap justify-center lg:justify-start gap-2">
             {courseHeroData.chips.map((chip, index) => {
               const Icon = CHIP_ICONS[index] ?? Cpu;
               return (
-                <motion.span
+                <m.span
                   key={chip.vi}
                   className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/90 px-3 py-1.5 text-xs sm:text-sm text-foreground backdrop-blur-sm"
                   initial={reduced ? false : { opacity: 0, y: 12, scale: 0.9 }}
@@ -363,13 +363,13 @@ export default function CourseHero() {
                     aria-hidden
                   />
                   {localize(chip, locale)}
-                </motion.span>
+                </m.span>
               );
             })}
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-stretch sm:items-center pt-1">
-            <motion.div
+            <m.div
               className="flex-1 sm:flex-none"
               initial={reduced ? false : { opacity: 0, y: 16, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -383,8 +383,8 @@ export default function CourseHero() {
                 href="/course-register-form"
                 className="w-full text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 min-h-[44px] shadow-[0_8px_28px_rgba(37,99,235,0.22)]"
               />
-            </motion.div>
-            <motion.div
+            </m.div>
+            <m.div
               className="flex-1 sm:flex-none"
               initial={reduced ? false : { opacity: 0, y: 16, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -398,11 +398,11 @@ export default function CourseHero() {
                 href="#course-curriculum"
                 className="w-full text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 min-h-[44px]"
               />
-            </motion.div>
+            </m.div>
           </div>
         </div>
 
-        <motion.div
+        <m.div
           className="relative min-h-[260px] sm:min-h-[300px] lg:min-h-[340px]"
           initial={
             reduced
@@ -417,7 +417,7 @@ export default function CourseHero() {
             className="pointer-events-none absolute -inset-4 rounded-3xl bg-primary/12 blur-2xl"
             aria-hidden
           />
-          <motion.div
+          <m.div
             className="relative h-full overflow-hidden rounded-2xl"
             animate={reduced ? undefined : { y: [0, -6, 0] }}
             transition={
@@ -442,7 +442,7 @@ export default function CourseHero() {
               priority
               loading="eager"
             />
-            <motion.div
+            <m.div
               className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-slate-900/55 via-slate-900/20 to-transparent px-4 pt-3 pb-8"
               initial={reduced ? false : { opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -451,9 +451,9 @@ export default function CourseHero() {
               <p className="text-sm font-medium text-white/95 text-pretty leading-snug">
                 {imageCaption}
               </p>
-            </motion.div>
-          </motion.div>
-          <motion.div
+            </m.div>
+          </m.div>
+          <m.div
             className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 rounded-xl border border-border/80 bg-card/95 backdrop-blur-sm px-4 py-3 shadow-lg shadow-primary/8"
             aria-label={proofLine}
             initial={reduced ? false : { opacity: 0, y: 20, scale: 0.96 }}
@@ -461,7 +461,7 @@ export default function CourseHero() {
             transition={revealTransition(reduced, proofDelay, 0.5)}
           >
             <p className="flex items-start gap-2 text-sm font-medium text-foreground leading-snug">
-              <motion.span
+              <m.span
                 className="mt-0.5 inline-flex shrink-0"
                 initial={reduced ? false : { scale: 0, rotate: -40 }}
                 animate={{ scale: 1, rotate: 0 }}
@@ -477,11 +477,11 @@ export default function CourseHero() {
                 }
               >
                 <CheckCircle2 className="h-4 w-4 text-primary" aria-hidden />
-              </motion.span>
+              </m.span>
               <span>{proofLine}</span>
             </p>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </AuroraBackground>
   );
