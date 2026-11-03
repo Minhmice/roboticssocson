@@ -26,14 +26,6 @@
     "copyright": "© 2026 Robotics Sóc Sơn. Bản quyền thuộc về đội.",
     "developedBy": "Phát triển bởi đội ngũ kỹ thuật Robotics Sóc Sơn"
   },
-  "recruitmentDialog": {
-    "badge": "Thông báo tuyển thành viên",
-    "headline": "Đợt đăng ký đã kết thúc",
-    "tagline": "ROBOTICS SOC SON",
-    "message": "Cảm ơn bạn đã quan tâm. CLB đã dừng nhận đơn cho đợt tuyển thành viên hiện tại.",
-    "cta": "Xem thông báo",
-    "dismiss": "Đóng"
-  },
   "contact": {
     "copyEmail": "Sao chép email",
     "copyPhone": "Sao chép số điện thoại",

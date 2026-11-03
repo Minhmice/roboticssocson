@@ -86,7 +86,7 @@ export default async function Page({
             },
             {
               label: locale === "vi" ? "Nội dung" : "Contents",
-              value: locale === "vi" ? "10 phần rõ ràng" : "10 clear sections",
+              value: locale === "vi" ? `${profileSections.length} phần rõ ràng` : `${profileSections.length} clear sections`,
             },
             {
               label: locale === "vi" ? "Liên hệ" : "Contact",
@@ -148,6 +148,36 @@ function RenderBlock({ block, locale }: { block: ProfileBlock; locale: Locale })
           {localize(block.text, locale)}
         </div>
       );
+    case "people":
+      return (
+        <div className="grid gap-3 sm:grid-cols-2">
+          {localize(block.groups, locale).map((group) => (
+            <article
+              key={group.title}
+              className={`rounded-xl border border-border bg-card p-4 shadow-sm print:break-inside-avoid print:shadow-none sm:p-5 ${group.lead ? "sm:col-span-2" : ""}`}
+            >
+              <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">{group.title}</h4>
+              {group.lead ? (
+                <p className="mt-3 flex flex-wrap items-baseline gap-x-2 text-base font-bold text-foreground sm:text-lg">
+                  {group.lead}
+                  <span className="text-xs font-medium text-muted-foreground">
+                    {locale === "vi" ? "Trưởng ban" : "Lead"}
+                  </span>
+                </p>
+              ) : null}
+              <ul
+                className={`${group.lead ? "mt-3 border-t border-border pt-3 sm:grid-cols-2 lg:grid-cols-3" : "mt-2"} grid gap-x-6 gap-y-1.5 text-sm text-foreground/90 sm:text-base`}
+              >
+                {group.names.map((name) => (
+                  <li key={name} className={group.lead ? "leading-snug" : "text-base font-semibold leading-snug text-foreground sm:text-lg"}>
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      );
     case "table": {
       const head = localize(block.head, locale);
       const rows = localize(block.rows, locale);
@@ -162,7 +192,7 @@ function RenderBlock({ block, locale }: { block: ProfileBlock; locale: Locale })
                     className={`${cIdx > 0 ? "mt-3 border-t border-border pt-3" : ""} grid grid-cols-[minmax(7rem,38%)_1fr] gap-3 text-sm`}
                   >
                     <dt className="font-semibold leading-snug text-muted-foreground">{head[cIdx]}</dt>
-                    <dd className="min-w-0 break-words leading-relaxed text-foreground">{cell || "—"}</dd>
+                    <dd className="min-w-0 break-words leading-relaxed text-foreground">{renderCell(cell)}</dd>
                   </div>
                 ))}
               </dl>
@@ -194,7 +224,7 @@ function RenderBlock({ block, locale }: { block: ProfileBlock; locale: Locale })
                         key={cIdx}
                         className="border border-border px-3 py-2 sm:px-4 sm:py-2.5 text-foreground/90 align-top leading-snug"
                       >
-                        {cell || "—"}
+                        {renderCell(cell)}
                       </td>
                     ))}
                   </tr>
@@ -256,5 +286,45 @@ function SectionView({
       </a>
     </section>
   );
+}
+
+function renderCell(content: string) {
+  if (!content) return "—";
+
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  if (!linkRegex.test(content)) {
+    return content;
+  }
+
+  const parts: React.ReactNode[] = [];
+  let lastIndex = 0;
+  linkRegex.lastIndex = 0;
+  let match;
+
+  while ((match = linkRegex.exec(content)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(content.substring(lastIndex, match.index));
+    }
+    const [, text, href] = match;
+    const isExternal = href.startsWith("http") || href.startsWith("mailto:");
+    parts.push(
+      <a
+        key={match.index}
+        href={href}
+        target={isExternal && !href.startsWith("mailto:") ? "_blank" : undefined}
+        rel={isExternal && !href.startsWith("mailto:") ? "noopener noreferrer" : undefined}
+        className="font-medium text-primary underline-offset-4 hover:underline"
+      >
+        {text}
+      </a>
+    );
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < content.length) {
+    parts.push(content.substring(lastIndex));
+  }
+
+  return parts;
 }
 

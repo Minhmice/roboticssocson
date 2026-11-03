@@ -9,8 +9,8 @@ export const domain = "roboticssocson.minhmice.com" as const;
 
 export const contactEmail = "roboticssocson@gmail.com" as const;
 
-export const contactPhone = "0981427659" as const;
-export const contactLeadName = "Đoàn Thùy Ngân" as const;
+export const contactPhone = "0961399910" as const;
+export const contactLeadName = "Nguyễn Bảo Ngọc" as const;
 export const messengerUrl = "https://m.me/roboticssocson" as const;
 
 export type Socials = {
