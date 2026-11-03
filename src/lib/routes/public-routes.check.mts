@@ -2,7 +2,16 @@ import assert from "node:assert/strict";
 import { readdirSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { courseSurfacesEnabled } from "../../data/courseRegistration.ts";
+import { RESOURCE_CATEGORIES } from "../../data/resources.ts";
 import { isPublicRoute, resolveLegacy, sitemapRoutes, suggestRoutes } from "./public-routes.ts";
+
+const CATEGORY_IDS = new Set(RESOURCE_CATEGORIES.map((category) => category.id));
+
+/** Category and article URLs are served by the dynamic [category]/[slug] pages. */
+function servedByResourcePages(path: string): boolean {
+  const match = /^\/resources\/([^/]+)(?:\/[^/]+)?$/.exec(path);
+  return match !== null && CATEGORY_IDS.has(match[1]);
+}
 
 // Legacy aliases: exact segment and any sub-path map to the new route.
 for (const [from, to] of [
@@ -88,7 +97,7 @@ for (const suffix of pageSuffixes) {
 const pageSet = new Set(pageSuffixes);
 for (const path of sitemapPaths) {
   assert.ok(
-    pageSet.has(path) || /^\/resources\/[^/]+(\/[^/]+)?$/.test(path),
+    pageSet.has(path) || servedByResourcePages(path),
     `sitemap path ${path} has no page`,
   );
 }
