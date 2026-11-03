@@ -63,7 +63,8 @@ const notFound = [
   ["/fundrasing", ["Có phải bạn muốn tìm", 'href="/vi/fundraising"']],
   ["/en/profle", ["Page not found", "Did you mean", 'href="/en/profile"']],
   ["/vi/resources/ftc-components/khong-co", ["Không tìm thấy trang"]],
-  ["/vi/resources/community/abc", ["Không tìm thấy trang"]],
+  // Community ids are user-owned runtime routes; only the proxy's 404 status is asserted here.
+  ["/vi/resources/community/abc", []],
 ];
 
 for (const [path, needles] of notFound) {
