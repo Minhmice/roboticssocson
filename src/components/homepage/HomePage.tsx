@@ -6,6 +6,9 @@ import AboutSocSonHighSchool from "@/components/homepage/AboutSocSonHighSchool";
 import TeamCarouselSection from "@/components/homepage/TeamCarousel";
 import { courseSurfacesEnabled } from "@/data/courseRegistration";
 import { HomeClosingCTA } from "@/components/homepage/HomeClosingCTA";
+import { HomeMarquee } from "@/components/homepage/HomeMarquee";
+import { HomeMotion } from "@/components/homepage/HomeMotion";
+import { ScrollProgress } from "@/components/homepage/ScrollProgress";
 const AchievementsSection = dynamic(
   () => import("@/components/homepage/Achievements"),
   { ssr: true },
@@ -32,18 +35,12 @@ const CourseTeaser = dynamic(
   { ssr: true },
 );
 
-const RecruitmentDialog = dynamic(
-  () =>
-    import("@/components/homepage/RecruitmentDialog").then(
-      (m) => m.RecruitmentDialog,
-    ),
-  { ssr: false },
-);
 export function HomePage() {
   return (
-    <div className="relative scroll-smooth">
-      <RecruitmentDialog />
+    <HomeMotion>
+      <ScrollProgress />
       <Hero />
+      <HomeMarquee />
       <AboutSocSonHighSchool />
       <TeamCarouselSection />
       <AchievementsSection />
@@ -52,6 +49,6 @@ export function HomePage() {
       <MissionSection />
       {courseSurfacesEnabled ? <CourseTeaser /> : null}
       <HomeClosingCTA />
-    </div>
+    </HomeMotion>
   );
 }

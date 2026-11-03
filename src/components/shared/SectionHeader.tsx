@@ -17,6 +17,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   return (
     <div
+      data-section-header="true"
       className={cn(
         "py-8 md:py-12",
         align === "center" && "text-center",

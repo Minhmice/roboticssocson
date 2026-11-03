@@ -1,16 +1,64 @@
 "use client";
 
+import { useRef } from "react";
 import { LocaleLink as Link } from "@/components/shared/LocaleLink";
-import { ArrowRight, DollarSign, Users, Mail } from "lucide-react";
+import { ArrowRight, DollarSign, FileText, Mail } from "lucide-react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 export function HomeClosingCTA() {
   const { locale, t } = useLanguage();
   const isVi = locale === "vi";
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set("[data-cta-card]", { autoAlpha: 1, y: 0, scale: 1 });
+      });
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const cards = gsap.utils.toArray<HTMLElement>("[data-cta-card]");
+        gsap.fromTo(
+          cards,
+          { autoAlpha: 0, y: 28, scale: 0.98 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.65,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
+      });
+
+      return () => mm.revert();
+    },
+    { scope: sectionRef }
+  );
+
   return (
-    <section className="relative py-16 sm:py-20 md:py-24 border-t border-border bg-muted/30">
+    <section
+      ref={sectionRef}
+      className="relative py-16 sm:py-20 md:py-24 border-t border-border bg-muted/30"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-12 sm:mb-14">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-[-0.025em] text-foreground text-balance">
@@ -21,11 +69,14 @@ export function HomeClosingCTA() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {/* Card 1: Fundraising Campaign */}
-          <div className="flex flex-col justify-between rounded-2xl border border-primary/30 bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+          <div
+            data-cta-card="true"
+            className="group flex flex-col justify-between rounded-2xl border border-primary/30 bg-card p-6 shadow-sm hover:shadow-glow-blue hover:border-primary/60 transition-all duration-300"
+          >
             <div className="space-y-3">
-              <div className="h-10 w-10 rounded-xl bg-accent border border-primary/20 text-primary flex items-center justify-center">
+              <div className="h-10 w-10 rounded-xl bg-accent border border-primary/20 text-primary flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                 <DollarSign className="h-5 w-5" aria-hidden />
               </div>
               <h3 className="text-xl font-bold text-foreground">
@@ -48,41 +99,49 @@ export function HomeClosingCTA() {
             </div>
           </div>
 
-          {/* Card 2: Recruitment Status & Notice */}
-          <div className="flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-sm hover:border-primary/40 transition-colors">
+          {/* Card 2: Sponsorship Dossier */}
+          <div
+            data-cta-card="true"
+            className="group flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-sm hover:border-primary/50 hover:shadow-glow-blue transition-all duration-300"
+          >
             <div className="space-y-3">
-              <div className="h-10 w-10 rounded-xl bg-muted border border-border text-muted-foreground flex items-center justify-center">
-                <Users className="h-5 w-5" aria-hidden />
+              <div className="h-10 w-10 rounded-xl bg-accent border border-primary/20 text-primary flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                <FileText className="h-5 w-5" aria-hidden />
               </div>
               <div className="flex items-center justify-between gap-2">
                 <h3 className="text-xl font-bold text-foreground">
-                  {isVi ? "Tuyển thành viên" : "Team Recruitment"}
+                  {isVi ? "Hồ sơ tài trợ" : "Sponsorship Dossier"}
                 </h3>
-                <span className="inline-flex items-center rounded-full bg-muted border border-border px-2 py-0.5 text-xs font-semibold text-muted-foreground">
-                  {t("nav.recruitmentClosedBadge")}
+                <span className="inline-flex items-center rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs font-semibold text-primary">
+                  {isVi ? "Mùa 2026–2027" : "2026–2027"}
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed text-pretty">
                 {isVi
-                  ? "Đợt tuyển thành viên hiện tại đã dừng nhận đơn. Tìm hiểu cơ cấu ban kỹ thuật và thông báo tuyển đợt kế tiếp."
-                  : "Applications for the current round are closed. Learn about our subteams and get ready for the next round."}
+                  ? "Xem hồ sơ đội: mục tiêu ngân sách, các hình thức hỗ trợ (tiền, hiện vật, chuyên môn) và cam kết minh bạch."
+                  : "Read the team profile: budget targets, ways to support (cash, in-kind, expertise) and our transparency commitments."}
               </p>
             </div>
             <div className="pt-6">
               <Link
-                href="/recruitment"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-muted transition-colors min-h-[44px]"
+                href="/profile"
+                className="group/btn inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-primary/5 hover:border-primary/40 transition-colors min-h-[44px]"
               >
-                <span>{isVi ? "Xem thông báo đợt tuyển" : "Read Recruitment Notice"}</span>
-                <ArrowRight className="h-4 w-4" aria-hidden />
+                <span>{isVi ? "Xem hồ sơ tài trợ" : "View Sponsorship Dossier"}</span>
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary/10 text-primary shrink-0 transition-transform duration-300 group-hover/btn:translate-x-0.5">
+                  <ArrowRight className="h-3 w-3" aria-hidden />
+                </span>
               </Link>
             </div>
           </div>
 
           {/* Card 3: Direct Contact */}
-          <div className="flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-sm hover:border-primary/40 transition-colors">
+          <div
+            data-cta-card="true"
+            className="group flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-sm hover:border-primary/50 hover:shadow-glow-blue transition-all duration-300"
+          >
             <div className="space-y-3">
-              <div className="h-10 w-10 rounded-xl bg-accent border border-primary/20 text-primary flex items-center justify-center">
+              <div className="h-10 w-10 rounded-xl bg-accent border border-primary/20 text-primary flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                 <Mail className="h-5 w-5" aria-hidden />
               </div>
               <h3 className="text-xl font-bold text-foreground">
@@ -97,10 +156,12 @@ export function HomeClosingCTA() {
             <div className="pt-6">
               <Link
                 href="/contact-us"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-muted transition-colors min-h-[44px]"
+                className="group/btn inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-primary/5 hover:border-primary/40 transition-colors min-h-[44px]"
               >
                 <span>{isVi ? "Liên hệ với đội" : "Contact the Team"}</span>
-                <ArrowRight className="h-4 w-4" aria-hidden />
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary/10 text-primary shrink-0 transition-transform duration-300 group-hover/btn:translate-x-0.5">
+                  <ArrowRight className="h-3 w-3" aria-hidden />
+                </span>
               </Link>
             </div>
           </div>
