@@ -3,6 +3,8 @@ import React from "react";
 import { ArticleImage } from "@/components/resources/ArticleImage";
 import { BootLink } from "@/components/shared/BootLink";
 
+const Img = (props: React.ComponentProps<"img">) => <ArticleImage {...props} />;
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children, ...props }) => (
@@ -37,11 +39,16 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </h4>
     ),
-    p: ({ children, ...props }) => (
-      <p className="text-base text-foreground/90 leading-relaxed my-4" {...props}>
-        {children}
-      </p>
-    ),
+    p: ({ children, ...props }) => {
+      // A lone image renders a <figure>, which is invalid inside <p> and breaks hydration.
+      const kids = React.Children.toArray(children);
+      if (kids.length > 0 && kids.every((k) => React.isValidElement(k) && k.type === Img)) return <>{children}</>;
+      return (
+        <p className="text-base text-foreground/90 leading-relaxed my-4" {...props}>
+          {children}
+        </p>
+      );
+    },
     ul: ({ children, ...props }) => (
       <ul className="list-disc list-inside space-y-1 my-4 text-foreground/90 pl-2" {...props}>
         {children}
@@ -127,7 +134,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </td>
     ),
     hr: (props) => <hr className="my-8 border-border/60" {...props} />,
-    img: (props) => <ArticleImage {...props} />,
+    img: Img,
     ...components,
   };
 }

@@ -2,7 +2,7 @@
 
 In competitive robotics programming, invoking blocking calls such as `Thread.sleep()` or waiting inside synchronous `while` loops severely degrades system responsiveness. Blocking delays lock the control thread, causing gamepad packet timeouts, stalling chassis odometry tracking, and preventing concurrent subsystem control. Finite State Machines (FSMs) eliminate blocking operations by partitioning complex workflows into discrete, non-blocking states, allowing the main OpMode loop to sustain a deterministic 50–100Hz execution rate.
 
-![Finite state machine state transition diagram](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Finite_state_machine_example_with_comments.svg/640px-Finite_state_machine_example_with_comments.svg.png)
+![Finite state machine state transition diagram](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80)
 
 ### Architectural Components of Subsystem FSMs
 
