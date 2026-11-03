@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readdirSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { courseSurfacesEnabled } from "../../data/courseRegistration.ts";
-import { isPublicRoute, resolveLegacy, sitemapRoutes } from "./public-routes.ts";
+import { isPublicRoute, resolveLegacy, sitemapRoutes, suggestRoutes } from "./public-routes.ts";
 
 // Legacy aliases: exact segment and any sub-path map to the new route.
 for (const [from, to] of [
@@ -93,4 +93,18 @@ for (const path of sitemapPaths) {
   );
 }
 
+// Suggestions for the 404 page.
+const firstSuggestion = (suffix: string) => suggestRoutes(suffix, 3)[0]?.path;
+assert.equal(firstSuggestion("/fundrasing"), "/fundraising", "typo");
+assert.equal(firstSuggestion("/profle"), "/profile", "typo");
+assert.equal(firstSuggestion("/fund"), "/fundraising", "prefix");
+assert.equal(
+  firstSuggestion("/encoder-driving"),
+  "/resources/programming/autonomous-encoder-driving",
+  "contained in an article slug",
+);
+assert.deepEqual(suggestRoutes("/qqqqqq", 3), [], "nothing close");
+assert.deepEqual(suggestRoutes("/xyz", 3), [], "short noise");
+assert.ok(suggestRoutes("/res", 2).length <= 2, "respects the limit");
+assert.equal(suggestRoutes("/fundrasing", 3)[0]?.label.vi, "Gây quỹ", "carries the label");
 console.log("[public-routes.check] all checks passed");

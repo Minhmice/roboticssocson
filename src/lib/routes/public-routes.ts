@@ -133,3 +133,48 @@ export function resolveLegacy(suffix: string): string | null {
 export function sitemapRoutes(): ({ path: string } & SitemapMeta)[] {
   return ROUTES.flatMap((route) => (route.sitemap ? [{ path: route.path, ...route.sitemap }] : []));
 }
+
+function lastSegment(path: string): string {
+  return path.slice(path.lastIndexOf("/") + 1);
+}
+
+function levenshtein(a: string, b: string): number {
+  let previous = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const current = [i];
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      current[j] = Math.min(previous[j] + 1, current[j - 1] + 1, previous[j - 1] + cost);
+    }
+    previous = current;
+  }
+  return previous[b.length];
+}
+
+/**
+ * Close matches for a 404, ranked: prefix (0) < contained in slug (1) < typo (distance).
+ * Compares last segments only; `/` and the request itself are never suggested.
+ */
+export function suggestRoutes(
+  suffix: string,
+  limit: number,
+): { path: string; label: RouteLabel }[] {
+  const needle = lastSegment(suffix);
+  if (!needle) return [];
+  const maxDistance = Math.max(2, Math.floor(needle.length * 0.3));
+  const scored: { path: string; label: RouteLabel; score: number }[] = [];
+  for (const route of ROUTES) {
+    if (route.path === "/" || route.path === suffix) continue;
+    const target = lastSegment(route.path);
+    let score: number | null = null;
+    if (needle.length >= 3 && target.startsWith(needle)) score = 0;
+    else if (needle.length >= 5 && target.includes(needle)) score = 1;
+    else {
+      const distance = levenshtein(needle, target);
+      if (distance <= maxDistance) score = distance;
+    }
+    if (score !== null) scored.push({ path: route.path, label: route.label, score });
+  }
+  scored.sort((a, b) => a.score - b.score || a.path.length - b.path.length);
+  return scored.slice(0, limit).map(({ path, label }) => ({ path, label }));
+}
