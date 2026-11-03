@@ -1,27 +1,32 @@
 import { NextResponse, type NextRequest } from "next/server";
-
-const DEFAULT_LOCALE = "vi";
+import { LOCALE_COOKIE } from "@/lib/i18n/locales";
+import { resolveRequest } from "@/lib/routes/resolve-request";
 
 /**
- * Public routes always include locale prefix (`/vi/...` or `/en/...`).
- * A URL without one (`/`, `/fundraising`) redirects to the default locale, query kept.
- * API, assets and internal surfaces remain excluded by matcher.
+ * Public URLs always carry a locale (`/vi/...`, `/en/...`). Decisions live in
+ * `resolveRequest`; this adapter only turns them into responses.
  */
 export function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const result = resolveRequest({
+    pathname: request.nextUrl.pathname,
+    search: request.nextUrl.search,
+    cookieLocale: request.cookies.get(LOCALE_COOKIE)?.value,
+    acceptLanguage: request.headers.get("accept-language"),
+  });
 
-  if (
-    pathname === "/vi" ||
-    pathname.startsWith("/vi/") ||
-    pathname === "/en" ||
-    pathname.startsWith("/en/")
-  ) {
-    return NextResponse.next();
+  if (result.kind === "next") return NextResponse.next();
+
+  if (result.kind === "notFound") {
+    // Unknown path: render the 404 in place (no redirect). The rewritten path keeps the
+    // locale and the original suffix so the 404 page can suggest close matches.
+    const url = request.nextUrl.clone();
+    url.pathname = result.rewrite;
+    return NextResponse.rewrite(url);
   }
 
-  const url = request.nextUrl.clone();
-  url.pathname = `/${DEFAULT_LOCALE}${pathname === "/" ? "" : pathname}`;
-  return NextResponse.redirect(url);
+  const response = NextResponse.redirect(new URL(result.location, request.url), result.status);
+  if (result.status === 307) response.headers.set("Vary", "Cookie, Accept-Language");
+  return response;
 }
 
 export const config = {

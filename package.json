@@ -13,6 +13,7 @@
     "check:i18n": "node scripts/check-i18n.mjs",
     "check:resources": "node scripts/check-resources.mjs",
     "check:routes": "node --experimental-strip-types src/lib/routes/public-routes.check.mts && node --experimental-strip-types src/lib/routes/resolve-request.check.mts",
+    "smoke:routes": "node scripts/smoke-routes.mjs",
     "optimize:images": "node scripts/optimize-public-images.mjs",
     "sync:deck-images": "node scripts/sync-deck-raw-images.mjs",
     "sync:deck-images:watch": "node scripts/sync-deck-raw-images.mjs --watch",
