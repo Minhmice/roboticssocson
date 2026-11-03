@@ -4,7 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { captureEvent } from "@/lib/posthog/client";
 import { AnalyticsEvents } from "@/lib/posthog/events";
-import { LOCALES, type Locale } from "@/lib/i18n/locales";
+import { LOCALE_COOKIE, LOCALES, type Locale } from "@/lib/i18n/locales";
 import { switchLocalePath } from "@/lib/i18n/routes";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -52,6 +52,8 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
               aria-label={LABELS[code].name}
               data-no-boot="true"
               onClick={(event) => {
+                // Remember an explicit choice so locale-less URLs open in this language.
+                document.cookie = `${LOCALE_COOKIE}=${code}; Path=/; Max-Age=31536000; SameSite=Lax`;
                 // Carry query and hash over at click time; reading them during render
                 // would differ between server and client and break hydration.
                 event.currentTarget.search = window.location.search;
