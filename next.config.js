@@ -7,6 +7,8 @@ const nextConfig = {
   outputFileTracingRoot: __dirname,
   skipTrailingSlashRedirect: true,
   experimental: {
+    // Root layout sits behind [locale], so unmatched URLs need the global 404.
+    globalNotFound: true,
     optimizePackageImports: [
       "lucide-react",
       "@radix-ui/react-dialog",

@@ -57,13 +57,13 @@ for (const path of ["/vi", "/en", "/en/profile", "/vi/fundraising?ref=fb", "/vi/
 
 // [path, strings the 404 HTML must contain]
 const notFound = [
-  ["/xyz", []],
-  ["/vi/xyz", []],
-  ["/vi/fundrasing", []],
-  ["/fundrasing", []],
-  ["/en/profle", []],
-  ["/vi/resources/ftc-components/khong-co", []],
-  ["/vi/resources/community/abc", []],
+  ["/xyz", ["Không tìm thấy trang"]],
+  ["/vi/xyz", ["Không tìm thấy trang"]],
+  ["/vi/fundrasing", ["Không tìm thấy trang", "Có phải bạn muốn tìm", 'href="/vi/fundraising"']],
+  ["/fundrasing", ["Có phải bạn muốn tìm", 'href="/vi/fundraising"']],
+  ["/en/profle", ["Page not found", "Did you mean", 'href="/en/profile"']],
+  ["/vi/resources/ftc-components/khong-co", ["Không tìm thấy trang"]],
+  ["/vi/resources/community/abc", ["Không tìm thấy trang"]],
 ];
 
 for (const [path, needles] of notFound) {
