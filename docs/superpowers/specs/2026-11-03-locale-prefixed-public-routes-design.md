@@ -1,4 +1,6 @@
 # Locale-prefixed English public routes
+> **Amended by** `2026-11-03-smart-url-routing-design.md`: §2.2 (404 without redirect), §3.2 rule 3, and the out-of-scope "Redirect compatibility" item no longer apply. Locale-less paths and legacy slugs now redirect; unknown paths still 404.
+
 
 Ngày: 03/11/2026  
 Trạng thái: Thiết kế đã được người dùng duyệt; chờ duyệt bản spec trước khi lập kế hoạch triển khai.

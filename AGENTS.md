@@ -48,7 +48,9 @@ The next active work is to shape a new education/curriculum surface for a course
 
 ## Application Entry Points
 
-- `src/proxy.ts`: locale routing. Vietnamese keeps unprefixed URLs (`/x` is rewritten to `/vi/x`), English lives under `/en/...`, `/vi/...` redirects to `/...`. Decided by URL only, so pages stay statically prerendered.
+- `src/proxy.ts`: thin adapter over `resolveRequest` (`src/lib/routes/resolve-request.ts`). Every public URL is `/vi/...` or `/en/...`. A locale-less path redirects (307, `Vary: Cookie, Accept-Language`) to the `NEXT_LOCALE` cookie or browser language, default `vi`. Legacy slugs (`/ho-so`, `/luat-ftc`, `/resources/rules`, `/sponsor`) and typos (case, trailing slash, `//`, `/vn`) redirect (308). Unknown paths 404 in place, no redirect.
+- `src/lib/routes/public-routes.ts`: the public route table (proxy, sitemap, 404 suggestions). Add every new page here; `npm run check:routes` fails otherwise.
+- `src/app/global-not-found.tsx`: 404 for unmatched URLs (experimental `globalNotFound`), rendering `NotFoundView` with suggestions; reads `x-rbs-path` (`PATH_HEADER`) via `headers()` for server-side language and suggestions.
 - `src/app/(site)/[locale]/layout.tsx`: root layout for public pages. Validates the locale, renders `RootShell` (`<html lang>`, one dictionary, `LanguageProvider`, `AppShell`) and the Organization JSON-LD.
 - `src/app/(site)/[locale]/{page,fundraising,recruitment,contact-us,course,course-register-form}`: public routes, each exports `generateMetadata({ params })`.
 - `src/app/(internal)/`: Vietnamese-only surfaces with their own root layout (`analytics`, `api`, `course/arduino-mblock-deck`). They are not under `[locale]` and are skipped by the proxy.
@@ -70,6 +72,8 @@ The next active work is to shape a new education/curriculum surface for a course
 - `npm run lint`: ESLint across the repo.
 - `npm run check:assets`: runs `scripts/check-assets.mjs` to ensure referenced `/Images/...` files exist under `public/`.
 - `npm run check:i18n`: key and `{token}` parity between locales, every `t("key")` call resolves, and no unused keys.
+- `npm run check:routes`: route table, legacy aliases, suggestions and request resolution checks, plus page/table sync.
+- `npm run smoke:routes [baseUrl]`: HTTP smoke of redirects, 404s and sitemap against a running server (default `http://127.0.0.1:4010`).
 - `npm run lint:unused`: Knip (`knip.json`) for unused files and dependencies. Unused exports are warnings.
 
 ## Configuration Files
@@ -126,7 +130,7 @@ The next active work is to shape a new education/curriculum surface for a course
 - Page content lives in `src/data/*.ts` as `Localized<T>` (`{ vi, en }`, both required). Read it with `localize(field, locale)` from `@/lib/i18n/localized`. Do not add `_vi`/`_en` suffixed fields.
 - Copy used by exactly one component may stay as an inline `locale === "vi" ? ... : ...`.
 - Internal links must be locale-aware: use `CTAButton`, `BootLink` or `LocaleLink` (they apply `localizedHref`), or call `localizedHref(path, locale)` yourself. `usePathname()` reports the rewritten path (`/vi/...`), so run it through `stripLocale` before comparing.
-- Default locale is Vietnamese (unprefixed).
+- Default locale is Vietnamese. Every public URL carries its locale prefix; the VI/EN toggle stores the choice in the `NEXT_LOCALE` cookie.
 
 ## Data Conventions
 
