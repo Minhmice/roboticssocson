@@ -74,6 +74,16 @@ for (const [path, needles] of notFound) {
   for (const needle of needles) check(html.includes(needle), `${path} contains ${needle}`);
 }
 
+// Paths with a file extension skip the proxy, so a client can send x-rbs-path itself.
+// The 404 must stay a 404 and never echo that header.
+{
+  const hostile = '/en/"><script>alert(1)</script>';
+  const response = await fetch(`${base}/xyz.html`, { redirect: "manual", headers: { "x-rbs-path": hostile } });
+  const html = await response.text();
+  check(response.status === 404, `/xyz.html with hostile x-rbs-path → ${response.status} (want 404)`);
+  check(!html.includes("alert(1)"), "/xyz.html does not echo a hostile x-rbs-path");
+}
+
 {
   const sitemap = await (await fetch(`${base}/sitemap.xml`)).text();
   check(sitemap.includes("/vi/profile") && sitemap.includes("/en/ftc-rules"), "sitemap lists locale URLs");
