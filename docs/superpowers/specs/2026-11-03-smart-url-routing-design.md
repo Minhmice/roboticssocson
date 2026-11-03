@@ -96,7 +96,7 @@ Proxy decisions move into a pure function so they are testable without a server.
 export type Resolution =
   | { kind: "next" }
   | { kind: "redirect"; location: string; status: 307 | 308 }
-  | { kind: "notFound"; locale: Locale };
+  | { kind: "notFound"; rewrite: string };
 
 export function resolveRequest(input: {
   pathname: string;
@@ -114,7 +114,8 @@ Order:
 2. **Locale segment:** first segment `vi` or `en` → keep it. `vn` → `vi`. Otherwise the
    locale is missing and `pickLocale` chooses one.
 3. **Legacy:** `resolveLegacy(suffix)` replaces the suffix when it matches.
-4. **Unknown:** if `!isPublicRoute(suffix)` → `{ kind: "notFound", locale }`. No redirect.
+4. **Unknown:** if `!isPublicRoute(suffix)` → `{ kind: "notFound", rewrite }` where
+   `rewrite = /{locale}{suffix}`. No redirect.
 5. **Compare:** canonical = `/{locale}{suffix === "/" ? "" : suffix}` + original search.
    Equal to the request → `next`. Different → `redirect`.
 
@@ -153,6 +154,8 @@ NEXT_LOCALE={code}; Path=/; Max-Age=31536000; SameSite=Lax
 
 Written on every click, including the active locale. Never written by the proxy or by
 visiting an `/en` link. Not `HttpOnly`: holds no sensitive data and is written client-side.
+The name lives once in `src/lib/i18n/locales.ts` as `LOCALE_COOKIE`; proxy and toggle
+both import it.
 
 ## 5. 404 page
 
@@ -165,6 +168,8 @@ user accepted that risk.
 - `next.config.js`: `experimental.globalNotFound: true`.
 - `src/app/global-not-found.tsx`: full HTML document (`<html>`, `<body>`, imports
   `./globals.css`), `metadata.title` "404", `robots: noindex`. Renders `NotFoundView`.
+  Its `<html lang>` is `vi` on the server; `NotFoundView` sets
+  `document.documentElement.lang` to the detected locale after mount.
 - `src/components/shared/NotFoundView.tsx` (client): reads `usePathname()`, takes the
   locale from the first segment (`en` → English, else Vietnamese) and the suffix via
   `stripLocale`. Wraps its content in its own `LanguageProvider locale={locale}
@@ -174,7 +179,9 @@ user accepted that risk.
   - existing copy and actions; "Back home" / "Về trang chủ" points to `/` and is
     localised by `CTAButton` to `/{locale}`;
   - when `suggestRoutes(suffix, 3)` is non-empty, a "Có phải bạn muốn tìm:" /
-    "Did you mean:" list of links built with `localizedHref`.
+    "Did you mean:" list of plain `<a>` links built with `localizedHref`, rendered
+    through a new optional `children` slot on `StatusBoard` (below its actions; the
+    board is full-height, so content placed after it would be off-screen).
 - `src/app/(site)/[locale]/not-found.tsx` renders the same `NotFoundView` for
   request-time `notFound()` calls (e.g. a missing community question).
 
@@ -186,17 +193,16 @@ returns false and CTA links navigate normally.
 
 ### 5.1 Suggestion ranking
 
-Candidates: every public route plus every resource article. For the request suffix:
+Candidates: every public route (articles included), except `/` and the request itself.
+Compare the request's last segment (the "needle") with each candidate's last segment:
 
-1. **Prefix:** the last segment of the request is a prefix (≥ 3 chars) of a candidate's
-   last segment. Score 0.
-2. **Typo:** Levenshtein distance between last segments ≤ `max(2, floor(len * 0.3))`.
+1. **Prefix:** needle (≥ 3 chars) is a prefix of the target. Score 0.
+2. **Contains:** needle (≥ 5 chars) appears inside the target. Score 1.
+3. **Typo:** Levenshtein distance ≤ `max(2, floor(needle.length * 0.3))`.
    Score = distance.
-3. **Article slug:** request's last segment is a prefix or within the typo limit of an
-   article slug. Same scores.
 
-Sort by score, then shorter path. Deduplicate. Return at most `limit`. Empty when
-nothing qualifies (`/qqqqqq` → []).
+First matching rule wins. Sort by score, then shorter path. Return at most `limit`.
+Empty when nothing qualifies (`/qqqqqq` → [], `/xyz` → []).
 
 Example targets:
 
@@ -222,9 +228,11 @@ Project convention: `*.check.mts` run with `node --experimental-strip-types`, no
   - `isPublicRoute` for static, course-gated, category, article and community patterns,
     and rejects `/resources/rules`, `/resources/community/abc`;
   - `suggestRoutes` for the §5.1 examples and `/qqqqqq` → [];
-  - **sync check:** every public static route has a `page.tsx` under
-    `src/app/(site)/[locale]/`, and every non-dynamic `page.tsx` there (outside
-    `[param]` dirs) is listed. Course routes are checked only when enabled.
+  - **sync check:** every `page.tsx` under
+    `src/app/(site)/[locale]/` (outside `[param]` dirs) maps to a public route or to
+    a course route (course pages exist on disk even when the flag is off), and every
+    sitemap path either has its own static `page.tsx` or is a
+    `/resources/{category}[/{slug}]` path served by the dynamic pages.
 - `src/lib/routes/resolve-request.check.mts`: every row of the §8 table, `pickLocale`
   cases (cookie wins; malformed cookie ignored; `en-US,en;q=0.9,vi;q=0.8` → `en`;
   `vi,en;q=0.9` → `vi`; missing header → `vi`), and `Vary` intent via status 307.
@@ -233,8 +241,9 @@ Project convention: `*.check.mts` run with `node --experimental-strip-types`, no
   `/` with `Accept-Language: en-US` and with cookie `NEXT_LOCALE=vi`; the raw HTML of
   `/vi/fundrasing` and `/fundrasing` contains "Có phải bạn muốn tìm" and a link to
   `/vi/fundraising`; the raw HTML of `/en/profle` is English with a link to
-  `/en/profile`; `/vi/resources/community/999999` shows the branded 404; one browser
-  check of `/vi/fundrasing` at 390px.
+  `/en/profile`; `/vi/resources/ftc-components/khong-co` and
+  `/vi/resources/community/abc` show the branded 404; one browser check of
+  `/vi/fundrasing` at 390px and 1280px.
 
 ## 8. Behaviour table
 
@@ -269,7 +278,7 @@ Project convention: `*.check.mts` run with `node --experimental-strip-types`, no
 - API, `analytics`, internal deck, asset routes.
 - Full-text search on the 404 page; matching is path and slug only.
 - New dependencies. Levenshtein is local (~15 lines).
-- Copy or visual redesign of `StatusBoard`.
+- Copy or visual redesign of `StatusBoard` (an optional `children` slot is added).
 
 ## 10. Risks
 
