@@ -16,8 +16,9 @@ import { suggestRoutes } from "@/lib/routes/public-routes";
  * usePathname() carries the locale and the original path during server render.
  * Own LanguageProvider: CTAButton reads the locale from context.
  */
-export function NotFoundView() {
-  const pathname = usePathname() ?? "/";
+export function NotFoundView({ pathname: requestPathname }: { pathname?: string } = {}) {
+  const clientPathname = usePathname();
+  const pathname = requestPathname || clientPathname || "/";
   const locale: Locale = /^\/en(?=\/|$)/.test(pathname) ? "en" : "vi";
   const vi = locale === "vi";
   const suggestions = suggestRoutes(stripLocale(pathname).toLowerCase(), 3);

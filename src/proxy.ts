@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { LOCALE_COOKIE } from "@/lib/i18n/locales";
+import { LOCALE_COOKIE, PATH_HEADER } from "@/lib/i18n/locales";
 import { resolveRequest } from "@/lib/routes/resolve-request";
 
 /**
@@ -14,14 +14,20 @@ export function proxy(request: NextRequest) {
     acceptLanguage: request.headers.get("accept-language"),
   });
 
-  if (result.kind === "next") return NextResponse.next();
+  if (result.kind === "next") {
+    const headers = new Headers(request.headers);
+    headers.set(PATH_HEADER, request.nextUrl.pathname);
+    return NextResponse.next({ request: { headers } });
+  }
 
   if (result.kind === "notFound") {
     // Unknown path: render the 404 in place (no redirect). The rewritten path keeps the
     // locale and the original suffix so the 404 page can suggest close matches.
     const url = request.nextUrl.clone();
     url.pathname = result.rewrite;
-    return NextResponse.rewrite(url);
+    const headers = new Headers(request.headers);
+    headers.set(PATH_HEADER, result.rewrite);
+    return NextResponse.rewrite(url, { request: { headers } });
   }
 
   const response = NextResponse.redirect(new URL(result.location, request.url), result.status);
