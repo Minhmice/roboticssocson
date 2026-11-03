@@ -1,9 +1,8 @@
-import { Suspense, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import "@/app/globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AppShell } from "@/components/layout/AppShell";
 import { Analytics } from "@/components/shared/Analytics";
-import { PostHogPageView } from "@/components/shared/PostHogPageView";
 import { getBootLoaderPreloadScript } from "@/lib/boot-loader";
 import type { Locale } from "@/lib/i18n/locales";
 import { loadMessages } from "@/lib/i18n/messages";
@@ -46,9 +45,6 @@ export async function RootShell({
       >
         <LanguageProvider locale={locale} messages={messages}>
           <Analytics />
-          <Suspense fallback={null}>
-            <PostHogPageView />
-          </Suspense>
           <AppShell>{children}</AppShell>
         </LanguageProvider>
       </body>

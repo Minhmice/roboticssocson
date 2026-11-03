@@ -128,14 +128,14 @@ Phụ huynh muốn hỏi thêm trước khi điền form (học phí, lịch kha
 
 ### 2.3 Điểm vào chi tiết
 
-| Nguồn | Vị trí DOM | Component | Hành động | Analytics |
-|---|---|---|---|---|
-| Homepage | `#course-teaser` | `src/components/homepage/CourseTeaser.tsx` | CTA "Xem khóa học" → `/course` | `cta_clicked` (qua `CTAButton`) |
-| Navbar | mọi trang trong course flow | `src/components/layout/Navbar.tsx` | Trên `/course`: CTA "Đăng ký khóa học" → `/course-register-form` | `cta_clicked` |
-| Navbar | mọi trang | `Navbar.tsx` | Link "Khóa học" → `/course` (nav thường) | `nav_section_clicked` |
-| Footer | mọi trang | `src/components/layout/Footer.tsx` | "Khóa học" → `/course`; "Đăng ký khóa học" → form | **Không** track (`BootLink`) |
-| Direct / SEO / ads | — | — | URL `/course` hoặc `/course-register-form` | `course_page_viewed` / `course_register_page_viewed` |
-| Sitemap | — | `src/app/sitemap.ts` | Liệt kê `/course`, `/course-register-form` | — |
+| Nguồn | Vị trí DOM | Component | Hành động |
+|---|---|---|---|
+| Homepage | `#course-teaser` | `src/components/homepage/CourseTeaser.tsx` | CTA "Xem khóa học" → `/course` |
+| Navbar | mọi trang trong course flow | `src/components/layout/Navbar.tsx` | Trên `/course`: CTA "Đăng ký khóa học" → `/course-register-form` |
+| Navbar | mọi trang | `Navbar.tsx` | Link "Khóa học" → `/course` (nav thường) |
+| Footer | mọi trang | `src/components/layout/Footer.tsx` | "Khóa học" → `/course`; "Đăng ký khóa học" → form |
+| Direct / SEO / ads | — | — | URL `/course` hoặc `/course-register-form` |
+| Sitemap | — | `src/app/sitemap.ts` | Liệt kê `/course`, `/course-register-form` |
 
 **Course flow** (navbar đổi CTA): `pathname === "/course"` hoặc `pathname.startsWith("/course-register-form")` — xem `Navbar.tsx` L28–30.
 
@@ -159,8 +159,6 @@ Composition trong `src/app/course/page.tsx`:
 <CourseRegister />
 {/* CourseOffer — chưa mount; xem §3.3 */}
 ```
-
-Analytics page-level: `PageAnalytics` fire `course_page_viewed` với `surface="/course"`.
 
 ### 3.1 Bảng section → marketing → data
 
@@ -217,15 +215,15 @@ Copy CTA cuối trang (title, lead, proof, button labels) hardcode trong `Course
 
 ### 4.1 Bảng CTA đầy đủ
 
-| Vị trí | CTA chính | Đích | CTA phụ | Đích | Component | Tracking |
-|---|---|---|---|---|---|---|
-| Hero | "Đăng ký khóa học" | `/course-register-form` | "Xem lộ trình" | `#course-curriculum` | `CourseHero` + `CTAButton` | `cta_clicked` |
-| Navbar (trên `/course`) | "Đăng ký khóa học" | `/course-register-form` | — | — | `Navbar` + `CTAButton` | `cta_clicked` |
-| Footer | "Đăng ký khóa học" | `/course-register-form` | "Khóa học" | `/course` | `Footer` + `BootLink` | Không |
-| Cuối trang `#course-register` | "Mở form đăng ký khóa học" | `/course-register-form` | "Liên hệ để thêm chi tiết" | `/contact-us` | `CourseRegister` + `BootLink` | Không |
-| Homepage teaser | "Xem khóa học" | `/course` | — (stat chip không click) | — | `CourseTeaser` + `CTAButton` | `cta_clicked` |
-| Success page | "Gửi đăng ký khác" | `/course-register-form` | "Xem chương trình" | `/course` | `CourseRegisterSuccess` + `Link` | Không |
-| Offer (khi bật) | "Đăng ký ngay" | `/course-register-form` | — | — | `CourseOffer` + `CTAButton` | `cta_clicked` |
+| Vị trí | CTA chính | Đích | CTA phụ | Đích | Component |
+|---|---|---|---|---|---|
+| Hero | "Đăng ký khóa học" | `/course-register-form` | "Xem lộ trình" | `#course-curriculum` | `CourseHero` + `CTAButton` |
+| Navbar (trên `/course`) | "Đăng ký khóa học" | `/course-register-form` | — | — | `Navbar` + `CTAButton` |
+| Footer | "Đăng ký khóa học" | `/course-register-form` | "Khóa học" | `/course` | `Footer` + `BootLink` |
+| Cuối trang `#course-register` | "Mở form đăng ký khóa học" | `/course-register-form` | "Liên hệ để thêm chi tiết" | `/contact-us` | `CourseRegister` + `BootLink` |
+| Homepage teaser | "Xem khóa học" | `/course` | — (stat chip không click) | — | `CourseTeaser` + `CTAButton` |
+| Success page | "Gửi đăng ký khác" | `/course-register-form` | "Xem chương trình" | `/course` | `CourseRegisterSuccess` + `Link` |
+| Offer (khi bật) | "Đăng ký ngay" | `/course-register-form` | — | — | `CourseOffer` + `CTAButton` |
 
 ### 4.2 Nguồn nhãn CTA
 
@@ -236,13 +234,6 @@ Copy CTA cuối trang (title, lead, proof, button labels) hardcode trong `Course
 | Homepage teaser | `src/data/courseTeaser.ts` → `courseTeaserCopy.cta` |
 | Cuối trang | Inline `copy` trong `src/app/course/CourseRegister.tsx` |
 | Offer | `src/data/courseOffer.ts` → `ctaLabel` |
-
-### 4.3 CTAButton vs BootLink
-
-- **`CTAButton`** (`src/components/shared/CTAButton.tsx`): fire `cta_clicked` với props `label`, `href`, `variant`.
-- **`BootLink`** (`src/components/shared/BootLink.tsx`): navigation có boot animation, **không** fire analytics CTA.
-
-Hệ quả: conversion CTA ở `CourseRegister` và Footer **under-counted** trong dashboard funnel nếu chỉ nhìn `cta_clicked`.
 
 ---
 
@@ -281,7 +272,6 @@ Giá trị POST phải **khớp chính xác** chuỗi Google Form (`GOOGLE_FORM_
 
 ```
 User click "Gửi đăng ký"
-  → fire course_register_submit_clicked (trước validation)
   → validate step 2
   → build payload (buildGoogleFormPayload)
   → populate hidden <form target="google-form-target">
@@ -315,57 +305,15 @@ Bảo trì khi Google Form thay đổi: [google-form-registration.md](../google-
 **Component:** `src/components/course/CourseRegisterSuccess.tsx`  
 **SEO:** `src/lib/seo/contact-pages-seo.ts`
 
-Không có analytics event riêng cho success view.
-
 ### 5.7 Legacy — không dùng
 
 `src/data/courseRegistration.ts` — config form **v1** (tuổi + experience enum + link Google Form theo locale). **Không wired** vào UI hiện tại. Tránh sửa file này expecting thay đổi form live.
 
 ---
 
-## 6. Analytics & đo lường funnel
+## 6. Analytics
 
-### 6.1 Events (PostHog)
-
-Định nghĩa: `src/lib/posthog/events.ts`
-
-| Bước funnel | Event name | Nơi fire | Props ghi chú |
-|---|---|---|---|
-| Vào trang khóa học | `course_page_viewed` | `PageAnalytics` trên `/course` | `surface="/course"` |
-| Vào form | `course_register_page_viewed` | `CourseRegisterFormClient` | `surface="/course-register-form"` |
-| Click submit | `course_register_submit_clicked` | `CourseConsultForm.handleSubmit` | `button_label`, `step`, `surface` |
-| Gửi thành công | `course_register_submitted` | Sau POST, trước redirect success | `surface` |
-| Click CTA generic | `cta_clicked` | Chỉ `CTAButton` | `label`, `href`, `variant` |
-| Đổi ngôn ngữ | `language_switched` | `LanguageContext` | `from`, `to` |
-| Nav section | `nav_section_clicked` | `Navbar` | `section_id`, `label` |
-
-### 6.2 Dashboard nội bộ
-
-**Route:** `/analytics` (protected)  
-**Chart:** `src/app/analytics/CourseFunnelTrendChart.tsx`
-
-Ba series được chart:
-
-1. `course_page_viewed` — "Trang khóa học"
-2. `course_register_page_viewed` — "Form đăng ký"
-3. `course_register_submit_clicked` — "Submit"
-
-**Không chart:** `course_register_submitted` (dù event vẫn fire). Team cần query PostHog trực tiếp nếu muốn conversion rate submit → success.
-
-Query types: `src/lib/posthog/query.ts` — `CourseFunnelEventId` chỉ liệt kê 3 event trên.
-
-### 6.3 Khoảng trống tracking (known gaps)
-
-| Gap | Chi tiết | Ảnh hưởng |
-|---|---|---|
-| `CourseRegister` dùng `BootLink` | CTA cuối trang không fire `cta_clicked` | Under-report click "Mở form" từ section `#course-register` |
-| Footer dùng `BootLink` | Link đăng ký / khóa học không track CTA | Khó đo footer contribution |
-| `course_register_started` | Định nghĩa trong `events.ts`, **chưa fire** ở đâu | Không đo "bắt đầu điền form" |
-| `course_consult_submitted` | Định nghĩa, **chưa dùng** | Legacy / dự phòng |
-| Success page | Không có `course_register_success_viewed` | Không đo completion confirmation |
-| PRD §7 chưa implement | Scroll tới curriculum, expand FAQ, click project card, sticky CTA | Không có event tương ứng |
-
-**Khuyến nghị (không blocking doc):** thêm event riêng cho BootLink course CTAs hoặc migrate `CourseRegister` sang `CTAButton` nếu cần đo chính xác.
+Site không còn tracking sự kiện (PostHog đã gỡ). Chỉ GA4 / Plausible tải khi đặt `NEXT_PUBLIC_GA_ID` / `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` (xem `src/components/shared/Analytics.tsx`). Không có dashboard funnel nội bộ.
 
 ---
 
@@ -471,12 +419,6 @@ Dùng trước launch / khi campaign:
 - [ ] Kiểm tra response trong Google Sheet sau submit test
 - [ ] Nếu sửa Google Form: cập nhật `src/lib/google-form-map.ts` theo [google-form-registration.md](../google-form-registration.md)
 
-### Analytics
-
-- [ ] Xác nhận PostHog nhận 3 event funnel trên staging/production
-- [ ] Cân nhắc thêm tracking cho CTA cuối trang (`BootLink` → `CTAButton` hoặc event `course_register_cta_clicked`)
-- [ ] Query riêng `course_register_submitted` nếu cần conversion rate thực (dashboard chưa chart)
-
 ### QA nhanh
 
 - [ ] `/course` render đủ 11 sections, anchor scroll hoạt động (`#course-curriculum`, `#course-register`)
@@ -496,7 +438,6 @@ Dùng trước launch / khi campaign:
 | `/course-register-form/success` | Xác nhận sau submit |
 | `/contact-us` | Liên hệ thay thế |
 | `/course/arduino-mblock-deck` | Deck giáo trình (secondary, không phải funnel chính) |
-| `/analytics` | Dashboard funnel nội bộ |
 
 ---
 
@@ -507,7 +448,6 @@ Dùng trước launch / khi campaign:
 export default function CoursePage() {
   return (
     <div>
-      <PageAnalytics event={AnalyticsEvents.COURSE_PAGE_VIEWED} surface="/course" />
       <CourseHero />
       <CourseProblem />
       <CourseOutcomes />

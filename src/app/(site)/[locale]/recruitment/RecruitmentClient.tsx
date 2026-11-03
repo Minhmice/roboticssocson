@@ -4,10 +4,8 @@ import Image from "next/image";
 import { LocaleLink as Link } from "@/components/shared/LocaleLink";
 import { ArrowRight, Clock3, House } from "lucide-react";
 import { m, useReducedMotion } from "framer-motion";
-import { PageAnalytics } from "@/components/shared/PageAnalytics";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { AnalyticsEvents } from "@/lib/posthog/events";
 
 const content = {
   vi: {
@@ -47,8 +45,6 @@ export default function RecruitmentClient() {
 
   return (
     <>
-      <PageAnalytics event={AnalyticsEvents.RECRUITMENT_PAGE_VIEWED} surface="/recruitment" />
-
       <div className="relative min-w-0 overflow-hidden bg-background text-foreground selection:bg-primary/15 selection:text-primary">
         {/* Calming ambient breathing loop */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">

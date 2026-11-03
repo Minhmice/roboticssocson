@@ -3,14 +3,12 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
-import { PageAnalytics } from "@/components/shared/PageAnalytics";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { fundraisingCategoryTotals, fundraisingCorporateFormUrl, fundraisingCopy, fundraisingHardwareTotal, fundraisingItems, fundraisingQrImage, fundraisingReserve, fundraisingRoadmap, fundraisingTotal } from "@/data/fundraising";
 import { contactEmail } from "@/data/settings";
 import { copyToClipboard } from "@/lib/copy-to-clipboard";
-import { AnalyticsEvents } from "@/lib/posthog/events";
 
 const formatVnd = (value: number) => new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND", maximumFractionDigits: 0 }).format(value);
 
@@ -28,7 +26,6 @@ export default function FundraisingClient() {
 
   return (
     <>
-      <PageAnalytics event={AnalyticsEvents.FUNDRAISING_PAGE_VIEWED} surface="/fundraising" />
       <main className="min-w-0 bg-background py-12 text-foreground md:py-20">
         <div className="container mx-auto max-w-6xl space-y-20 px-4 sm:px-6 md:space-y-28">
           <section className="grid items-end gap-10 border-b border-border pb-12 md:grid-cols-[1.3fr_1fr] md:pb-16">

@@ -12,16 +12,10 @@ import CourseProjects from "./CourseProjects";
 import CoursePricing from "./CoursePricing";
 import CoursePricingStickyCta from "./CoursePricingStickyCta";
 import CourseRegister from "./CourseRegister";
-import { PageAnalytics } from "@/components/shared/PageAnalytics";
-import { AnalyticsEvents } from "@/lib/posthog/events";
 
 export default function CoursePage() {
   return (
     <div>
-      <PageAnalytics
-        event={AnalyticsEvents.COURSE_PAGE_VIEWED}
-        surface="/course"
-      />
       <CourseHero />
       <CourseProblem />
       <CourseOutcomes />

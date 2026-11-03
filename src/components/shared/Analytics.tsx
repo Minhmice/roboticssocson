@@ -2,10 +2,7 @@
 
 import Script from "next/script";
 
-/**
- * Analytics loader. PostHog initializes via `src/instrumentation-client.ts`.
- * GA4 / Plausible load only when their public env vars are set.
- */
+/** GA4 / Plausible load only when their public env vars are set. */
 export function Analytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_ID?.trim();
   const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN?.trim();

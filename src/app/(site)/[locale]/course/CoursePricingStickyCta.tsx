@@ -3,10 +3,8 @@
 import { useEffect, useState } from "react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { coursePricingConfig, coursePricingCopy } from "@/data/coursePricing";
+import { coursePricingCopy } from "@/data/coursePricing";
 import { localize } from "@/lib/i18n/localized";
-import { captureEvent } from "@/lib/posthog/client";
-import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
 
 /** Mobile-only sticky bar — price + register, hidden on lg+ where footer CTAs suffice. */
@@ -42,16 +40,6 @@ export default function CoursePricingStickyCta() {
           variant="primary"
           href="/course-register-form"
           className="w-full min-h-[48px] text-base font-bold"
-          onClick={() => {
-            captureEvent(AnalyticsEvents.COURSE_PRICING_CTA_CLICKED, {
-              price: coursePricingConfig.fullPriceVnd,
-              session_count: coursePricingConfig.sessionCount,
-              surface: "/course",
-              href: "/course-register-form",
-              label,
-              placement: "sticky_mobile",
-            });
-          }}
         />
       </div>
     </div>

@@ -8,8 +8,6 @@ import {
   requestBootNavigation,
 } from "@/lib/boot-navigation";
 import { localizedHref } from "@/lib/i18n/routes";
-import { captureEvent } from "@/lib/posthog/client";
-import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
 
 interface CTAButtonProps {
@@ -77,13 +75,6 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
         aria-current={ariaCurrent}
         className={brandClass}
         onClick={(e) => {
-          captureEvent(AnalyticsEvents.CTA_CLICKED, {
-            label,
-            href,
-            variant,
-            surface:
-              typeof window !== "undefined" ? window.location.pathname : undefined,
-          });
           onClick?.(e);
           if (e.defaultPrevented) return;
           if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -106,12 +97,6 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
       disabled={disabled}
       className={brandClass}
       onClick={(e) => {
-        captureEvent(AnalyticsEvents.CTA_CLICKED, {
-          label,
-          variant,
-          surface:
-            typeof window !== "undefined" ? window.location.pathname : undefined,
-        });
         onClick?.(e);
       }}
     >

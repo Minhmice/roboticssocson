@@ -26,8 +26,6 @@ import {
   useBootRevealActions,
 } from "@/contexts/BootRevealContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { captureEvent } from "@/lib/posthog/client";
-import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
 
 /** Tune durations, copy, and labels here. */
@@ -714,9 +712,6 @@ export function BootLoader() {
   const handleComplete = useCallback(() => {
     if (mode === "initial") {
       setPageLoadDone(true);
-      captureEvent(AnalyticsEvents.BOOT_LOADER_COMPLETED, {
-        surface: pathnameRef.current ?? "/",
-      });
     }
     busyRef.current = false;
     pendingHrefRef.current = null;

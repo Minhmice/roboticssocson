@@ -37,7 +37,7 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Skip internals, API, analytics proxy, the internal deck/analytics surfaces and anything with a file extension.
-    "/((?!_next/|api/|ingest/|analytics|course/arduino-mblock-deck|Images/|Logo/|.*\\..*).*)",
+    // Skip internals, API, the internal deck surface and anything with a file extension.
+    "/((?!_next/|api/|course/arduino-mblock-deck|Images/|Logo/|.*\\..*).*)",
   ],
 };

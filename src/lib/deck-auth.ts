@@ -7,7 +7,6 @@ function getAuthSecret(): string {
   return (
     process.env.DECK_AUTH_SECRET ??
     process.env.DECK_PRESENTATION_PASSWORD ??
-    process.env.ANALYTICS_DASHBOARD_PASSWORD ??
     "rbs-deck-dev-secret"
   );
 }
@@ -34,7 +33,6 @@ export function verifyDeckSessionToken(token: string | undefined | null): boolea
 export function verifyDeckPassword(password: string): boolean {
   const expected =
     process.env.DECK_PRESENTATION_PASSWORD ??
-    process.env.ANALYTICS_DASHBOARD_PASSWORD ??
     "rbs2026@";
   if (!password || !expected) return false;
   try {

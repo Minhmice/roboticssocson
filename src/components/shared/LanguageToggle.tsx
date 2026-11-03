@@ -2,8 +2,6 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { captureEvent } from "@/lib/posthog/client";
-import { AnalyticsEvents } from "@/lib/posthog/events";
 import { LOCALE_COOKIE, LOCALES, type Locale } from "@/lib/i18n/locales";
 import { switchLocalePath } from "@/lib/i18n/routes";
 import { usePathname } from "next/navigation";
@@ -58,12 +56,6 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
                 // would differ between server and client and break hydration.
                 event.currentTarget.search = window.location.search;
                 event.currentTarget.hash = window.location.hash;
-                if (!active) {
-                  captureEvent(AnalyticsEvents.LANGUAGE_SWITCHED, {
-                    from: locale,
-                    to: code,
-                  });
-                }
               }}
             >
               {LABELS[code].short}

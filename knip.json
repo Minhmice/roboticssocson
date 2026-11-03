@@ -3,7 +3,6 @@
   "entry": [
     "src/app/**/{page,layout,template,default,loading,error,global-error,not-found,route,sitemap,robots}.{ts,tsx}",
     "src/proxy.ts",
-    "src/instrumentation-client.ts",
     "next.config.js",
     "scripts/*.mjs",
     "tests/**/*.ts",

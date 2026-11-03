@@ -5,9 +5,7 @@ import {
   ContactExperienceShell,
   defaultContactMeta,
 } from "@/components/shared/ContactExperienceShell";
-import { PageAnalytics } from "@/components/shared/PageAnalytics";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { AnalyticsEvents } from "@/lib/posthog/events";
 
 const titles = {
   vi: "Đăng ký khóa học",
@@ -36,10 +34,6 @@ export default function CourseRegisterFormClient() {
         ...defaultContactMeta(locale).filter((m) => m.href),
       ]}
     >
-      <PageAnalytics
-        event={AnalyticsEvents.COURSE_REGISTER_PAGE_VIEWED}
-        surface="/course-register-form"
-      />
       <CourseConsultForm />
     </ContactExperienceShell>
   );

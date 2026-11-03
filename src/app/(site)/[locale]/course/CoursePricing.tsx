@@ -1,12 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { FadeInSection } from "@/components/shared/FadeInSection";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
   coursePricingBenefits,
-  coursePricingConfig,
   coursePricingCopy,
 } from "@/data/coursePricing";
 import { localize } from "@/lib/i18n/localized";
@@ -16,8 +14,6 @@ import {
   ENTER_DURATION,
   EXIT_DURATION,
 } from "@/lib/course/scrollReveal";
-import { captureEvent } from "@/lib/posthog/client";
-import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Check, Sparkles } from "lucide-react";
 import { m, useReducedMotion, type Variants } from "framer-motion";
@@ -67,34 +63,14 @@ const CARD_SHELL_CLASS = cn(
   "before:bg-[radial-gradient(ellipse_at_top_right,rgba(37,99,235,0.12),transparent)]",
 );
 
-function trackPricingCta(href: string, label: string) {
-  captureEvent(AnalyticsEvents.COURSE_PRICING_CTA_CLICKED, {
-    price: coursePricingConfig.fullPriceVnd,
-    session_count: coursePricingConfig.sessionCount,
-    surface: "/course",
-    href,
-    label,
-  });
-  captureEvent(AnalyticsEvents.CTA_CLICKED, {
-    label,
-    href,
-    variant: href.startsWith("#") ? "secondary" : "primary",
-    surface: "/course",
-  });
-}
-
 type PricingCardProps = {
   locale: "vi" | "en";
   reduced: boolean;
-  onPrimaryClick: () => void;
-  onSecondaryClick: () => void;
 };
 
 function PricingCard({
   locale,
   reduced,
-  onPrimaryClick,
-  onSecondaryClick,
 }: PricingCardProps) {
   const body = (
     <div className="relative">
@@ -136,8 +112,6 @@ function PricingCard({
         <div className="mt-9 space-y-3">
           <CtaPanel
             locale={locale}
-            onPrimaryClick={onPrimaryClick}
-            onSecondaryClick={onSecondaryClick}
           />
         </div>
       ) : (
@@ -150,8 +124,6 @@ function PricingCard({
         >
           <CtaPanel
             locale={locale}
-            onPrimaryClick={onPrimaryClick}
-            onSecondaryClick={onSecondaryClick}
           />
         </m.div>
       )}
@@ -251,12 +223,8 @@ function BenefitChecklist({
 
 function CtaPanel({
   locale,
-  onPrimaryClick,
-  onSecondaryClick,
 }: {
   locale: "vi" | "en";
-  onPrimaryClick: () => void;
-  onSecondaryClick: () => void;
 }) {
   return (
     <>
@@ -265,14 +233,12 @@ function CtaPanel({
           label={localize(coursePricingCopy.ctaPrimary, locale)}
           variant="primary"
           href="/course-register-form"
-          onClick={onPrimaryClick}
           className="w-full min-h-[48px] flex-1 text-base font-bold shadow-[0_8px_24px_rgba(37,99,235,0.32)] sm:text-lg"
         />
         <CTAButton
           label={localize(coursePricingCopy.ctaSecondary, locale)}
           variant="secondary"
           href="#course-curriculum"
-          onClick={onSecondaryClick}
           className="w-full min-h-[48px] flex-1 text-base font-bold sm:text-lg"
         />
       </div>
@@ -288,59 +254,17 @@ export default function CoursePricing() {
   const { locale } = useLanguage();
   const prefersReducedMotion = useReducedMotion();
   const reduced = Boolean(prefersReducedMotion);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const viewedRef = useRef(false);
-
-  useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting || viewedRef.current) return;
-        viewedRef.current = true;
-        captureEvent(AnalyticsEvents.COURSE_PRICING_VIEWED, {
-          price: coursePricingConfig.fullPriceVnd,
-          session_count: coursePricingConfig.sessionCount,
-          surface: "/course",
-        });
-      },
-      { threshold: 0.35 },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  const onPrimaryClick = useCallback(() => {
-    trackPricingCta(
-      "/course-register-form",
-      localize(coursePricingCopy.ctaPrimary, locale),
-    );
-  }, [locale]);
-
-  const onSecondaryClick = useCallback(() => {
-    trackPricingCta(
-      "#course-curriculum",
-      localize(coursePricingCopy.ctaSecondary, locale),
-    );
-  }, [locale]);
 
   return (
     <FadeInSection
       id="course-pricing"
       className="relative overflow-hidden border-t border-border/60 bg-background pt-20 pb-14 sm:pt-24 sm:pb-16 md:pt-28 md:pb-24"
     >
-      <div
-        ref={sectionRef}
-        className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-8"
-      >
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
         <div className="mx-auto max-w-2xl">
           <PricingCard
             locale={locale}
             reduced={reduced}
-            onPrimaryClick={onPrimaryClick}
-            onSecondaryClick={onSecondaryClick}
           />
         </div>
       </div>

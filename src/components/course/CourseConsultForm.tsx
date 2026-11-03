@@ -12,7 +12,7 @@ import {
   type ReactElement,
   type ReactNode,
 } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { localizedHref } from "@/lib/i18n/routes";
 import {
   AnimatePresence,
@@ -30,8 +30,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { captureEvent } from "@/lib/posthog/client";
-import { AnalyticsEvents } from "@/lib/posthog/events";
 import { useBootAnimationReady } from "@/contexts/BootRevealContext";
 import {
   buildGoogleFormPayload,
@@ -261,9 +259,6 @@ export function CourseConsultForm() {
         setStatus("idle");
 
         const go = () => {
-          captureEvent(AnalyticsEvents.COURSE_REGISTER_SUBMITTED, {
-            surface: "/course-register-form",
-          });
           router.push(localizedHref("/course-register-form/success", locale));
         };
         if (
@@ -314,12 +309,6 @@ export function CourseConsultForm() {
   };
 
   const handleSubmit = () => {
-    captureEvent(AnalyticsEvents.COURSE_REGISTER_SUBMIT_CLICKED, {
-      button_label: ui.submit[locale],
-      step: String(step),
-      surface: "/course-register-form",
-    });
-
     const stepErrors = validateConsultStep2(values, locale);
     setErrors(stepErrors);
     if (hasConsultErrors(stepErrors)) {
