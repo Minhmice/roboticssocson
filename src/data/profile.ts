@@ -8,7 +8,7 @@ export type ProfileBlock =
   | { type: "list"; items: Localized<string[]> }
   | { type: "table"; head: Localized<string[]>; rows: Localized<string[][]> }
   | { type: "people"; groups: Localized<PeopleGroup[]> }
-  | { type: "note"; text: Localized<string> }
+  | { type: "payment"; qr: string; alt: Localized<string>; rows: Localized<string[][]> }
   | { type: "image"; src: string; alt: Localized<string>; caption: Localized<string> };
 
 export type ProfileSection = {
@@ -30,7 +30,7 @@ const mechTeam = {
 // Hai người trùng tên Nguyễn Bảo Ngọc: chỉ người ở ban Truyền thông là chủ tịch.
 const mediaTeam = (president: string) => ({
   lead: "Đoàn Chí Huy",
-  names: [`Nguyễn Bảo Ngọc (${president})`, "Nguyễn Ngọc Thảo", "Vũ Hải Anh", "Nguyễn Quỳnh Anh", "Trần Thu Hà", "Nguyễn Thị Ngân Hà", "Lại Thảo Anh"],
+  names: [`Nguyễn Bảo Ngọc (${president})`, "Nguyễn Thùy Dung", "Nguyễn Ngọc Thảo", "Vũ Hải Anh", "Nguyễn Quỳnh Anh", "Trần Thu Hà", "Nguyễn Thị Ngân Hà", "Lại Thảo Anh"],
 });
 
 export const PROFILE_EMAIL = "roboticssocson@gmail.com";
@@ -299,13 +299,6 @@ export const profileSections: ProfileSection[] = [
         },
       },
       {
-        type: "note",
-        text: {
-          vi: "Chưa có dữ liệu được xác nhận về tên từng thế hệ và năm thành lập chính xác của CLB; sẽ bổ sung khi có.",
-          en: "Names of individual generations and the exact founding year are not yet confirmed; they will be added when available.",
-        },
-      },
-      {
         type: "image",
         src: "/Images/Profile/robocon-bac-ninh-team-pennant.webp",
         alt: { vi: "Đội cùng robot và cờ lưu niệm Giải Robocon Bắc Ninh Mở rộng 2024", en: "Team with a robot and the Bac Ninh Open Robocon 2024 pennant" },
@@ -468,13 +461,6 @@ export const profileSections: ProfileSection[] = [
           ],
         },
       },
-      {
-        type: "note",
-        text: {
-          vi: "Nhu cầu chính của mùa: Mua phần cứng thi đấu (mục 9). Tiến độ: Đợt mua 1 trước 20/11/2026, đợt 2 trước 05/12/2026. Số tiền mặt và hiện vật CLB đang có chưa được xác nhận.",
-          en: "Main need this season: Competition hardware (section 9). Timeline: Purchase batch 1 by 20/11/2026, batch 2 by 05/12/2026. Cash and in-kind assets the club already holds are not yet confirmed.",
-        },
-      },
     ],
   },
   {
@@ -608,13 +594,6 @@ export const profileSections: ProfileSection[] = [
           ],
         },
       },
-      {
-        type: "note",
-        text: {
-          vi: "Các hạng gói tài trợ và mức tiền cụ thể chưa chốt trong hồ sơ này. Vui lòng liên hệ để trao đổi theo nhu cầu của đơn vị.",
-          en: "Sponsorship tiers and amounts are not finalised in this profile. Please get in touch to discuss what fits your organisation.",
-        },
-      },
     ],
   },
   {
@@ -656,11 +635,22 @@ export const profileSections: ProfileSection[] = [
           ],
         },
       },
+      { type: "h", text: { vi: "Thông tin chuyển khoản", en: "Transfer details" } },
       {
-        type: "note",
-        text: {
-          vi: "Thông tin thanh toán chính thức chưa được chốt, nên chưa đăng ở đây. Vui lòng liên hệ qua email để nhận thông tin chuyển khoản đã xác nhận.",
-          en: "Official payment details are not finalised and are therefore not published here. Please email us to receive confirmed transfer details.",
+        type: "payment",
+        qr: "/Images/QR CODE/QR CODE.webp",
+        alt: { vi: "Mã QR chuyển khoản", en: "Transfer QR code" },
+        rows: {
+          vi: [
+            ["Chủ tài khoản", "MOMO_NGUYEN MINH NGHIA"],
+            ["Số tài khoản", "99MM25316MC0001247"],
+            ["Ngân hàng", "BVBank - Ngân hàng TMCP Bản Việt"],
+          ],
+          en: [
+            ["Account holder", "MOMO_NGUYEN MINH NGHIA"],
+            ["Account number", "99MM25316MC0001247"],
+            ["Bank", "BVBank - Ngân hàng TMCP Bản Việt"],
+          ],
         },
       },
     ],

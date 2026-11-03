@@ -1294,3 +1294,17 @@
     }
   }
 }
+
+/* Browsers print the URL and date in the page margin. A zero-margin named page removes them;
+   `.profile-print` supplies the margin as padding, repeated on every page by box-decoration-break. */
+@page profile {
+  margin: 0;
+}
+@media print {
+  .profile-print {
+    page: profile;
+    padding: 14mm;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}

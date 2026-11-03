@@ -11,6 +11,11 @@ export function isBootLoaderDisabled(): boolean {
 // Deck path constant for route checks
 export const DECK_PRESENTATION_PATH = "/course/arduino-mblock-deck";
 
+/** Routes rendered bare: no navbar, footer or boot overlay. Matches the address-bar and the rewritten (`/vi/...`) path. */
+export function isBootExemptPath(pathname: string | null | undefined): boolean {
+  return pathname === DECK_PRESENTATION_PATH || /^(?:\/(?:en|vi))?\/profile\/print\/?$/.test(pathname ?? "");
+}
+
 /** Removes the pre-paint hide gate once React owns shell visibility. */
 export function clearBootPreloadGate(): void {
   if (typeof document === "undefined") return;
@@ -27,5 +32,5 @@ export function getBootLoaderPreloadScript(): string {
     return "";
   }
 
-  return `(function(){try{var p=location.pathname;if(p==="/course/arduino-mblock-deck"){return;}document.documentElement.setAttribute("data-rbs-boot","1");var s=document.createElement("style");s.id=${JSON.stringify(BOOT_LOADER_HIDE_STYLE_ID)};s.textContent=".boot-aware-shell{opacity:0!important;visibility:hidden!important;pointer-events:none!important}";document.documentElement.appendChild(s);}catch(e){}})();`;
+  return `(function(){try{var p=location.pathname;if(p==="/course/arduino-mblock-deck"||/\\/profile\\/print\\/?$/.test(p)){return;}document.documentElement.setAttribute("data-rbs-boot","1");var s=document.createElement("style");s.id=${JSON.stringify(BOOT_LOADER_HIDE_STYLE_ID)};s.textContent=".boot-aware-shell{opacity:0!important;visibility:hidden!important;pointer-events:none!important}";document.documentElement.appendChild(s);}catch(e){}})();`;
 }

@@ -17,7 +17,7 @@ import {
 import { flushSync } from "react-dom";
 import {
   isBootLoaderDisabled,
-  DECK_PRESENTATION_PATH,
+  isBootExemptPath,
 } from "@/lib/boot-loader";
 import { useAssetPreloader } from "@/hooks/useAssetPreloader";
 import { setBootNavigationHandler } from "@/lib/boot-navigation";
@@ -474,7 +474,7 @@ function BootLoaderOverlay({
 
   return (
     <m.div
-      className="boot-loader fixed inset-0 z-100 flex items-center justify-center overflow-hidden bg-muted"
+      className="boot-loader fixed inset-0 z-100 flex items-center justify-center overflow-hidden bg-muted print:hidden"
       role="status"
       aria-live="polite"
       aria-busy={phase !== "exiting"}
@@ -599,7 +599,7 @@ export function BootLoader() {
   const reduced = Boolean(prefersReducedMotion);
   const router = useRouter();
   const pathname = usePathname();
-  const isDeckPresentation = pathname === DECK_PRESENTATION_PATH;
+  const isDeckPresentation = isBootExemptPath(pathname);
   const { beginBoot, endBoot } = useBootRevealActions();
   const pathnameRef = useRef(pathname);
   const pendingHrefRef = useRef<string | null>(null);
@@ -757,7 +757,7 @@ export function BootAwareMain({
   const ready = useBootAnimationReady();
   const disabled = isBootLoaderDisabled();
   const { endBoot } = useBootRevealActions();
-  const isDeckPresentation = pathname === DECK_PRESENTATION_PATH;
+  const isDeckPresentation = isBootExemptPath(pathname);
   const ownsEntrance = isDeckPresentation;
   const shellReady = disabled || ready || ownsEntrance;
   useEffect(() => {

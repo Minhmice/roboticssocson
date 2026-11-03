@@ -1,5 +1,6 @@
 import type { Localized } from "../i18n/localized";
 import { courseSurfacesEnabled } from "../../data/courseRegistration.ts";
+import { recruitmentSurfacesEnabled } from "../../data/recruitment.ts";
 import { RESOURCE_ARTICLES, RESOURCE_CATEGORIES } from "../../data/resources.ts";
 
 /**
@@ -36,6 +37,14 @@ const COURSE_ROUTES: readonly RouteEntry[] = [
   },
 ];
 
+const RECRUITMENT_ROUTES: readonly RouteEntry[] = [
+  {
+    path: "/recruitment",
+    label: { vi: "Tuyển thành viên", en: "Recruitment" },
+    sitemap: { changeFrequency: "monthly", priority: 0.85 },
+  },
+];
+
 const STATIC_ROUTES: readonly RouteEntry[] = [
   {
     path: "/fundraising",
@@ -48,9 +57,8 @@ const STATIC_ROUTES: readonly RouteEntry[] = [
     sitemap: { changeFrequency: "weekly", priority: 0.9 },
   },
   {
-    path: "/recruitment",
-    label: { vi: "Tuyển thành viên", en: "Recruitment" },
-    sitemap: { changeFrequency: "monthly", priority: 0.85 },
+    path: "/profile/print",
+    label: { vi: "Hồ sơ CLB (bản in)", en: "Club profile (print)" },
   },
   {
     path: "/contact-us",
@@ -102,6 +110,7 @@ function resourceRoutes(): RouteEntry[] {
 const ROUTES: readonly RouteEntry[] = [
   HOME,
   ...(courseSurfacesEnabled ? COURSE_ROUTES : []),
+  ...(recruitmentSurfacesEnabled ? RECRUITMENT_ROUTES : []),
   ...STATIC_ROUTES,
   ...resourceRoutes(),
 ];

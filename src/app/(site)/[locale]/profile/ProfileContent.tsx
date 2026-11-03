@@ -13,6 +13,7 @@ import {
 } from "@/data/profile";
 import { isSupportedLocale, type Locale } from "@/lib/i18n/locales";
 import { localize } from "@/lib/i18n/localized";
+import { localizedHref } from "@/lib/i18n/routes";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export async function generateProfileMetadata({
@@ -48,7 +49,7 @@ export default async function Page({
   return (
     <main
       id="profile-top"
-      className="min-h-screen bg-background px-4 py-6 text-foreground sm:px-6 sm:py-10 lg:px-8 print:px-0 print:py-0"
+      className="profile-print min-h-screen bg-background px-4 py-6 text-foreground sm:px-6 sm:py-10 lg:px-8 print:px-0 print:py-0"
     >
       <div className="mx-auto max-w-5xl">
         <header className="mb-7 space-y-4 border-b border-border pb-6 print:mb-6 print:pb-4">
@@ -69,9 +70,14 @@ export default async function Page({
               {PROFILE_EMAIL}
             </a>
             <span aria-hidden="true">•</span>
-            <span className="italic">
-              {locale === "vi" ? "Ctrl+P để lưu thành PDF" : "Press Ctrl+P to save as PDF"}
-            </span>
+            <a
+              href={localizedHref("/profile/print", locale)}
+              target="_blank"
+              rel="noopener"
+              className="font-medium text-primary underline-offset-4 hover:underline"
+            >
+              {localize(profileMeta.print, locale)}
+            </a>
           </div>
         </header>
 
@@ -125,7 +131,7 @@ function RenderBlock({ block, locale }: { block: ProfileBlock; locale: Locale })
       );
     case "h":
       return (
-        <h3 className="text-lg sm:text-xl font-semibold text-foreground tracking-tight pt-2">
+        <h3 className="text-lg sm:text-xl font-semibold text-foreground tracking-tight pt-2 print:break-after-avoid">
           {localize(block.text, locale)}
         </h3>
       );
@@ -139,15 +145,30 @@ function RenderBlock({ block, locale }: { block: ProfileBlock; locale: Locale })
           ))}
         </ul>
       );
-    case "note":
+    case "payment": {
+      const rows = localize(block.rows, locale);
       return (
-        <div className="rounded-lg border border-border/80 bg-muted/40 px-4 py-3 text-sm sm:text-base text-foreground/80 leading-relaxed print:bg-transparent print:border-muted">
-          <span className="font-medium text-foreground">
-            {locale === "vi" ? "Ghi chú: " : "Note: "}
-          </span>
-          {localize(block.text, locale)}
+        <div className="flex flex-col items-start gap-4 rounded-xl border border-border bg-card p-4 sm:flex-row sm:items-center sm:p-5 print:break-inside-avoid">
+          <Image
+            src={block.qr}
+            alt={localize(block.alt, locale)}
+            width={500}
+            height={500}
+            loading="eager"
+            sizes="(min-width: 640px) 192px, 160px"
+            className="h-40 w-40 shrink-0 rounded-lg border border-border bg-white sm:h-48 sm:w-48"
+          />
+          <dl className="min-w-0 space-y-3 text-base">
+            {rows.map(([label, value]) => (
+              <div key={label}>
+                <dt className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</dt>
+                <dd className="break-words font-semibold leading-snug text-foreground sm:text-lg">{value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       );
+    }
     case "people":
       return (
         <div className="grid gap-3 sm:grid-cols-2">
@@ -217,7 +238,7 @@ function RenderBlock({ block, locale }: { block: ProfileBlock; locale: Locale })
                 {rows.map((row, rIdx) => (
                   <tr
                     key={rIdx}
-                    className={rIdx % 2 === 1 ? "bg-muted/20 print:bg-transparent" : undefined}
+                    className={`print:break-inside-avoid ${rIdx % 2 === 1 ? "bg-muted/20 print:bg-transparent" : ""}`}
                   >
                     {row.map((cell, cIdx) => (
                       <td
@@ -256,7 +277,7 @@ function RenderBlock({ block, locale }: { block: ProfileBlock; locale: Locale })
   }
 }
 
-function SectionView({
+export function SectionView({
   section,
   locale,
   tocLabel,
@@ -268,9 +289,9 @@ function SectionView({
   return (
     <section
       id={section.id}
-      className="scroll-mt-24 space-y-4 border-t border-border/60 pt-8 first:border-t-0 first:pt-0 print:break-inside-avoid print:border-t print:pt-4"
+      className="scroll-mt-24 space-y-4 border-t border-border/60 pt-8 first:border-t-0 first:pt-0 print:border-t print:pt-4"
     >
-      <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+      <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl print:break-after-avoid">
         {localize(section.title, locale)}
       </h2>
       <div className="max-w-[72ch] space-y-4">

@@ -10,6 +10,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { stripLocale } from "@/lib/i18n/routes";
 import { cn } from "@/lib/utils";
 import { courseSurfacesEnabled } from "@/data/courseRegistration";
+import { recruitmentSurfacesEnabled } from "@/data/recruitment";
 import { useState, useEffect, useMemo, useRef } from "react";
 
 interface NavLink {
@@ -60,7 +61,10 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
     () => [
       { label: t("nav.home"), href: "/" },
       { label: t("nav.fundraising"), href: "/fundraising" },
-      { label: t("nav.recruitment"), href: "/recruitment" },
+      { label: t("nav.profile"), href: "/profile" },
+      ...(recruitmentSurfacesEnabled
+        ? [{ label: t("nav.recruitment"), href: "/recruitment" }]
+        : []),
       { label: t("nav.resources"), href: "/resources" },
       ...(courseSurfacesEnabled
         ? [{ label: t("nav.course"), href: "/course" }]
@@ -132,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
         }
       }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md transition-shadow duration-300",
+        "fixed top-0 left-0 right-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md transition-shadow duration-300 print:hidden",
         scrolled && "shadow-[0_1px_3px_rgba(0,0,0,0.08)] border-border/80",
         className,
       )}

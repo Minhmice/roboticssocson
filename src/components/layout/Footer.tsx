@@ -14,6 +14,7 @@ import {
   socials,
 } from "@/data/settings";
 import { courseSurfacesEnabled } from "@/data/courseRegistration";
+import { recruitmentSurfacesEnabled } from "@/data/recruitment";
 
 export const Footer: React.FC = () => {
   const { t } = useLanguage();
@@ -46,7 +47,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="border-t border-border bg-background/40 backdrop-blur-md">
+    <footer className="border-t border-border bg-background/40 backdrop-blur-md print:hidden">
       <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 md:py-12">
         <div className="grid gap-6 sm:gap-8 md:grid-cols-3">
           {/* Column 1: Logo & Tagline */}
@@ -97,10 +98,19 @@ export const Footer: React.FC = () => {
                     ]
                   : []),
                 {
-                  label: t("nav.recruitment"),
-                  href: "/recruitment",
+                  label: t("nav.profile"),
+                  href: "/profile",
                   isRoute: true,
                 },
+                ...(recruitmentSurfacesEnabled
+                  ? [
+                      {
+                        label: t("nav.recruitment"),
+                        href: "/recruitment",
+                        isRoute: true,
+                      },
+                    ]
+                  : []),
                 {
                   label: t("nav.contact"),
                   href: "/contact-us",

@@ -18,13 +18,15 @@ import { cn } from "@/lib/utils";
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = stripLocale(usePathname());
   const deckPresentation = pathname === "/course/arduino-mblock-deck";
+  const printView = pathname === "/profile/print";
   const immersive =
     pathname === "/contact-us" ||
     pathname === "/analytics" ||
     pathname?.startsWith("/course-register-form") === true ||
-    deckPresentation;
-  const hideFooter = pathname === "/analytics" || deckPresentation;
-  const hideNavbar = deckPresentation;
+    deckPresentation ||
+    printView;
+  const hideFooter = pathname === "/analytics" || deckPresentation || printView;
+  const hideNavbar = deckPresentation || printView;
 
   return (
     <LazyMotion features={domAnimation} strict>
@@ -34,7 +36,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           {!hideNavbar ? <Navbar /> : null}
           <main
             className={cn(
-              "relative overflow-x-clip",
+              "relative overflow-x-clip print:overflow-visible print:pt-0",
               deckPresentation && "fixed inset-0 z-50 h-dvh overflow-hidden pt-0",
               !deckPresentation && immersive && "pt-0",
               !deckPresentation && !immersive && "pt-16",

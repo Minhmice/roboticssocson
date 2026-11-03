@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readdirSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { courseSurfacesEnabled } from "../../data/courseRegistration.ts";
+import { recruitmentSurfacesEnabled } from "../../data/recruitment.ts";
 import { RESOURCE_CATEGORIES } from "../../data/resources.ts";
 import { isPublicRoute, resolveLegacy, sitemapRoutes, suggestRoutes } from "./public-routes.ts";
 
@@ -35,7 +36,6 @@ for (const ok of [
   "/",
   "/fundraising",
   "/profile",
-  "/recruitment",
   "/contact-us",
   "/resources",
   "/resources/community",
@@ -58,6 +58,11 @@ for (const bad of [
   assert.ok(!isPublicRoute(bad), `should not be public: ${bad}`);
 }
 assert.equal(isPublicRoute("/course"), courseSurfacesEnabled, "/course follows the course flag");
+assert.equal(
+  isPublicRoute("/recruitment"),
+  recruitmentSurfacesEnabled,
+  "/recruitment follows the recruitment flag",
+);
 
 // Sitemap: only listed routes, no legacy or unlisted ones.
 const sitemapPaths = sitemapRoutes().map((route) => route.path);
@@ -73,6 +78,7 @@ assert.ok(!sitemapPaths.includes("/course-register-form/success"), "success page
 // Sync: every static page.tsx is in the table, every sitemap path has a page.
 const APP = join(process.cwd(), "src", "app", "(site)", "[locale]");
 const COURSE_PATHS = new Set(["/course", "/course-register-form", "/course-register-form/success"]);
+const RECRUITMENT_PATHS = new Set(["/recruitment"]);
 
 function staticPageSuffixes(dir: string, out: string[] = []): string[] {
   for (const name of readdirSync(dir)) {
@@ -90,7 +96,7 @@ function staticPageSuffixes(dir: string, out: string[] = []): string[] {
 const pageSuffixes = staticPageSuffixes(APP);
 for (const suffix of pageSuffixes) {
   assert.ok(
-    isPublicRoute(suffix) || COURSE_PATHS.has(suffix),
+    isPublicRoute(suffix) || COURSE_PATHS.has(suffix) || RECRUITMENT_PATHS.has(suffix),
     `page ${suffix} exists but is missing from src/lib/routes/public-routes.ts`,
   );
 }
