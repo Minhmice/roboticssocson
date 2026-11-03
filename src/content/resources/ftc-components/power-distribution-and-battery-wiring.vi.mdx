@@ -1,0 +1,43 @@
+## Phân phối nguồn và dây dẫn ắc quy 12V: Tiêu chuẩn an toàn điện FTC
+
+Hệ thống phân phối nguồn 12V là huyết mạch quyết định tính ổn định của robot FIRST Tech Challenge (FTC). Một hệ thống dây điện được thiết kế bài bản phải cung cấp dòng xả tức thời lên tới 20A–40A cho 4 động cơ dẫn động (drivetrain) và các cơ cấu nâng mà không gây sụt áp (brownout), đồng thời tuân thủ tuyệt đối quy chuẩn kiểm tra kỹ thuật (Robot Inspection).
+
+![Hệ thống nguồn REV Control Hub và module phân phối điện robot FTC](https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80)
+
+### Kiến trúc phân phối nguồn và chuẩn linh kiện
+
+FTC quy định chỉ sử dụng một bình ắc quy 12V NiMH hoặc pin tương thích đã được phê duyệt. Nguồn điện từ pin đi qua cầu chì 20A tích hợp, công tắc nguồn chính (REV Main Power Switch hoặc Tetrix Switch), trước khi cấp vào REV Control Hub và mở rộng sang REV Expansion Hub qua cổng XT30.
+
+```text
+Pin 12V NiMH ── Cầu chì 20A ── Công tắc chính ── REV Control Hub (XT30 In)
+                                                ├─ Drivetrain DC Motors (x4)
+                                                ├─ Cổng Servo 5V / Smart Servo
+                                                ├─ Cảm biến I2C / Digital / Analog
+                                                └─ REV Expansion Hub (XT30 Out ── XT30 In)
+```
+
+| Thành phần | Tiêu chuẩn kỹ thuật khuyến nghị | Chức năng & Lưu ý an toàn |
+| --- | --- | --- |
+| Dây nguồn chính | Dây đồng nhiều sợi bọc silicon AWG 14 | Chịu nhiệt độ cao, uốn linh hoạt, giảm điện trở trong |
+| Đầu nối pin | Anderson Powerpole (15A/45A) hoặc XT30 | Bấm cos bằng kìm chuyên dụng, khóa clip chống tuột |
+| Cầu chì bảo vệ | Cầu chì lưỡi tự ngắt hoặc cầu chì ống 20A | Bắt buộc kiểm tra chỉ số dòng danh định trước giải đấu |
+| Công tắc nguồn chính | REV Main Power Switch hoặc khóa xoay | Đặt tại vị trí dễ tiếp cận, có nhãn dán chỉ thị ON/OFF |
+
+### Nguyên nhân gây sụt áp (Brownout) và biện pháp phòng chống
+
+Khi robot tăng tốc đột ngột hoặc cơ cấu nâng bị kẹt (stall condition), tổng dòng tiêu thụ có thể vượt quá ngưỡng bảo vệ của pin. Nếu điện áp ngõ vào Control Hub tụt xuống dưới 7.5V–8.0V:
+- Bộ xử lý Android bên trong Control Hub sẽ bị khởi động lại (reboot), làm gián đoạn hoàn toàn chương trình OpMode.
+- Mất kết nối Driver Station, làm robot đứng yên trên sân trong thời gian dài (30–60 giây nạp lại).
+
+Các giải pháp kỹ thuật phòng chống sụt áp:
+- **Tối ưu điện trở tiếp xúc**: Tránh sử dụng các mối nối dây vặn xoắn hoặc băng keo cách điện tạm bợ. Mọi mối hàn phải được bọc ống co nhiệt kép.
+- **Rút ngắn chiều dài dây**: Chiều dài harness từ pin đến công tắc và Control Hub không nên vượt quá 25–30 cm.
+- **Phân tách bus nguồn**: Sử dụng cáp cấp nguồn XT30 độc lập có tiết diện AWG 16 nối trực tiếp giữa Control Hub và Expansion Hub, không mắc nối tiếp dây qua domino trung gian.
+- **Giới hạn gia tốc bằng phần mềm**: Cài đặt đường dốc tăng tốc (slew rate limiter) trong code điều khiển động cơ để triệt tiêu đỉnh dòng đột ngột.
+
+### Quy trình kiểm tra định kỳ trước mỗi trận đấu
+
+1. Đo điện áp hở mạch (OCV) của ắc quy bằng đồng hồ vạn năng: chỉ đưa vào sân pin đạt từ 13.2V đến 13.8V.
+2. Kiểm tra lực giữ cơ khí của các khớp nối XT30 và lẫy cài Anderson Powerpole.
+3. Rung lắc nhẹ các cụm dây trong khi bật nguồn để phát hiện hiện tượng chập chờn tiếp điểm.
+4. Cố định chắc chắn vị trí pin bằng dây đai velcro kép, ngăn pin xê dịch khi robot va chạm mạnh trên sân thi đấu.

@@ -212,4 +212,4 @@ Motion communicates hierarchy, continuity, and feedback only.
 - Use gradient text, decorative glassmorphism, or blue glow on every surface.
 - Use centered floating labels that behave like placeholders.
 - Hide the purpose, length, or next step of the recruitment form.
-- Put sponsorship, funding, budget, partner, or pitch conversion language in active product surfaces.
+- Put uncontextualized corporate pitch language on student education surfaces (the dedicated `/fundraising` campaign route is allowed in navigation alongside status-aware recruitment links).

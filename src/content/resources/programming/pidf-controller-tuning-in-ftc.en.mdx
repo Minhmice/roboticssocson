@@ -1,0 +1,32 @@
+## PIDF control for FTC mechanisms
+
+A controller can hold a lift or track a velocity despite changing load. Feedforward predicts the power a mechanism needs; feedback corrects the remaining error. Tune only after fixing loose belts, backlash, binding, encoder direction, and mechanical stops. Support a lift before testing so an unexpected command cannot drop it.
+
+![Electric motor and gearbox](https://commons.wikimedia.org/wiki/Special:FilePath/DC_motor_with_gearbox.jpg)
+
+### Model and units
+
+For a velocity target, a common model is `u = kS × sign(vTarget) + kV × vTarget + kA × aTarget + kP × error + kI × integral + kD × errorRate`. Here `u` is motor power, `error = vTarget - vMeasured`, and velocity and acceleration must use consistent encoder-based units. For a position loop, use position error and its rate instead. A vertical lift may need an additional gravity term; an arm often needs a gravity term that varies with angle. Gains for one mechanism or unit system do not transfer automatically to another.
+
+| Term | Purpose | Common symptom when excessive |
+| --- | --- | --- |
+| `kS` | Overcome static friction | Jumps near zero speed |
+| `kV`, `kA` | Predict velocity and acceleration demand | Overshoot or saturation |
+| `kP`, `kI`, `kD` | Correct present, accumulated, and changing error | Oscillation, windup, or noise |
+
+### Implement and tune
+
+This illustrative loop assumes consistent seconds and encoder velocity units. Initialize the previous measurement on start and reset state after disabling or changing modes. Clamp integral and output; a production controller should also stop integrating while output is saturated in the error direction.
+
+```java
+double error = targetVelocity - measuredVelocity;
+integral = Math.max(-integralLimit, Math.min(integralLimit, integral + error * dt));
+double derivative = (measuredVelocity - previousVelocity) / dt;
+double staticPower = Math.abs(targetVelocity) > 1e-6 ? Math.copySign(kS, targetVelocity) : 0;
+double command = staticPower + kV * targetVelocity + kA * targetAcceleration
+        + kP * error + kI * integral - kD * derivative;
+motor.setPower(Math.max(-1.0, Math.min(1.0, command)));
+previousVelocity = measuredVelocity;
+```
+
+Run only when `dt` is positive; derivative on measurement avoids a target-step spike. Start with integral and derivative at zero. Measure the smallest steady power that moves the mechanism for `kS`, then fit `kV` from steady speeds and `kA` from acceleration tests. Increase `kP` until response is prompt without sustained oscillation, add modest `kD` if needed, and add small `kI` only for persistent error. Plot target, measured velocity, error, command, and battery voltage. Repeat under realistic load and a lower battery; power saturation and voltage changes can invalidate a tune. Respect travel limits and disable output immediately if motion is unsafe.

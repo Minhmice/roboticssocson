@@ -38,7 +38,7 @@ Chi phí vận hành và vật tư chế tạo khác nằm ngoài mục tiêu v�
 - ĐỒNG HÀNH (Community Partner — 3.000.000 VNĐ): Logo kỷ yếu, website, fanpage, thư cảm ơn chính thức từ Ban Giám hiệu.
 - BẠC (Mission Partner — 5.000.000 VNĐ): Toàn bộ quyền lợi gói 3M + Logo tay áo đấu + Quyền nhận diện bảo trợ 01 Mission linh kiện.
 - VÀNG (Build Partner — 10.000.000 VNĐ): Toàn bộ gói 5M + Logo ngực/lưng áo đấu + Logo standee pit lane + Bảo trợ độc quyền 01 Mission linh kiện + Bài PR thương hiệu.
-- KIM CƯƠNG (Season Partner — 25.000.000 VNĐ): Toàn bộ gói 10M + Logo vị trí nổi bật trên thân robot thi đấu + Bảng vinh danh Maker Day + 02 vé VIP pit lane.
+- KIM CƯƠNG (Season Partner — 25.000.000 VNĐ): Toàn bộ gói 10M + Logo vị trí nổi bật trên thân robot thi đấu + Kỷ niệm chương cơ khí + 02 vé VIP pit lane.
 - ĐỐI TÁC HIỆN VẬT (In-kind Partner): Quy đổi 1:1 cho linh kiện/dụng cụ đúng danh mục 11 món tại mục 2.2 của 04.
 
 5. CĂN CỨ PHÁP LÝ & MINH BẠCH
@@ -85,7 +85,7 @@ The public campaign target covers only these core hardware items and contingency
 - COMMUNITY PARTNER (3,000,000 VND / ~$116 USD): Logo on team website, fanpage, annual yearbook, official appreciation letter from School Board.
 - SILVER / MISSION PARTNER (5,000,000 VND / ~$194 USD): All above + Logo on team jersey sleeves + Exclusive co-branding for 1 hardware mission.
 - GOLD / BUILD PARTNER (10,000,000 VND / ~$388 USD): All above + Prominent jersey chest/back logo + Pit banner display + Exclusive mission sponsor + Dedicated social PR article.
-- DIAMOND / SEASON PARTNER (25,000,000 VND / ~$969 USD): All above + Center-stage logo on competition robot chassis + Largest logo on jersey + Maker Day recognition plaque + 2 VIP Pit Passes.
+- DIAMOND / SEASON PARTNER (25,000,000 VND / ~$969 USD): All above + Center-stage logo on competition robot chassis + Largest logo on jersey + Custom mechanical trophy + 2 VIP Pit Passes.
 - TECHNICAL / IN-KIND PARTNER: 1:1 value credit only for components/tools in the 11-item hardware list in document 04, section 2.2.
 
 5. LEGAL COMPLIANCE & GOVERNANCE
@@ -209,7 +209,7 @@ Website: https://roboticssocson.com/support · Email: contact@roboticssocson.com
   > "Kính gửi Ban Lãnh đạo [Tên Doanh Nghiệp],  
   > Em xin phép gửi bức thư ngắn này để cập nhật tiến độ chiến dịch: Đội tuyển đang bước vào giai đoạn chốt danh sách nhà tài trợ đợt 1 trước ngày 20/11/2026 để kịp gửi maket in áo đấu đội tuyển và đặt hàng đợt 1 linh kiện Mỹ.  
   > Nếu Quý Doanh nghiệp đang có kế hoạch phân bổ ngân sách CSR quý 4 cho hoạt động giáo dục STEM tại địa bàn Sóc Sơn, chúng em xin phép được xếp lịch một cuộc gọi trao đổi nhanh 10 phút qua điện thoại hoặc trực tiếp tại văn phòng Quý Công ty.  
-  > Nếu thời điểm này chưa phù hợp với ngân sách của công ty, chúng em hoàn toàn thấu hiểu và vẫn rất mong được chào đón đại diện Quý Doanh nghiệp đến tham quan sự kiện trải nghiệm Maker Day của đội vào tháng 12 tới."
+  > Nếu thời điểm này chưa phù hợp với ngân sách của công ty, chúng em hoàn toàn thấu hiểu và vẫn rất mong được chào đón đại diện Quý Doanh nghiệp đến tham quan phòng Lab STEM của đội vào tháng 12 tới."
 
 ---
 
@@ -263,7 +263,7 @@ Theo dữ liệu nghiên cứu thị trường R5, có 3 quỹ tài trợ tổ c
 ### B. Quỹ Đại Sứ Quán Hoa Kỳ Tại Hà Nội (U.S. Embassy PAS Small Grants)
 - **Giá trị tài trợ:** **5.000 – 35.000 USD** (~127 – 890 triệu VNĐ).
 - **Tiêu chí cốt lõi:** Thúc đẩy giáo dục STEM bình đẳng, trao quyền cho thanh thiếu niên vùng nông thôn/ngoại thành tiếp cận công nghệ tiêu chuẩn Mỹ (chương trình FIRST do Hoa Kỳ khởi xướng).
-- **Góc tiếp cận hồ sơ (Pitching Angle):** Đề xuất dự án: *"Mở rộng cơ hội giáo dục Robotics chuẩn FIRST cho học sinh ngoại thành Hà Nội — Thu hẹp khoảng cách công nghệ giữa trường chuyên nội đô và trường huyện qua mô hình Maker Day lưu động"*.
+- **Góc tiếp cận hồ sơ (Pitching Angle):** Đề xuất dự án: *"Mở rộng cơ hội giáo dục Robotics chuẩn FIRST cho học sinh ngoại thành Hà Nội — Thu hẹp khoảng cách công nghệ giữa trường chuyên nội đô và trường huyện qua các hoạt động chia sẻ kỹ thuật và mở rộng trải nghiệm STEM"*.
 - **Thời gian xét duyệt:** Nhận hồ sơ định kỳ theo quý qua cổng Grants.gov.
 
 ### C. Quỹ Khuyến Học Huyện Sóc Sơn & Huyện Đoàn Sóc Sơn

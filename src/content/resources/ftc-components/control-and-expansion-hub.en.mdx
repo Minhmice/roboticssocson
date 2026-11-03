@@ -1,0 +1,75 @@
+## Control Hub and Expansion Hub Architecture
+
+The REV Robotics Control Hub (REV-31-1595) integrates an Android computing platform, dual-band Wi-Fi, and a dedicated IO controller into an integrated FTC brain. The REV Robotics Expansion Hub (REV-31-1153) mirrors the exact same physical and electrical IO interface while delegating computation to the Control Hub through an RS-485 serial bus or to a legacy Android smartphone via USB. Both units operate on 12V nominal DC power supplied by approved NiMH battery packs, with an active input window of 8V to 12V and an absolute non-operating ceiling of 15V.
+
+![REV Control Hub and Expansion Hub System Architecture](https://docs.revrobotics.com/assets/images/control-hub-and-expansion-hub.png)
+
+### Port Allocation and Electrical Capabilities
+
+Both hub variants provide identical peripheral port layouts. The table below outlines connectivity specs and channel limits.
+
+| Port Bank | Quantity Per Hub | Connector Standard | Technical Specifications and Limits |
+|---|---:|---|---|
+| DC Motor | 4 | JST-VH (2-Pin) | H-bridge power stage, 10A continuous per channel, 20A peak current trip, auto thermal shutdown |
+| Motor Encoder | 4 | JST-PH (4-Pin) | Quadrature incremental encoder inputs (A/B), 3.3V logic level, 500mA combined sensor rail |
+| Servo Output | 6 | 0.1-inch Header (3-Pin) | 5V PWM signal (500–2500 µs), 2A max per paired port cluster (0-1, 2-3, 4-5), 5A total hub cap |
+| Analog Inputs | 4 | JST-PH (4-Pin) | 2 channels per port, 0–5.0V input measurement range, 3.3V auxiliary sensor power pin |
+| Digital IO | 8 | JST-PH (4-Pin) | 2 digital channels per connector, 3.3V logic, configurable as input/output, 1A max total rail |
+| I²C Busses | 4 | JST-PH (4-Pin) | 4 independent I²C busses, 100 kHz standard or 400 kHz fast mode, 3.3V rail, 2.49 kΩ pull-ups |
+| RS-485 Bus | 2 | JST-PH (3-Pin) | Differential serial link for daisy-chaining Expansion Hub to Control Hub |
+| Aux 5V Power | 2 | 0.1-inch Header | Regulated 5V output for external coprocessors or active indicator LEDs, shared 5A pool |
+
+### Sensor Cable Pinouts and Wiring Topology
+
+Incorrect wiring into JST-PH ports is the primary source of board-level damage. All REV 4-pin sensor ports follow a strict ordering convention: Ground, 3.3V Power, Signal 1, and Signal 2.
+
+```text
+Pin 1: Ground (Black / Brown)   ──── GND reference common
+Pin 2: VCC Power (Red)          ──── +3.3V DC (or +5V via Level Shifter)
+Pin 3: Signal Channel 0 / SDA   ──── Digital IO 0 / Analog In 0 / I2C SDA / Encoder A
+Pin 4: Signal Channel 1 / SCL   ──── Digital IO 1 / Analog In 1 / I2C SCL / Encoder B
+```
+
+To bridge the primary Control Hub and an Expansion Hub:
+1. Connect an approved 3-pin JST-PH cable between the **RS485** ports on both devices. Do not route this line into UART ports.
+2. Bridge power by connecting an XT30 male-to-female daisy chain cable from the second XT30 battery port on the Control Hub directly to the Expansion Hub battery input.
+3. Configure unique hub addresses within the FTC Driver Station software to prevent bus arbitration collisions.
+
+### System Power Budget and Voltage Calculations
+
+System electrical stability depends on aggregate stall current draw. When 4 drive motors stall simultaneously during rapid directional changes, instantaneous current spikes:
+
+
+```text
+I_{peak} = SUM_{m=1}^{n} I_{stall, m} + SUM_{s=1}^{k} I_{servo, s} + I_{electronics}
+```
+
+
+For 4 NeveRest or goBILDA 5202/5203 motors with stall currents around 9.2A each, peak theoretical load exceeds 36A. Internal resistance in wiring, switch contacts, and battery pack causes supply rail droop:
+
+
+```text
+V_{drop} = I_{total} * (R_{battery} + R_{wiring} + R_{switch})
+```
+
+
+If voltage at the Control Hub input pins drops below 8.0V for more than 50 milliseconds, the internal microcontroller risks brownout reboots. To prevent brownouts:
+- Keep main power leads short and constructed with minimum 16 AWG or recommended 14 AWG silicone wire.
+- Inspect XT30 prongs regularly; spread pins slightly if loose mating occurs.
+- Monitor live telemetry via `VoltageSensor` in autonomous and teleop modes.
+
+```java
+// Hardware map voltage telemetry check
+VoltageSensor batterySensor = hardwareMap.voltageSensor.iterator().next();
+telemetry.addData("Battery Voltage", "%.2f V", batterySensor.getVoltage());
+if (batterySensor.getVoltage() < 10.5) {
+    telemetry.addLine("WARNING: Battery low. Swap pack before match start.");
+}
+```
+
+### Quick Diagnostic and Commissioning Checklist
+
+- Verify polarity across XT30 and battery connectors before engaging main power switch.
+- Validate that all 5V sensors running into I²C ports pass through a REV Logic Level Converter (REV-31-1389).
+- Ensure motor encoder channel numbers correspond precisely to the motor power output indices in software configuration.
+- Confirm Expansion Hub LED pulses steady blue or green, verifying active RS-485 packet sync with the Control Hub.

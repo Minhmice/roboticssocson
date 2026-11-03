@@ -1,0 +1,24 @@
+## From contact to controlled transfer
+
+An intake brings a game element from the field into the robot; a transfer moves it from that intake to storage or a scoring mechanism. Both parts should form one continuous transport path: roller speed, clearance, and guides determine whether an element is captured or ejected. Game rules change each season, so measure the real element's size, mass, and compliance before finalizing geometry.
+
+![Conveyor system illustrating a material transfer path](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Conveyor_system_in_a_factory.jpg/960px-Conveyor_system_in_a_factory.jpg)
+
+### Intake options
+
+| Mechanism | Best fit | Strength | Limitation |
+| --- | --- | --- | --- |
+| Rubber roller | Rigid element with clear contact | Fast capture, compact layout | Can eject element when too fast |
+| Compliant wheel | Misaligned or deformable element | Tolerates error, more contact | Wear and pinch force change |
+| Conveyor | Long transfer distance | Consistent direction | Needs tension and alignment |
+| Passive funnel | Gathering into a narrow mouth | No extra motor | Can jam at a steep angle |
+
+Roller surface speed is `v = π × diameter × rpm / 60`. Start near the robot's approach speed and test both slower and faster settings instead of selecting the highest RPM. Clearance should create friction without deforming the element or stalling the motor. Support long rollers at both ends to limit shaft deflection, and shield drive parts from wiring and operators' hands.
+
+### Transfer-path geometry
+
+Use a flared guide at the entrance, narrowing gradually toward the working width. Avoid sharp corners, tall steps, and dead gaps between rollers. When two stages run together, make the downstream stage receive the element quickly without pulling so hard that it rotates. Add an access opening so a jammed element can be removed without dismantling the robot. An optical sensor or limit switch can report arrival; test reflective and dark elements before trusting its signal.
+
+### Testing and jam recovery
+
+Test at least three approach directions, several off-center positions, and multiple drive speeds. Record successful captures divided by total attempts. On a jam, stop or briefly reverse the roller through driver control, and use a time limit to prevent motor overheating. Check current and temperature after a test series, then inspect compliant wheels for wear or debris. Disconnect robot power before placing a hand in the element path; software must not be the only safety measure.

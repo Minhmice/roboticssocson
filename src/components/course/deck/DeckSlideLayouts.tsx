@@ -1546,39 +1546,6 @@ function highlightTeachingTitle(title: string, locale: CourseLocale): React.Reac
   return title;
 }
 
-function TeachingSubtitlePills({ subtitle, reduced }: { subtitle: string; reduced: boolean }) {
-  const parts = subtitle.split(/\s*\+\s*/).map((part) => part.trim()).filter(Boolean);
-  const pillVariants = reduced ? deckRevealTransform : deckTeachingPillReveal;
-
-  if (parts.length < 2) {
-    return (
-      <p className={cn(deckType.subhead, "max-w-[28ch] text-pretty font-semibold text-foreground/85")}>
-        {subtitle}
-      </p>
-    );
-  }
-
-  return (
-    <div className="flex max-w-[34ch] flex-wrap gap-2.5 md:gap-3">
-      {parts.map((part, i) => (
-        <m.span
-          key={part}
-          className={cn(
-            "inline-flex items-center rounded-xl border-2 border-primary/40 bg-gradient-to-br from-primary/[0.12] via-background to-accent/50",
-            "px-3.5 py-2 text-[clamp(1.125rem,2vw,1.625rem)] font-bold leading-snug tracking-[-0.02em] text-foreground shadow-[0_6px_20px_rgba(37,99,235,0.12)] md:px-4 md:py-2.5",
-          )}
-          custom={i}
-          variants={pillVariants}
-          initial={reduced ? false : "hidden"}
-          animate="show"
-        >
-          {part}
-        </m.span>
-      ))}
-    </div>
-  );
-}
-
 const MECH_BULLET_ICONS = [Cable, Cpu, Cog] as const;
 
 function highlightHandsOnTitle(title: string, locale: CourseLocale): React.ReactNode {

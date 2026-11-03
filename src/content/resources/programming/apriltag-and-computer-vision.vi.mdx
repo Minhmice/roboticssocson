@@ -1,0 +1,95 @@
+## Thị giác máy tính với AprilTag trong FTC
+
+AprilTag là hệ thống mã định vị trực quan dạng 2D (visual fiducial system) giúp robot nhận biết vị trí và góc hướng trong không gian 3D. Trong các mùa giải FIRST Tech Challenge (FTC), AprilTag được dán tại các vị trí cố định trên viền sân và bảng ghi điểm (Backdrop). Nhờ kích thước chuẩn và thuật toán nội suy homography, một camera USB thông thường có thể tính toán chính xác vector khoảng cách và góc lệch giữa robot và mục tiêu.
+
+![Mã nhận diện trực quan chuẩn AprilTag họ 36h11](https://commons.wikimedia.org/wiki/Special:FilePath/Tag36h11.svg)
+
+### Hệ tọa độ và thông số Camera Calibration
+
+Thuật toán Pose Estimation của AprilTag chuyển đổi tọa độ điểm ảnh 2D sang tọa độ không gian thực 3D dựa trên ma trận camera nội tại (Camera Intrinsic Matrix: tiêu cự `f_x, f_y` và tâm quang học `c_x, c_y`):
+
+| Đại lượng | Ký hiệu | Ý nghĩa trong hệ tọa độ FTC VisionPortal |
+| --- | --- | --- |
+| Khoảng cách (Range) | `r` | Khoảng cách đường thẳng từ ống kính camera tới tâm thẻ AprilTag (inch hoặc cm) |
+| Góc phương vị (Bearing) | `\beta` | Góc ngang giữa trục ngắm thẳng của camera và thẻ (độ, âm sang trái, dương sang phải) |
+| Góc ngẩng (Elevation) | `\gamma` | Góc đứng giữa mặt phẳng ngang camera và thẻ (độ) |
+| Góc lệch mặt thẻ (Yaw) | `\psi` | Góc quay tương đối của mặt phẳng thẻ so với mặt phẳng cảm biến camera |
+
+Hệ tọa độ FTC quy ước: trục `+X` hướng sang phải camera, `+Y` hướng thẳng về phía trước theo hướng nhìn, và `+Z` hướng lên trên trần nhà. Khi gắn camera lên robot, độ dịch chuyển cơ khí (camera offset) so với tâm quay robot cần được cộng bù vào vector vị trí.
+
+### Mã nguồn FTC Java: Thiết lập VisionPortal và Pose Estimation
+
+FTC SDK cung cấp lớp `AprilTagProcessor` và `VisionPortal` tối ưu hóa đa luồng, hỗ trợ xử lý khung hình camera mà không làm chậm luồng điều khiển OpMode:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import java.util.List;
+
+@TeleOp(name = "AprilTag Vision Pipeline", group = "Vision")
+public class AprilTagVisionPipeline extends LinearOpMode {
+    private AprilTagProcessor aprilTag;
+    private VisionPortal visionPortal;
+
+    @Override
+    public void runOpMode() {
+        initAprilTag();
+
+        telemetry.addData("Camera Status", "Ready - Waiting for Start");
+        telemetry.update();
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+            List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+            telemetry.addData("# Tags Detected", currentDetections.size());
+
+            for (AprilTagDetection detection : currentDetections) {
+                if (detection.metadata != null) {
+                    telemetry.addLine(String.format("\n==== Tag ID %d: %s ====", 
+                            detection.id, detection.metadata.name));
+                    telemetry.addLine(String.format("XYZ (inch): %6.2f %6.2f %6.2f",
+                            detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
+                    telemetry.addLine(String.format("Range/Bearing: %6.2f inch, %6.2f deg",
+                            detection.ftcPose.range, detection.ftcPose.bearing));
+                    telemetry.addLine(String.format("Yaw/Pitch/Roll: %6.1f %6.1f %6.1f deg",
+                            detection.ftcPose.yaw, detection.ftcPose.pitch, detection.ftcPose.roll));
+                } else {
+                    telemetry.addLine(String.format("Unknown Tag ID %d (No Metadata)", detection.id));
+                }
+            }
+
+            telemetry.update();
+            sleep(20);
+        }
+
+        visionPortal.close();
+    }
+
+    private void initAprilTag() {
+        aprilTag = new AprilTagProcessor.Builder()
+                .setDrawAxes(true)
+                .setDrawCubeProjection(true)
+                .setDrawTagOutline(true)
+                .build();
+
+        VisionPortal.Builder builder = new VisionPortal.Builder();
+        builder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));
+        builder.addProcessor(aprilTag);
+        visionPortal = builder.build();
+    }
+}
+```
+
+### Chiến lược lọc nhiễu và xử lý góc nhìn bất lợi
+
+- **Khử rung mờ (Motion Blur)**: Khóa độ phơi sáng (manual exposure) và tăng gain trong `ExposureControl` để giảm thời gian phơi sáng xuống dưới 10ms. Khi robot di chuyển với vận tốc cao, chế độ phơi sáng tự động sẽ gây mờ ảnh và mất nhận diện tag.
+- **Lọc theo phạm vi tin cậy**: Chỉ cập nhật vị trí Odometry từ AprilTag khi khoảng cách `r < 40` inch và góc nghiêng `|\psi| < 45^\circ`. Ở cự ly xa hoặc góc nhìn quá xiên, sai số pixel khuếch đại khiến vị trí suy diễn bị nhảy vọt (jitter).
+- **Bộ lọc thông thấp (Low-pass filter)** hoặc Kalman Filter: Kết hợp vị trí suy luận từ camera với bánh xe đo Odometry (dead wheels). AprilTag giải quyết hiện tượng trôi tích lũy (drift) lâu dài, còn Odometry đảm bảo độ mượt theo từng mili-giây.
+- **Độ sáng môi trường thi đấu**: Đèn nhà thi đấu thực tế thường có độ chói hoặc bóng sẫm khác biệt phòng tập. Cần hiệu chuẩn ngưỡng sáng và cân bằng trắng (white balance) trước mỗi trận thi đấu.

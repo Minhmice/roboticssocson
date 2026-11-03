@@ -1,0 +1,50 @@
+## Lập kế hoạch lộ trình và cột mốc 6 tháng mùa giải FTC
+
+![Lộ trình dự án kỹ thuật và lắp ráp cơ cấu robot](https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=80)
+
+Một mùa giải FIRST Tech Challenge kéo dài khoảng sáu tháng từ khi công bố đề thi (Kickoff vào đầu tháng 9) đến các giải đấu khu vực và toàn quốc (tháng 1 đến tháng 3 năm sau). Đa phần các đội thất bại không phải vì thiếu ý tưởng cơ khí xuất sắc, mà vì trễ tiến độ: robot chỉ hoàn thiện vài ngày trước khi thi, khiến người lái không có thời gian luyện tập và phần mềm tự hành chưa đạt độ ổn định cần thiết. Lập kế hoạch theo sprint và các mốc đóng băng kỹ thuật (freeze milestones) là chìa khóa duy trì phong độ đỉnh cao.
+
+### Lộ trình 6 tháng chuẩn hóa từ Kickoff đến Championship
+
+Dưới đây là mô hình phân kỳ 6 tháng đã được kiểm chứng qua nhiều mùa giải thành công:
+
+| Giai đoạn | Thời gian | Mục tiêu trọng tâm | Đầu ra kiểm tra được (Deliverables) |
+| --- | --- | --- | --- |
+| **Tháng 1** | Tháng 9 | Phân tích luật, xây dựng chiến lược, thử nghiệm nhanh | Ma trận điểm số, khung gầm Drivetrain hoàn chỉnh, mẫu thử bìa carton/gỗ |
+| **Tháng 2** | Tháng 10 | Chế tạo Robot V1, tích hợp điện và cảm biến | Robot lăn bánh hoàn chỉnh, tay nâng cơ bản, hệ thống dây điện gọn gàng |
+| **Tháng 3** | Tháng 11 | Lập trình Autonomous, tối ưu hóa chu kỳ nạp/nhả | Bài tự hành 30 giây đạt `70\%` độ ổn định, tham gia giao hữu Scrimmage |
+| **Tháng 4** | Tháng 12 | Cải tiến Robot V2, luyện tập điều khiển cường độ cao | Giảm trọng lượng, thay chi tiết in 3D yếu bằng nhôm CNC, `\ge 20` giờ lái thử |
+| **Tháng 5** | Tháng 1 | Thi đấu Vòng loại (Qualifier 1), đánh giá và vá lỗi | Tham gia giải đấu chính thức, hoàn thiện 15 trang Portfolio, sửa lỗi hỏng |
+| **Tháng 6** | Tháng 2–3 | Tối ưu hóa đỉnh cao cho Chung kết (Championship) | Tự hành đạt `\ge 90\%` độ lặp lại, sản xuất linh kiện phụ tùng thay thế dự phòng |
+
+### Phân kỳ chi tiết các mốc đóng băng kỹ thuật (Freeze Milestones)
+
+Để tránh hiện tượng sửa đổi robot liên tục dẫn đến hỏng hóc sát giờ thi, đội cần tuân thủ nghiêm ngặt ba mốc đóng băng:
+
+```
+[Kickoff: T0] 
+     |
+     v  (4 tuần: Nghiên cứu & Drivetrain)
+[Mốc 1: Code Freeze V1 - Cuối T10]
+     |  -> Cố định khung gầm, bàn giao robot cho đội phần mềm lập trình
+     v  (4 tuần: Lập trình tự hành & tinh chỉnh cơ cấu)
+[Mốc 2: Mechanical Freeze V2 - Giữa T12]
+     |  -> Cấm thay đổi kết cấu cơ khí lớn, chỉ cho phép bảo dưỡng & thay linh kiện
+     v  (3-4 tuần: Driver Practice & Stress Test)
+[Mốc 3: Final System Freeze - 10 ngày trước giải đấu]
+        -> Đóng băng toàn bộ code và phần cứng; chỉ tập lái và đóng gói pit
+```
+
+### Quản trị rủi ro và quỹ dự phòng thời gian (Buffer Management)
+
+- **Nguyên tắc bộ đệm 2 tuần:** Bất kỳ cơ cấu mới nào cũng phải hoàn thành trước giải đấu ít nhất 14 ngày. Nếu không kịp hạn chót, cơ cấu đó phải bị loại bỏ để quay về phiên bản ổn định đã kiểm chứng trước đó.
+- **Sản xuất phụ tùng dự phòng (Spares Inventory):** Mọi chi tiết in 3D chịu lực, bánh răng, trục lục giác và dây đai cam đều phải chuẩn bị sẵn ít nhất 2 cụm thay thế tương đương.
+- **Nhật ký thời gian lái (Driver Practice Hours):** Đặt mục tiêu tối thiểu 20 giờ luyện lái trên thảm thi đấu thực tế trước ngày thi đấu đầu tiên. Tỷ lệ thắng trận của liên minh phụ thuộc trực tiếp vào phản xạ của người điều khiển dưới áp lực.
+
+### Nhịp điệu làm việc hàng tuần (Weekly Sprint Cadence)
+
+Duy trì nhịp sinh hoạt đội đều đặn giúp phát hiện sớm các điểm nghẽn kỹ thuật:
+
+1. **Đầu tuần (Thứ 2):** Họp 30 phút rà soát Kanban, xác định mục tiêu tuần (Sprint Goal), phân bổ công việc cho từng nhóm chuyên trách (Cơ khí, Điện, Lập trình, Tài liệu).
+2. **Giữa tuần (Thứ 4–Thứ 5):** Thử nghiệm tại xưởng, ghi chép số liệu đo đạc vào Engineering Notebook, đối chiếu tiến độ chế tạo chi tiết.
+3. **Cuối tuần (Thứ 7–Chủ nhật):** Ghép nối toàn hệ thống, thử tải trên sân thực tế, quay video phân tích chu kỳ hoạt động và họp tổng kết cuối tuần (Weekly Retrospective).

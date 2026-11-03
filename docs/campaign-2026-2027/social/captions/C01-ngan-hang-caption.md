@@ -124,12 +124,10 @@ Chi tiết từng khoản: roboticssocson.com/support
 
 ---
 
-<a id="maker-day"></a>
-## Maker Day — mở đăng ký 24/11
+<a id="lab-diaries"></a>
+## Lab Diaries — nhật ký chế tạo
 
-Dùng caption có sẵn ở [../../07-chuyen-linh-kien-noi-dung.md](../../07-chuyen-linh-kien-noi-dung.md) §5C, sửa 2 chỗ:
-- Dòng giá: `Đăng ký trước 28/11: 79.000 ₫ · Sau đó: 89.000 ₫`
-- Dòng đăng ký: `👉 Đăng ký: [link Google Form]`
+Dùng caption có sẵn ở [../../07-chuyen-linh-kien-noi-dung.md](../../07-chuyen-linh-kien-noi-dung.md) §5C, cập nhật cụm cơ cấu và linh kiện thực tế theo từng tập.
 
 ---
 

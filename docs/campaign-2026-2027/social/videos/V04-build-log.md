@@ -6,7 +6,7 @@ Chuỗi video ngắn quay chuyện đang thật sự diễn ra. Mục đích là
 |---|---|---|---|---|
 | 1 | CN 29/11 | Bàn làm việc, bản vẽ CAD robot BIOBUZZ | Có bản vẽ đầu tiên | 20–30s |
 | 2 | T5 10/12 | **Mở hộp hàng từ Mỹ** (Control Hub, Viper Slide) | Hàng đợt 1 đã về (đặt 20/11, mất 14–21 ngày) | 30–45s |
-| 3 | T3 15/12 | **Recap Maker Day 13/12** | Đã có ảnh/video từ sự kiện + phiếu đồng ý | 45–60s |
+| 3 | T3 15/12 | **Lắp ráp khung gầm Mecanum** | Đã hoàn thiện khung cơ khí cơ bản | 30–45s |
 | 4 | CN 20/12 | Robot chạy những mét đầu tiên | Khung gầm chạy được | 15–20s |
 | 5 | T3 29/12 | Robot tự chạy 30 giây (tự hành) | Chương trình tự hành chạy được | 30s |
 
@@ -23,12 +23,11 @@ Nếu hàng về trễ thì đổi lịch giữa #2 và #4. Đừng đăng video
 
 **Hook cho các video khác:** #4 mở bằng bánh xe bắt đầu quay, nghe rõ tiếng motor, chữ "Những mét đầu tiên". #5 mở bằng đồng hồ 30 giây, không ai chạm tay cầm, chữ "Mùa trước 8,6 điểm. Giờ thì sao?" (chỉ dùng khi đã có điểm tự hành đo được). Cảnh kết nên nối lại với cảnh mở đầu để video lặp mượt.
 
-## Recap Maker Day (#3)
+## Lắp ráp khung gầm (#3)
 
-- Cảnh mở đầu: tiếng học sinh reo khi robot ghi điểm.
-- Ghép nhanh 3 trạm: lái robot, lắp mạch, đấu robot.
-- Kết bằng ảnh tập thể và dòng chữ "40 nhà sáng chế trẻ · 13/12/2026".
-- **Chỉ dùng hình của các em có phiếu đồng ý.** Em nào không có thì làm mờ mặt hoặc cắt khỏi khung.
+- Cảnh mở đầu: tiếng vặn ốc lục giác và đặt bánh xe Mecanum vào trục.
+- Ghép nhanh các góc máy: siết ốc khung nhôm, căn chỉnh tháp trượt, thử độ mượt của bánh xe.
+- Kết bằng khung robot định hình trên bàn thao tác kèm dòng chữ "Khung gầm #39256 thành hình · Lab THPT Sóc Sơn".
 
 ## Quay hằng ngày cho Story
 

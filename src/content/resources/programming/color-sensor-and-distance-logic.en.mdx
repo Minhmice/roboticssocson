@@ -1,0 +1,90 @@
+## Color sensor and distance logic in FTC
+
+Detecting field elements such as colored game pixels or cones requires optical sensing that remains dependable under changing tournament lighting. Raw RGB intensities fluctuate whenever shadows fall or arena floodlights dim. Converting raw readings into HSV (Hue, Saturation, Value) representation and pairing color with distance proximity gating ensures robust detection without false triggers from the playing field floor.
+
+![Optical color sensor hardware module](https://commons.wikimedia.org/wiki/Special:FilePath/Color_sensor_board.jpg)
+
+### Why HSV outclasses raw RGB
+
+Arena lighting shifts amplitude across red, green, and blue simultaneously. A dark yellow object under bright sunlight may output higher raw red and green counts than a bright yellow object under dim indoor lighting. HSV decouples chroma from brightness:
+
+- **Hue (0° to 360°):** The dominant wavelength representing the perceived pure color tint.
+- **Saturation (0.0 to 1.0):** The purity and vibrancy of the color versus washed-out gray.
+- **Value (0.0 to 1.0):** The perceived brightness of the surface reflection.
+
+| Target color | Typical Hue range | Minimum Saturation | Distance gate |
+| --- | --- | --- | --- |
+| Yellow game sample | 45° – 65° | `> 0.50` | `< 3.5 cm` |
+| Blue game sample | 200° – 240° | `> 0.45` | `< 3.5 cm` |
+| Red game sample | `> 335°` or `< 25°` (wraparound) | `> 0.50` | `< 3.5 cm` |
+| Empty intake chamber | Any | Any | `> 5.0 cm` |
+
+Red spans the 0° boundary where hue wraps from 360° back to 0°. Code evaluating red targets must test two separate intervals using logical OR (`hue >= 335.0 || hue <= 25.0`) rather than a single continuous inequality.
+
+### Implementation with proximity gating and debouncing
+
+The REV Color Sensor v3 combines an I2C RGB photodiode array with a short-range infrared proximity sensor. To prevent noise on the intake boundary, gate color evaluation behind a physical proximity check and apply software debouncing before transitioning state machines:
+
+```java
+public class IntakeSensorSubsystem {
+    private final NormalizedColorSensor colorSensor;
+    private final DistanceSensor distanceSensor;
+    private int consecutiveValidFrames = 0;
+    private static final int CONFIRM_THRESHOLD = 3;
+
+    public enum ElementColor { NONE, RED, BLUE, YELLOW }
+
+    public ElementColor detectElement() {
+        double distanceCm = distanceSensor.getDistance(DistanceUnit.CM);
+
+        // Distance gate: ignore distant objects and field mat reflections
+        if (Double.isNaN(distanceCm) || distanceCm > 3.5) {
+            consecutiveValidFrames = 0;
+            return ElementColor.NONE;
+        }
+
+        NormalizedRGBA rgba = colorSensor.getNormalizedColors();
+        float[] hsv = new float[3];
+        Color.RGBToHSV(
+            (int) (rgba.red * 255),
+            (int) (rgba.green * 255),
+            (int) (rgba.blue * 255),
+            hsv
+        );
+
+        float hue = hsv[0];
+        float sat = hsv[1];
+        ElementColor candidate = ElementColor.NONE;
+
+        if (sat > 0.45f) {
+            if (hue >= 45.0f && hue <= 65.0f) {
+                candidate = ElementColor.YELLOW;
+            } else if (hue >= 200.0f && hue <= 240.0f) {
+                candidate = ElementColor.BLUE;
+            } else if (hue >= 335.0f || hue <= 25.0f) {
+                candidate = ElementColor.RED;
+            }
+        }
+
+        // Hysteresis filter: confirm state across consecutive loop cycles
+        if (candidate != ElementColor.NONE) {
+            consecutiveValidFrames++;
+            if (consecutiveValidFrames >= CONFIRM_THRESHOLD) {
+                return candidate;
+            }
+        } else {
+            consecutiveValidFrames = 0;
+        }
+
+        return ElementColor.NONE;
+    }
+}
+```
+
+### Calibration and noise mitigation
+
+To prevent false classifications during match play, follow strict integration guidelines:
+
+- **Shroud the sensor optical window:** 3D-print a recessed mounting bracket to block stray ambient arena light from entering the photodiode chamber sideways.
+- **Calibrate white balance:** Measure your team's specific game elements at the practice field under white LED illumination and record realistic baseline bounds.
+- **Protect I2C bus bandwidth:** Reading I2C color sensors every cycle can slow down drivetrain control loops. Limit color poll rates to 20–40 Hz or execute sensor reads asynchronously.

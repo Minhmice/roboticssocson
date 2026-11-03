@@ -1,0 +1,108 @@
+## Điều khiển robot tự hành theo quãng đường bằng Encoder
+
+Encoder trên động cơ DC đo góc quay của trục, không đo trực tiếp khoảng cách thực tế trên sàn thi đấu. Để điều khiển robot tự hành di chuyển quãng đường xác định, lập trình viên cần quy đổi số xung (encoder ticks) sang quãng đường lăn của bánh xe. Phương pháp này cung cấp giải pháp tự hành ban đầu đơn giản và hiệu quả, với điều kiện bánh xe không trượt và khung gầm cơ khí chuẩn xác.
+
+![Động cơ DC tích hợp encoder quang học](https://commons.wikimedia.org/wiki/Special:FilePath/DC%20motor%20with%20encoder.jpg)
+
+### Công thức quy đổi khoảng cách sang xung Encoder
+
+Với bánh xe có đường kính danh nghĩa `D` (cm), chu vi lăn lý thuyết là `C = pi * D`. Nếu động cơ báo `T` xung trên mỗi vòng quay của trục đầu ra và tỷ số truyền bánh răng ngoài nối tới bánh xe là `G` (vòng quay động cơ / vòng quay bánh), số xung trên mỗi vòng lăn bánh là `T * G`. Khi đó số xung cần quay cho quãng đường `S` (cm) được tính theo:
+
+
+```text
+ticks = (S * T * G / pi * D)
+```
+
+
+| Thông số | Giá trị ví dụ | Ý nghĩa kỹ thuật |
+| --- | --- | --- |
+| Đường kính bánh (`D`) | 9.6 cm | Đo thực tế khi robot chịu đủ tải trọng pin và cơ cấu |
+| Số xung/vòng (`T`) | 537.7 ticks/rev | Thông số chuẩn của động cơ số GoBILDA 5202 312 RPM |
+| Tỷ số truyền ngoài (`G`) | 1.0 (trực tiếp) | Tỷ số giữa trục động cơ và trục bánh xe |
+| Quãng đường mục tiêu (`S`) | 100 cm | Khoảng cách robot cần tịnh tiến thẳng |
+
+Với các thông số trên, 100 cm tương ứng xấp xỉ 1.783 xung encoder. Lưu ý: nếu nhà sản xuất đã tính tỷ số hộp số hành tinh vào thông số `T` (như GoBILDA hoặc REV HD Hex), không nhân thêm tỷ số hộp số đó vào công thức nữa.
+
+### Cài đặt mã nguồn FTC Java hoàn chỉnh
+
+Mã nguồn dưới đây sử dụng chế độ `RUN_TO_POSITION` tích hợp sẵn trong FTC SDK. Chế độ này dùng bộ điều khiển closed-loop PID nội vi trong bộ điều khiển REV Hub để giữ motor dừng chuẩn xác tại vị trí đích:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+@Autonomous(name = "Autonomous Encoder Drive", group = "Tutorial")
+public class AutoEncoderDrive extends LinearOpMode {
+    private DcMotor leftDrive, rightDrive;
+    private static final double COUNTS_PER_REV = 537.7;
+    private static final double DRIVE_GEAR_REDUCTION = 1.0;
+    private static final double WHEEL_DIAMETER_CM = 9.6;
+    private static final double COUNTS_PER_CM = 
+        (COUNTS_PER_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_CM * Math.PI);
+
+    @Override
+    public void runOpMode() {
+        leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
+        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+
+        leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        telemetry.addData("Status", "Initialized & Encoders Reset");
+        telemetry.update();
+
+        waitForStart();
+
+        // Di chuyển tiến 100 cm ở công suất 0.5 với timeout 5 giây
+        encoderDrive(0.5, 100.0, 100.0, 5.0);
+    }
+
+    public void encoderDrive(double speed, double leftCm, double rightCm, double timeoutS) {
+        if (!opModeIsActive()) return;
+
+        int newLeftTarget = leftDrive.getCurrentPosition() + (int)(leftCm * COUNTS_PER_CM);
+        int newRightTarget = rightDrive.getCurrentPosition() + (int)(rightCm * COUNTS_PER_CM);
+
+        leftDrive.setTargetPosition(newLeftTarget);
+        rightDrive.setTargetPosition(newRightTarget);
+
+        leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ElapsedTime runtime = new ElapsedTime();
+        leftDrive.setPower(Math.abs(speed));
+        rightDrive.setPower(Math.abs(speed));
+
+        while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
+               (leftDrive.isBusy() && rightDrive.isBusy())) {
+            telemetry.addData("Target", "%7d :%7d", newLeftTarget, newRightTarget);
+            telemetry.addData("Actual", "%7d :%7d", leftDrive.getCurrentPosition(), rightDrive.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+
+        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+}
+```
+
+### Các bước hiệu chuẩn thực địa và xử lý biên
+
+- **Kiểm tra chiều quay**: Kê bổng robot khỏi mặt sàn, cấp lệnh quay tiến và kiểm tra giá trị encoder tăng dần trên FTC Dashboard hoặc Driver Station Telemetry. Nếu bên nào bị giảm âm, đảo chiều bằng `setDirection(REVERSE)`.
+- **Sai số trượt bánh**: Khi tăng tốc đột ngột, bánh xe sẽ trượt trên sàn mút xốp (SoftTiles). Giải pháp là tăng tốc mượt (slew-rate limiter) hoặc giới hạn công suất tối đa ở mức `0.4 - 0.6`.
+- **Hiệu chuẩn thực nghiệm đường kính bánh**: Cho robot chạy thử 200 cm, đo khoảng cách thực tế bằng thước dây. Tính đường kính hiệu chỉnh: `D_thực = D_danh nghĩa * fracS_đo đượcS_mục tiêu`.
+- **Cơ chế Watchdog Timeout**: Luôn kèm điều kiện thời gian tối đa `runtime.seconds() < timeoutS`. Nếu robot bị kẹt vào tường hoặc cản trở bởi robot đối thủ, vòng lặp `isBusy()` sẽ không bị treo vĩnh viễn làm hỏng động cơ.

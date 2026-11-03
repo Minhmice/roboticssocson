@@ -1,0 +1,159 @@
+## Sensor Architecture in FIRST Tech Challenge
+
+Robotic perception in FIRST Tech Challenge transforms physical state variables—chassis orientation, game element optical properties, linear slide limits, and obstacle proximity—into digital telemetry. Achieving millisecond-level reaction times and deterministic autonomous routines depends on mastering hardware communication protocols (I²C, Analog, and Digital GPIO) and noise filtering algorithms.
+
+![REV Color Sensor V3 and Optical Proximity Pinout](https://docs.revrobotics.com/assets/images/color-sensor-v3.png)
+
+### Sensor Taxonomy and Operating Specifications
+
+FTC robots integrate digital, analog, and bus-oriented sensors across the REV Control Hub and Expansion Hub IO banks:
+
+| Sensor Device | Primary Interface | Sensing Principle | Operating Voltage | Subsystem Application |
+|---|---|---|---:|---|
+| REV Color Sensor V3 (REV-31-1557) | I²C (Busses 0–3) | Photodiode array (RGB + IR) & proximity LED | 3.3V DC | Sample classification, game piece detection inside intake |
+| REV 2m Distance Sensor | I²C (Busses 0–3) | Time-of-Flight (ToF) VCSEL laser (VL53L0X) | 3.3V DC | Arena field perimeter alignment, auto parking distance |
+| REV Magnetic Limit Switch | Digital (Ch 0/1) | Solid-state omnipolar Hall effect | 3.3V DC | Contactless homing for linear lift stages and virtual four-bars |
+| REV Touch Sensor | Digital (Ch 0/1) | Mechanical SPST snap-action microswitch | 3.3V DC | Hard safety cutoff stops for arms and intake slides |
+| REV Through-Bore Encoder | Analog / Digital | Absolute magnetic angle & quadrature pulses | 3.3V DC | Coaxial swerve azimuth tracking, dead-wheel odometry pods |
+| Inertial Measurement Unit (IMU) | Internal I²C Bus | 3-axis MEMS gyroscope & accelerometer | 3.3V DC | Closed-loop field-centric heading control and drift compensation |
+
+### Signal Wiring, Port Pinouts, and Bus Topologies
+
+Sensor connections on REV Hubs utilize standardized 4-pin JST-PH connectors. Respecting signal pin assignments prevents permanent damage to board-level transceiver chips:
+
+1. **I²C Sensor Bus (4-Pin JST-PH):**
+   - Pin 1: System Ground (GND)
+   - Pin 2: Regulated +3.3V DC Supply (Max 500 mA combined I²C rail)
+   - Pin 3: Serial Data Line (SDA)
+   - Pin 4: Serial Clock Line (SCL)
+2. **Digital IO Connector (4-Pin JST-PH):**
+   - Pin 1: Ground (GND)
+   - Pin 2: +3.3V DC Supply (Max 1A combined digital rail)
+   - Pin 3: Channel `n` (Configurable GPIO with internal pull-up)
+   - Pin 4: Channel `n+1` (Configurable GPIO with internal pull-up)
+3. **Analog Input Connector (4-Pin JST-PH):**
+   - Pin 1: Ground (GND)
+   - Pin 2: +3.3V DC Supply
+   - Pin 3: Analog In 0 (`0 - 5.0V` input range)
+   - Pin 4: Analog In 1 (`0 - 5.0V` input range)
+
+```text
+[Hub I2C Header]       Pin 1 (GND)  ─────── Sensor Ground
+                       Pin 2 (3.3V) ─────── Sensor VCC (+3.3V)
+                       Pin 3 (SDA)  ─────── Sensor Serial Data
+                       Pin 4 (SCL)  ─────── Sensor Serial Clock
+
+[Hub Digital Header]   Pin 1 (GND)  ─────── Switch Common (COM)
+                       Pin 2 (3.3V) ─────── Auxiliary Indicator LED
+                       Pin 3 (DIO)  ─────── Normally Open (NO)
+```
+
+*I²C Hardware Addressing Constraint:* Each independent I²C bus on the REV Control Hub and Expansion Hub features its own physical hardware bus controller. If a robot architecture requires two identical sensors sharing a static I²C slave address (for example, two REV Color Sensor V3 units with factory address `0x52`), **they must be plugged into separate hub I²C ports** (e.g., Port 0 and Port 1). Attempting to daisy-chain identical addresses onto a single bus creates bus contention and drops telemetry frames.
+
+### Governing Mathematical Equations and Filtering
+
+#### 1. Analog Voltage to Absolute Angle Linear Mapping
+Absolute rotary encoders provide an analog output voltage `V_out` scaled linearly to shaft angle `theta`:
+
+
+```text
+theta = (frac{V_{out}}{V_{ref}}) * theta_{max}
+```
+
+
+where `V_ref = 3.3V` and `theta_max = 360^circ`.
+
+#### 2. Gyroscope Heading Integration and Phase Normalization
+Chassis orientation `theta_yaw(t)` is derived by integrating instantaneous angular yaw velocity `omega_z(t)`:
+
+
+```text
+theta_{yaw}(t) = theta_0 + int_{0}^{t} omega_z(tau) , dtau
+```
+
+
+To eliminate discontinuity errors across the `pm 180^circ` wrap boundary when feeding error terms into orientation PID controllers:
+
+
+```text
+theta_{err} = atan2(sin(theta_{target} - theta_{current}),, cos(theta_{target} - theta_{current}))
+```
+
+
+### Complete Java Implementation: Multi-Sensor Polling OpMode
+
+The following OpMode configures the universal `IMU` interface, a REV Color Sensor V3 for sample intake detection, and a digital limit switch for elevator homing:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.hardware.rev.RevColorSensorV3;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.IMU;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+@TeleOp(name = "Sensors Integration Guide", group = "Guides")
+public class SensorsIntegrationGuide extends LinearOpMode {
+    private IMU imu;
+    private RevColorSensorV3 intakeSensor;
+    private DigitalChannel liftBottomLimit;
+
+    @Override
+    public void runOpMode() {
+        // Universal IMU initialization for Control Hub
+        imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters imuParameters = new IMU.Parameters(
+            new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+            )
+        );
+        imu.initialize(imuParameters);
+
+        // Optical proximity and color sensor setup
+        intakeSensor = hardwareMap.get(RevColorSensorV3.class, "intakeSensor");
+
+        // Digital limit switch configured in input mode
+        liftBottomLimit = hardwareMap.get(DigitalChannel.class, "liftLimit");
+        liftBottomLimit.setMode(DigitalChannel.Mode.INPUT);
+
+        waitForStart();
+        imu.resetYaw();
+
+        while (opModeIsActive()) {
+            // Read continuous heading in degrees
+            double robotYaw = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+
+            // Optical proximity distance in millimeters
+            double proximityMm = intakeSensor.getDistance(DistanceUnit.MM);
+
+            // Active-low magnetic or touch switch evaluation
+            boolean isLiftAtBase = !liftBottomLimit.getState();
+
+            // Evaluate sample possession
+            boolean sampleLoaded = proximityMm < 25.0;
+
+            telemetry.addData("Heading (Degrees)", "%.2f", robotYaw);
+            telemetry.addData("Proximity Distance (mm)", "%.1f", proximityMm);
+            telemetry.addData("Sample Secured", sampleLoaded);
+            telemetry.addData("Lift Baseline Triggered", isLiftAtBase);
+            telemetry.update();
+        }
+    }
+}
+```
+
+### Diagnostic Field Procedures and Troubleshooting
+
+- **I²C Bus Timeout Crash (`I2cController.readStatus: transaction error`):** Long, unshielded sensor cables picking up inductive noise from motor power lines can cause the hub hardware bus controller to hang. Ensure sensor wires do not bundle directly against 12V motor leads, and twist SDA/SCL wire pairs with GND.
+- **Color Sensor Flickering Readings:** Ambient stage lighting in competition arenas fluctuates significantly compared to build space fluorescent fixtures. Normalize optical readings by calculating chromatic ratios:
+  
+```text
+Red Ratio = (R / R + G + B), quad Blue Ratio = (B / R + G + B)
+```
+
+- **IMU Yaw Drifts Over Match Duration:** Excessive chassis vibration can saturate MEMS gyroscopes. Mount the Control Hub onto 30A–40A durometer silicone vibration isolation standoffs to dampen high-frequency mechanical shock.

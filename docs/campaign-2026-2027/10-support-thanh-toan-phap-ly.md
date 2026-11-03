@@ -75,7 +75,6 @@ flowchart TD
 - **Cú pháp chuyển khoản chuẩn:**
   - Ủng hộ Mission phần cứng: `BIOBUZZ [MÃ_MISSION] [HỌ_TÊN] [SĐT]` (Ví dụ: `BIOBUZZ M1 NGUYENVANA 0912345678`).
   - Ủng hộ Gói Doanh nghiệp: `BIOBUZZ [MÃ_GÓI] [TÊN_DOANH_NGHIỆP] [SĐT]` (Ví dụ: `BIOBUZZ GOLD CTYSPINDEX 0988123456`).
-  - Vé Maker Day: `BIOBUZZ MAKERDAY [HỌ_TÊN] [SĐT]`.
 
 > **Lưu ý kế toán:** Doanh nghiệp cần chứng từ kế toán: CLB chuyển Ban Giám hiệu THPT Sóc Sơn hướng dẫn.
 ---

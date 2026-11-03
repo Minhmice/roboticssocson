@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { courseSurfacesEnabled } from "@/data/courseRegistration";
+import { RESOURCE_CATEGORIES, RESOURCE_ARTICLES } from "@/data/resources";
 import type { Locale } from "@/lib/i18n/locales";
 import { LOCALES } from "@/lib/i18n/locales";
 import { localizedHref } from "@/lib/i18n/routes";
@@ -49,6 +50,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      path: "/profile",
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       path: "/recruitment",
       changeFrequency: "monthly",
       priority: 0.85,
@@ -58,7 +64,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      path: "/resources",
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
+      path: "/ftc-rules",
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
   ];
+
+  // Data-driven category routes:
+  // Include non-rules category only if it has at least one ready article and is not programming
+  for (const category of RESOURCE_CATEGORIES) {
+    if (category.id === "rules" || category.id === "programming") continue;
+    const hasReady = RESOURCE_ARTICLES.some(
+      (a) => a.categoryId === category.id && a.status === "ready",
+    );
+    if (hasReady) {
+      routes.push({
+        path: `/resources/${category.id}`,
+        changeFrequency: "monthly",
+        priority: 0.75,
+      });
+    }
+  }
+
+  // Data-driven article routes:
+  // Include article only if status is ready and not programming
+  for (const article of RESOURCE_ARTICLES) {
+    if (article.categoryId === "programming") continue;
+    if (article.status === "ready") {
+      routes.push({
+        path: `/resources/${article.categoryId}/${article.slug}`,
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  }
 
   return routes.flatMap((route) => {
     const viUrl = toAbsoluteUrl(route.path, "vi");

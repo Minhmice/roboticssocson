@@ -1,0 +1,53 @@
+## Vai trò Safety Captain và quản lý khu vực Pit
+
+![Khu vực làm việc kỹ thuật và thiết bị thi đấu](https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80)
+
+Khu vực pit trong giải đấu FTC là trung tâm sửa chữa, kiểm tra pin và tiếp đón giám khảo dưới áp lực thời gian cao. Thiếu tổ chức tại pit dễ dẫn đến tai nạn cơ khí, đoản mạch pin hoặc trễ giờ xếp hàng vào sân (queueing). Vai trò của Safety Captain không phải mang tính hình thức, mà là người trực tiếp chỉ huy kỷ luật an toàn, kiểm soát luồng di chuyển và duy trì trạng thái sẵn sàng thi đấu cho toàn đội.
+
+### Nhiệm vụ cốt lõi của Safety Captain
+
+Safety Captain giữ quyền dừng mọi thao tác kỹ thuật nguy hiểm tại pit. Trách nhiệm chính bao gồm:
+
+- Giám sát 100% người bước vào pit đeo kính bảo hộ đạt chuẩn ANSI Z87.1 và mang giày kín mũi.
+- Phân luồng khu vực: bàn cơ khí, trạm sạc pin, khu vực lập trình và khu vực trưng bày portfolio cho giám khảo.
+- Quản lý túi sơ cứu (First Aid Kit) và hộp xử lý sự cố pin (baking soda / cát khô dập tràn axit theo quy định loại pin sử dụng).
+- Ký duyệt phiếu kiểm tra trước khi robot rời pit ra sân thi đấu (Pre-match Checklist).
+- Phổ biến kế hoạch sơ tán khẩn cấp và vị trí bình chữa cháy của ban tổ chức nhà thi đấu.
+
+### Quy trình quản lý trạm sạc pin an toàn
+
+Pin 12V (NiMH hoặc REV Slim Battery) chịu tải dòng điện tức thời lên đến 20A–30A trong trận đấu. Sạc sai dòng hoặc dùng pin biến dạng là nguyên nhân hàng đầu gây cháy chập.
+
+| Hạng mục kiểm tra | Tiêu chuẩn đạt | Hành động khi vi phạm |
+| --- | --- | --- |
+| Điện áp không tải | `\ge 13.0\textV` khi sạc đầy | Đưa về trạm sạc phục hồi chậm, không dùng pin dưới `12.0\textV` |
+| Vỏ bọc pin (Heat shrink) | Không rách, không phồng rộp, không hở lõi | Cách ly pin vào hộp chống cháy, dán nhãn loại bỏ |
+| Đầu nối XT30 / Tamiya | Chân kim loại sạch, lẫy khóa nguyên vẹn | Hàn thay jack mới trước khi tái sử dụng |
+| Nhiệt độ thân pin | Dưới `40^\circ\textC` khi sạc | Ngắt sạc ngay lập tức, để nguội ở nơi thoáng khí |
+
+### Bố trí mặt bằng Pit (Pit Layout)
+
+Không gian pit chuẩn FTC thường có diện tích `3\textm \times 3\textm` (hoặc `10\textft \times 10\textft`). Phân chia hợp lý giúp tối ưu hóa thời gian xử lý sự cố:
+
+```
++-------------------------------------------------------+
+|  [Bàn Trưng Bày & Portfolio]  |  [Lối Vào Chính]      |
+|  - Tài liệu giới thiệu        |  - Kính bảo hộ dự phòng|
+|  - Màn hình demo tự động      |  - Dung dịch rửa tay  |
++-------------------------------+-----------------------+
+|  [Bàn Kỹ Thuật & Sửa Chữa]   |  [Trạm Điện & Sạc Pin]|
+|  - Robot stand nâng gầm       |  - Khay pin đánh số   |
+|  - Dụng cụ hex, kìm, ốc vít   |  - Sạc thông minh     |
+|  - Thùng rác & phoi cắt kim   |  - Hộp chống cháy     |
++-------------------------------------------------------+
+```
+
+### Checklist chuẩn bị trước khi ra sân thi đấu
+
+Trước mỗi trận đấu (Match Queue), Safety Captain cùng Drive Coach duyệt checklist 5 bước:
+
+1. **Cơ khí:** Siết chặt bu-lông khung gầm, kiểm tra xích/dây đai cam không trượt răng, khóa ren (Loctite) các vị trí chịu rung động.
+2. **Điện:** Cáp nguồn chính bắt chặt vào REV Control Hub, pin buộc chắc chắn bằng đai Velcro kép, công tắc chính (Main Switch) hoạt động dứt khoát.
+3. **Phần mềm:** Driver Station nhận diện đủ hai gamepad, ping mạng Wi-Fi 5GHz ổn định dưới `15\textms`, nạp đúng OpMode tự hành.
+4. **An toàn:** Bật robot trên giá đỡ (robot stand) để thử quay bánh tự do trước khi đặt xuống sàn sân đấu.
+5. **Vệ sinh pit:** Cất gọn dụng cụ sắc nhọn, không để dây điện lòng thòng trên lối đi của ban tổ chức.

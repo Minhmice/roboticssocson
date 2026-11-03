@@ -1,0 +1,23 @@
+## Why use independent odometry?
+
+Odometry uses measurement wheels (dead wheels) and encoders to estimate robot position instead of trusting drivetrain motion alone. Because a dead wheel does not propel the robot, it usually slips less during acceleration and rotation. A common three-wheel layout has two parallel wheels measuring forward/back motion and one perpendicular wheel measuring lateral motion. An IMU supplies heading; software combines heading and encoder displacement to update pose `(x, y, θ)`.
+
+![REV Through Bore Encoder used for odometry measurement](https://cdn11.bigcommerce.com/s-t3eo8vwp22/images/stencil/1500x1500/products/404/1487/Through_Bore_Encoder_Both_Shots_Sml__30025.1574098624.png?c=2)
+
+### Mechanical layout and scale
+
+Mount each pod to a rigid portion of the frame, away from possible field collisions. The wheel needs spring-loaded contact with enough force to stay planted: too little force causes skipped counts, while too much force adds drag and can bend the bracket. Measure actual wheel circumference after the tire is installed. Ticks per inch equals encoder counts per wheel revolution divided by circumference. Derive counts per wheel revolution from the encoder specification, quadrature decoding factor, and encoder revolutions per wheel revolution; avoid applying a gearbox or quadrature factor twice if the reported count already includes it.
+
+| Layout | Strength | Risk | Good fit |
+| --- | --- | --- | --- |
+| Two parallel wheels + IMU | Measures forward motion and heading | Cannot directly measure strafe | Differential drive |
+| Two parallel + one perpendicular | Direct strafe measurement | Requires accurate offsets | Mecanum or swerve FTC robots |
+| Two wheels + drive encoders | Saves frame space | Drive-wheel slip remains | Tight frames at moderate speed |
+
+### Calibration and pose math
+
+Measure real travel by pushing the robot 48 inches along each axis several times, averaging the results, and tuning `ticksPerInch`. Place the robot on a marked square, rotate exactly 10 turns, and compare IMU angle with physical angle to derive the heading scale. Measure each pod's distance from the robot's rotation center; an offset error produces a turn-position error even when encoder counts are correct. In code, read all encoder snapshots from one loop cycle, convert ticks to inches, then integrate local deltas using the cycle's mean heading. Normalize angles to `[-π, π)` so 359° to 0° does not create a false large turn.
+
+### Diagnosis and maintenance
+
+Log ticks, velocity, heading, and pose at 10–20 samples per second. Counts while stationary indicate vibration, a loose encoder cable, or an overly sensitive input path. A forward run that accumulates lateral error points to a skewed perpendicular pod or a pod that is not parallel to its intended axis. Re-tighten hardware, inspect tire wear, and leave a strain-relief loop in every encoder cable. Odometry is an estimate: reset pose at a known autonomous starting mark and use AprilTags or field lines for correction when the match strategy requires it.

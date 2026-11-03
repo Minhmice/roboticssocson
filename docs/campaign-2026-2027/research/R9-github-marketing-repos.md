@@ -24,14 +24,14 @@ Quy ước: **VI** = hỗ trợ tiếng Việt trực tiếp / có thể nhập 
 | 7 | [openai/whisper](https://github.com/openai/whisper) | 111.439 | 28/10/2026 | MIT | VI trong multilingual model | Vừa (Python + ffmpeg) | Có | V01–V04 | Thử |
 | 8 | [WyattBlue/auto-editor](https://github.com/WyattBlue/auto-editor) | 5.643 | 28/10/2026 | Unlicense | Không liên quan ASR; cắt theo âm thanh/chuyển động | Vừa (tải binary) | Có | V01–V04 | **Thử** |
 | 9 | [mifi/lossless-cut](https://github.com/mifi/lossless-cut) | 45.353 | 28/10/2026 | GPL-2.0 | Không dịch; giữ track subtitle | **Dễ** (portable Windows) | Có | V01–V04 | **Dùng ngay** |
-| 10 | [OpenShot/openshot-qt](https://github.com/OpenShot/openshot-qt) | 6.699 | 28/10/2026 | GPL-3.0 | Có bản dịch cộng đồng; nhập VI | Dễ (installer) | Có | V01–V04, P06 | Thử |
+| 10 | [OpenShot/openshot-qt](https://github.com/OpenShot/openshot-qt) | 6.699 | 28/10/2026 | GPL-3.0 | Có bản dịch cộng đồng; nhập VI | Dễ (installer) | Có | V01–V04 | Thử |
 | 11 | [remotion-dev/remotion](https://github.com/remotion-dev/remotion) | 68.400 | 28/10/2026 | Remotion License (không mặc định MIT) | Render Unicode VI | Vừa (Node/React) | Có | P01, P04, P07, V01–V04 | Thử |
 | 12 | [danielgatis/rembg](https://github.com/danielgatis/rembg) | 25.211 | 28/10/2026 | MIT | Không ngôn ngữ; tách nền ảnh | Vừa (Python) | Có | P02, P05, P08 | Thử |
 | 13 | [ollama/ollama](https://github.com/ollama/ollama) | 185.075 | 28/10/2026 | MIT | Model chạy VI tùy model | **Dễ** (Windows installer) | Có | C01, V01–V04 | **Dùng ngay** |
 | 14 | [open-webui/open-webui](https://github.com/open-webui/open-webui) | 157.005 | 28/10/2026 | MIT | Chat VI tùy model | Vừa (Docker) | Có | C01, V01–V04 | Thử |
 | 15 | [f/prompts.chat](https://github.com/f/prompts.chat) | 174.888 | 28/10/2026 | MIT | Prompt có thể viết VI; thư viện chủ yếu English | Dễ (web/Git) | Có | C01, V01–V04 | Thử |
 | 16 | [dair-ai/Prompt-Engineering-Guide](https://github.com/dair-ai/Prompt-Engineering-Guide) | 79.604 | 28/10/2026 | CC BY-SA 4.0 | Có phần dịch; prompt áp dụng VI | Dễ (đọc Markdown) | Có | C01, V01–V04 | Thử |
-| 17 | [krishna-build/marketing-prompts](https://github.com/krishna-build/marketing-prompts) | 19 | 26/10/2026 | MIT | Không có VI sẵn; tự dịch prompt | Dễ (copy Markdown) | Có | C01, P01, P03, P06 | **Dùng ngay** |
+| 17 | [krishna-build/marketing-prompts](https://github.com/krishna-build/marketing-prompts) | 19 | 26/10/2026 | MIT | Không có VI sẵn; tự dịch prompt | Dễ (copy Markdown) | Có | C01, P01, P03 | **Dùng ngay** |
 | 18 | [MaxsPrompts/Marketing-Prompts](https://github.com/MaxsPrompts/Marketing-Prompts) | 77 | 22/10/2026 | Apache-2.0 | Prompt English; tự nhập VI | Dễ | Có | C01, V01–V03 | Thử |
 | 19 | [marketingtoolslist/awesome-marketing](https://github.com/marketingtoolslist/awesome-marketing) | 491 | 28/10/2026 | MIT | Tài liệu English | Dễ (đọc link) | Có | C01, P01–P08 | Thử |
 | 20 | [gitroomhq/postiz-app](https://github.com/gitroomhq/postiz-app) | 39.727 | 28/10/2026 | AGPL-3.0 | Caption Unicode; UI/API nền tảng tùy cấu hình | Khó (Docker/OAuth) | Có | Lịch đăng C01, P01–P08, V01–V04 | Thử |
@@ -40,11 +40,11 @@ Quy ước: **VI** = hỗ trợ tiếng Việt trực tiếp / có thể nhập 
 | 23 | [realchandan/post-scheduler](https://github.com/realchandan/post-scheduler) | 19 | 28/10/2026 | AGPL-3.0 | Unicode | Vừa (Cloudflare) | Có | Lịch đăng C01 | Bỏ (ít kiểm chứng) |
 | 24 | [umami-software/umami](https://github.com/umami-software/umami) | 39.742 | 28/10/2026 | MIT | Dashboard Unicode; số liệu không tự có | Vừa (Docker/DB) | Có | Link `/support`, C01 | Thử |
 | 25 | [plausible/analytics](https://github.com/plausible/analytics) | 29.700 | 28/10/2026 | AGPL-3.0 | Dashboard không cần dịch nội dung | Khó (Docker/DB) | Có | Link `/support`, C01 | Thử |
-| 26 | [dubinc/dub.link](https://github.com/dubinc/dub.link) | 24.959 | 28/10/2026 | AGPL-3.0 / Enterprise | URL/UTM Unicode | Vừa (self-host) | Có | C01, P01, P06, P07 | Thử |
+| 26 | [dubinc/dub.link](https://github.com/dubinc/dub.link) | 24.959 | 28/10/2026 | AGPL-3.0 / Enterprise | URL/UTM Unicode | Vừa (self-host) | Có | C01, P01, P07 | Thử |
 | 27 | [chartjs/Chart.js](https://github.com/chartjs/Chart.js) | 67.763 | 28/10/2026 | MIT | Text/number VI tùy dữ liệu | Vừa (Node/web) | Có | P04, P02 | **Dùng ngay** |
 | 28 | [nocodb/nocodb](https://github.com/nocodb/nocodb) | 65.369 | 28/10/2026 | AGPL-3.0 | Nhập dữ liệu VI; UI tùy dịch | Vừa (Docker) | Có | P04, P07, C01 | Thử |
 | 29 | [n8n-io/n8n](https://github.com/n8n-io/n8n) | 208.845 | 28/10/2026 | Sustainable Use License | Node/API xử lý VI | Vừa (Docker) | Có | Google Sheet → P04/C01 | Thử |
-| 30 | [excalidraw/excalidraw](https://github.com/excalidraw/excalidraw) | 134.690 | 28/10/2026 | MIT | Gõ tiếng Việt | Dễ (web) | Có | P03, P04, P06 | Thử |
+| 30 | [excalidraw/excalidraw](https://github.com/excalidraw/excalidraw) | 134.690 | 28/10/2026 | MIT | Gõ tiếng Việt | Dễ (web) | Có | P03, P04 | Thử |
 
 > Bảng có 30 dòng (vượt yêu cầu tối thiểu 25). Toàn bộ 30 kho đã được đối chiếu metadata thời gian thực qua GitHub CLI (`gh repo view`). Các kho đều có hoạt động trong 12 tháng qua tính đến 28/10/2026. Kho `VinAIResearch/PhoWhisper` có cập nhật metadata nhưng commit gần nhất 12/11/2024, nên được đánh giá là model chuẩn tĩnh, không có bản phát hành tính năng mới.
 
@@ -115,7 +115,7 @@ ollama run gemma4
 
 Dán “brand voice” và mẫu C01 vào prompt; yêu cầu 3 caption VI, một hook 0–3 giây, CTA đúng `/support`, không bịa số tiền. Chạy local nên không cần API trả phí; tải model cần dung lượng và RAM.
 
-### 7. `krishna-build/marketing-prompts` — Dùng ngay — C01, P01, P03, P06
+### 7. `krishna-build/marketing-prompts` — Dùng ngay — C01, P01, P03
 
 ```powershell
 git clone https://github.com/krishna-build/marketing-prompts.git
@@ -186,7 +186,6 @@ flowchart LR
 - **P03:** dùng `excalidraw` cho sơ đồ “bộ não/đôi mắt”, “ray trượt”, “bánh mecanum”; export PNG rồi kiểm tra thuật ngữ và giá từng mission.
 - **P04:** nhập số đã xác minh trong Google Sheet/NocoDB; Chart.js xuất thanh tổng và 5 thanh M1–M5. Không hiển thị dữ liệu cá nhân; làm tròn xuống như `P04-tien-do-quy.md`.
 - **P05:** dùng `rembg`/OpenShot chỉ cho xử lý ảnh; tất cả thành tích vẫn phải lấy từ `03-thanh-tich-chuan-hoa.md`, không để AI viết thêm giải.
-- **P06:** dùng template OpenShot/Remotion để đổi bản 1080×1350 và A3; QR Google Form phải quét thử bằng 2 điện thoại như spec.
 - **P07:** NocoDB có thể tạo danh sách tên đã che; chỉ đưa người đã đồng ý công khai, không ghi tiền từng cá nhân. Xuất ảnh cuối bằng template, gửi doanh nghiệp duyệt logo/tên/số tiền.
 - **P08:** `rembg` có thể xử lý nền nhưng ưu tiên ảnh nền đen có sẵn; hỏi lại tên, vai trò, lớp và phiếu phụ huynh trước khi đăng.
 - **V01 giây 0–3:** cắt tay vặn ốc bằng LosslessCut; chạy PhoWhisper/Subtitle Edit cho câu nói, rà hook đúng file V01.

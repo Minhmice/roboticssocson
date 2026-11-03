@@ -1,0 +1,157 @@
+## Động cơ và Servo trong FIRST Tech Challenge
+
+Hệ thống cơ điện tử của robot FTC vận hành chủ yếu dựa trên động cơ điện một chiều 12V (DC Gearmotor) và động cơ servo 5V. Việc lựa chọn tỉ số truyền hộp số, dòng tiêu thụ, độ phân giải encoder và phương thức điều khiển vòng kín là yếu tố quyết định độ chính xác trong cả giai đoạn tự động (Autonomous) lẫn điều khiển bằng tay (TeleOp).
+
+![Động cơ Planetary và cấu trúc Encoder cho robot FTC](https://docs.revrobotics.com/assets/images/hd-hex-motor-exploded.png)
+
+### Các dòng động cơ DC phổ biến trong FTC
+
+Các đội thi FTC hiện nay thường sử dụng các dòng động cơ có tích hợp hộp số hành tinh (planetary gearbox) và cảm biến encoder Hall-effect hai kênh:
+
+| Dòng động cơ | Hãng sản xuất | Điện áp danh định | Tốc độ không tải cốt motor | Tỉ số truyền tiêu biểu | Loại encoder |
+|---|---|---:|---:|---|---|
+| Yellow Jacket 5202/5203 | goBILDA | 12V DC | 6,000 RPM | 3.7:1, 5.2:1, 13.7:1, 19.2:1, 26.9:1 | Quadrature Hall (28 CPR tại trục motor) |
+| HD Hex Motor | REV Robotics | 12V DC | 6,000 RPM | UltraPlanetary (3:1, 4:1, 5:1 có thể ghép tầng) | Quadrature Hall (28 CPR tại trục motor) |
+| Core Hex Motor | REV Robotics | 12V DC | 6,000 RPM | 72:1 cố định (trục lục giác 5mm xuyên tâm) | Quadrature Hall (288 CPR tại trục ra) |
+| NeveRest Series | AndyMark | 12V DC | 6,600 RPM | 3.7:1, 19.2:1, 40:1, 60:1 | Quadrature Hall (7 hoặc 28 CPR) |
+
+### Phương trình công suất, mô-men xoắn và độ phân giải Encoder
+
+Mối quan hệ giữa tốc độ góc `omega` (rad/s) và mô-men xoắn đầu ra `tau` (N·m) tuân theo đặc tuyến tải tuyến tính của động cơ điện một chiều kích từ vĩnh cửu:
+
+
+```text
+tau(omega) = tau_{stall} * (1 - (omega / omega_{free)})
+```
+
+
+Khi ghép nối qua hộp số có tỉ số truyền `G` và hiệu suất cơ khí `eta` (thường đạt `0.85 - 0.90` cho mỗi tầng bánh răng hành tinh), mô-men xoắn và tốc độ tại trục ra được tính như sau:
+
+
+```text
+tau_{out} = tau_{motor} * G * eta
+```
+
+
+
+```text
+omega_{out} = frac{omega_{motor}}{G}
+```
+
+
+Độ phân giải đọc được tại trục ra cuối cùng (Counts Per Revolution - CPR hoặc Ticks per Revolution):
+
+
+```text
+CPR_{out} = CPR_{base} * G
+```
+
+
+Ví dụ: Động cơ goBILDA tỉ số truyền 19.2:1 có `CPR_base = 28`, dẫn đến độ phân giải trục ra:
+
+```text
+CPR_{out} = 28 * 19.2 = 537.6  ticks/vòng
+```
+
+
+### Chuẩn kết nối và sơ đồ chân (Pinout)
+
+REV Control Hub và Expansion Hub sử dụng hai cổng tách biệt cho mỗi động cơ:
+1. **Cổng công suất (JST-VH 2 chân):** Chịu dòng tải cao. Chân 1 cấp cực dương (+), chân 2 cấp cực âm (-) tùy theo chiều quay mong muốn.
+2. **Cổng tín hiệu Encoder (JST-PH 4 chân):**
+   - Chân 1: Ground (GND - Dây đen)
+   - Chân 2: VCC +3.3V (Dây đỏ)
+   - Chân 3: Kênh xung A (Channel A - Dây vàng)
+   - Chân 4: Kênh xung B (Channel B - Dây trắng/xanh)
+
+```text
+[DC Motor Port: JST-VH]  ──── Pin 1: Power (+) ─── Motor Terminal A
+                         ──── Pin 2: Power (-) ─── Motor Terminal B
+
+[Encoder Port: JST-PH]   ──── Pin 1: GND  ──────── Sensor GND
+                         ──── Pin 2: 3.3V ──────── Sensor VCC
+                         ──── Pin 3: Ch A ──────── Encoder Output A
+                         ──── Pin 4: Ch B ──────── Encoder Output B
+```
+
+### Động cơ Servo và điều chế độ rộng xung (PWM)
+
+Servo trong FTC điều khiển góc quay bằng tín hiệu xung điện áp 5V lặp lại ở chu kỳ 50Hz (chu kỳ 20ms).
+- **Độ rộng xung (Pulse Width):** Tiêu chuẩn dao động từ `500,mus` (vị trí `0^circ`) đến `2500,mus` (vị trí cực đại `180^circ` hoặc `270^circ` tùy loại servo).
+- **Cáp kết nối chuẩn 3-pin 0.1-inch:**
+  - Dây nâu hoặc đen: Ground (GND)
+  - Dây đỏ: Nguồn cấp 5V DC
+  - Dây cam hoặc vàng: Tín hiệu xung PWM điều khiển
+
+| Loại Servo | Chế độ làm việc | Ứng dụng tiêu biểu | Giới hạn dòng |
+|---|---|---|---|
+| REV Smart Robot Servo | Góc tuyệt đối hoặc Continuous Rotation | Tay kẹp (intake/outtake), nắp che, cơ cấu khóa | Dòng đỉnh 2.0A khi stall |
+| goBILDA Dual Mode Servo | Chế độ quay góc (300°) hoặc vô tận | Khớp tay gắp, nâng hạ góc bắn, bánh xe phụ | Dòng đỉnh 2.5A khi stall |
+| Axon Mini / Max Servo | Động cơ không chổi than, góc quay không giới hạn | Cơ cấu điều hướng Swerve, cánh tay tốc độ cao | Dòng đỉnh lên tới 4.0A |
+
+*Lưu ý an toàn tải servo:* Hub chỉ cung cấp tối đa 2A cho mỗi cặp cổng servo (0-1, 2-3, 4-5). Khi sử dụng đồng thời nhiều servo lực kéo lớn, cần lắp thêm mạch phụ trợ **REV Servo Power Module (SPM - REV-11-1144)** để tránh tụt áp đường 5V trên hub gây ngắt kết nối cảm biến.
+
+### Lập trình điều khiển DC Motor và Servo trong FTC SDK
+
+Đoạn mã Java mẫu sau đây minh họa việc cấu hình động cơ với phanh điện tử, điều khiển vòng kín và dịch chuyển góc servo an toàn:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
+
+@TeleOp(name = "Motor And Servo Control", group = "Guides")
+public class MotorServoControlDemo extends LinearOpMode {
+    private DcMotorEx liftMotor;
+    private Servo clawServo;
+
+    @Override
+    public void runOpMode() {
+        liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
+        clawServo = hardwareMap.get(Servo.class, "clawServo");
+
+        // Cấu hình động cơ
+        liftMotor.setDirection(DcMotor.Direction.FORWARD);
+        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+            // Điều khiển vị trí nâng vòng kín
+            if (gamepad1.a) {
+                liftMotor.setTargetPosition(1200);
+                liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                liftMotor.setPower(0.85);
+            } else if (gamepad1.b) {
+                liftMotor.setTargetPosition(0);
+                liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                liftMotor.setPower(0.5);
+            }
+
+            // Điều khiển servo tay kẹp
+            if (gamepad1.x) {
+                clawServo.setPosition(1.0); // Mở kẹp
+            } else if (gamepad1.y) {
+                clawServo.setPosition(0.2); // Đóng kẹp
+            }
+
+            telemetry.addData("Lift Position", liftMotor.getCurrentPosition());
+            telemetry.addData("Lift Velocity (ticks/s)", liftMotor.getVelocity());
+            telemetry.addData("Claw Position", clawServo.getPosition());
+            telemetry.update();
+        }
+    }
+}
+```
+
+### Hướng dẫn kiểm tra và chẩn đoán sự cố
+
+1. **Động cơ bị giật hoặc chạy sai chiều:** Đổi lại hướng quay bằng `setDirection(Direction.REVERSE)` hoặc kiểm tra dây kênh A và kênh B của encoder xem có bị cắm ngược không.
+2. **Motor không giữ được tải khi dừng:** Kiểm tra xem đã bật chế độ `setZeroPowerBehavior(ZeroPowerBehavior.BRAKE)` chưa thay vì để mặc định là `FLOAT`.
+3. **Servo phát ra tiếng rít và nóng lên:** Trục servo bị kẹt cơ học tại điểm cuối hành trình (mechanical stop). Cần căn chỉnh lại giá trị `setPosition()` trong phần mềm sao cho hành trình xung không đẩy servo vượt quá giới hạn vật lý của cơ cấu.

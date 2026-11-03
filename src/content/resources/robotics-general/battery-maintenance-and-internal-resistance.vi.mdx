@@ -1,0 +1,59 @@
+## Quản lý pin và đo điện trở trong của robot
+
+Nguồn điện là huyết mạch của toàn bộ hệ thống cơ điện tử trên robot. Khi động cơ truyền động tăng tốc hoặc cơ cấu nâng bị kẹt tải, dòng điện tức thời có thể vọt lên 20A đến 40A trên mỗi nhánh mạch. Nếu chất lượng pin suy giảm, hiện tượng sụt áp (voltage sag) sẽ kích hoạt cơ chế tự bảo vệ ngắt nguồn (brownout) của bộ điều khiển trung tâm, khiến robot tê liệt hoàn toàn trên sân đấu.
+
+![Kiểm tra và sạc pin](https://commons.wikimedia.org/wiki/Special:FilePath/Multimeter_measuring_resistance.jpg)
+
+### Điện trở trong (Internal Resistance - IR) là gì?
+
+Mỗi khối pin ngoài điện áp danh định đều chứa một trở kháng nội tại được ký hiệu là `R_int` (đơn vị milliohm - `m\Omega`). Khi dòng điện tải `I` chạy qua pin, định luật Ohm tạo ra độ sụt điện áp trên cực nguồn theo công thức:
+
+
+```text
+V_{terminal} = V_{oc} - (I \times R_{int})
+```
+
+
+Trong đó:
+- `V_terminal`: Điện áp thực tế cấp vào hệ thống điện robot.
+- `V_oc`: Điện áp mạch hở khi không có tải (Open Circuit Voltage).
+- `I`: Dòng điện tiêu thụ tổng của các động cơ và servo.
+- `R_int`: Điện trở trong tổng của khối pin (bao gồm tế bào điện hóa, dây dẫn và giắc cắm).
+
+Khi điện trở trong tăng cao do chai hóa hoặc hỏng cell, độ sụt áp sẽ kéo điện áp hệ thống xuống dưới ngưỡng tối thiểu (thường là 7V đến 8V trên hệ thống điều khiển 12V), gây sập vi điều khiển dù đồng hồ vôn kế đo không tải vẫn báo đầy pin.
+
+### Bảng đánh giá thông số pin theo trạng thái thực tế
+
+Dưới đây là ngưỡng đánh giá tiêu chuẩn đối với khối pin NiMH 12V 3000mAh (tiêu chuẩn FTC) và pin LiPo/LiFePO4 nhiều cell:
+
+| Loại pin | Điện áp đầy / danh định | IR khối mới (Lý tưởng) | IR mức cảnh báo | Ngưỡng loại thải | Hiện tượng nhận biết |
+| --- | --- | --- | --- | --- | --- |
+| NiMH 12V (10 cell 1.2V) | 14.2V / 12.0V | 70 - 110 `m\Omega` | 150 - 200 `m\Omega` | > 250 `m\Omega` | Robot bị sập nguồn khi khởi động nhanh cả 4 motor bánh |
+| LiPo 3S 11.1V | 12.6V / 11.1V | < 5 `m\Omega` / cell | 15 - 20 `m\Omega` / cell | > 25 `m\Omega` / cell | Phồng cell, pin nóng ran sau 2 phút tải liên tục |
+| LiFePO4 4S 12.8V | 14.4V / 12.8V | 8 - 15 `m\Omega` / cell | 25 - 35 `m\Omega` / cell | > 45 `m\Omega` / cell | Giảm dung lượng xả thực tế còn dưới 70% danh định |
+
+```
+Sơ đồ tương đương của khối pin khi cấp nguồn:
+
+   +---------------- Pin pack ----------------+
+   |                                          |
+  (+)---[ Nguồn lý tưởng Voc ]---[ R_int ]----(-)
+   |                                          |
+   +------------------------------------------+
+                        |
+              Dòng tải lớn I (20A - 50A)
+                        ↓
+                 Sụt áp = I × R_int
+```
+
+### Phương pháp đo kiểm chính xác
+
+- **Đo bằng phương pháp 4 dây (Kelvin sensing):** Dùng bộ phân tích pin chuyên dụng hoặc máy sạc thông minh có tính năng đo điện trở trong. Thiết bị đo tách riêng hai dây dẫn dòng kích thích và hai dây cảm biến điện áp cực kỳ nhạy để loại trừ điện trở của chính que đo.
+- **Kiểm tra xả có tải (Load testing):** Ghi nhận điện áp tức thời khi động cơ chuyển động đạt dòng kẹt. Một khối pin khỏe chỉ sụt từ 13.5V xuống 11.0V - 11.5V khi kéo dòng 30A; nếu áp rơi thẳng xuống dưới 8.5V, pin cần đưa vào diện kiểm tra loại thải.
+
+### Quy trình bảo dưỡng và kéo dài tuổi thọ pin
+
+1. **Chu kỳ sạc cân bằng:** Với pin NiMH, sạc ở dòng vừa phải (0.5C đến 0.8C, tương đương 1.5A đến 2.4A cho pack 3000mAh) với thuật toán ngắt nhiệt độ hoặc ngắt đỉnh áp dV/dt chuẩn xác để tránh nung nóng pin.
+2. **Kiểm tra định kỳ giắc cắm:** Đầu nối Anderson Powerpole, XT30 hoặc Tamiya lâu ngày sẽ bị oxy hóa bề mặt hoặc lỏng lẫy tiếp xúc. Điện trở tiếp xúc kém ở giắc cắm có thể bổ sung thêm 50 đến 100 `m\Omega` vào tổng trở của nguồn điện.
+3. **Lưu trữ chuẩn:** Không bao giờ cất pin LiPo/LiFePO4 ở trạng thái đầy 100% hoặc cạn 0%. Đưa pin về điện áp lưu trữ (Storage voltage: ~3.82V/cell đối với LiPo) trong hộp chống cháy chuyên dụng ở nhiệt độ phòng thoáng mát.
+4. **Nhãn theo dõi:** Đánh số từng khối pin, dán nhãn ghi ngày xuất xưởng, số chu kỳ đã sạc và giá trị milliohm đo được định kỳ hàng tháng để chọn lọc các khối pin sung mãn nhất cho các trận đấu chung kết.

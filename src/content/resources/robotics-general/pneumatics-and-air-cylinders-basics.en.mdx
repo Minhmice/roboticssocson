@@ -1,0 +1,64 @@
+## Pneumatics and Air Cylinders in Robotics
+
+Pneumatics provides lightweight, high-speed linear actuation with high power-to-weight ratios compared to motorized rack-and-pinion or leadscrew mechanisms. Because compressed air is stored in tanks prior to actuation, cylinders deliver instantaneous peak force for discrete state transitions—such as deploying intakes, snapping grippers shut, or shifting gearbox dogs.
+
+![Pneumatic cylinder cross-section diagram](https://upload.wikimedia.org/wikipedia/commons/8/87/Pneumatikzylinder_Schnitt.jpg)
+
+### Plumbing Schematic and Component Architecture
+
+A competition robotics pneumatic circuit is divided into two distinct zones: the high-pressure storage circuit (operating up to 120 PSI) and the regulated working circuit (typically clamped at 60 PSI / 4.1 bar by competition rules).
+
+```text
+[On-Board 12V Air Compressor]
+              │
+              ▼
+    [Brass Check Valve]
+              │
+              ├──► [Automatic Pressure Relief Valve (120-125 PSI)]
+              │
+              ├──► [Polycarbonate/Aluminum Air Tanks]
+              │
+              ├──► [High-Pressure Storage Gauge]
+              │
+              ▼
+   [Main Pressure Regulator] ──► Steps down 120 PSI to 60 PSI working line
+              │
+              ├──► [Low-Pressure Working Gauge]
+              │
+              ▼
+   [Solenoid Valve Manifold (12V)]
+              │
+       ┌──────┴──────┐
+       ▼             ▼
+[Double-Acting Air Cylinder]
+```
+
+Critical plumbing components include:
+- **Air Storage Reservoirs:** Store pressurized air to satisfy instantaneous flow spikes that an on-board compressor cannot deliver in real time.
+- **Pressure Regulator:** Maintains stable downstream working pressure regardless of pressure decay in main reservoir tanks as air is consumed during a match.
+- **Directional Solenoid Valves:** Electronically controlled valves (typically 5/2-way single or double solenoids) directing pressurized air to one cylinder port while exhausting air from the opposing chamber to atmosphere.
+- **Push-to-Connect (PTC) Fittings:** Brass or composite fittings with internal stainless steel collets and nitrile O-rings sealing standard 4mm or 6mm polyurethane (PU) tubing.
+
+### Force Calculations for Single and Double-Acting Cylinders
+
+Pneumatic cylinders exert force proportional to the effective surface area of internal piston face multiplied by working fluid pressure. During retraction, the piston rod occupies volume inside the front chamber, reducing effective surface area and net pull force.
+
+| Operation Mode | Motion Direction | Governing Equation | Variables |
+| --- | --- | --- | --- |
+| Extension Stroke | Push (Outward) | `F_ext = P × (π × D² / 4)` | `D` = Cylinder bore diameter |
+| Retraction Stroke | Pull (Inward) | `F_ret = P × π × (D² - d²) / 4` | `d` = Piston rod diameter |
+| Air Consumption | Complete Cycle | `V_cycle = Stroke × (A_ext + A_ret)` | Calculates volume consumed per cycle |
+
+**Sizing Example:** Consider standard cylinder with bore diameter `D = 25 mm` (`0.025 m`) and rod diameter `d = 8 mm` (`0.008 m`), operating at regulated pressure `P = 60 PSI ≈ 413,685 Pa`:
+
+- Extension surface area: `A_ext = (pi * (0.025)^2 / 4) ≈ 4.909 * 10^-4 m^2`.
+- Extension thrust force: `F_ext = 413,685 Pa * (4.909 * 10^-4 m^2) ≈ 203.0 N` (`≈ 45.6 lbf`).
+- Retraction effective area: `A_ret = (pi * (0.025^2 - 0.008^2) / 4) ≈ 4.406 * 10^-4 m^2`.
+- Retraction pulling force: `F_ret = 413,685 Pa * (4.406 * 10^-4 m^2) ≈ 182.3 N` (`≈ 41.0 lbf`).
+
+### Operational Safety and System Diagnostics
+
+- **Square Tubing Cuts:** Cut pneumatic tubing with a dedicated tubing cutter blade rather than diagonal wire cutters. Angled or deformed tube ends fail to seat against internal fitting O-rings, generating persistent micro-leaks.
+- **Pressure Relief Safeguard:** Ensure the automated pressure switch halts compressor cycling at 120 PSI, and install a calibrated spring-loaded relief valve set to pop at 125 PSI to prevent catastrophic tank rupture.
+- **Manual Bleed-Off Valve:** Place a quarter-turn brass ball valve or manual relief plug directly downstream of reservoirs to depressurize all stored energy prior to inspection or mechanical maintenance.
+- **Leak Detection Routine:** Pressurize system to maximum rated pressure, disconnect compressor power, and log gauge readings over 15 minutes. Pressure loss exceeding 2 PSI indicates leakage requiring soapy water bubble inspection across fittings and cylinder shaft seals.

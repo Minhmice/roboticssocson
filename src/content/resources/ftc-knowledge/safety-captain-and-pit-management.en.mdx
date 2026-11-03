@@ -1,0 +1,53 @@
+## Safety Captain Role and Competition Pit Management
+
+![Industrial workbench and precision robotics hardware](https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80)
+
+The pit area at a FIRST Tech Challenge tournament is a high-tempo workspace combining rapid hardware repairs, electrical debugging, battery rotation, and formal judge visits. Without structured management, pit congestion directly causes electrical shorts, lost tools, mechanical injuries, or missed queueing calls. The Safety Captain is not a decorative title; they hold field-level authority to enforce safety standards, control traffic, and guarantee operational readiness.
+
+### Core Responsibilities of the Safety Captain
+
+The Safety Captain possesses stop-work authority whenever unsafe practices occur. Primary responsibilities include:
+
+- Enforcing 100% compliance with ANSI Z87.1 safety glasses and closed-toe footwear for everyone entering the pit perimeter.
+- Zoning pit space into repair benches, battery charging stations, software staging, and judge presentation areas.
+- Maintaining the First Aid Kit and battery spill neutralizers (baking soda slurry or dry absorbent per applicable battery chemistry).
+- Verifying and signing off on the pre-match technical checklist before the robot leaves for queueing.
+- Briefing the team on venue emergency evacuation routes and nearest chemical extinguisher locations.
+
+### Battery Charging and Electrical Safety Protocols
+
+Standard 12V competition batteries experience peak current draws between 20A and 30A during aggressive match cycles. Improper charging rates or degraded battery packs represent primary fire and brownout hazards.
+
+| Verification Item | Target Specification | Corrective Action When Out of Spec |
+| --- | --- | --- |
+| Open-circuit Voltage | `\ge 13.0\textV` at full charge | Relegate to slow equalization charge; retire packs below `12.0\textV` |
+| Heat-shrink Wrap | Continuous, zero punctures, no swelling | Quarantine pack in fire-resistant LiPo/NiMH sack; label for disposal |
+| Power Connectors (XT30) | Tight mechanical retention, zero oxidation | Re-solder fresh connector with heat shrink before next match |
+| Operating Temperature | Below `40^\circ\textC` during charge cycles | Immediately disconnect, vent pack, and mark out of match rotation |
+
+### Ergonomic Pit Zoning Architecture
+
+Standard FTC pit spaces span `3\textm \times 3\textm` (or `10\textft \times 10\textft`). A functional spatial split prevents tool bottlenecks and keeps match preparation calm:
+
+```
++-------------------------------------------------------+
+|  [Judge Showcase & Portfolio] |  [Main Pit Entrance]  |
+|  - Engineering documentation  |  - Visitor safety glasses|
+|  - Autonomous telemetry kiosk |  - Disinfectant & logs|
++-------------------------------+-----------------------+
+|  [Hardware Workbench]         |  [Power & Battery Dock|
+|  - Elevated robot stand       |  - Numbered battery bay|
+|  - Hex keys, torque drivers   |  - Multi-channel smart charger|
+|  - Debris & shaving bin       |  - Fireproof safe-box |
++-------------------------------------------------------+
+```
+
+### 5-Point Pre-Match Queue Checklist
+
+Before the drive team departs for the arena queue, the Safety Captain runs a strict five-point check:
+
+1. **Mechanical Rigidity:** Fastener torque check across chassis cross-members, chain and belt tension verified without tooth skip, thread-locker applied on high-vibration joints.
+2. **Electrical Integrity:** Main power XT30 harness locked to REV Control Hub, battery retained with dual Velcro straps, 20A main breaker operating cleanly without switch wiggle.
+3. **Control Links:** Driver Station confirms dual gamepads bound to port 1 and 2, 5GHz Wi-Fi ping under `15\textms`, autonomous OpMode payload verified and ready.
+4. **Bench Run Safety:** Power cycle robot on an elevated stand to confirm wheel and intake spin direction prior to floor placement.
+5. **Pit Discipline:** Clear all walkways, stow precision measuring calipers, and ensure zero trailing extension cords across aisle boundaries.

@@ -1,0 +1,108 @@
+## Driving a Measured Distance with Motor Encoders
+
+A DC motor encoder measures shaft angle rather than direct ground displacement across the field. Converting encoder counts (ticks) into linear wheel travel provides an autonomous robot with an intuitive, deterministic baseline trajectory, provided wheel slip remains low and drivetrain geometry is consistent. Encoder feedback alone cannot correct for sideways drift, collisions, or wheel slip on competition foam tiles.
+
+![Encoder-equipped DC motor for robotics drivetrain](https://commons.wikimedia.org/wiki/Special:FilePath/DC%20motor%20with%20encoder.jpg)
+
+### Unit Conversion: Distance to Encoder Ticks
+
+For a wheel with nominal diameter `D` in centimeters, theoretical circumference is `C = pi * D`. When a motor encoder provides `T` counts per motor output revolution, and external gearing delivers a gear reduction `G` (motor rotations per wheel rotation), the total encoder ticks per wheel revolution equals `T * G`. The required target ticks for distance `S` (cm) is calculated as:
+
+
+```text
+ticks = (S * T * G / pi * D)
+```
+
+
+| Parameter | Example Value | Technical Significance |
+| --- | --- | --- |
+| Wheel Diameter (`D`) | 9.6 cm | Measured under full robot weight with loaded battery |
+| Encoder Resolution (`T`) | 537.7 ticks/rev | GoBILDA 5202 312 RPM planetary gear motor specification |
+| Gear Reduction (`G`) | 1.0 (direct drive) | External reduction ratio between motor shaft and wheel shaft |
+| Target Distance (`S`) | 100 cm | Commanded linear displacement along the travel vector |
+
+For these values, 100 cm corresponds to approximately 1,783 ticks. Note: when motor specifications already incorporate internal planetary gearbox stages into the resolution specification `T` (such as REV HD Hex or GoBILDA series), do not multiply by internal gearbox ratios again.
+
+### Complete FTC Java Implementation
+
+The following autonomous routine leverages the built-in `RUN_TO_POSITION` mode in the FTC SDK. This mode delegates closed-loop trajectory holding to the hardware PID controller running natively on the REV Control Hub:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+@Autonomous(name = "Autonomous Encoder Drive", group = "Tutorial")
+public class AutoEncoderDrive extends LinearOpMode {
+    private DcMotor leftDrive, rightDrive;
+    private static final double COUNTS_PER_REV = 537.7;
+    private static final double DRIVE_GEAR_REDUCTION = 1.0;
+    private static final double WHEEL_DIAMETER_CM = 9.6;
+    private static final double COUNTS_PER_CM = 
+        (COUNTS_PER_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_CM * Math.PI);
+
+    @Override
+    public void runOpMode() {
+        leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
+        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+
+        leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        telemetry.addData("Status", "Initialized & Encoders Reset");
+        telemetry.update();
+
+        waitForStart();
+
+        // Drive forward 100 cm at 50% power with a 5.0 second safety timeout
+        encoderDrive(0.5, 100.0, 100.0, 5.0);
+    }
+
+    public void encoderDrive(double speed, double leftCm, double rightCm, double timeoutS) {
+        if (!opModeIsActive()) return;
+
+        int newLeftTarget = leftDrive.getCurrentPosition() + (int)(leftCm * COUNTS_PER_CM);
+        int newRightTarget = rightDrive.getCurrentPosition() + (int)(rightCm * COUNTS_PER_CM);
+
+        leftDrive.setTargetPosition(newLeftTarget);
+        rightDrive.setTargetPosition(newRightTarget);
+
+        leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ElapsedTime runtime = new ElapsedTime();
+        leftDrive.setPower(Math.abs(speed));
+        rightDrive.setPower(Math.abs(speed));
+
+        while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
+               (leftDrive.isBusy() && rightDrive.isBusy())) {
+            telemetry.addData("Target", "%7d :%7d", newLeftTarget, newRightTarget);
+            telemetry.addData("Actual", "%7d :%7d", leftDrive.getCurrentPosition(), rightDrive.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+
+        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+}
+```
+
+### Field Tuning and Operational Edge Cases
+
+- **Encoder Direction Verification**: Suspend the chassis off the floor and command positive power. Verify that encoder readings increase in telemetry. If an encoder increments negatively, invert motor direction via `setDirection(REVERSE)` or swap encoder A/B wiring.
+- **Traction and Slip Mitigation**: Aggressive acceleration causes wheels to slip on foam field tiles, accumulating positional error. Implement software acceleration slew limits or cap maximum motor power between `0.4` and `0.6`.
+- **Empirical Diameter Calibration**: Command the robot to drive 200 cm, measure the actual physical displacement with a tape measure, and compute an effective calibrated diameter: `D_calibrated = D_nominal * fracS_measuredS_commanded`.
+- **Watchdog Timeout Protection**: Always include an explicit `ElapsedTime` condition in the motion loop. If the robot becomes wedged against field perimeter walls or partner robots, the timeout prevents infinite blocking loops and protects motors from sustained stall currents.

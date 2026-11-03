@@ -1,0 +1,76 @@
+## Khử nhiễu tín hiệu và chống nhiễu cho bus I2C trên robot
+
+Hệ thống điều khiển robot tích hợp nhiều thiết bị công suất cao như động cơ DC, bộ điều tốc PWM cùng lúc với các cảm biến nhạy cảm như IMU, cảm biến màu sắc, cảm biến khoảng cách quang học và encoder. Hiện tượng nhiễu điện từ (Electromagnetic Interference - EMI) và sụt áp tiếp địa thường xuyên gây treo giao tiếp dữ liệu, phổ biến nhất là trên bus I2C.
+
+![Cáp xoắn đôi chống nhiễu](https://commons.wikimedia.org/wiki/Special:FilePath/Twisted_pair.jpg)
+
+### Bản chất nhạy cảm của giao thức I2C
+
+Không giống như các giao thức vi sai như CAN bus hoặc RS485, I2C là giao thức đầu ra cực máng hở (open-drain) sử dụng mức điện áp đơn cực tham chiếu theo dây mass (GND chung):
+
+- Khi đường truyền ở mức logic cao, bus không được kích hoạt chủ động bởi transistor mà chỉ kéo lên thông qua điện trở pull-up.
+- Trở kháng kéo lên tương đối cao (thường từ 2.2k`\Omega` đến 10k`\Omega`) khiến đường truyền rất dễ hấp thu xung nhiễu cảm ứng từ dòng điện động cơ lân cận.
+- Điện dung ký sinh của dây dẫn dài làm vát tròn sườn dốc tín hiệu, thu hẹp cửa sổ đọc dữ liệu của vi điều khiển.
+
+```
+Dạng sóng I2C khi bị nhiễu do xung động cơ:
+
+Chuẩn:    +---+   +---+       +---+
+          |   |   |   |       |   |
+      ----+   +---+   +-------+   +----
+
+Bị nhiễu: +~/\+   +~~-+    /\ +~/\+
+          |   |  /|   |   /  \|   |  (Xung gai nhọn gây đọc sai bit hoặc
+      ----+   +-~-+   +--+    +---+   kẹt bus SDA ở mức Low vĩnh viễn)
+```
+
+### Các nguồn phát nhiễu chính trên robot
+
+| Nguồn phát sinh | Cơ chế gây nhiễu | Biểu hiện thường gặp |
+| --- | --- | --- |
+| Động cơ DC có chổi than | Tia lửa điện cổ góp tạo xung điện áp cao tần (High-frequency transients) | Cảm biến IMU reset ngẫu nhiên khi robot tăng tốc đột ngột |
+| Dây nguồn động cơ mang dòng PWM | Biến thiên dòng điện cực lớn theo thời gian (`di/dt`) bức xạ từ trường sang dây tín hiệu song song | Cảm biến màu I2C trả về giá trị 0xFF hoặc treo cờ chờ bận |
+| Mạch nguồn chuyển mạch (Buck converter) | Nhiễu gợn sóng đóng cắt ở tần số 100kHz - 1MHz trên đường cấp nguồn 5V/3.3V | Sai số đo analog, encoder quang học đếm thừa xung nhịp |
+| Vòng lặp mass (Ground loop) | Chênh lệch điện thế giữa các điểm tiếp địa do dòng motor chạy qua khung kim loại | Vi điều khiển mất kết nối ngắt quãng với module cảm biến phụ |
+
+### Giải pháp kỹ thuật giảm thiểu và triệt tiêu nhiễu
+
+#### 1. Định tuyến dây tín hiệu (Cable routing)
+
+- **Quy tắc khoảng cách:** Tuyệt đối không bó chung bó dây cảm biến (I2C, SPI, Analog) cùng với bó dây nguồn motor 12V. Duy trì khoảng cách vật lý tối thiểu 5 cm đến 10 cm giữa hai đường dây.
+- **Cắt vuông góc:** Nếu bắt buộc phải giao cắt giữa đường tín hiệu I2C và đường động cơ công suất, hãy bố trí góc giao cắt 90 độ thay vì đi song song kéo dài.
+
+#### 2. Kỹ thuật xoắn đôi và bọc kim (Twisted pair & Shielding)
+
+- **Bố cục dây xoắn đôi:** Khi chạy dây I2C dài quá 20 cm, hãy ghép cặp xoắn: một cặp gồm dây SDA quấn cùng dây GND, và một cặp gồm dây SCL quấn cùng dây VCC (hoặc GND thứ hai). Việc này giúp từ trường nhiễu cảm ứng đối xứng bị triệt tiêu lẫn nhau.
+- **Quy tắc tiếp địa lớp bọc kim:** Nếu dùng cáp có lưới kim loại bọc ngoài (Shielded cable), chỉ nối lớp lưới chống nhiễu vào chân vỏ tiếp địa ở **một đầu duy nhất** (phía vi điều khiển hoặc Control Hub). Nối cả hai đầu sẽ tạo thành vòng lặp dòng điện (ground loop), biến vỏ cáp thành ăng-ten hút nhiễu.
+
+#### 3. Tối ưu hóa phần cứng và linh kiện lọc
+
+- **Tính toán điện trở Pull-up:** Nếu đường truyền I2C dài và có điện dung dây `C_bus` cao, giảm trị số điện trở kéo lên về khoảng 2.2k`\Omega` hoặc 1.8k`\Omega` (vẫn đảm bảo không vượt quá giới hạn dòng xả chìm 3mA của chân vi điều khiển). Điều này giúp sườn lên tín hiệu dốc hơn, chống lại điện dung ký sinh.
+- **Hạt lọc Ferit (Ferrite bead):** Lắp các lõi ferit kẹp ngay tại hai cực cấp nguồn của động cơ DC và đầu vào nguồn của bảng mạch điều khiển để dập tắt xung gai cao tần.
+- **Tụ thoát nhiễu (Bypass capacitor):** Hàn tụ gốm 0.1`\mu`F (100nF) đặt sát chân cấp nguồn VCC - GND của từng chip cảm biến để lọc triệt để xung gợn sóng từ nguồn cấp.
+
+#### 4. Khôi phục phần mềm khi kẹt bus (Bus Recovery Routine)
+
+Khi một thiết bị ngoại vi I2C bị nhiễu làm ngắt giữa chừng quá trình truyền và giữ chân SDA ở mức thấp vĩnh viễn, vi điều khiển có thể thực hiện thuật toán reset phần mềm:
+
+```c
+// Quy trình khôi phục chân bus I2C bị treo:
+// 1. Cấu hình tạm thời chân SCL và SDA thành GPIO ngõ ra.
+// 2. Phát 9 xung nhịp xung Clock nhân tạo trên chân SCL.
+for (int i = 0; i < 9; i++) {
+    set_pin_low(SCL_PIN);
+    delay_microseconds(5);
+    set_pin_high(SCL_PIN);
+    delay_microseconds(5);
+}
+// 3. Phát điều kiện STOP: kéo SDA lên High trong khi SCL đang High.
+set_pin_low(SDA_PIN);
+delay_microseconds(5);
+set_pin_high(SCL_PIN);
+delay_microseconds(5);
+set_pin_high(SDA_PIN);
+// 4. Khởi tạo lại module phần cứng I2C.
+```
+Quy trình này ép ngoại vi giải phóng đường truyền SDA, đưa bus trở lại trạng thái sẵn sàng mà không cần khởi động lại toàn bộ robot.

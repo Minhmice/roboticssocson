@@ -1,0 +1,36 @@
+## Đầu gắp (End-Effector): Cơ cấu kẹp, hút chân không và con lăn
+
+Trong robot FIRST Tech Challenge (FTC), đầu gắp (end-effector) là bộ phận tiếp xúc trực tiếp với các phần tử trò chơi (game elements: hình nón, khối hộp, vòng tròn hoặc mẫu vật). Thiết kế end-effector tối ưu phải cân bằng giữa tốc độ lấy mẫu (acquisition speed), lực kẹp giữ chống rung lắc khi robot di chuyển với gia tốc cao, độ nhẹ cơ khí và khả năng tự căn chỉnh sai số hình học.
+
+![Cơ cấu tay gắp cơ khí và ngàm kẹp linh hoạt trong chế tạo robot](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80)
+
+### Phân loại các dạng cơ cấu End-Effector phổ biến
+
+Tùy thuộc vào hình dáng hình học và tính chất cơ lý của vật thể trong từng mùa giải, các đội thi đấu thường lựa chọn giữa ba trường phái kết cấu chính:
+
+```text
+               ┌── Ngàm kẹp chủ động (Active Pinch Claw) ─── Linkage 4 thanh + Smart Servo
+               │
+End-Effector ──┼── Con lăn thu mẫu (Active Roller Intake) ── Bánh compliant TPU + High-RPM Motor
+               │
+               └── Ngàm tự khóa thụ động (Passive Latch) ─── Hình học vát nghiêng + Lò xo hồi vị
+```
+
+| Loại cơ cấu | Thời gian chu kỳ | Khối lượng & Độ phức tạp | Ưu điểm cốt lõi | Hạn chế kỹ thuật |
+| --- | --- | --- | --- | --- |
+| **Kẹp ngàm hai phía (Pinch Claw)** | 0.2s – 0.5s | Trung bình (150–300g) | Giữ vật chắc chắn, định hướng góc đặt chính xác | Đòi hỏi độ chính xác căn chỉnh khi tiếp cận |
+| **Con lăn chủ động (Roller/Flywheel)** | < 0.1s | Cao (300–600g) | Biên độ nhận mẫu rộng, tự kéo vật vào buồng chứa | Chiếm nhiều diện tích, tiêu hao công suất động cơ |
+| **Ngàm thụ động (Passive Latching)** | Tức thời | Rất thấp (< 100g) | Không cần động cơ/servo, giải phóng cổng Hub | Chỉ nhả vật được bằng cơ cấu đẩy phụ hoặc hành trình cơ khí |
+
+### Tối ưu hóa ma sát và lựa chọn vật liệu tiếp xúc
+
+Hệ số ma sát giữa bề mặt tiếp xúc của kẹp và vật thể thi đấu quyết định trực tiếp lực ép cần thiết từ động cơ truyền động:
+- **Xốp Polyurethane (PU Foam) và Cao su Silicone**: Đem lại hệ số ma sát tĩnh `\mu > 1.2` trên các bề mặt nhựa trơn nhẵn. Đệm xốp PU có tính đàn hồi cao giúp phân bổ đều áp lực lên các bề mặt cong hoặc bất đối xứng.
+- **Vật liệu in 3D TPU (Shore 95A / 85A)**: Thích hợp để chế tạo các ngón kẹp có biên dạng tùy chỉnh theo hình dáng mẫu vật. Cấu trúc tổ ong bên trong ngón kẹp TPU tạo độ biến dạng mềm (compliance), giúp ngàm ôm chặt mẫu vật mà không làm gãy nứt kết cấu.
+- **Ống silicon tròng ngoài trục nhôm**: Giải pháp đơn giản, bền bỉ và dễ thay thế khi bề mặt bị bám bụi sân thi đấu.
+
+### Tích hợp điều khiển: Servo thông minh và Cảm biến nhận diện
+
+1. **Điều khiển vị trí chính xác với Smart Servo**: Sử dụng servo lập trình được (như Axon Robotics hoặc REV Smart Robot Servo) cho phép cài đặt các góc dừng định sẵn (Stow, Ready, Grab, Score). Tránh hiện tượng servo bị ép kẹt (stall) gây sụt dòng bằng cách tinh chỉnh góc kẹp vừa đủ áp sát mẫu vật.
+2. **Cảm biến quang học hoặc cảm biến màu (Color & Distance Sensor)**: Đặt một cảm biến quang học thu nhỏ ngay trong lòng buồng kẹp. Khi vật thể đi vào vùng hội tụ (khoảng cách 10–25mm), cảm biến kích hoạt lệnh đóng kẹp tự động với độ trễ dưới 20ms, loại bỏ hoàn toàn độ trễ phản xạ của người điều khiển (human reaction time).
+3. **Cơ cấu chống tuột khi rung lắc**: Thiết kế ngàm kẹp có góc nghiêng âm (undercut angle) từ 3° đến 5°, đảm bảo khi robot phanh gấp, lực quán tính của vật càng kéo ngàm ép chặt hơn vào vị trí khóa.

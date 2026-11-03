@@ -1,0 +1,149 @@
+## Cảm biến trong FIRST Tech Challenge: Nguyên lý và Ứng dụng
+
+Cảm biến đóng vai trò là cơ quan thu nhận thông tin môi trường, giúp robot FTC định vị chính xác trên sân thi đấu, phát hiện chướng ngại vật, nhận diện game element và kiểm soát giới hạn hành trình cơ khí. Việc cấu hình đúng giao tiếp phần cứng (I²C, Digital, Analog) và xử lý dữ liệu theo thời gian thực quyết định trực tiếp đến độ tin cậy của giải thuật tự động.
+
+![Cảm biến màu và khoảng cách REV Color Sensor V3](https://docs.revrobotics.com/assets/images/color-sensor-v3.png)
+
+### Phân loại các cảm biến thông dụng trong FTC
+
+Hệ sinh thái phần cứng FTC hỗ trợ nhiều chuẩn cảm biến chuyên dụng được kết nối qua REV Control Hub hoặc Expansion Hub:
+
+| Tên cảm biến | Chuẩn giao tiếp | Giao thức / Nguyên lý | Điện áp hoạt động | Mục đích sử dụng |
+|---|---|---|---:|---|
+| REV Color Sensor V3 (REV-31-1557) | I²C (Bus 0–3) | Cảm biến màu RGB + tiệm cận hồng ngoại (IR) | 3.3V DC | Nhận diện màu sắc mẫu vật, phát hiện vật phẩm đã vào khoang nạp |
+| REV 2m Distance Sensor | I²C (Bus 0–3) | Đo thời gian bay của ánh sáng (Time-of-Flight Laser) | 3.3V DC | Căn chỉnh khoảng cách robot đến tường sân, phát hiện robot đối phương |
+| REV Magnetic Limit Switch | Digital (Ch 0/1) | Hiệu ứng từ trường Hall (không tiếp xúc) | 3.3V DC | Xác định điểm gốc (Homing) cho thang nâng, cơ cấu trượt |
+| REV Touch Sensor | Digital (Ch 0/1) | Công tắc hành trình cơ học (Microswitch) | 3.3V DC | Công tắc chạm an toàn giới hạn trên/dưới của tay đòn |
+| REV Through-Bore Encoder | Analog / Digital | Cảm biến góc tuyệt đối (Analog) hoặc xung (Quadrature) | 3.3V DC | Đo góc xoay khớp cổ tay, góc tay gắp, bánh xe điều hướng swerve |
+| Cảm biến gia tốc & góc xoay (IMU) | I²C nội bộ | Con quay hồi chuyển 3 trục (BNO055 / BHI260AP) | 3.3V DC | Đo góc hướng Yaw của robot, giữ thăng bằng và chạy thẳng |
+
+### Sơ đồ chân và cấu trúc cáp tín hiệu
+
+Cổng kết nối cảm biến trên REV Hub tuân thủ chuẩn giắc cắm JST-PH 4 chân. Sơ đồ đấu nối phải đảm bảo đúng thứ tự chân để tránh làm cháy vi mạch thu phát:
+
+1. **Cổng giao tiếp I²C (4 chân):**
+   - Chân 1 (GND): Đất chung tín hiệu
+   - Chân 2 (VCC): Nguồn cấp logic +3.3V DC
+   - Chân 3 (SDA): Đường truyền dữ liệu hai chiều (Serial Data)
+   - Chân 4 (SCL): Đường xung nhịp đồng bộ (Serial Clock)
+2. **Cổng tín hiệu Digital (4 chân):**
+   - Chân 1 (GND): Đất
+   - Chân 2 (VCC): Nguồn cấp +3.3V
+   - Chân 3 (Digital n): Kênh kỹ thuật số n
+   - Chân 4 (Digital n+1): Kênh kỹ thuật số n+1
+3. **Cổng Analog (4 chân):**
+   - Cung cấp nguồn 3.3V ở chân 2 và cho phép đọc điện áp dải `0 - 5.0V` trên chân 3 (Analog In 0) và chân 4 (Analog In 1).
+
+```text
+[Hub I2C Port]      GND (Pin 1) ────── Sensor GND
+                    3.3V (Pin 2) ───── Sensor VCC (3.3V)
+                    SDA (Pin 3) ────── Sensor SDA
+                    SCL (Pin 4) ────── Sensor SCL
+
+[Hub Digital Port]  GND (Pin 1) ────── Switch Common (C)
+                    3.3V (Pin 2) ───── Pull-Up Supply
+                    DIO (Pin 3) ────── Normally Open (NO)
+```
+
+*Quy tắc tránh xung đột địa chỉ I²C:* Mỗi bus I²C trên REV Hub là độc lập về mặt vật lý. Nếu sử dụng hai cảm biến có cùng địa chỉ phần cứng cố định (ví dụ: hai cảm biến REV Color Sensor V3 cùng mang địa chỉ `0x52`), **bắt buộc phải cắm vào hai cổng bus I²C khác nhau** (ví dụ cắm một cảm biến vào I2C Port 0, cảm biến còn lại vào I2C Port 1) để tránh xung đột địa chỉ trên cùng một đường truyền.
+
+### Công thức biến đổi tín hiệu và giải thuật xử lý
+
+#### 1. Chuyển đổi điện áp Analog sang góc xoay tuyệt đối
+Khi sử dụng cảm biến góc Analog (như chiết áp tuyến tính hoặc chế độ Absolute của Through-Bore Encoder):
+
+
+```text
+theta = frac{V_{measured}}{V_{reference}} * 360^circ
+```
+
+
+Trong đó `V_reference = 3.3V` là điện áp tham chiếu nội của hub.
+
+#### 2. Tích phân vận tốc góc và chuẩn hóa góc quay IMU
+Góc hướng Yaw `theta(t)` được tính bằng cách tích phân vận tốc góc `omega_z(t)` đo từ Gyroscope:
+
+
+```text
+theta(t) = theta_0 + int_{0}^{t} omega_z(tau) , dtau
+```
+
+
+Để tránh việc góc quay tích lũy vượt quá khoảng `[-pi, pi]` hoặc `[-180^circ, 180^circ]` gây khó khăn cho bộ điều khiển PID:
+
+
+```text
+theta_{normalized} = atan2(sin theta, cos theta)
+```
+
+
+### Lập trình tích hợp đa cảm biến trong FTC Java SDK
+
+Đoạn mã sau minh họa cách cấu hình IMU thế hệ mới, cảm biến màu/khoảng cách và công tắc số hành trình:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.hardware.rev.RevColorSensorV3;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+@TeleOp(name = "Sensors Guide Demo", group = "Guides")
+public class SensorsGuideDemo extends LinearOpMode {
+    private IMU imu;
+    private RevColorSensorV3 colorSensor;
+    private DigitalChannel touchSensor;
+
+    @Override
+    public void runOpMode() {
+        // Khởi tạo IMU với định hướng hub trên khung xe
+        imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters imuParameters = new IMU.Parameters(
+            new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+            )
+        );
+        imu.initialize(imuParameters);
+
+        // Khởi tạo cảm biến màu và tiệm cận
+        colorSensor = hardwareMap.get(RevColorSensorV3.class, "colorSensor");
+
+        // Khởi tạo công tắc số hành trình
+        touchSensor = hardwareMap.get(DigitalChannel.class, "touchSensor");
+        touchSensor.setMode(DigitalChannel.Mode.INPUT);
+
+        waitForStart();
+        imu.resetYaw();
+
+        while (opModeIsActive()) {
+            // Đọc góc hướng từ IMU (đơn vị độ)
+            double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+
+            // Đo khoảng cách tiệm cận (đơn vị milimet)
+            double distanceMm = colorSensor.getDistance(DistanceUnit.MM);
+
+            // Kiểm tra trạng thái nút chạm (Active-Low)
+            boolean isPressed = !touchSensor.getState();
+
+            telemetry.addData("Robot Heading (Yaw)", "%.1f deg", heading);
+            telemetry.addData("Distance", "%.1f mm", distanceMm);
+            telemetry.addData("Color Red", colorSensor.red());
+            telemetry.addData("Color Blue", colorSensor.blue());
+            telemetry.addData("Limit Switch Pressed", isPressed);
+            telemetry.update();
+        }
+    }
+}
+```
+
+### Hướng dẫn kiểm tra và chẩn đoán sự cố cảm biến
+
+1. **Lỗi I2C Bus Lock (Hub nhấp nháy đèn đỏ hoặc chương trình báo lỗi I2C timeout):** Thường do dây cáp I²C dài quá mức hoặc đi sát dây động cơ dòng lớn gây nhiễu điện từ. Cần xoắn đôi các cặp dây hoặc rút ngắn chiều dài dây I²C dưới 30cm.
+2. **Cảm biến màu đọc sai khi thi đấu:** Ánh sáng môi trường tại nhà thi đấu khác biệt với phòng tập. Luôn che chắn ánh sáng xung quanh đầu đọc cảm biến bằng nẹp in 3D và chuẩn hóa bằng tỉ lệ màu `red() / blue()` thay vì giá trị thô.
+3. **IMU bị trôi góc (Drift):** Tránh di chuyển robot trong 1–2 giây đầu khi vừa bật nguồn hoặc khi gọi lệnh `resetYaw()` để bộ lọc trạng thái của IMU ổn định giá trị bias ban đầu.

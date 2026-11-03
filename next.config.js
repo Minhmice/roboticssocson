@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
+const withMDX = require("@next/mdx")();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   outputFileTracingRoot: __dirname,
@@ -25,19 +29,6 @@ const nextConfig = {
         source: "/ingest/:path*",
         destination: "https://us.i.posthog.com/:path*",
       },
-    ];
-  },
-  async redirects() {
-    return [
-      // Former sponsorship surfaces redirect to active fundraising page (both locales).
-      { source: "/sponsor", destination: "/fundraising", permanent: false },
-      { source: "/sponsorship", destination: "/fundraising", permanent: false },
-      { source: "/sponsor/:path*", destination: "/fundraising", permanent: false },
-      { source: "/sponsorship/:path*", destination: "/fundraising", permanent: false },
-      { source: "/en/sponsor", destination: "/en/fundraising", permanent: false },
-      { source: "/en/sponsorship", destination: "/en/fundraising", permanent: false },
-      { source: "/en/sponsor/:path*", destination: "/en/fundraising", permanent: false },
-      { source: "/en/sponsorship/:path*", destination: "/en/fundraising", permanent: false },
     ];
   },
   async headers() {
@@ -81,7 +72,8 @@ const nextConfig = {
   },
 };
 
-module.exports = {
+module.exports = withMDX({
   ...nextConfig,
-  allowedDevOrigins: ["100.79.102.99","100.90.108.8"],
-};
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  allowedDevOrigins: ["100.79.102.99", "100.90.108.8"],
+});

@@ -12,7 +12,7 @@ import { captureEvent } from "@/lib/posthog/client";
 import { AnalyticsEvents } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
 import { courseSurfacesEnabled } from "@/data/courseRegistration";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 
 interface NavLink {
   label: string;
@@ -34,6 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   const isContactPage = pathname === "/contact-us";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
 
   const trackNavClick = (link: NavLink) => {
     captureEvent(AnalyticsEvents.NAV_SECTION_CLICKED, {
@@ -51,13 +52,16 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
   }, []);
 
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    if (!mobileMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const closeOnDesktop = () => { if (desktop.matches) setMobileMenuOpen(false); };
+    desktop.addEventListener("change", closeOnDesktop);
+    closeOnDesktop();
     return () => {
-      document.body.style.overflow = "";
+      desktop.removeEventListener("change", closeOnDesktop);
+      document.body.style.overflow = previousOverflow;
     };
   }, [mobileMenuOpen]);
 
@@ -66,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
       { label: t("nav.home"), href: "/" },
       { label: t("nav.fundraising"), href: "/fundraising" },
       { label: t("nav.recruitment"), href: "/recruitment" },
-      { label: t("nav.rules"), href: "/luat-ftc" },
+      { label: t("nav.resources"), href: "/resources" },
       ...(courseSurfacesEnabled
         ? [{ label: t("nav.course"), href: "/course" }]
         : []),
@@ -74,7 +78,8 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
     [t],
   );
 
-  const isLinkActive = (link: NavLink) => pathname === link.href;
+  const isLinkActive = (link: NavLink) =>
+    link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
 
   const linkClassName = (link: NavLink) =>
     cn(
@@ -129,6 +134,12 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
 
   return (
     <nav
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && mobileMenuOpen) {
+          setMobileMenuOpen(false);
+          menuButton.current?.focus();
+        }
+      }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md transition-shadow duration-300",
         scrolled && "shadow-[0_1px_3px_rgba(0,0,0,0.08)] border-border/80",
@@ -176,6 +187,9 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
         </div>
 
         <button
+          ref={menuButton}
+          type="button"
+          aria-controls="mobile-navigation"
           className="md:hidden text-muted-foreground hover:text-primary transition-colors min-h-11 min-w-11 flex items-center justify-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           aria-label={mobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
           aria-expanded={mobileMenuOpen}
@@ -190,7 +204,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className }) => {
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md">
+        <div id="mobile-navigation" className="max-h-[calc(100dvh-3.5rem)] overflow-y-auto overscroll-contain border-t border-border bg-background/95 backdrop-blur-md md:hidden">
           <div className="container mx-auto px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <BootLink

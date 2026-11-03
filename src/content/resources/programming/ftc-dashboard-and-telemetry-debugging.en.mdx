@@ -1,0 +1,58 @@
+## FTC Dashboard and telemetry debugging
+
+Tuning robot autonomous paths and arm positions by recompiling code wastes match-prep time. FTC Dashboard provides a browser-based user interface served directly by the Robot Controller phone or Control Hub. It plots real-time telemetry variables, exposes live editable configuration fields, and draws robot poses onto a simulated 2D field canvas over Wi-Fi.
+
+![Robot controller telemetry display](https://commons.wikimedia.org/wiki/Special:FilePath/First_Tech_Challenge_Robot.JPG)
+
+### Setup and live configuration
+
+FTC Dashboard runs alongside the FTC SDK web server on port 8070. Connect your laptop to the robot Wi-Fi network and navigate to `http://192.168.43.1:8070/dash` (or `http://192.168.49.1:8070/dash` when using an Android phone setup). Annotating a class with `@Config` exposes public static variables directly to the dashboard interface for instant editing during OpMode execution.
+
+```java
+@Config
+public class ArmConstants {
+    public static double kP = 0.0045;
+    public static double kI = 0.0000;
+    public static double kD = 0.0002;
+    public static double kG = 0.1200;
+    public static int targetPosition = 1450; // encoder ticks
+}
+```
+
+Any modification inside the dashboard web panel immediately overwrites the static variable in memory. Do not mark these constants as `final`, or the Java runtime will reject web modifications.
+
+### TelemetryPacket and field overlays
+
+Standard `telemetry.addData()` sends data line-by-line to the Driver Station screen. FTC Dashboard uses `TelemetryPacket` to group numeric telemetry for graphing and to draw vector shapes onto the field display canvas.
+
+```java
+FtcDashboard dashboard = FtcDashboard.getInstance();
+TelemetryPacket packet = new TelemetryPacket();
+
+// Numeric logging for interactive time-series plots
+packet.put("targetVelocity", targetVel);
+packet.put("measuredVelocity", currentVel);
+packet.put("motorCurrentAmps", motor.getCurrent(CurrentUnit.AMPS));
+
+// 2D field visualization
+packet.fieldOverlay()
+      .setStroke("blue")
+      .strokeCircle(robotX, robotY, 9.0)
+      .setStroke("red")
+      .strokeLine(robotX, robotY, targetX, targetY);
+
+dashboard.sendTelemetryPacket(packet);
+```
+
+### Performance trade-offs and best practices
+
+Excessive dashboard traffic degrades loop frequency. Keep control loop execution deterministic by following structured rules:
+
+| Aspect | Recommendation | Failure impact |
+| --- | --- | --- |
+| Packet dispatch rate | Send packets once per loop iteration or at 20–30 Hz | CPU thread starvation, dropped Wi-Fi packets |
+| String concatenation | Avoid building strings in `put()`; send raw numbers | Garbage collector pauses trigger motor stutter |
+| Driver Station mirroring | Use `dashboard.getTelemetry()` only when needed | Doubled network overhead to DS application |
+| Match day configuration | Disable dashboard or close browser tabs during official matches | Unintended latency and wireless interference |
+
+Keep telemetry names consistent across iterations so dashboard graphs maintain line color persistence between OpMode restarts.

@@ -1,0 +1,26 @@
+Reliable robot wiring begins with a protected power path, properly sized conductors, and mechanically sound terminations. A connector that looks closed can still have high resistance; heat and intermittent resets often reveal a poor crimp only under load.
+
+![Robot electrical wiring and testing harness](https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80)
+
+## Plan the power path
+
+Disconnect the battery before making or changing wiring. Place the specified main fuse or breaker close to the battery as required by the applicable competition rules and equipment instructions. Protect each branch according to its wire, connector, and device ratings: a fuse protects wiring against sustained overcurrent, not a person against every shock or a motor against all stalls. Never bypass protection to keep a robot running.
+
+Choose stranded copper wire from the expected continuous current, allowable voltage drop, insulation temperature rating, bundle heating, and connector rating. Peak motor stall current may be far above running current. Use the manufacturer's tables and FTC game rules for exact sizes and approved connectors rather than treating a generic AWG chart as a legal specification. Red is commonly positive and black negative; label both ends because color alone is not proof of polarity.
+
+| Item | Before power-up | Failure prevented |
+| --- | --- | --- |
+| Battery and fuse | Confirm polarity, fuse type and current rating | Reverse polarity, unprotected wiring |
+| Wire | Check gauge, insulation and moving-part clearance | Overheating, abrasion |
+| Connector | Confirm correct housing, terminal and locking tab | Loose or reversed connection |
+| Cable route | Add strain relief and bend clearance | Broken conductors at terminals |
+
+## Make a dependable crimp
+
+Follow the terminal manufacturer's strip length and crimp tooling instructions. Open-barrel contacts typically have separate conductor and insulation wings. Strip without nicking strands; insert all strands into the conductor barrel, with insulation under the support wings, then use the specified die and a full-cycle ratchet tool. The insulation crimp supports the jacket; it must not replace the metal-to-metal conductor crimp. Closed-barrel terminals require their matching die and barrel size, not an open-barrel die.
+
+Inspect the finished terminal against the manufacturer's acceptance criteria, such as IPC/WHMA-A-620 where applicable. Look for centered conductor, correct wing formation, visible strands where specified, intact insulation, and no exposed stray strands. Pull-test each wire without overstressing the assembly; use a calibrated tensile test when formal acceptance requires it. Do not solder a crimp unless the connector manufacturer explicitly permits it: solder can wick into strands and create a stiff fatigue point.
+
+## Commission and maintain
+
+With battery disconnected, use a multimeter to check continuity and look for a short between positive and negative. Electronics can affect readings, so isolate branches before diagnosing an uncertain result. Verify polarity at the device connector, secure cables away from sharp edges and chains, then energize with the robot restrained and wheels clear. Stop immediately for hot connectors, smoke, odor, or repeated breaker trips; disconnect power before investigation. Reinspect after impacts and replace damaged terminals rather than reusing deformed contacts.

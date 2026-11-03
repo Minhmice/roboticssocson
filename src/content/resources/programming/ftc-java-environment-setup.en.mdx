@@ -1,0 +1,111 @@
+## Setting Up FTC Java Development with Android Studio
+
+Developing FIRST Tech Challenge (FTC) robot software in Java through Android Studio provides team-grade version control with Git, intelligent syntax inspection, modular architecture, and native support for advanced robotics libraries like Road Runner, FTCLib, and OpenCV.
+
+![Android Studio Workspace for FTC Robot Controller](https://upload.wikimedia.org/wikipedia/commons/9/95/Android_Studio_Workspace.png)
+
+### Toolchain Prerequisites and SDK Platforms
+
+Before configuring the FTC project, verify that development workstations meet the standard software prerequisites:
+
+1. **Android Studio IDE:** Install an official release (such as Ladybug or Hedgehog) from developer.android.com.
+2. **Java Development Kit (JDK):** Current FTC SDK releases require OpenJDK 17. The embedded JetBrains Runtime bundled inside modern Android Studio installations satisfies this requirement without conflicting with host machine environment paths.
+3. **Android SDK Packages:** Launch the SDK Manager from Android Studio Settings and verify the following components are installed:
+   - Android SDK Platform 34 (matching current SDK target specifications).
+   - Android SDK Command-line Tools and Build-Tools.
+4. **Git Version Control:** Ensure Git is accessible in your system terminal for branch management and collaborative commits.
+
+### Cloning and Synchronizing FtcRobotController
+
+The FIRST Tech Challenge repository bundles the entire robot control engine alongside sample code. Clone the repository locally:
+
+```bash
+# Clone official repository
+git clone https://github.com/FIRST-Tech-Challenge/FtcRobotController.git
+cd FtcRobotController
+```
+
+In Android Studio:
+1. Select **File -> Open...** and navigate to root directory of cloned repository.
+2. Allow Gradle to download dependencies and sync project metadata. If prompted for an Android SDK location, ensure `local.properties` specifies the path:
+   ```properties
+   ## Windows format:
+   sdk.dir=C\:\\Users\\<UserName>\\AppData\\Local\\Android\\Sdk
+   ## macOS/Linux format:
+   # sdk.dir=/Users/<UserName>/Library/Android/sdk
+   ```
+3. Custom team code must strictly reside within the `TeamCode` module at:
+   `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/`.
+
+### Deployment Pipeline: USB and Wireless ADB
+
+The REV Control Hub runs an embedded Android runtime environment. Programs are compiled into an Android application package (`TeamCode-debug.apk`) and uploaded over Android Debug Bridge (ADB).
+
+```text
+[Engineering Laptop]
+         │ (Connected to Robot AP: DIRECT-xxxx or ControlHub-xxxx)
+         ▼
+[REV Control Hub Static IP: 192.168.43.1]
+         │
+    Port 5555 (ADB Daemon)
+         │
+[Hardware Execution Pipeline: TeamCode-debug.apk installed]
+```
+
+To establish a wireless Wi-Fi link for frictionless code updates during field testing:
+1. Connect laptop Wi-Fi interface to the REV Control Hub network (default password is typically `password`).
+2. Open terminal in Android Studio and execute:
+   ```bash
+   adb connect 192.168.43.1:5555
+   ```
+3. Once the output confirms `connected to 192.168.43.1:5555`, the REV Control Hub appears in the device selector dropdown on the main toolbar.
+
+### Sample LinearOpMode Template
+
+Create a new Java class named `BasicDriveOpMode.java` in `TeamCode/.../teamcode/`:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+@TeleOp(name = "Basic Drivetrain Verification", group = "LinearOpMode")
+public class BasicDriveOpMode extends LinearOpMode {
+    private DcMotor leftDriveMotor;
+    private DcMotor rightDriveMotor;
+
+    @Override
+    public void runOpMode() {
+        // Resolve hardware bindings defined in Driver Station configuration
+        leftDriveMotor = hardwareMap.get(DcMotor.class, "left_drive");
+        rightDriveMotor = hardwareMap.get(DcMotor.class, "right_drive");
+
+        // Reverse right-side drivetrain motor to match mechanical chassis orientation
+        leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+
+        telemetry.addData("Status", "Hardware initialized. Ready for match start.");
+        telemetry.update();
+
+        // Halt thread execution until Start button is pressed on Driver Station
+        waitForStart();
+
+        // Primary real-time control loop
+        while (opModeIsActive()) {
+            double drive = -gamepad1.left_stick_y;
+            double turn = gamepad1.right_stick_x;
+
+            leftDriveMotor.setPower(drive + turn);
+            rightDriveMotor.setPower(drive - turn);
+
+            telemetry.addData("Left Power", leftDriveMotor.getPower());
+            telemetry.addData("Right Power", rightDriveMotor.getPower());
+            telemetry.update();
+        }
+    }
+}
+```
+
+Click **Run 'TeamCode'** (green play icon) to compile and install bytecode onto the robot. Select the newly registered OpMode from the Driver Station user interface to verify actuator response.

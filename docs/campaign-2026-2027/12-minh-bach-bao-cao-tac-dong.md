@@ -16,7 +16,7 @@ flowchart LR
     end
     subgraph G2["GIAI ĐOẠN 2<br>Chế Tạo & Báo Cáo Tuần<br>(Tháng 11 - 12/2026)"]
         B1[Báo cáo tiến độ 2 tuần/lần] --> B2[Video Unbox linh kiện tài trợ]
-        B2 --> B3[Thư mời danh dự dự Maker Day]
+        B2 --> B3[Thư mời tham quan phòng Lab STEM]
     end
     subgraph G3["GIAI ĐOẠN 3<br>Đấu Trường & Vinh Danh<br>(Tháng 1 - 2/2027)"]
         C1[Gắn logo lên robot #39256 & Áo] --> C2[Standee Pit Lane FPT Hòa Lạc]
@@ -34,7 +34,7 @@ flowchart LR
 | Giai đoạn | Thời điểm thực hiện | Hành động cụ thể của Đội tuyển & Nhà trường | Ấn phẩm / Sản phẩm bàn giao cho Đối tác |
 |---|---|---|---|
 | **Giai đoạn 1: Onboarding & Pháp lý** | Trong 48h sau khi nhận chuyển khoản | - Gửi thư điện tử xác nhận tài trợ chính thức.<br>- Ký Thỏa thuận 3 bên (nếu doanh nghiệp yêu cầu).<br>- Doanh nghiệp cần chứng từ kế toán: CLB chuyển Ban Giám hiệu THPT Sóc Sơn hướng dẫn. | - Chứng từ kế toán và thư cảm ơn chính thức từ Hiệu trưởng.<br>- Welcome Kit số (ảnh đại diện đối tác, banner đồng hành). |
-| **Giai đoạn 2: Chế tạo & Cập nhật tiến độ** | Định kỳ 14 ngày/lần (15/11 – 15/01) | - Gửi email Bản tin Kỹ thuật (Technical Newsletter).<br>- Đăng tải video unbox linh kiện kèm tag thương hiệu.<br>- Mời đại diện doanh nghiệp tham dự ngày hội Maker Day. | - Video thực tế cụm cơ cấu có gắn linh kiện tài trợ.<br>- Thư mời tham quan phòng Lab STEM tại THPT Sóc Sơn.<br>- 02 vé VIP tham dự Maker Day "Can You Beat the Robot?". |
+| **Giai đoạn 2: Chế tạo & Cập nhật tiến độ** | Định kỳ 14 ngày/lần (15/11 – 15/01) | - Gửi email Bản tin Kỹ thuật (Technical Newsletter).<br>- Đăng tải video unbox linh kiện kèm tag thương hiệu.<br>- Mời đại diện doanh nghiệp tham quan phòng Lab. | - Video thực tế cụm cơ cấu có gắn linh kiện tài trợ.<br>- Thư mời tham quan phòng Lab STEM tại THPT Sóc Sơn.<br>- Báo cáo tóm tắt tiến độ chế tạo và lắp ráp. |
 | **Giai đoạn 3: Giải đấu & Tỏa sáng** | Tuần thi đấu VNCMP (Cuối T1 – T2/2027 `[ƯỚC TÍNH]`) | - Hoàn thiện dán decal logo chuẩn FIRST lên thân robot.<br>- Bố trí standee và ấn phẩm nhận diện tại Pit Lane Hòa Lạc.<br>- Đón tiếp đại diện đối tác đến thăm gian pit. | - Ảnh chụp độ phân giải cao của robot thi đấu trên sân.<br>- Thẻ VIP Pit Pass tham quan hậu trường giải đấu.<br>- Livestream trận đấu có tag tên thương hiệu đối tác. |
 | **Giai đoạn 4: Hậu mùa giải & Tác động** | Trong vòng 20 ngày sau khi bế mạc giải | - Tổ chức lễ tổng kết mùa giải tại Trường THPT Sóc Sơn.<br>- Trao kỷ niệm chương tri ân đối tác.<br>- Bàn giao Báo cáo tác động và Quyết toán tài chính. | - **Cuốn Báo cáo Tác động (Impact Report)** in màu trang trọng.<br>- Kỷ niệm chương chế tác từ nhôm CNC và mica cao cấp.<br>- Giấy chứng nhận đồng hành giáo dục STEM từ nhà trường. |
 
@@ -98,7 +98,7 @@ graph TD
         P2["Trang 2-3: Thư cảm ơn từ BGH & Chủ nhiệm CLB"]
         P3["Trang 4-5: Hồ sơ Robot BIOBUZZ #39256 & Thành tích giải đấu"]
         P4["Trang 6-7: Tác động giáo dục học sinh (STEM Impact Metrics)"]
-        P5["Trang 8-9: Tác động cộng đồng & Lan tỏa (Maker Day & Outreach)"]
+        P5["Trang 8-9: Tác động cộng đồng & Lan tỏa (Outreach & Mentorship)"]
         P6["Trang 10-11: Quyết toán tài chính minh bạch (Financial Audit)"]
         P7["Trang 12-14: Bằng chứng quyền lợi truyền thông (Media & PR Proofs)"]
         P8["Trang 15-16: Thông điệp tương lai & Thư mời đồng hành mùa sau"]
@@ -125,10 +125,10 @@ Báo cáo cung cấp các chỉ số đo lường cụ thể về sự phát tri
 - **Kỹ năng nghề nghiệp tích lũy:** Rèn luyện kỹ năng thiết kế CAD 3D, lập trình Java trên FIRST Tech Challenge SDK, kỹ năng quản lý dự án và thuyết trình kỹ thuật.
 
 #### Phần IV: Tác Động Lan Tỏa Cộng Đồng (Community Outreach)
-- **Ngày hội STEM Maker Day "Can You Beat the Robot?":**
-  - Số lượng học sinh tham gia: 40 học sinh THCS và THPT trên địa bàn huyện Sóc Sơn.
-  - Tỷ lệ hài lòng của học sinh và phụ huynh: Điền sau mùa giải.
-  - Hoạt động tự chủ, tạo hiệu ứng lan tỏa STEM địa phương.
+- **Hoạt động lan tỏa & kết nối:**
+  - Kết nối và giao lưu kỹ thuật với học sinh yêu khoa học tại địa phương.
+  - Tỷ lệ hài lòng và phản hồi tích cực từ cộng đồng: Điền sau mùa giải.
+  - Lan tỏa tinh thần tự lực cánh sinh và nghiên cứu robotics chuẩn FIRST.
 - **Chiến dịch truyền thông số:** Tổng lượt tiếp cận (Reach), lượt tương tác (Engagement) trên Fanpage và các phóng sự báo chí truyền thông ghi nhận về đội.
 
 #### Phần V: Quyết Toán Tài Chính Minh Bạch (Financial Statement)

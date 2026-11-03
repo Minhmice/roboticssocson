@@ -69,7 +69,6 @@ Mở bằng câu trả lời **thật** hay nhất của buổi quay, dài 1,5�
 | #2 Unboxing | "Mua bằng tiền của [N] người ủng hộ." | N lấy từ sổ cái đã đối soát |
 | #4 Chạy lần đầu | Bánh quay trên sàn, nghe rõ tiếng motor. Chữ: **"Những mét đầu tiên."** | Chỉ khi khung gầm chạy thật |
 | #5 Tự hành | Đồng hồ 30 giây, không ai chạm tay cầm. Chữ: **"Mùa trước 8,6 điểm. Giờ thì sao?"** | Chỉ khi có điểm tự hành đo được |
-| #3 Maker Day | Tiếng reo khi robot ghi điểm | Chỉ dùng hình có phiếu đồng ý |
 
 ### Bìa poster (dưới 8 từ)
 
@@ -79,7 +78,6 @@ Mở bằng câu trả lời **thật** hay nhất của buổi quay, dài 1,5�
 | P03-M1 | **30 GIÂY TỰ HÀNH: ROBOT NGHĨ BẰNG GÌ?** |
 | P04 | **CÒN [Y] ₫ ĐẾN MỐC [HẠN]** |
 | P05 | **4 NĂM · 5 GIẢI · 1 LẦN 36/38** |
-| P06 | **CAN YOU BEAT THE ROBOT?** |
 
 ### Dòng đầu caption (khoảng 120 ký tự, đọc được trước nút "Xem thêm")
 
@@ -108,11 +106,11 @@ Meta định nghĩa **3-second video plays** là số lần video được phát
 **Cách A/B không tốn tiền:**
 1. **Story bình chọn:** đăng 2 ảnh bìa hoặc 2 hook. Bản thắng dùng cho bài chính.
 2. **V02:** M1 và M3 dùng hook tò mò; M2 và M4 dùng hook tương phản. Sau 48 giờ, so tỷ lệ giữ 3 giây và thời gian xem trung bình, rồi chọn kiểu thắng cho V04.
-3. **Boost P06 hoặc V04:** chia 100.000 ₫ cho 2 bản hook, so chi phí cho mỗi 3-second play.
+3. **Boost V04:** chia 100.000 ₫ cho 2 bản hook, so chi phí cho mỗi 3-second play.
 
 **Bảng ghi số mỗi bài** (sau 48 giờ và sau 7 ngày):
 
-| Ngày | Mã | Hook | Hiển thị | 3s plays | Giữ 3s % | Xem TB (s) | Share | Lượt chuyển khoản có mã Mx | Đăng ký Maker Day |
+| Ngày | Mã | Hook | Hiển thị | 3s plays | Giữ 3s % | Xem TB (s) | Share | Lượt chuyển khoản có mã Mx | Lượt truy cập /support |
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|
 | | | | | | | | | | |
 

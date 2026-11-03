@@ -1,0 +1,24 @@
+## Từ chạm vật đến giữ chắc
+
+Intake đưa game element từ sân vào robot; transfer chuyển vật đó từ intake tới khoang chứa hoặc cơ cấu ghi điểm. Hai phần phải được thiết kế như một đường vận chuyển liên tục: tốc độ con lăn, khe hở và hướng dẫn quyết định vật có được bắt ổn định hay bị bật ra. Luật chơi thay đổi mỗi mùa, vì vậy đo kích thước, khối lượng và độ biến dạng của vật thật trước khi chốt hình học.
+
+![Hệ thống băng tải minh họa đường chuyển vật](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Conveyor_system_in_a_factory.jpg/960px-Conveyor_system_in_a_factory.jpg)
+
+### Chọn phương án thu
+
+| Cơ cấu | Phù hợp | Ưu điểm | Giới hạn |
+| --- | --- | --- | --- |
+| Con lăn cao su | Vật cứng, mặt tiếp xúc rõ | Bắt nhanh, bố trí gọn | Dễ bật vật nếu quá nhanh |
+| Bánh mềm compliant | Vật lệch vị trí hoặc biến dạng | Chịu sai lệch, tăng tiếp xúc | Mòn và lực ép thay đổi |
+| Băng tải | Chuyển vật qua khoảng dài | Hướng chuyển ổn định | Cần căng và căn băng |
+| Phễu thụ động | Gom vật vào miệng hẹp | Không thêm motor | Dễ kẹt nếu góc quá gắt |
+
+Tốc độ bề mặt con lăn là `v = π × diameter × rpm / 60`. Bắt đầu với tốc độ tương đương vận tốc tiếp cận robot, sau đó thử tăng giảm thay vì chọn rpm cao nhất. Khe hở cần đủ ép để tạo ma sát nhưng không làm vật biến dạng quá mức hoặc kẹt motor. Dùng trục có gối đỡ hai đầu với con lăn dài để giảm võng; che phần truyền động khỏi dây điện và tay người vận hành.
+
+### Thiết kế đường transfer
+
+Dùng má dẫn hướng loe tại cửa vào, thu dần tới kích thước làm việc; tránh góc sắc, bậc cao hoặc khoảng chết giữa hai con lăn. Nếu hai tầng chạy đồng thời, bảo đảm tầng sau nhận vật đủ nhanh nhưng không kéo mạnh làm vật xoay. Bố trí cửa kiểm tra để lấy vật kẹt mà không tháo toàn robot. Một cảm biến quang hoặc công tắc có thể báo vật đã tới vị trí; kiểm tra phản xạ của cả vật sáng lẫn vật tối trước khi tin tín hiệu.
+
+### Kiểm thử và xử lý kẹt
+
+Thử ít nhất ba hướng tiếp cận, nhiều vị trí lệch tâm và nhiều tốc độ lái; ghi số lần bắt thành công trên tổng số lần thử. Khi vật kẹt, dừng motor hoặc đảo chiều ngắn theo điều khiển của người lái; đặt giới hạn thời gian để tránh motor nóng. Kiểm tra dòng điện và nhiệt độ sau chuỗi thử, đồng thời kiểm tra bánh mềm mòn hoặc bám bụi. Trước khi đưa tay vào đường vật, ngắt nguồn robot; không dùng phần mềm làm biện pháp an toàn duy nhất.

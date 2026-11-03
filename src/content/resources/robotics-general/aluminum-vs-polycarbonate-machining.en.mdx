@@ -1,0 +1,27 @@
+6061 aluminum and Lexan (polycarbonate) both suit robot brackets, guards, and plates, but they demand different cutting behavior. Select material from load, stiffness, impact risk, electrical isolation, mass, and manufacturing process—not from appearance alone.
+
+![Precision CNC machining equipment for plate fabrication](https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80)
+
+## Material behavior
+
+6061-T6 aluminum has much higher stiffness and better thread performance than polycarbonate. It carries structural loads, spreads bearing stress, and survives heat from motors and electronics. It conducts electricity and can create shorts, so isolate bus bars and terminals. Its chips are sharp and can wrap around a tool. Polycarbonate is light, electrically insulating, and impact tolerant. It flexes significantly, creeps under sustained clamp load, softens at lower temperature than aluminum, and can crack from aggressive drilling or solvent exposure. Use washers and avoid heavily loaded tapped threads in thin Lexan; through-bolts with spacers are usually safer.
+
+| Property or operation | 6061-T6 aluminum | Lexan/polycarbonate |
+| --- | --- | --- |
+| Stiffness | High; good for load-bearing plates | Lower; use ribs, bends, or thicker sheet |
+| Cutting concern | Heat, chip recutting, built-up edge | Melting, chipping, grabbing |
+| Workholding | Rigid clamp; avoid distortion | Broad soft jaws; prevent flex and vibration |
+| Hole practice | Drill with chip evacuation and deburr | Sharp drill, backing board, low feed at breakthrough |
+| Fastening | Tapped holes possible with adequate depth | Through-bolt, washer, and spacer preferred |
+
+## CNC setup
+
+Use a rigid, sharp carbide tool for aluminum and lubricant or air blast appropriate to the machine. Keep chips moving; recutting chips raises temperature and damages finish. Conventional or climb milling depends on machine rigidity and controller setup; choose one consistent method that your machine documentation supports. Secure thin plates close to the cut and leave tabs when a profile could release before completion.
+
+For polycarbonate, use a sharp polished flute intended for plastics, conservative heat input, and strong chip evacuation. Clamp with a sacrificial backing board. Do not let a hot tool dwell in one spot. Drill a pilot only when it improves guidance; otherwise a dull pilot can rub and melt the hole. Reduce feed near breakthrough so the exit does not grab and crack. Remove protective film only where clamping or measurement requires it, and keep chips off finished surfaces.
+
+## Tolerance and inspection
+
+Program toolpaths from the actual stock thickness and measure critical features after deburring. Aluminum edges need deburring to remove sharp cuts; polycarbonate edges benefit from a fine file or scraper without creating stress notches. Measure holes with the intended fastener or a gauge, and check flatness on a reference surface. Separate clearance dimensions from press-fit dimensions. Prototype one coupon first, record tool diameter, feeds, speeds, depth of cut, and finish, then update the drawing with achieved tolerances.
+
+Wear eye protection, contain chips, and never reach into a running spindle. Stop the machine before clearing swarf. Test chemical compatibility on scrap: some cleaners and threadlockers can craze polycarbonate. Keep the finished guard away from hot motor housings and sharp aluminum edges; use spacers, edge trim, or grommets where needed.

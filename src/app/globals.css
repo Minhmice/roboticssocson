@@ -6,6 +6,24 @@
 @source "../../src/**/*.{js,ts,jsx,tsx,mdx}";
 @source inline("col-span-1 col-span-2 md:col-span-1 md:col-span-2 md:row-span-1 md:row-span-2");
 
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-vietnamese.woff2") format("woff2");
+  unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB;
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-latin.woff2") format("woff2");
+  unicode-range: U+??, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @layer base {
   :root {
     --background: #ffffff;
@@ -40,7 +58,7 @@
     --sidebar-accent-foreground: #2563eb;
     --sidebar-border: #e2e8f0;
     --sidebar-ring: #2563eb;
-    --font-sans: var(--font-inter), "Inter", sans-serif;
+    --font-sans: "Inter", sans-serif;
     --font-serif: "Playfair Display", serif;
     --font-mono: "Fira Code", monospace;
     --radius: 0.5rem;
@@ -1159,6 +1177,50 @@
     .boot-loader__glow {
       animation: none;
       opacity: 0.5;
+    }
+  }
+
+  /* /ftc-rules. Up to 1920x1080 the root stays 16px. Beyond that it grows with the smaller of
+     width and 16:9-height, so rem type, spacing and sticky chrome scale together (2K ~19px, 4K ~26px) and ultrawide
+     short screens do not inflate. Media queries ignore html font-size, so breakpoints still follow the real viewport.
+     scroll-padding-top is the single source for the sticky chrome height: anchors clear it and readLine() reads it. */
+  html:has(#manual-list) {
+    font-size: clamp(16px, calc(min(0.5vw, 0.889vh) + 6.4px), 40px);
+    scroll-padding-top: 8.75rem;
+  }
+
+  .manual-flash {
+    animation: manual-flash 1.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  @keyframes manual-flash {
+    0% {
+      background-color: transparent;
+      box-shadow: 0 0 0 3px transparent;
+    }
+    10% {
+      background-color: color-mix(in srgb, var(--primary) 14%, transparent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
+    }
+    33% {
+      background-color: color-mix(in srgb, var(--primary) 14%, transparent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
+      animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    100% {
+      background-color: transparent;
+      box-shadow: 0 0 0 3px transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html:has(#manual-list) {
+      scroll-behavior: auto;
+    }
+
+    .manual-flash {
+      animation: none;
+      background-color: color-mix(in srgb, var(--primary) 14%, transparent);
     }
   }
 }

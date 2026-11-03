@@ -1,0 +1,202 @@
+## Cơ cấu Drivetrain trong FIRST Tech Challenge
+
+Hệ thống khung gầm và hệ dẫn động (Drivetrain) là nền tảng cơ học cốt lõi quyết định tốc độ di chuyển, độ linh hoạt và độ chính xác quỹ đạo của robot FTC. Trong môi trường thi đấu cạnh tranh cao, việc lựa chọn kiến trúc dẫn động phù hợp (Mecanum, Tank, Swerve) cùng với việc tối ưu hóa giải thuật động học (Kinematics) và hệ thống định vị bánh xe phụ (Dead-wheel Odometry) là chìa khóa để giành lợi thế.
+
+![Mô hình dẫn động bốn bánh Mecanum cấu hình X-pattern](https://docs.revrobotics.com/assets/images/mecanum-wheel-drivetrain.png)
+
+### So sánh các hệ thống Drivetrain phổ biến trong FTC
+
+Mỗi cấu trúc dẫn động mang những đặc tính cơ học và yêu cầu điều khiển riêng biệt:
+
+| Dạng Drivetrain | Tính toàn hướng (Holonomic) | Số động cơ dẫn động | Độ bám sàn và lực đẩy | Độ phức tạp cơ khí | Độ khó lập trình | Ứng dụng phù hợp |
+|---|---|---|---|---|---|---|
+| Mecanum Drive | Có (Tiến, lùi, ngang, xoay) | 4 độc lập | Trung bình (Dễ bị đẩy ngang) | Thấp (Lắp trực tiếp bánh lên cốt motor) | Trung bình (Động học Mecanum chuẩn) | Phổ biến nhất trong FTC, thao tác nhặt/thả linh hoạt |
+| Tank / Skid-Steer | Không (Chỉ tiến, lùi, xoay) | 2, 4 hoặc 6 | Rất cao (Bánh cao su có gai) | Rất thấp | Thấp | Robot đẩy, phòng thủ, sân đấu có chướng ngại gờ cao |
+| Coaxial Swerve | Có (Độc lập góc và tốc độ) | 4 lái + 4 quay (hoặc Servo) | Rất cao | Rất cao (Mô-đun xoay 360°, bánh răng côn) | Rất cao (Odometry Swerve + PID góc từng bánh) | Đội thi nâng cao tìm kiếm tốc độ tối đa và lực kéo |
+| 3 / 4-Wheel Omni | Có (Bánh đa hướng con lăn 90°) | 3 hoặc 4 | Thấp | Thấp | Trung bình | Khung xe nhẹ, cơ cấu đơn giản |
+
+*Nguyên tắc vàng của bánh Mecanum:* Bốn bánh Mecanum phải được lắp theo cấu hình **"X-Pattern" khi nhìn từ trên xuống**. Tức là các con lăn ở mặt tiếp đất hướng về tâm xe, tạo thành các vector lực nghiêng `45^circ` đối xứng nhau. Nếu lắp sai thành hình "O-Pattern", robot sẽ mất khả năng di chuyển tịnh tiến sang ngang (strafing) hiệu quả.
+
+### Động học ngược Mecanum (Inverse Kinematics)
+
+Để robot di chuyển với vận tốc tịnh tiến `v_x` (dọc), `v_y` (ngang) và vận tốc quay `omega_z` (rad/s) theo hệ quy chiếu robot, vận tốc góc mong muốn của bốn bánh xe được tính theo hệ phương trình sau:
+
+
+```text
+v_{FL} = v_x - v_y - omega_z (L_x + L_y)
+```
+
+
+
+```text
+v_{FR} = v_x + v_y + omega_z (L_x + L_y)
+```
+
+
+
+```text
+v_{BL} = v_x + v_y - omega_z (L_x + L_y)
+```
+
+
+
+```text
+v_{BR} = v_x - v_y + omega_z (L_x + L_y)
+```
+
+
+Trong đó:
+- `L_x`: Khoảng cách từ tâm robot đến trục bánh xe theo chiều dọc (m).
+- `L_y`: Khoảng cách từ tâm robot đến tâm bánh xe theo chiều ngang (m).
+- `v_FL, v_FR, v_BL, v_BR`: Vận tốc điều khiển cấp cho bánh trước-trái, trước-phải, sau-trái và sau-phải.
+
+#### Chuẩn hóa công suất động cơ (Power Normalization)
+Khi các vector vận tốc cộng dồn vượt quá giới hạn công suất `[-1.0, 1.0]`, ta phải chuẩn hóa tất cả các bánh theo giá trị tuyệt đối lớn nhất để bảo toàn tỷ lệ hướng chuyển động:
+
+
+```text
+v_{max} = max(|v_{FL}|, |v_{FR}|, |v_{BL}|, |v_{BR}|, 1.0)
+```
+
+
+
+```text
+v_i' = (v_i / v_{max)} quad forall i in {FL, FR, BL, BR}
+```
+
+
+### Điều khiển theo hệ quy chiếu sân đấu (Field-Centric Driving)
+
+Để giúp người điều khiển dễ dàng điều hướng robot bất kể đầu robot đang quay về hướng nào, tín hiệu cần điều khiển (Joystick `J_x, J_y`) được xoay ngược theo góc hướng hiện tại của robot `theta` (đọc từ IMU):
+
+
+```text
+v_x = J_x cos(-theta) - J_y sin(-theta)
+```
+
+
+
+```text
+v_y = J_x sin(-theta) + J_y cos(-theta)
+```
+
+
+### Hệ thống bánh đo độc lập (Dead-Wheel Odometry)
+
+Do bánh xe Mecanum bị trượt con lăn khi gia tốc, việc đọc encoder trên động cơ dẫn động không đảm bảo độ chính xác định vị cho giai đoạn tự động. Giải pháp tiêu chuẩn là sử dụng **hệ thống 3 bánh đo tự do (Three-Wheel Odometry Pods)** gắn cảm biến quang/từ (như REV Through-Bore Encoder) tiếp xúc trực tiếp xuống mặt thảm bằng lò xo.
+
+```text
+       ┌─────────── Bánh Trước ───────────┐
+       │                                  │
+  Bánh Trái (L)                     Bánh Phải (R)
+       │                                  │
+       │         Bánh Ngang (C)           │
+       └──────────────────────────────────┘
+```
+
+Công thức cập nhật vị trí tương đối trong mỗi chu kỳ điều khiển:
+
+
+```text
+Delta theta = (Delta L - Delta R / B)
+```
+
+
+
+```text
+Delta y_{local} = (Delta L + Delta R / 2)
+```
+
+
+
+```text
+Delta x_{local} = Delta C - D_{perp} * Delta theta
+```
+
+
+Trong đó:
+- `B`: Chiều rộng khoảng cách giữa bánh đo trái và bánh đo phải (Track Width).
+- `D_perp`: Khoảng cách từ tâm quay của robot đến bánh đo ngang (Perpendicular Offset).
+- `Delta L, Delta R, Delta C`: Quãng đường dịch chuyển của bánh trái, phải và bánh ngang.
+
+### Đoạn mã Java hoàn chỉnh: Điều khiển Mecanum Field-Centric
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.IMU;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
+@TeleOp(name = "Field-Centric Mecanum Drivetrain", group = "Guides")
+public class FieldCentricMecanumDrive extends LinearOpMode {
+    @Override
+    public void runOpMode() {
+        DcMotorEx motorFL = hardwareMap.get(DcMotorEx.class, "motorFL");
+        DcMotorEx motorFR = hardwareMap.get(DcMotorEx.class, "motorFR");
+        DcMotorEx motorBL = hardwareMap.get(DcMotorEx.class, "motorBL");
+        DcMotorEx motorBR = hardwareMap.get(DcMotorEx.class, "motorBR");
+
+        // Đảo chiều động cơ bên trái do đặc tính đối xứng cơ học
+        motorFL.setDirection(DcMotor.Direction.REVERSE);
+        motorBL.setDirection(DcMotor.Direction.REVERSE);
+        motorFR.setDirection(DcMotor.Direction.FORWARD);
+        motorBR.setDirection(DcMotor.Direction.FORWARD);
+
+        // Chế độ phanh điện từ khi không cấp lực
+        motorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        IMU imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+        imu.initialize(parameters);
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+            double y = -gamepad1.left_stick_y; // Đảo dấu do trục Y joystick quy ước ngược
+            double x = gamepad1.left_stick_x * 1.1; // Bù lực ma sát con lăn khi đi ngang
+            double rx = gamepad1.right_stick_x;
+
+            if (gamepad1.options) {
+                imu.resetYaw();
+            }
+
+            double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+            // Chuyển đổi tọa độ sân đấu sang tọa độ robot
+            double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+            double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+
+            // Động học ngược Mecanum
+            double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1.0);
+            double frontLeftPower = (rotY + rotX + rx) / denominator;
+            double backLeftPower = (rotY - rotX + rx) / denominator;
+            double frontRightPower = (rotY - rotX - rx) / denominator;
+            double backRightPower = (rotY + rotX - rx) / denominator;
+
+            motorFL.setPower(frontLeftPower);
+            motorBL.setPower(backLeftPower);
+            motorFR.setPower(frontRightPower);
+            motorBR.setPower(backRightPower);
+
+            telemetry.addData("Heading (Deg)", Math.toDegrees(botHeading));
+            telemetry.update();
+        }
+    }
+}
+```
+
+### Các sự cố cơ học và phương pháp chẩn đoán
+
+1. **Robot bị lệch góc khi chạy thẳng:** Kiểm tra trọng tâm robot (Center of Mass - CoM). Nếu một góc robot quá nặng, các con lăn bánh Mecanum tại vị trí đó chịu tải lớn hơn, tạo ma sát không đều làm robot lệch hướng. Giải pháp là phân bổ lại ắc quy hoặc lắp bộ bù PID heading trong phần mềm.
+2. **Hiện tượng giật rung khi di chuyển tốc độ cao:** Con lăn cao su trên bánh Mecanum bị mòn không đều hoặc ốc siết cốt motor bị lỏng. Kiểm tra định kỳ độ rơ của trục lục giác 5mm/8mm và sử dụng keo khóa ren Loctite 242.
+3. **Bánh đo Odometry bị nhảy số:** Lò xo ép bánh đo xuống thảm quá yếu làm bánh nảy khi qua gờ sân, hoặc quá chặt gây cản trở và trượt bánh. Cần điều chỉnh lực ép lò xo đạt khoảng 2.0–3.0 N.

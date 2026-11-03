@@ -1,0 +1,31 @@
+## Tỷ số truyền và mô-men xoắn
+
+Bộ truyền bánh răng đổi tốc độ và mô-men từ động cơ để phù hợp với tải. Giảm tốc giúp nâng vật hoặc tăng lực kéo, nhưng bánh xe quay chậm hơn. Chọn tỷ số từ yêu cầu cơ cấu và đường đặc tính động cơ, không chỉ từ mô-men cực đại trên hộp số.
+
+![Hai bánh răng ăn khớp](https://commons.wikimedia.org/wiki/Special:FilePath/Gears%20animation.gif)
+
+### Công thức cơ bản
+
+Với bánh dẫn có `N_in` răng và bánh bị dẫn có `N_out` răng, tỷ số giảm tốc là `G = N_out / N_in`. Với các tầng nối tiếp, nhân tỷ số từng tầng. Bánh trung gian đổi chiều quay nhưng không đổi tỷ số tổng nếu cùng một bánh trung gian ăn khớp cả hai phía.
+
+| Đại lượng | Công thức gần đúng | Đơn vị |
+| --- | --- | --- |
+| Tốc độ đầu ra | `n_out = n_in / G` | vòng/phút |
+| Mô-men đầu ra | `T_out = T_in × G × η` | N·m |
+| Lực tiếp tuyến bánh xe | `F = T_out / r` | N |
+| Tốc độ mặt đất | `v = 2πr × n_out / 60` | m/s |
+
+Trong đó `η` là hiệu suất tổng, nhỏ hơn hoặc bằng 1, và `r` là bán kính bánh xe tính bằng mét. Với nhiều tầng, hiệu suất tổng bằng tích hiệu suất các tầng. Không cộng số răng để tính tỷ số của các tầng.
+
+### Ví dụ thiết kế
+
+Bánh 12 răng dẫn bánh 36 răng tạo `G = 3`. Nếu động cơ tại điểm làm việc cung cấp 0,4 N·m ở 300 vòng/phút và hiệu suất bộ truyền là 0,85, đầu ra khoảng 1,02 N·m ở 100 vòng/phút. Với bánh xe bán kính 0,05 m, lực tiếp tuyến lý tưởng khoảng 20,4 N và tốc độ khoảng 0,52 m/s. Đây là tính toán tại điểm làm việc đã giả định, không phải đồng thời mô-men kẹt và tốc độ không tải.
+
+### Kiểm tra tải thực tế
+
+- So sánh lực yêu cầu khi tăng tốc, leo dốc và vượt chướng ngại với lực có thể cung cấp; lực kéo thực còn bị giới hạn bởi ma sát bánh xe.
+- Với tay nâng ngang, mô-men do trọng lực xấp xỉ `T = m × g × d`, với `d` là khoảng cách ngang từ trục đến trọng tâm. Cộng mô-men của các vật và tính thêm dự phòng.
+- Dùng thông số động cơ tại điện áp thực tế; mô-men kẹt kéo dài gây nóng và có thể làm hỏng động cơ.
+- Đảm bảo trục, then, ổ đỡ và bánh răng chịu được tải; kiểm tra độ rơ, căn chỉnh và bôi trơn theo nhà sản xuất.
+
+Đo dòng điện, nhiệt độ và tốc độ dưới tải sau khi lắp. Nếu cơ cấu không đạt yêu cầu, thay đổi tỷ số, đường kính bánh hoặc thiết kế cơ khí thay vì chỉ tăng công suất điều khiển.

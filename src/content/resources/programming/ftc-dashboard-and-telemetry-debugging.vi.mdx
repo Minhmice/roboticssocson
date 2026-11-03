@@ -1,0 +1,58 @@
+## Gỡ lỗi và hiển thị đồ thị với FTC Dashboard
+
+Việc nạp lại mã nguồn mỗi lần chỉnh thông số điều khiển hay tọa độ tự hành làm tốn nhiều thời gian trên sân tập. FTC Dashboard cung cấp giao diện web trực quan được phát trực tiếp từ Control Hub hoặc điện thoại Robot Controller. Công cụ này cho phép vẽ đồ thị biến số thời gian thực, chỉnh trực tiếp hằng số qua trình duyệt và mô phỏng vị trí robot trên mặt sân 2D qua mạng Wi-Fi.
+
+![Hiển thị dữ liệu từ xa cho robot](https://commons.wikimedia.org/wiki/Special:FilePath/First_Tech_Challenge_Robot.JPG)
+
+### Cài đặt và cấu hình trực tiếp với `@Config`
+
+FTC Dashboard chạy song song với máy chủ web của FTC SDK tại cổng 8070. Khi kết nối máy tính vào mạng Wi-Fi của robot, mở trình duyệt tại địa chỉ `http://192.168.43.1:8070/dash` (hoặc `http://192.168.49.1:8070/dash` nếu dùng điện thoại làm Robot Controller). Đặt chú thích `@Config` trên đầu lớp chứa biến để đưa các biến `public static` lên giao diện điều khiển.
+
+```java
+@Config
+public class ArmConstants {
+    public static double kP = 0.0045;
+    public static double kI = 0.0000;
+    public static double kD = 0.0002;
+    public static double kG = 0.1200;
+    public static int targetPosition = 1450; // xung encoder
+}
+```
+
+Mỗi thao tác sửa số trên trình duyệt sẽ cập nhật tức thời giá trị biến trong bộ nhớ RAM mà không cần biên dịch lại mã. Lưu ý không khai báo từ khóa `final`, nếu không hệ thống sẽ báo lỗi không thể ghi đè.
+
+### Gói dữ liệu TelemetryPacket và vẽ sân ảo
+
+Hàm `telemetry.addData()` mặc định chỉ hiển thị chuỗi văn bản trên Driver Station. FTC Dashboard sử dụng đối tượng `TelemetryPacket` để phân tách dữ liệu số cho đồ thị và cung cấp bộ công cụ vẽ hình học lên sơ đồ sân đấu.
+
+```java
+FtcDashboard dashboard = FtcDashboard.getInstance();
+TelemetryPacket packet = new TelemetryPacket();
+
+// Ghi dữ liệu số cho đồ thị dao động
+packet.put("targetVelocity", targetVel);
+packet.put("measuredVelocity", currentVel);
+packet.put("motorCurrentAmps", motor.getCurrent(CurrentUnit.AMPS));
+
+// Vẽ quỹ đạo robot trên sa bàn 2D
+packet.fieldOverlay()
+      .setStroke("blue")
+      .strokeCircle(robotX, robotY, 9.0)
+      .setStroke("red")
+      .strokeLine(robotX, robotY, targetX, targetY);
+
+dashboard.sendTelemetryPacket(packet);
+```
+
+### Lưu ý hiệu năng và nguyên tắc vận hành
+
+Gửi dữ liệu quá dày làm tụt tần số vòng lặp điều khiển chính (loop frequency). Cần tuân thủ các quy tắc sau:
+
+| Tiêu chí | Khuyến nghị kỹ thuật | Hậu quả nếu cấu hình sai |
+| --- | --- | --- |
+| Tần số phát gói tin | Gửi tối đa 1 lần mỗi chu kỳ vòng lặp hoặc 20–30 Hz | Nghẽn luồng xử lý CPU, rớt gói tin Wi-Fi |
+| Ghép chuỗi văn bản | Tránh nối chuỗi string trong `put()`; chỉ gửi kiểu số nguyên thủy | Kích hoạt bộ gom rác Java (GC pause) gây giật động cơ |
+| Đồng bộ Driver Station | Chỉ dùng `dashboard.getTelemetry()` khi thực sự cần | Tăng gấp đôi tải mạng sang ứng dụng DS |
+| Ngày thi đấu chính thức | Tắt cửa sổ trình duyệt Dashboard khi thi đấu | Tiêu hao băng thông Wi-Fi và tăng độ trễ điều khiển |
+
+Đặt tên các trường `put()` cố định qua các vòng lặp để Dashboard duy trì màu sắc đường vẽ biểu đồ ổn định giữa các lần chạy OpMode.

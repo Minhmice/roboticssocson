@@ -1,0 +1,43 @@
+## Selecting 3D Printing Filaments for Robotics
+
+Robotic structures endure mechanical vibration, dynamic shock, thermal dissipation from actuators, and multi-axis tensile loads. There is no single universal filament for all robot components: materials must be matched against expected strain, ambient operating conditions, and machine capabilities, followed by empirical validation under match-level loads.
+
+![3D printing filament spools](https://commons.wikimedia.org/wiki/Special:FilePath/3D%20printer%20filament.jpg)
+
+### Engineering Material Comparison
+
+| Material | Key Strengths | Limitations & Typical Robotic Use |
+| --- | --- | --- |
+| PLA+ | High stiffness, minimal warping, low cost, easy to print | Additive formulations vary significantly between vendors; softens at low glass transition temperatures (~55-60°C). Best for sensor mounts, camera brackets, and non-structural electronics housings. |
+| PETG | High chemical resistance, greater impact ductility than standard PLA, low moisture absorption | Prone to stringing, higher surface friction, and structural creep under constant bolt tension over time. Suitable for battery trays, wire conduits, and external protective covers. |
+| TPU (95A / 85A) | High elastic elongation, vibration damping, exceptional impact absorption | Requires direct-drive extruders, slow print speeds, and short filament paths. Ideal for intake compliant wheels, motor shock absorbers, dead-axle bumper grommets, and cable strain reliefs. |
+| CF-Nylon (PA-CF) | Exceptional strength-to-weight ratio, high heat resistance, superior layer toughness | Highly hygroscopic, requires dry-box feeding, and rapidly abrades brass nozzles. Excellent for high-load gearbox plates, intake pivot hubs, and suspension brackets once properly validated. |
+
+PLA+ is a marketing blend without a standardized formulation. Similarly, Carbon Fiber filled Nylon (PA-CF) does not automatically yield indestructible parts in all load orientations: chopped carbon fiber strands primarily increase in-plane tensile and flexural modulus along the nozzle travel path, while inter-layer adhesion (`Z`-axis bonding) and moisture control dictate real-world shear failure thresholds. Note that carbon fiber dust can be electrically conductive; keep post-processing debris away from exposed motor control boards.
+
+### Slicing Parameters and Extruder Configuration
+
+- **Filament Drying and Storage:** Keep technical filaments sealed with desiccant. Nylon and TPU must be dried in an active filament dehydrator (typically 70°C for 6-12 hours for PA) prior to printing. Audible popping, surface pockmarks, or excessive wispy stringing during extrusion indicate absorbed moisture.
+- **Thermal Profiles:** Adhere to manufacturer temperature data sheets. Verify your hotend is all-metal before printing CF-Nylon at temperatures exceeding 250°C, and ensure the heated bed maintains proper thermal stability without cooling draft fluctuations.
+- **Abrasion-Resistant Tooling:** Always use hardened steel, ruby, or tungsten carbide nozzles when printing carbon fiber composites. A standard 0.4mm brass nozzle will erode within hours, enlarging the orifice and ruining extrusion accuracy. Consider 0.6mm nozzles to minimize composite clogging.
+- **Extrusion Dynamics for TPU:** Disable or sharply reduce retraction distances on flexible filaments. Run extrusion speeds between 15 mm/s and 30 mm/s to prevent filament buckling between the drive gear and the heat break.
+
+### Structural Design and Stress Orientation
+
+Because FDM components exhibit anisotropic mechanical properties, always orient CAD models on the print bed so that primary tensile and bending moments do not act along the layer boundary plane (`Z`-axis delamination). 
+
+```
+Layer Direction vs. Bending Force:
+
+WEAK ORIENTATION (Tension pulls layers apart):
+  Force  ↓↓↓
+  [============] Layer 3  ==> Cleavage line
+  [============] Layer 2
+  [============] Layer 1
+
+OPTIMAL ORIENTATION (Filament strands resist tension):
+  Force  ↓↓↓
+  [ |  |  |  | ]  Continuous perimeter loops absorb bending moment
+```
+
+Increase perimeter wall counts (4 to 6 perimeters) and top/bottom shell thickness rather than purely increasing internal infill percentage. Incorporate generous internal fillets (`R \ge 2\textmm`) to eliminate notch stress concentrations around bolt pass-through holes. Use brass heat-set threaded inserts instead of threading directly into plastic walls to maintain reusable clamping torque under competition shocks.

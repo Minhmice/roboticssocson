@@ -1,0 +1,59 @@
+## Quản lý mã nguồn Git cho đội thi robotics
+
+Lập trình robot kết hợp thay đổi phần cứng liên tục, tinh chỉnh thông số cảm biến tự hành và nhiều lập trình viên cùng thao tác trên một dự án. Nếu không kiểm soát phiên bản chặt chẽ, các đoạn mã thử nghiệm chưa kiểm tra sẽ ghi đè lên bài tự hành ổn định ngay trước giờ thi đấu. Quy trình Git chuẩn hóa giúp thử nghiệm an toàn, minh bạch lịch sử và cho phép khôi phục mã nguồn tức thì trong khu vực kỹ thuật (pit).
+
+![Biểu trưng hệ thống quản lý phiên bản Git](https://commons.wikimedia.org/wiki/Special:FilePath/Git_icon.svg)
+
+### Cấu trúc dự án FTC và tệp `.gitignore`
+
+Android Studio và Gradle tự động tạo hàng gigabyte tệp nhị phân, bộ nhớ đệm và đường dẫn máy cục bộ. Đưa các tệp này vào Git sẽ làm phình dung lượng kho chứa và gây xung đột liên tục giữa các máy tính của đội. Tệp `.gitignore` ở thư mục gốc cần loại trừ các mẫu sau:
+
+```text
+# Bộ nhớ đệm Gradle và Android Studio
+.gradle/
+build/
+*/build/
+*.iml
+.idea/
+
+# Cấu hình đường dẫn SDK cục bộ và khóa bảo mật
+local.properties
+.DS_Store
+*.apk
+captures/
+```
+
+Tuyệt đối không commit tệp `local.properties`. Tệp này chứa đường dẫn Android SDK riêng biệt của từng máy tính. Đẩy tệp này lên kho chung sẽ khiến toàn bộ thành viên khác bị lỗi biên dịch dự án.
+
+### Chiến lược phân nhánh trong mùa giải
+
+Đẩy mã trực tiếp lên nhánh `main` khi đang sửa chữa vội trong pit là nguyên nhân hàng đầu khiến robot dừng hoạt động trên sân. Đội thi nên phân tách nhánh theo nguyên tắc kiểm thử:
+
+| Loại nhánh | Quy ước đặt tên | Mục đích và quy định kiểm soát |
+| --- | --- | --- |
+| Ổn định / Thi đấu | `main` | Mã nguồn đã qua kiểm nghiệm thực tế trên robot; khóa quyền push trực tiếp |
+| Tính năng cơ cấu | `feat/intake-pid` | Phát triển hệ thống mới hoặc đường tự hành mới độc lập |
+| Điểm mốc giải đấu | `tag: v1.0-regional` | Gắn thẻ cố định phiên bản mã đã nạp cho từng giải đấu |
+| Khắc phục khẩn | `hotfix/drive-invert` | Sửa lỗi nhỏ phát sinh, kiểm tra ngay trên sân tập pit |
+
+Mỗi thành viên làm việc trên một nhánh tính năng riêng, kiểm tra kỹ trên phần cứng thực tế và tạo Pull Request để đồng đội rà soát trước khi gộp vào `main`.
+
+### Lệnh xử lý tình huống khẩn cấp trong khu vực pit
+
+Trong thời gian chuẩn bị gấp giữa các trận đấu, việc nắm vững các câu lệnh thiết yếu giúp xử lý sự cố nhanh chóng:
+
+```bash
+# Tạm cất các đoạn mã thử nghiệm chưa hoàn thiện trước giờ vào sân
+git stash push -m "chinh thong so tu hanh do dang"
+
+# Khôi phục toàn bộ mã nguồn về đúng bản ổn định gần nhất
+git reset --hard HEAD
+
+# Lấy lại các thay đổi thử nghiệm sau khi hoàn thành trận đấu
+git stash pop
+
+# Kiểm tra chính xác các dòng mã vừa thay đổi giữa hai commit
+git diff HEAD~1 HEAD TeamCode/src/main/java/org/firstinspires/ftc/teamcode/
+```
+
+Duy trì thói quen commit nhỏ, rõ ràng với tiền tố `feat:`, `fix:`, hoặc `tune:`. Khi robot gặp sự cố ngoài sân đấu, lệnh `git log` và `git bisect` sẽ giúp xác định chính xác hằng số hay logic nào vừa bị thay đổi gây ra lỗi.

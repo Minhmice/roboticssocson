@@ -22,10 +22,9 @@
   - Túi tote canvas (33x38cm): vốn **22.000 – 30.000 VNĐ/túi**, bán **69.000 – 89.000 VNĐ/túi** (lãi 40.000 – 60.000 VNĐ/túi).
   - Áo thun T-shirt cotton: vốn **95.000 – 120.000 VNĐ/áo**, bán **159.000 – 199.000 VNĐ/áo** (lãi 60.000 – 85.000 VNĐ/áo).
   - Kênh Preorder: 100% đề xuất **Google Form + VietQR** (0% phí sàn, kiểm soát tuyệt đối dòng tiền), kết hợp lookbook truyền thông trên Facebook/Instagram và mở bán trực tiếp tại THPT Sóc Sơn. Không dùng Shopee do phí sàn cao (9–14%) và rủi ro bom hàng.
-- **Maker Day Workshop ("Can You Beat the Robot?"):**
-  - Benchmark vé STEM/robotics học sinh tại Hà Nội: **69.000 – 120.000 VNĐ / vé** (buổi 90 – 120 phút).
-  - Mô hình tối ưu: **Tái sử dụng kit thực hành tại chỗ (Re-use kit)** — chi phí vật tư tiêu hao (Certificate in màu C300 + Sticker pack + khấu hao linh kiện + bánh nước): **~35.000 VNĐ / học sinh**. Bán vé **79.000 – 99.000 VNĐ / vé** -> Mỗi đợt 40 học sinh thu về **3.160.000 – 3.960.000 VNĐ**, chi phí **~1.400.000 VNĐ**, lãi thuần **1.760.000 – 2.560.000 VNĐ** nạp trực tiếp vào quỹ robot.
-  - Địa điểm: Mượn phòng đa năng/phòng tin học THPT Sóc Sơn (**0 VNĐ**).
+- **Hoạt động trải nghiệm & Outreach cộng đồng:**
+  - Tận dụng phòng học STEM, phòng máy tính trường học để chia sẻ kiến thức robotics cho học sinh THCS/THPT địa phương.
+  - Tối ưu chi phí bằng cách tận dụng cơ sở vật chất có sẵn tại trường THPT Sóc Sơn (**0 VNĐ**).
 - **Media, In ấn & Paid Ads:**
   - Standee cuốn nhôm 80x180cm: **190.000 – 240.000 VNĐ / bộ**; Backdrop bạt Hiflex 2x3m: **210.000 – 300.000 VNĐ** (tự căng) hoặc **750.000 – 1.000.000 VNĐ** (thuê cả khung sắt thi công).
   - Thợ ảnh sự kiện: **600.000 – 1.000.000 VNĐ / buổi** (khuyến nghị dùng ban Media của CLB để chi phí = **0 VNĐ**, chỉ bồi dưỡng ăn uống 200.000 VNĐ).
@@ -199,57 +198,15 @@ Dựa trên khảo sát các đợt mở bán merch gây quỹ của các CLB TH
 
 ---
 
-### Câu 3: Workshop Maker Day ("Can You Beat the Robot?")
+### Câu 3: Kế hoạch tổ chức hoạt động trải nghiệm STEM tại địa phương
 
-#### 1. Benchmark giá vé các workshop STEM / Robotics tại Hà Nội
-- **Trung tâm tư nhân (Teky, MindX):**
-  - Các buổi trải nghiệm ngắn (Trial Day) thường miễn phí để phễu, nhưng workshop chuyên đề cuối tuần (lắp ráp robot, lập trình mạch Arduino): giá vé dao động từ **150.000 – 300.000 VNĐ / buổi 2 – 3 tiếng**. Khóa học ngắn hạn: 1.800.000 – 3.500.000 VNĐ / khóa 8 – 10 buổi.
-- **Các tổ chức phi lợi nhuận (STEAM for Vietnam):** Miễn phí quy mô lớn trực tuyến; các trại hè offline do đối tác tài trợ địa điểm.
-- **Mô hình sự kiện của CLB học sinh (NMA ThunderClaw, các đội FTC trường THPT):**
-  - Tổ chức ngày hội Maker Day / Robotics Experience Day phục vụ học sinh cấp 1, cấp 2 và phụ huynh địa phương.
-  - Mức vé tham gia phù hợp với túi tiền phụ huynh ngoại thành Hà Nội (Sóc Sơn): **69.000 – 120.000 VNĐ / vé**.
-  - Thời lượng: **90 – 120 phút / ca**.
-  - Quy mô: Mỗi ca 15 – 25 học sinh; tổ chức 2 ca/ngày (sáng và chiều) -> đón **30 – 50 học sinh / ngày sự kiện**.
-
-#### 2. Phân tích chi phí vật tư linh kiện per participant (BOM Maker Day)
-Để tối ưu bài toán tài chính cho chiến dịch gây quỹ, có 2 kịch bản triển khai:
-
-- **Kịch bản A: Mô hình Tái Sử Dụng Kit Thực Hành (Re-use Kit — KHUYẾN NGHỊ TỐI ƯU):**
-  - Học sinh được hướng dẫn lắp ráp mạch, lập trình khối lệnh và điều khiển robot thật trên sa bàn ngay tại workshop. Kết thúc buổi học, học sinh hoàn trả lại bộ kit thực hành cho ban tổ chức.
-  - Học sinh được mang về: **Giấy chứng nhận (Certificate) có tên riêng + Bộ Sticker pack độc quyền + Quà lưu niệm nhỏ**.
-  - *Bảng chi phí chi tiết cho 1 học sinh:*
-    - Giấy chứng nhận Certificate in màu giấy C300 bo góc: **4.000 VNĐ**.
-    - Sticker pack tặng kèm (3–4 sticker): **4.500 VNĐ**.
-    - Khấu hao linh kiện thực hành (hao mòn dây cắm, pin, linh kiện gãy hỏng dự phòng): **8.000 VNĐ**.
-    - Đồ ăn nhẹ giữa giờ (1 hộp sữa/nước trái cây + bánh ngọt): **16.000 VNĐ**.
-    - Tài liệu hướng dẫn in màu A4 gấp đôi: **2.500 VNĐ**.
-    - **Tổng chi phí vật tư / học sinh:** **35.000 VNĐ / người**. `[ƯỚC TÍNH]`
-  - *Hiệu quả gây quỹ:*
-    - Bán vé: **79.000 VNĐ / vé** (vé tiêu chuẩn) hoặc **99.000 VNĐ / vé** (vé kèm móc khóa).
-    - Với 40 người tham gia (2 ca x 20 em):
-      - Tổng doanh thu bán vé: 40 x 89.000đ = **3.560.000 VNĐ**.
-      - Tổng chi phí vật tư tiêu hao: 40 x 35.000đ = **1.400.000 VNĐ**.
-      - **Lãi thuần đóng góp vào quỹ chế tạo robot:** **+2.160.000 VNĐ**.
-      - Đồng thời tạo ra bằng chứng hoạt động cộng đồng (Outreach impact) vô cùng giá trị để đưa vào hồ sơ gửi các nhà tài trợ doanh nghiệp lớn.
-
-- **Kịch bản B: Mô hình Mang Sản Phẩm Về Nhà (Take-home mini kit):**
-  - Học sinh được tự tay hàn/lắp ráp một mạch thông minh (ví dụ: máy báo động khoảng cách mini dùng Arduino Nano + cảm biến siêu âm) và mang toàn bộ về nhà sau buổi học.
-  - *Bảng chi phí vật tư cho 1 học sinh:*
-    - Bo Arduino Nano v3 Atmega328P CH340: **52.000 VNĐ** (mua sỉ trên Shopee MakerLab).
-    - Mini breadboard 170 chân cắm: **7.000 VNĐ**.
-    - Cảm biến siêu âm HC-SR04: **15.000 VNĐ**.
-    - Còi chip buzzer + 3 đèn LED 5mm + điện trở + dây cắm đực-đực: **10.000 VNĐ**.
-    - Đế pin 9V có công tắc + pin 9V vuông: **14.000 VNĐ**.
-    - Hộp carton đựng mini + tem dán: **6.000 VNĐ**.
-    - Giấy chứng nhận C300 + Bánh nước giữa giờ: **20.000 VNĐ**.
-    - **Tổng chi phí linh kiện & quà tặng mang về:** **124.000 VNĐ / người**. `[ƯỚC TÍNH]`
-  - *Hiệu quả gây quỹ:*
-    - Mức vé phải thu: **169.000 – 199.000 VNĐ / vé** mới có lãi gây quỹ 45.000 – 75.000 VNĐ/vé. Mức giá này khó tiếp cận hơn đối với mặt bằng chung phụ huynh huyện Sóc Sơn. Vì vậy, Kịch bản A (Re-use Kit) vẫn là lựa chọn ưu tiên hàng đầu.
-
-#### 3. Chi phí thuê địa điểm tổ chức Maker Day
-- **Phương án 1 (Tối ưu - 0 VNĐ):** Xin phép Ban Giám hiệu và Đoàn trường sử dụng phòng đa năng, thư viện hoặc phòng máy vi tính của trường THPT Sóc Sơn. Trường đã có sẵn điều hòa, máy chiếu, bàn ghế rộng, đường truyền wifi ổn định và đảm bảo tuyệt đối an toàn trường học.
-- **Phương án 2 (Tại địa bàn Sóc Sơn):** Mượn/thuê không gian tại trung tâm ngoại ngữ địa phương hoặc phòng họp riêng tại các quán cà phê lớn gần trường THPT Sóc Sơn: **250.000 – 450.000 VNĐ / buổi 3–4 tiếng** (hoặc thỏa thuận cam kết phụ huynh mua nước uống 25.000 – 35.000đ/ly).
-- **Phương án 3 (Thuê Co-working space tại trung tâm Hà Nội):** Phòng hội thảo quy mô 20 – 30 chỗ tại Cầu Giấy / Đống Đa có giá từ 300.000 – 500.000 VNĐ / giờ -> 1 buổi 3 tiếng tốn **1.000.000 – 1.600.000 VNĐ**. Phương án này không khuyến nghị vì chi phí cao và học sinh Sóc Sơn di chuyển vào trung tâm quá xa.
+#### 1. Khảo sát hoạt động giáo dục STEM tại địa bàn Sóc Sơn
+- **Mô hình hoạt động:** Tận dụng phòng học STEM, phòng máy tính trường học để chia sẻ kiến thức robotics cho học sinh THCS/THPT địa phương.
+- **Chi phí:** Tối ưu hóa ở mức tối thiểu bằng việc sử dụng thiết bị và kit có sẵn của CLB, không phát sinh chi phí thương mại.
+#### 2. Kế hoạch triển khai tiết kiệm chi phí
+CLB chủ trương tận dụng linh kiện sẵn có trong lab để tổ chức các buổi trao đổi, chia sẻ kỹ thuật nội bộ và hướng dẫn học sinh địa phương mà không thương mại hóa, không bán vé, đảm bảo tập trung tối đa thời gian và nguồn lực cho chiến dịch chế tạo robot thi đấu.
+#### 3. Chi phí địa điểm hoạt động STEM
+- **Phương án tối ưu (0 VNĐ):** Xin phép Ban Giám hiệu và Đoàn trường sử dụng phòng đa năng, thư viện hoặc phòng máy vi tính của trường THPT Sóc Sơn. Trường đã có sẵn điều hòa, máy chiếu, bàn ghế rộng, đường truyền wifi ổn định và đảm bảo tuyệt đối an toàn trường học.
 
 ---
 
@@ -266,7 +223,7 @@ Dựa trên khảo sát các đợt mở bán merch gây quỹ của các CLB TH
 - **Độ tin cậy:** Cao (High).
 
 #### 2. Báo giá in ấn ấn phẩm truyền thông tại Hà Nội
-- **Standee (Đặt tại cửa phòng Maker Day, sảnh trường, pit lane thi đấu):**
+- **Standee (Đặt tại sảnh trường, pit lane thi đấu):**
   - Standee chân chữ X cường lực (kích thước 60x160cm, in bạt PP cán màng mờ có đóng khoen 4 góc): **110.000 – 140.000 VNĐ / bộ**.
   - Standee chân chữ X cường lực (kích thước 80x180cm): **140.000 – 175.000 VNĐ / bộ**.
   - Standee cuốn nhôm cao cấp (kích thước 80x180cm, gọn gàng, tự cuốn, tái sử dụng nhiều mùa): **190.000 – 240.000 VNĐ / bộ**.
@@ -300,9 +257,9 @@ Dựa trên khảo sát các đợt mở bán merch gây quỹ của các CLB TH
 - **CPC (Cost Per Click - Chi phí mỗi lượt bấm vào liên kết/form):**
   - Mức trung bình: **800 – 2.200 VNĐ / click** (với tỷ lệ nhấp CTR từ 1.8% – 3.2%).
 - **Khuyến nghị gói ngân sách boost Facebook nhỏ:**
-  - Chạy 1 chiến dịch ngắn hạn (3 – 4 ngày) quanh đợt mở đăng ký Maker Day hoặc bài công bố chiến dịch "BUILD THE NEXT ROBOT".
-  - Ngân sách: **300.000 – 500.000 VNĐ / đợt** (mỗi ngày 100.000đ).
-  - Hiệu quả mang lại: Tiếp cận khoảng **10.000 – 18.000 người dùng** thực tế tại Sóc Sơn, mang lại 150 – 300 lượt truy cập vào link đăng ký khóa học/form sự kiện.
+  - Chạy 1 chiến dịch ngắn hạn (3 – 4 ngày) quanh bài công bố chiến dịch "BUILD THE NEXT ROBOT" hoặc video POV robot chạy thử.
+  - Ngân sách: **250.000 VNĐ / đợt**.
+  - Hiệu quả mang lại: Tiếp cận khoảng **10.000 – 16.000 người dùng** thực tế tại Sóc Sơn, mang lại lượt quan tâm vào link `/support`.
 
 #### 2. TikTok Ads Benchmark
 - **CPM:** **15.000 – 32.000 VNĐ / 1.000 impressions** (~0.6 – 1.3 USD). Rẻ hơn Facebook khoảng 30% đối với đối tượng thanh thiếu niên Gen Z (13 – 18 tuổi).
@@ -327,9 +284,9 @@ Bảng dưới đây tổng hợp toàn bộ các khoản mục chi phí phi ph�
 | **3** | **Di chuyển thi đấu (Sóc Sơn – Hòa Lạc)** | 3.000.000 ₫ | 3.500.000 ₫ | 5.000.000 ₫ | Thuê trọn gói xe 16 chỗ Ford Transit phục vụ 2 ngày (sáng đi chiều về). Mức cao là thuê xe Solati 2 ngày hoặc xe 16 chỗ trong 3 ngày. |
 | **4** | **Ăn uống đoàn thi đấu (15 người x 2 ngày)** | 1.800.000 ₫ | 2.250.000 ₫ | 3.000.000 ₫ | 15 người x 2 ngày x 60.000 – 75.000đ/người/ngày (Canteen FPT + nước uống tiếp sức). Mức cao tính cả ăn tối tập luyện muộn. |
 | **5** | **Áo đồng phục đội thi đấu (Team Uniform)** | 2.200.000 ₫ | 2.800.000 ₫ | 3.500.000 ₫ | 20 áo (15 học sinh + 5 giáo viên/mentor). Mức thấp: áo thun cổ tròn (110k); Mức tiêu chuẩn: áo polo cá sấu in DTF (140k); Mức cao: thêu vi tính (175k). |
-| **6** | **Outreach & Vận hành Maker Day** | 800.000 ₫ | 1.400.000 ₫ | 2.200.000 ₫ | Chi phí vật tư tiêu hao (Certificate, bánh nước, khấu hao linh kiện) cho 40 học sinh tham gia. Phần lớn tự bù đắp bằng doanh thu bán vé. |
+| **6** | **Outreach & Hoạt động cộng đồng** | 300.000 ₫ | 500.000 ₫ | 1.000.000 ₫ | Chi phí nước uống, tài liệu photo chia sẻ kiến thức STEM cho học sinh địa phương. |
 | **7** | **Media, In ấn truyền thông & Gian hàng** | 850.000 ₫ | 1.550.000 ₫ | 2.500.000 ₫ | In 2 Standee cuốn nhôm (440k), 1 phông bạt sân khấu 2x3m (260k), 4 hashtag cầm tay (150k), vật tư trang trí gian hàng hội chợ trường (300k). |
-| **8** | **Paid Social Ads (Facebook / TikTok boost)** | 300.000 ₫ | 600.000 ₫ | 1.200.000 ₫ | Chạy 1–2 đợt boost nhỏ trên Facebook/TikTok quanh khu vực Sóc Sơn để quảng bá Maker Day và chiến dịch gây quỹ. |
+| **8** | **Paid Social Ads (Facebook / TikTok boost)** | 200.000 ₫ | 250.000 ₫ | 500.000 ₫ | Chạy 1 đợt boost nhỏ trên Facebook/TikTok quanh khu vực Sóc Sơn để quảng bá chiến dịch gây quỹ. |
 | **9** | **Dự phòng phát sinh (Contingency 10%)** | 1.045.000 ₫ | 1.490.000 ₫ | 2.660.000 ₫ | 10% tính trên tổng chi phí vận hành các mục 1 đến 8 để bù trượt giá hoặc phát sinh đột xuất. |
 | | **TỔNG CHI PHÍ NON-HARDWARE** | **11.495.000 ₫** | **16.390.000 ₫** | **29.260.000 ₫** | *(Nếu lệ phí thi = 0đ, mức cao là **24.260.000 ₫**)* |
 

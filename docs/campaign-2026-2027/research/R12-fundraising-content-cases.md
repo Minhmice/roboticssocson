@@ -9,7 +9,7 @@
 - Social proof nên là dữ liệu đã nhận thật: số người, số tiền, mission đã mở khóa, ảnh hàng về. Không dùng tên/số tiền cá nhân khi chưa có đồng ý.
 - Matching gift có ích nhất khi nói rõ người đối ứng, tỷ lệ, trần và hạn. Không hứa “nhân đôi” nếu chưa có cam kết bằng văn bản.
 - “$X mua Y” làm khoản đóng góp hữu hình hơn, nhưng không được bịa quy đổi (ví dụ 50.000 ₫ không chắc mua được một con ốc). Với Robotics Sóc Sơn, dùng “góp vào M1/M2” và liệt kê giá linh kiện thật.
-- Cảm ơn và cập nhật sau khi nhận tiền bảo vệ niềm tin; không nên biến mọi bài thành CTA xin tiền. Cảm ơn phải kèm đầu ra: biên nhận/sổ cái, ảnh mở hộp, test linh kiện, hoặc kết quả Maker Day.
+- Cảm ơn và cập nhật sau khi nhận tiền bảo vệ niềm tin; không nên biến mọi bài thành CTA xin tiền. Cảm ơn phải kèm đầu ra: biên nhận/sổ cái, ảnh mở hộp, test linh kiện, hoặc tiến độ chế tạo.
 
 ```mermaid
 flowchart LR
@@ -117,7 +117,7 @@ Chia sẻ bài nếu chưa tiện ủng hộ.
 - Đổi `CN 22/11 P04/P07` thành: `P04 kết quả mốc + P07 cảm ơn trong 24–48h, link ảnh đặt hàng/biên nhận`.
 - Đổi `CN 27/12 P04` thành báo cáo ba cột `đã nhận / đã chi / còn lại`, kèm CSV hoặc ảnh sổ cái đã che dữ liệu cá nhân.
 - Thêm một bài/Story “match đã nhận” chỉ khi có cam kết văn bản; nếu không có match, dùng CTA `mỗi người rủ một người` thay vì tạo khan hiếm giả.
-- Không boost bài xin chuyển khoản tới người lạ. Nếu boost P06/V04, caption phải dẫn về trang minh bạch trước, rồi mới QR/đăng ký.
+- Không boost bài xin chuyển khoản tới người lạ. Nếu boost V04, caption phải dẫn về trang minh bạch trước, rồi mới QR/đăng ký.
 
 ## 5. Rủi ro và kiểm tra trước khi đăng
 

@@ -35,7 +35,7 @@ stateDiagram-v2
     Contacted --> Nurture : Không phản hồi sau 2 lần follow-up (Đưa vào tệp chăm sóc dài hạn)
     Pitch_Sent --> Meeting_Scheduled : Chốt lịch hẹn gọi điện / Họp trực tiếp 30 phút
     Meeting_Scheduled --> Negotiation : Họp thành công -> Thống nhất quyền lợi & Dự thảo hợp đồng
-    Meeting_Scheduled --> Nurture : Chưa phù hợp năm nay -> Mời tham dự Maker Day
+    Meeting_Scheduled --> Nurture : Chưa phù hợp năm nay -> Mời tham quan phòng Lab
     Negotiation --> Committed : Đối tác đồng ý ký Thỏa thuận 3 bên theo TT 16/2018
     Negotiation --> Lost : Bác bỏ đề xuất / Không thống nhất được quyền lợi
     Committed --> Closed_Won : Đã tiếp nhận tiền / Đã nhận linh kiện In-kind
@@ -50,7 +50,7 @@ stateDiagram-v2
 5. **Negotiation (Đang thương thảo):** Đang thống nhất mức tài trợ, vị trí đặt logo, danh mục In-kind và điều khoản biên bản.
 6. **Committed (Đã cam kết):** Doanh nghiệp xác nhận tài trợ chính thức bằng văn bản/email, chờ làm thủ tục chuyển khoản hoặc giao linh kiện.
 7. **Closed Won (Thành công):** Kinh phí đã được tiếp nhận, hoặc hiện vật đã được bàn giao nghiệm thu tại lab.
-8. **Nurture / Closed Lost (Chăm sóc / Tạm dừng):** Từ chối tài trợ mùa giải hiện tại; lưu thông tin để gửi thư mời tham quan Maker Day và tiếp cận lại vào mùa giải sau.
+8. **Nurture / Closed Lost (Chăm sóc / Tạm dừng):** Từ chối tài trợ mùa giải hiện tại; lưu thông tin để gửi thư mời tham quan phòng Lab và tiếp cận lại vào mùa giải sau.
 
 ---
 
@@ -88,7 +88,7 @@ Căn cứ dữ liệu nghiên cứu thị trường R5, 53 doanh nghiệp đư�
 | 17 | **Công ty CP Dịch vụ Hàng hóa Nội Bài (NCTS)** | Xử lý hàng hóa hàng không quốc tế | [ncts.com.vn](https://www.ncts.com.vn/) | **Kim Cương (25M)** | 20.000.000 – 25.000.000 VNĐ | Ban Truyền thông NCTS; nhấn mạnh tài trợ cho trường học nơi đóng trụ sở | Prospect | `-> 14` |
 | 18 | **Công ty TNHH MTV Ga Hàng hóa ALS (ALS Cargo)** | Ga hàng hóa hàng không, kho tự động | [als.com.vn](https://als.com.vn/) | **Vàng (10M)** | 10.000.000 VNĐ hoặc In-kind hỗ trợ cước bay linh kiện Mỹ | Đề xuất hợp tác truyền thông gắn với chuỗi cung ứng thông minh của ALS | Prospect | `-> 14` |
 | 19 | **Công ty CP Phục vụ Mặt đất Hà Nội (HGS)** | Dịch vụ sân đỗ, thiết bị cơ giới | [hgs.com.vn](https://hgs.com.vn/) | **Vàng (10M)** | 10.000.000 VNĐ (Build Partner) | Đoàn thanh niên HGS có truyền thống thiện nguyện tại địa bàn Sóc Sơn | Prospect | `-> 14` |
-| 20 | **Công ty TNHH MTV Kỹ thuật Máy bay (VAECO)** | Bảo dưỡng, sửa chữa tàu bay | [vaeco.com.vn](https://vaeco.com.vn/) | **Vàng (10M)** | 10.000.000 VNĐ cho linh kiện trong mục 2.2 của 04 | Mời đại diện VAECO dự Maker Day; phụ huynh là kỹ sư VAECO | Prospect | `-> 14` |
+| 20 | **Công ty TNHH MTV Kỹ thuật Máy bay (VAECO)** | Bảo dưỡng, sửa chữa tàu bay | [vaeco.com.vn](https://vaeco.com.vn/) | **Vàng (10M)** | 10.000.000 VNĐ cho linh kiện trong mục 2.2 của 04 | Mời đại diện VAECO thăm phòng Lab; phụ huynh là kỹ sư VAECO | Prospect | `-> 14` |
 | 21 | **Công ty CP Dịch vụ HK Sân bay Nội Bài (NASCO)** | Dịch vụ thương mại, xe vận tải | [nasco.com.vn](https://nasco.com.vn/) | **In-kind kỹ thuật** | In-kind dụng cụ, thiết bị kỹ thuật phục vụ BOM | Đổi quyền lợi gắn logo NASCO trên áo đồng phục và video giải đấu | Prospect | `-> 14` |
 | 22 | **Công ty TNHH MTV Nhiên liệu Hàng không (Skypec)** | Nhiên liệu bay Jet A-1 | [skypec.com.vn](https://skypec.com.vn/) | **Vàng (10M)** | 10.000.000 – 15.000.000 VNĐ | Thư ngỏ gửi Ban Nữ công / Đoàn Thanh niên Skypec ủng hộ tài năng trẻ | Prospect | `-> 14` |
 | 23 | **Đoàn bay 919 – Tổng công ty Hàng không Việt Nam** | Khai thác bay thương mại | [vietnamairlines.com](https://www.vietnamairlines.com/) | **Kim Cương (25M)** | 20.000.000 – 25.000.000 VNĐ | Kênh chương trình "VNA Cares" đồng hành cùng thế hệ trẻ Việt Nam | Prospect | `-> 14` |
@@ -158,7 +158,7 @@ Căn cứ dữ liệu nghiên cứu thị trường R5, 53 doanh nghiệp đư�
 | Mã Quỹ | Tên Tổ Chức Tài Trợ | Giá Trị Tài Trợ | Hạn Nộp Hồ Sơ | Yêu Cầu Cốt Lõi | Góc Tiếp Cận Hồ Sơ (Pitching Angle) | Trạng Thái Pipeline | Phụ Trách |
 |:---:|---|:---:|:---:|---|---|:---:|:---:|
 | `GRANT-01` | **Gene Haas Foundation Grant** (Mỹ) | **2.000 USD** (~50.9M VNĐ) | **01/05 hàng năm** (Chuẩn bị hồ sơ từ T1/2027) | Đội thi FTC có ứng dụng gia công cơ khí chính xác, máy CNC tiện phay. | Báo cáo ứng dụng gia công chi tiết kim loại robot tại các xưởng KCN Nội Bài; đào tạo kỹ sư tương lai. | Chuẩn bị hồ sơ | `-> 14` |
-| `GRANT-02` | **U.S. Embassy Hanoi PAS Small Grants** | **5.000 – 35.000 USD** (~127M – 890M VNĐ) | Mở định kỳ theo quý qua Grants.gov | Thúc đẩy bình đẳng giáo dục STEM, hỗ trợ thanh thiếu niên vùng ven tiếp cận chuẩn Mỹ. | Dự án: "Phổ cập Robotics chuẩn FIRST cho học sinh ngoại thành Hà Nội qua mô hình Maker Day". | Hoàn thiện Concept | `-> 14` |
+| `GRANT-02` | **U.S. Embassy Hanoi PAS Small Grants** | **5.000 – 35.000 USD** (~127M – 890M VNĐ) | Mở định kỳ theo quý qua Grants.gov | Thúc đẩy bình đẳng giáo dục STEM, hỗ trợ thanh thiếu niên vùng ven tiếp cận chuẩn Mỹ. | Dự án: "Phổ cập Robotics chuẩn FIRST cho học sinh ngoại thành Hà Nội qua các hoạt động chia sẻ kỹ thuật STEM". | Hoàn thiện Concept | `-> 14` |
 | `GRANT-03` | **Quỹ Khuyến Học & Huyện Đoàn Sóc Sơn** | **2.000.000 – 10.000.000 VNĐ** | **15/11/2026 – 30/11/2026** | Khen thưởng tài năng trẻ sáng tạo kỹ thuật và hỗ trợ kinh phí thi đấu cấp quốc gia. | Công văn BGH THPT Sóc Sơn báo cáo thành tích Á quân Motions In Fire. | Đã gửi công văn | `-> 14` |
 | `GRANT-04` | **FIRST STEM Equity Community Grant** | **1.000 – 5.000 USD** | Tháng 8 – Tháng 10 hàng năm | Hỗ trợ các đội tuyển mới và đội tuyển thuộc khu vực khó khăn thiếu thốn thiết bị. | Đội tuyển trường huyện vượt khó, tự lực cánh sinh chế tạo robot theo tinh thần FIRST. | Theo dõi mùa 2027 | `-> 14` |
 | `GRANT-05` | **Chương Trình CSR Boeing Vietnam** | **3.000 – 10.000 USD** | Định kỳ Q1 hàng năm | Đào tạo nguồn nhân lực hàng không & STEM cho thế hệ trẻ Việt Nam. | Gắn kết vị trí gần Sân bay Nội Bài và ước mơ trở thành kỹ sư hàng không của học sinh Sóc Sơn. | Đang tiếp cận | `-> 14` |

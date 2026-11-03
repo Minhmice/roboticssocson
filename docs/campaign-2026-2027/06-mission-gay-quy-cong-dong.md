@@ -184,9 +184,8 @@ Trên Landing page và các bài đăng định kỳ của chiến dịch, tiế
 
 ### 6.3. Dành cho Học sinh & Giới trẻ (Students & Gen Z)
 > *"Này Gen Z Sóc Sơn! Ai bảo trường huyện thì không thể chế tạo robot công nghệ cao?  
-> Hãy trở thành một 'Honorary Builder' ngay hôm nay bằng cách đăng ký trải nghiệm Maker Day. Sự ủng hộ của bạn chính là nguồn năng lượng đưa robot Sóc Sơn đại náo sàn đấu FPT Hòa Lạc!"*  
-> **👉 Đặt vé Maker Day: [Link Form]**
-
+> Hãy trở thành một 'Honorary Builder' ngay hôm nay bằng cách lan tỏa chiến dịch hoặc bảo trợ một chi tiết linh kiện nhỏ (50k - 100k). Sự ủng hộ của bạn chính là nguồn năng lượng đưa robot Sóc Sơn đại náo sàn đấu FPT Hòa Lạc!"*  
+> **👉 Ủng hộ chiến dịch: [Link /support]**
 ---
 
 ## NGUỒN TÀI LIỆU THAM CHIẾU

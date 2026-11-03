@@ -1,0 +1,36 @@
+## End-Effector Design: Claws, Passive Latching, and Active Rollers
+
+In FIRST Tech Challenge (FTC), the end-effector is the critical interface between the robot and season game elements (cones, blocks, pixels, or samples). Designing an effective end-effector requires balancing rapid acquisition time, retention force against aggressive robot acceleration, mechanical weight constraints, and passive compliance that accommodates alignment errors.
+
+![Robotic end-effector gripper and mechanical compliant fingers](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80)
+
+### Architectural Classification of FTC End-Effectors
+
+Depending on the geometry, rigidity, and surface friction of the target game elements, competitive teams deploy three primary mechanical architectures:
+
+```text
+               ┌── Active Pinch Claw ──────── 4-Bar Parallel Linkage + Smart PWM Servo
+               │
+End-Effector ──┼── Active Roller Intake ───── Compliant TPU Wheels + High-RPM Motor Drive
+               │
+               └── Passive Latch Mechanism ── Chamfered Ramp Geometry + Return Springs
+```
+
+| Mechanism Type | Cycle Acquisition Time | Weight & Complexity | Primary Strengths | Technical Trade-offs |
+| --- | --- | --- | --- | --- |
+| **Pinch Claw (Active)** | 0.2s – 0.5s | Moderate (150–300g) | High grip retention, precise orientation control | Demands accurate drivetrain alignment |
+| **Active Rollers (Flywheel)** | < 0.1s | High (300–600g) | Wide intake acceptance window, seamless pull-in | High power consumption, bulky envelope |
+| **Passive Latch (Geometry)** | Instantaneous | Very Low (< 100g) | Zero motor/servo ports consumed, featherweight | Requires dedicated ejector rod or reverse motion |
+
+### Friction Optimization and Compliant Material Selection
+
+The static coefficient of friction (`\mu`) between the gripper pads and the game piece dictates the clamping torque required from your actuators:
+- **Polyurethane (PU) Foam & Silicone Sheet**: Delivers high friction coefficients (`\mu > 1.2`) against slick molded plastic game elements. The compressive elasticity of PU foam distributes load over curved surfaces, preventing slippage under high linear acceleration.
+- **3D Printed TPU (Shore 95A / 85A)**: Ideal for custom contoured fingers. Infill geometries (such as gyroid or hexagonal lattices) provide engineered compliance, allowing gripper fingers to passively deflect and wrap securely around irregular objects without permanent deformation.
+- **Silicone Surgical Tubing on Spindles**: A proven, field-repairable solution for active roller shafts, maintaining consistent traction even as field dust accumulates throughout qualification matches.
+
+### Sensor Integration and Actuator Control Strategies
+
+1. **Smart Servo Endpoint Tuning**: Utilizing programmable servos (such as REV Smart Robot Servos or Axon Mini/Max) allows software developers to configure software travel limits (Stow, Wide-Open, Pre-Clamp, Secure-Clamp). Properly tuned endpoints eliminate motor stalling, preventing thermal shutdown and battery voltage drops.
+2. **Optical Break-Beam & Distance Sensors**: Embedding a miniature time-of-flight (ToF) or infrared distance sensor inside the gripper cradle enables automated clamping. Once the object breaches the threshold distance (10–20mm), the Robot Controller initiates an instant clamping command in under 20ms, bypassing driver reaction latency entirely.
+3. **Mechanical Undercut & Anti-Drop Geometry**: Designing physical gripper teeth with a slight reverse taper (3°–5° undercut) ensures that rapid chassis deceleration forces the game element deeper into the gripping socket rather than dislodging it.

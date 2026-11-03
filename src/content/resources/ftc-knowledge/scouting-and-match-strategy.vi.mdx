@@ -1,0 +1,58 @@
+## Vai trò của hệ thống Scouting định lượng trong FTC
+
+Scouting trong FIRST Tech Challenge không đơn thuần là việc ghi chép ngẫu nhiên các trận đấu mà là quá trình thu thập, chuẩn hóa và xử lý dữ liệu thực địa để phục vụ hai mục tiêu chiến lược:
+1. **Lập kế hoạch phối hợp từng trận đấu vòng loại (Qualification Matches):** Xác định điểm mạnh, điểm yếu và xung đột không gian di chuyển giữa hai robot trong cùng liên minh.
+2. **Xây dựng danh sách chọn liên minh vòng loại trực tiếp (Alliance Selection Picklist):** Đưa ra các quyết định chọn đội đối tác dựa trên dữ liệu hiệu suất khách quan, loại bỏ cảm tính chủ quan.
+
+![Bàn điều khiển Driver Station và tay cầm trong thi đấu FTC](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/FIRST_Tech_Challenge_%E2%80%93_Parts_%E2%80%93_Driver_station_with_2_controllers.jpg/1280px-FIRST_Tech_Challenge_%E2%80%93_Parts_%E2%80%93_Driver_station_with_2_controllers.jpg)
+
+---
+
+## Biểu mẫu Scouting định lượng (Quantitative Scouting Form)
+
+Hệ thống scouting chuẩn hóa thường phân chia thành ba giai đoạn trận đấu chính kèm theo các chỉ số đo lường hiệu quả cơ học:
+
+| Hạng mục | Chỉ số đo lường | Phương pháp tính | Ý nghĩa chiến thuật |
+| :--- | :--- | :--- | :--- |
+| **Autonomous** | Tỷ lệ thành công mẫu vật ban đầu | `(Số lần ghi điểm thành công / Tổng số trận) * 100%` | Đánh giá độ tin cậy của thuật toán định vị và camera |
+| **Autonomous** | Vị trí đỗ kết thúc tự hành | Điểm đỗ (0, 10, hoặc 20 điểm tùy mùa giải) | Xác định khả năng tránh va chạm lộ trình tự hành của đồng minh |
+| **TeleOp** | Thời gian chu kỳ nạp - nhả (Cycle Time) | `Thời gian TeleOp (giây) / Tổng số mẫu vật ghi điểm` | Phản ánh tốc độ di chuyển và độ mượt mà của hệ gắp |
+| **TeleOp** | Tỷ lệ rơi rớt mẫu vật (Drop Rate) | `Số mẫu rơi vãi / (Số mẫu nhặt + Số mẫu rơi)` | Đo lường độ bám của con lăn và độ ổn định khi đổi hướng |
+| **Endgame** | Độ cao hoặc cơ chế treo robot (Hang/Park) | Cấp độ treo đạt được và thời gian thực hiện (giây) | Quyết định điểm số bứt phá trong 30 giây cuối trận |
+| **Kỷ luật sân** | Lỗi vi phạm luật (Penalties) | Tổng điểm phạt gây ra cho đối phương | Giảm thiểu rủi ro mất điểm phạt Minor/Major |
+
+---
+
+## Phân tích dữ liệu & Chỉ số OPR điều chỉnh
+
+Để đánh giá đóng góp thực tế của từng robot trong liên minh 2 đội, các đội thi áp dụng mô hình toán học giải hệ phương trình tuyến tính OPR (Offensive Power Rating):
+
+```
+[Trận 1]: Team_A + Team_B = Score_Alliance_1
+[Trận 2]: Team_A + Team_C = Score_Alliance_2
+...
+[Trận N]: Team_X + Team_Y = Score_Alliance_N
+```
+
+Tuy nhiên, OPR truyền thống thường bị nhiễu do lỗi phạt thẻ vàng hoặc việc đồng minh bị ngắt kết nối (disconnect). Do đó, chỉ số **Component OPR (cOPR)** được ưu tiên sử dụng bằng cách tách riêng điểm Autonomous, điểm chu kỳ TeleOp và điểm Endgame. 
+
+Hệ số ổn định (Consistency Factor) được đo lường thông qua độ lệch chuẩn:
+- Nếu độ lệch chuẩn điểm chu kỳ `\sigma < 1.5`: Robot vận hành ổn định, cơ cấu ít hỏng vặt.
+- Nếu `\sigma > 4.0`: Robot phụ thuộc vào may mắn hoặc hay gặp sự cố kẹt cơ khí/phần mềm.
+
+---
+
+## Lập chiến thuật thi đấu phối hợp liên minh (Match Play Strategy)
+
+Trước mỗi trận đấu 15 phút, người phụ trách chiến thuật (Drive Coach) cần gặp gỡ đội đối tác tại khu vực chờ (Queueing Area) và thống nhất các nguyên tắc:
+
+1. **Phân chia không gian tự hành (Autonomous De-confliction):**
+   - Xác định rõ lộ trình bánh xe đi qua các ô sân (tiles) để tránh đâm trực diện trong 30 giây tự hành.
+   - Nếu cả hai đội đều có lộ trình quét qua cùng một khu vực nạp mẫu vật, đội có điểm cOPR tự hành thấp hơn sẽ chuyển sang chế độ tự hành dự phòng (backup auto chỉ đỗ an toàn).
+
+2. **Phân luồng di chuyển TeleOp (Traffic Lane Assignment):**
+   - Phân chia một đội phụ trách làn cánh ngoài (outer perimeter), một đội nạp mẫu vật ở làn trung tâm.
+   - Quy tắc nhường quyền ưu tiên: Robot đang mang mẫu vật về khu vực ghi điểm luôn có quyền ưu tiên di chuyển trước robot đang chạy không tải đi nhặt mẫu.
+
+3. **Kịch bản ứng phó sự cố khẩn cấp (Failsafe Contingency):**
+   - Nếu robot đồng minh bị mất kết nối Wi-Fi Direct hoặc kẹt cơ khí giữa sân: Driver chính chủ động chuyển sang kịch bản solo, ưu tiên các tác vụ ghi điểm độc lập và giữ khoảng cách an toàn để tránh bị phạt lỗi pin/chèn ép.

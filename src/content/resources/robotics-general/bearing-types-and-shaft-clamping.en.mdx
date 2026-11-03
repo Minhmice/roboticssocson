@@ -1,0 +1,51 @@
+## Bearing Types and Shaft Clamping in Robotics
+
+Robotic drivetrains and articulation mechanisms rely on shafts to transmit torque from gearmotors to drive wheels, intake rollers, and pivot arms. Selecting improper bearing geometries or relying on inadequate shaft fastening methods introduces excessive angular backlash, premature mechanical wear, and catastrophic shaft disengagement during intense match collisions.
+
+![Deep groove radial ball bearing section](https://commons.wikimedia.org/wiki/Special:FilePath/Deep_groove_ball_bearing.svg)
+
+### Common Bearing Configurations in Robotics
+
+Medium-scale robotics architectures (such as FTC and FRC) predominantly utilize ball bearings and solid bushings depending on load vectors, rotational velocity, and spatial constraints:
+
+| Bearing Architecture | Mechanical Properties | Common Robotics Applications | Assembly & Maintenance Notes |
+| --- | --- | --- | --- |
+| Radial Ball Bearings (Deep Groove) | High rotational speed capability, very low rolling friction under radial loads | Drive wheel axles, planetary gearbox outputs, intermediate idlers | Poor capacity for high pure axial thrust; requires external thrust shims or retaining rings |
+| Flanged Ball Bearings | Integrated outer flange locates bearing squarely against structural plates | Drivetrain chassis side plates, dual-plate gearbox plates | Flange bears against the plate surface, preventing the bearing from migrating axially under inward loads |
+| Thrust Bearings | High axial compressive capacity, flat raceway orientation | Turret bases, lead-screw arm pivots, vertical lift thrust blocks | Must not be used alone to support radial loads; pair with radial bearings to constrain side deflection |
+| Bronze / Composite Bushings | Solid journal structure, high shock tolerance, compact radial profile | Short-throw high-torque pivot linkages, intake gripper knuckles | Higher friction coefficient than ball bearings; lubricate periodically or use oil-impregnated sintered bronze |
+
+### Shaft Clamping Mechanisms vs. Set Screws
+
+Securing gears, sprockets, timing pulleys, and hubs to drive shafts determines power transmission reliability under dynamic motor reversals:
+
+#### The Failure Modes of Set Screws
+
+Set screws rely on a small concentrated point contact against a round shaft or milled flat surface (D-shaft). Under high cyclic shock loads and rapid directional changes, set screws inevitably loosen over time. The hardened cup-point burrs and deforms the shaft metal, creating raised edges that trap bearings and prevent clean disassembly during field maintenance. Furthermore, the single-point contact forces the rotating hub off-center, producing runout and high-speed vibration.
+
+#### Advantages of Clamping Hubs and Collars
+
+Clamping hubs and two-piece shaft collars wrap 360 degrees around the shaft perimeter. Tightening the integrated socket head cap screw deforms the clamp symmetrically, generating uniform radial friction:
+
+```
+Fastener Contact Comparison:
+
+SET SCREW (Point contact)         CLAMPING COLLAR (360° Friction envelope)
+      [Screw]                            [Clamp Half A]
+         ↓ Point force                        ↓↓↓↓ Uniform hoop stress
+    +---------+                          +==============+
+    |  Shaft  | (Surface gouging)        |    Shaft     | (Uniform grip, no damage)
+    +---------+                          +==============+
+                                         [Clamp Half B]
+```
+
+- **Zero Backlash:** Clamping fasteners eliminate rotational free-play across round, D-profile, and hex shafts (5mm hex in FTC, 1/2" hex in FRC, or 6mm/8mm Rex).
+- **Surface Preservation:** Because the clamping force is evenly distributed over a wide contact area, shaft diameters remain pristine, allowing components to slide off smoothly during pitting repairs.
+
+### Tolerances, Fits, and Precision Shimming
+
+Maintaining smooth rotation and preventing binding requires strict adherence to machining tolerances and assembly procedures:
+
+- **Bore Tolerances (Press vs. Slip Fit):** Bearing mounting bores in aluminum structural plates should be machined with a light transitional or light press fit (+0.00 to +0.02 mm). The bearing outer race must not spin inside the plate housing. For the inner race, a precision slip fit onto ground shafts ensures effortless maintenance without hammering balls out of alignment.
+- **Inner Race Shimming Rule:** When spacing bearings against gears, pulleys, or clamping collars, always place precision shim washers exclusively against the **inner race**. Spacers or hubs that press against the protective rubber/metal seal or contact the outer race will immediately bind the bearing, generating massive friction and stalling drive motors.
+- **Axial Constraint:** Use two-piece clamping shaft collars or precision external retaining rings (circlips) at both shaft ends to completely remove axial end-play while leaving fractional clearances (0.2 mm) to prevent thermal binding.

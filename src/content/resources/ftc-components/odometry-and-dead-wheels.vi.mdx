@@ -1,0 +1,23 @@
+## Vì sao dùng odometry độc lập?
+
+Odometry dùng bánh đo (dead wheel) và encoder để ước lượng vị trí robot thay vì lấy chuyển động trực tiếp từ bánh truyền động. Bánh đo không tham gia đẩy robot nên độ trượt thấp hơn, đặc biệt khi robot tăng tốc hoặc quay. Ba bánh thường dùng gồm hai bánh song song theo trục dọc robot để đo tiến/lùi và một bánh vuông góc để đo chuyển ngang. IMU cung cấp góc heading; bộ điều khiển hợp nhất heading với khoảng cách encoder để cập nhật pose `(x, y, θ)`.
+
+![REV Through Bore Encoder dùng để đo odometry](https://cdn11.bigcommerce.com/s-t3eo8vwp22/images/stencil/1500x1500/products/404/1487/Through_Bore_Encoder_Both_Shots_Sml__30025.1574098624.png?c=2)
+
+### Cơ khí và tỷ số đo
+
+Gắn pod trên khung cứng, tránh vùng có thể va vào thanh đấu. Bánh phải tiếp xúc sàn bằng lực lò xo vừa đủ: quá nhẹ gây nhảy xung, quá nặng làm tăng ma sát và cong giá đỡ. Đo chu vi bánh thực tế sau khi lắp lốp. Số tick trên mỗi inch bằng số count encoder trên một vòng bánh chia cho chu vi. Tính số count đó theo thông số encoder, hệ số giải mã quadrature và số vòng encoder trên mỗi vòng bánh; không nhân hai lần hệ số hộp số hoặc quadrature nếu số count đã bao gồm chúng.
+
+| Kiểu bố trí | Ưu điểm | Rủi ro | Khi nên dùng |
+| --- | --- | --- | --- |
+| 2 bánh song song + IMU | Đo tiến/lùi và heading | Không đo trực tiếp chuyển ngang | Robot dẫn động vi sai |
+| 2 bánh song song + 1 vuông góc | Đo strafe trực tiếp | Cần căn offset chính xác | Mecanum hoặc swerve FTC |
+| 2 bánh + encoder drive | Tiết kiệm không gian | Sai số do trượt bánh kéo | Khung chật, tốc độ vừa |
+
+### Hiệu chuẩn và tính pose
+
+Đo quãng đường thực tế bằng cách đẩy robot 48 inch theo từng trục, lấy trung bình nhiều lượt rồi điều chỉnh `ticksPerInch`. Đặt robot trên dấu vuông, quay đúng 10 vòng và so sánh góc IMU với góc thực để tính hệ số góc. Đo khoảng cách từ tâm quay robot tới từng pod; sai offset làm sai vị trí khi quay dù encoder vẫn hoạt động. Trong code, đọc snapshot của mọi encoder cùng một thời điểm, chuyển tick sang inch, sau đó tích phân local delta theo heading trung bình của chu kỳ. Chuẩn hóa góc về `[-π, π)` để tránh nhảy 359° sang 0°.
+
+### Chẩn đoán và bảo trì
+
+Log tick, vận tốc, heading và pose 10–20 lần mỗi giây. Nếu robot đứng yên mà tick tăng, kiểm tra rung, dây encoder và debounce phần mềm. Nếu chạy thẳng nhưng `y` tăng, kiểm tra bánh vuông góc bị lệch hoặc pod không song song. Siết vít theo chu kỳ, kiểm tra lốp mòn và bảo đảm dây có vòng chùng chống kéo. Odometry chỉ là ước lượng; reset pose tại điểm đã biết trước autonomous và dùng AprilTag hoặc vạch sân để hiệu chỉnh khi cần.

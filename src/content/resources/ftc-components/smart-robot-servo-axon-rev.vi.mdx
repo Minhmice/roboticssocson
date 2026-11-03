@@ -1,0 +1,24 @@
+## Servo thông minh khác gì servo thường?
+
+REV Smart Robot Servo và nhiều servo Axon nhận lệnh PWM quen thuộc, đồng thời tích hợp cảm biến vị trí và bộ điều khiển bên trong. Phản hồi nội bộ giúp servo vị trí điều chỉnh trục, nhưng không đồng nghĩa bộ điều khiển FTC đọc được góc thực tế. Khả năng phụ thuộc model và cấu hình: kiểm tra chế độ, điện áp, hành trình và cách lập trình trong tài liệu sản phẩm. Phản hồi nội bộ không tạo mô-men vô hạn hay thay thế căn chỉnh cơ khí.
+
+![REV Smart Robot Servo](https://1166281274-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-ME3KPEhFI6-MDoP9nZD%2Fuploads%2F2uiEneemY8Vpss9vxmV7%2Fimage.png?alt=media&token=6f589d60-cbf4-481d-84ac-efc970493915)
+
+### So sánh giao tiếp và sử dụng
+
+| Đặc tính | Servo PWM | Servo thông minh | Ý nghĩa thiết kế |
+| --- | --- | --- | --- |
+| Lệnh | Độ rộng xung | PWM trên REV SRS và nhiều model Axon | Kiểm tra chế độ thực tế |
+| Phản hồi | Thường không xuất ra ngoài | Phản hồi vị trí nội bộ; báo ra ngoài tùy model | Không mặc định đọc được góc |
+| Cấu hình | Tùy model | Có thể lập trình chế độ và giới hạn trên model hỗ trợ | Ghi cấu hình từng servo |
+| Dây nguồn | Tín hiệu, V+ và GND | Đầu nối và dòng tùy model | Kiểm tra cực tính và nguồn |
+
+Đọc datasheet đúng model trước khi nối. Axon và REV có thể khác đầu nối, điện áp, dải góc, tốc độ và cách lập trình; tên “smart” không bảo đảm cùng cấu hình. Dùng nguồn servo đủ dòng và dây phù hợp với tải; sụt áp lúc khởi động có thể làm servo hoạt động bất thường hoặc reset. Tuân thủ luật FTC hiện hành và hướng dẫn của nhà sản xuất hub khi chọn cách cấp nguồn.
+
+### Căn chỉnh và điều khiển
+
+Lắp tay đòn ở vị trí trung tính cơ khí trước khi cấp góc. Đặt giới hạn phần mềm nhỏ hơn giới hạn chặn để tránh ép bánh răng. Tốc độ và gia tốc thấp ở cuối hành trình làm giảm va đập; với tải quán tính lớn, dùng profile chuyển động hoặc điều khiển theo trạng thái thay vì đổi góc đột ngột. Ghi log góc lệnh và phản hồi thực sự được phần cứng cung cấp. Nếu servo không chuyển động, kiểm tra nguồn, dây, cấu hình và kẹt cơ khí trước khi thay servo.
+
+### Kiểm tra tải và bảo trì
+
+Đánh giá mô-men tại tay đòn, không chỉ xem con số stall trong quảng cáo. Thử giữ tải ở nhiều góc, đo nhiệt sau chu kỳ lặp và quan sát độ rơ. Khóa cơ khí chỉ dùng để định vị, không nên buộc servo giữ tải nặng liên tục. Cố định dây chống xoắn, che đầu nối khỏi va chạm và ghi phiên bản firmware trong hồ sơ robot. Ngắt nguồn trước khi tháo tay đòn hoặc xử lý kẹt.

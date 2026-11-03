@@ -1,0 +1,48 @@
+## Tổng quan Control Hub và Expansion Hub
+
+REV Control Hub (REV-31-1595) là bộ điều khiển Android tích hợp Wi‑Fi, còn Expansion Hub (REV-31-1153) mở rộng cùng tập cổng I/O cho robot FTC. Hai thiết bị dùng nguồn pin NiMH danh định 12 V; dải hoạt động 8–12 V và tuyệt đối không vượt 15 V. Control Hub chạy chương trình Robot Controller trực tiếp, trong khi Expansion Hub nối với Control Hub qua RS-485.
+
+![REV Control Hub và Expansion Hub trong hệ thống điều khiển FTC](https://docs.revrobotics.com/assets/images/control-hub-and-expansion-hub.png)
+
+### Bản đồ cổng và đầu nối
+
+| Nhóm cổng | Số lượng mỗi hub | Đầu nối | Chức năng và giới hạn chính |
+|---|---:|---|---|
+| Motor | 4 | JST-VH 2-pin | Cấp công suất động cơ; liên tục tối đa 10 A/kênh, bảo vệ nhiệt |
+| Encoder | 4 | JST-PH 4-pin | Quadrature A/B, logic 3.3 V, nguồn cảm biến tối đa 500 mA |
+| Servo | 6 | Header 0.1 in | PWM 5 V, xung 500–2500 µs; dòng chia theo cặp 0–1, 2–3, 4–5 |
+| Analog | 4 | JST-PH 4-pin | Hai kênh/đầu nối, đo 0–5 V; chân cấp cảm biến là 3.3 V |
+| Digital | 8 | JST-PH 4-pin | I/O logic 3.3 V, hai kênh/đầu nối |
+| I²C | 4 | JST-PH 4-pin | Bốn bus riêng, 100 hoặc 400 kHz, logic 3.3 V |
+| RS-485 | 2 | JST-PH 3-pin | Liên kết hub; một dây bus và dây nguồn/ground theo cáp REV |
+| +5 V phụ | 2 | Header 0.1 in | Nguồn thiết bị phụ, tổng 2 A/cặp và 5 A toàn nhóm |
+
+### Pinout dây cảm biến
+
+Không tự đảo dây JST-PH. Với cổng cảm biến REV bốn chân, xác định chân theo nhãn trên hub và tài liệu cáp: **GND — VCC — tín hiệu 1 — tín hiệu 2**. Encoder dùng tín hiệu A/B; I²C dùng SDA/SCL; digital thường chỉ dùng một tín hiệu và để chân còn lại theo cấu hình. Analog cần nối chung GND. Đo continuity trước khi cắm pin.
+
+```text
+[Hub JST-PH]  GND ───────── GND [sensor]
+              3.3V ──────── VCC [sensor]
+              CH0/SDA ───── DATA/A [sensor]
+              CH1/SCL ───── DATA/B [sensor]
+```
+
+RS-485 nối **RS485 trên Control Hub → RS485 trên Expansion Hub** bằng cáp đúng chuẩn, không nối vào UART. Khi nhiều hub, đặt ID trong Robot Controller, kiểm tra đèn trạng thái rồi cố định cáp tránh kéo căng. USB-C/USB-A của Control Hub dùng cấu hình, camera hoặc cập nhật; USB Mini-B Expansion Hub dùng kết nối điều khiển khi không có Control Hub.
+
+### Tính toán nguồn và quy trình kiểm tra
+
+Dòng tải xấp xỉ: `I_total = Σ I_motor + Σ I_servo + I_sensor`. Không dùng giới hạn 10 A như dòng thiết kế liên tục; motor kẹt có thể chạm dòng đỉnh 20 A và làm sụt áp. Chọn dây, cầu chì và đầu nối theo dòng stall, giữ dây nguồn ngắn, và cố định XT30 chống rung. Trước khi chạy: (1) ngắt pin, kiểm tra cực tính; (2) xác nhận motor/encoder cùng kênh; (3) cấp nguồn không tải; (4) đọc encoder và cảm biến; (5) chạy motor ở 0.2 công suất rồi tăng dần. Không cấp 5 V vào chân logic 3.3 V; cảm biến 5 V cần mạch chuyển mức hoặc dây nguồn riêng theo hướng dẫn nhà sản xuất.
+
+### Bảng thông số nhanh
+
+| Thông số | Giá trị |
+|---|---:|
+| Điện áp hub | 8–12 V hoạt động; 15 V tuyệt đối tối đa |
+| Motor liên tục | 10 A/kênh (phụ thuộc nhiệt) |
+| Encoder/digital logic | 0–3.3 V |
+| I²C | 3.3 V, 100/400 kHz |
+| Servo | 5 V, 500–2500 µs |
+| Kích thước xấp xỉ | 103 × 143 × 29.5 mm |
+
+Mọi thông số là giới hạn thiết kế, không phải mục tiêu vận hành. Ưu tiên datasheet phiên bản hub đang dùng và luật FTC hiện hành.

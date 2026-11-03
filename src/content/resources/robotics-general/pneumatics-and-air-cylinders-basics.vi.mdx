@@ -1,0 +1,63 @@
+## Khí nén và xi lanh trong chế tạo robot
+
+Khí nén cung cấp chuyển động tuyến tính nhanh, lực lớn và trọng lượng nhẹ cho robot. Khác với động cơ điện cần hộp số và trục vít me để biến đổi chuyển động quay thành tịnh tiến, xi lanh khí nén tác động trực tiếp lên cơ cấu kẹp, nâng đẩy hoặc chốt hãm với hai vị trí xác định.
+
+![Cấu tạo mặt cắt xi lanh khí nén](https://upload.wikimedia.org/wikipedia/commons/8/87/Pneumatikzylinder_Schnitt.jpg)
+
+### Sơ đồ và thành phần mạch khí nén
+
+Hệ thống khí nén robot tiêu chuẩn được chia thành hai nhánh chính: nhánh lưu trữ áp suất cao (High-Pressure Storage) và nhánh vận hành áp suất điều chỉnh (Regulated Working Pressure).
+
+```text
+[Máy nén khí (Compressor)]
+         │
+         ▼
+[Van một chiều (Check Valve)]
+         │
+         ├──► [Van xả áp an toàn (Relief Valve) - 120-125 PSI]
+         │
+         ├──► [Bình tích áp (Air Tanks)]
+         │
+         ├──► [Đồng hồ áp suất lưu trữ (Storage Gauge)]
+         │
+         ▼
+[Bộ điều áp (Pressure Regulator)] ──► Giảm áp xuống mức hoạt động (vd: 60 PSI)
+         │
+         ├──► [Đồng hồ áp suất hoạt động (Working Gauge)]
+         │
+         ▼
+[Van điện từ (Solenoid Valve)]
+         │
+    ┌────┴────┐
+    ▼         ▼
+[Xi lanh khí nén (Double-Acting Cylinder)]
+```
+
+Các linh kiện chủ chốt bao gồm:
+- **Bình chứa khí (Reservoir):** Lưu trữ không khí được nén để cung cấp lưu lượng tức thời mà máy nén đơn lẻ không kịp đáp ứng.
+- **Van điều áp (Regulator):** Giữ áp suất làm việc ổn định ở mức mong muốn (thường là 60 PSI / 4.1 bar theo tiêu chuẩn thi đấu robot) bất kể áp suất bình chứa giảm dần.
+- **Van điện tử solenoid (Solenoid Valve):** Điều khiển dòng khí bằng tín hiệu điện 12V. Van 5/2 hoặc 5/3 cho phép chuyển đổi khí nạp giữa hai khoang của xi lanh tác động kép.
+- **Khớp nối nhanh (Push-to-Connect Fittings):** Cho phép kết nối ống khí nén PU hoặc PA đường kính 4mm hoặc 6mm nhanh chóng, chắc chắn.
+
+### Tính toán lực đẩy và co của xi lanh
+
+Lực cơ học do xi lanh sinh ra phụ thuộc vào áp suất khí nén cấp vào và diện tích bề mặt piston chịu tác động. Khi co về, phần ty đẩy (piston rod) chiếm dụng một phần diện tích, khiến lực kéo co luôn nhỏ hơn lực đẩy duỗi.
+
+| Đại lượng | Chiều chuyển động | Công thức tính | Lưu ý |
+| --- | --- | --- | --- |
+| Lực đẩy duỗi | Tiến ra (Extend) | `F_ext = P × (π × D² / 4)` | `D` là đường kính lòng trong xi lanh (bore) |
+| Lực kéo co | Lùi về (Retract) | `F_ret = P × π × (D² - d²) / 4` | `d` là đường kính thanh đẩy (rod) |
+| Thể tích tiêu thụ | Mỗi chu kỳ nạp/xả | `V = Stroke × (A_ext + A_ret)` | Dùng để ước lượng dung tích bình khí |
+
+**Ví dụ tính toán:** Với xi lanh có đường kính nòng `D = 25 mm` (`0.025 m`), đường kính ty `d = 8 mm` (`0.008 m`), hoạt động ở áp suất điều áp `P = 60 PSI ≈ 413,685 Pa`:
+
+- Diện tích piston mở rộng: `A_ext = (pi * 0.025^2 / 4) ≈ 4.909 * 10^-4 m^2`.
+- Lực đẩy lý thuyết: `F_ext = 413,685 * (4.909 * 10^-4) ≈ 203 N` (tương đương nâng khối lượng khoảng `20.7 kg`).
+- Diện tích hiệu dụng khi co: `A_ret = (pi * (0.025^2 - 0.008^2) / 4) ≈ 4.406 * 10^-4 m^2`.
+- Lực co lý thuyết: `F_ret = 413,685 * (4.406 * 10^-4) ≈ 182.3 N`.
+
+### Tiêu chuẩn an toàn và chẩn đoán rò rỉ
+
+- **Cắt ống khí chuẩn xác:** Luôn sử dụng dao cắt ống chuyên dụng để có mặt cắt vuông góc `90^circ` phẳng phiu, không có ba via; vết cắt chéo là nguyên nhân hàng đầu gây xì khí tại đầu cắm push-to-connect.
+- **Van an toàn và van xả tay:** Bắt buộc bố trí van xả quá áp (Pressure Relief Valve) để tự động xả khí nếu máy nén vượt ngưỡng an toàn và một van khóa tay (Manual Vent Plug) giúp xả toàn bộ khí tồn đọng trước khi bảo trì cơ khí.
+- **Kiểm định rò rỉ:** Bơm hệ thống lên áp suất tối đa, ngắt nguồn máy nén và quan sát đồng hồ đo sau 15 phút. Nếu áp suất giảm quá 2 PSI, sử dụng bình xịt nước xà phòng loãng quanh các khớp nối để phát hiện bọt khí thoát ra.

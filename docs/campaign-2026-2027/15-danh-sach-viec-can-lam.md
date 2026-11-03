@@ -1,6 +1,6 @@
 # 15 — Danh sách việc cần làm (ấn phẩm, web, form)
 
-Danh sách mọi thứ cần thiết kế, dựng hoặc soạn để chạy chiến dịch, xếp theo hạn. Mỗi dòng ghi rõ nội dung lấy từ file nào. Người phụ trách tạm thời là Trần Tuệ Minh; khi phân công chính thức thì đổi ở [14](14-phan-cong-nhan-su.md). Ký hiệu ưu tiên: **P0** phải có trước khi phát động (05/11/2026), **P1** cần trước mốc đợt 1 (20/11/2026), **P2** làm khi có thời gian hoặc dùng cho Maker Day và giải đấu.
+Danh sách mọi thứ cần thiết kế, dựng hoặc soạn để chạy chiến dịch, xếp theo hạn. Mỗi dòng ghi rõ nội dung lấy từ file nào. Người phụ trách tạm thời là Trần Tuệ Minh; khi phân công chính thức thì đổi ở [14](14-phan-cong-nhan-su.md). Ký hiệu ưu tiên: **P0** phải có trước khi phát động (05/11/2026), **P1** cần trước mốc đợt 1 (20/11/2026), **P2** làm khi có thời gian hoặc dùng cho giải đấu.
 
 ```mermaid
 gantt
@@ -15,11 +15,9 @@ gantt
     section P1 trước đợt 1
     Deck 5 slide, email, bài linh kiện   :p1, 2026-11-05, 2026-11-18
     Mốc đợt 1 20/11                      :milestone, m2, 2026-11-20, 0d
-    section P2 Maker Day & giải
-    Poster + form Maker Day              :p2a, 2026-11-19, 2026-11-26
-    Giấy chứng nhận, name-tag, sticker   :p2b, 2026-11-27, 2026-12-10
-    Maker Day 13/12                      :milestone, m3, 2026-12-13, 0d
-    Decal logo robot, standee pit        :p2c, 2027-01-05, 2027-01-20
+    section P2 Giải đấu & Tổng kết
+    Decal logo robot, standee pit        :p2a, 2027-01-05, 2027-01-20
+    Hồ sơ kỹ thuật Portfolio            :p2b, 2027-01-10, 2027-01-22
 ```
 
 ## 1. Thanh toán & minh bạch
@@ -39,6 +37,7 @@ gantt
 | 6 | P0 | Form "Đăng ký tài trợ doanh nghiệp" (họ tên, công ty, chức vụ, SĐT/email, loại hỗ trợ, mức, lời nhắn), làm theo mẫu `/course-register-form` | Form trên web | [10 §8](10-support-thanh-toan-phap-ly.md) | ☐ |
 | 7 | P1 | Link mạng xã hội rút gọn có UTM (fanpage → `/support`) để đếm lượt bấm | bit.ly / UTM | [07](07-chuyen-linh-kien-noi-dung.md) | ☐ |
 | 8 | P2 | Mục "Cảm ơn nhà tài trợ" (logo) trên `/support`, cập nhật khi có nhà tài trợ | Section web | [05](05-goi-tai-tro-doanh-nghiep.md) | ☐ |
+| 30 | P0 | Phiếu đồng ý cho chụp ảnh / dùng dữ liệu (học sinh dưới 16 tuổi) | PDF A4 | [10 §7](10-support-thanh-toan-phap-ly.md) | ☐ |
 
 ## 3. Bán hàng cho doanh nghiệp
 
@@ -67,20 +66,7 @@ Spec chi tiết từng ấn phẩm (bố cục, chữ trên ảnh, kịch bản 
 | 22 | P2 | Mẫu poster "Cảm ơn nhà tài trợ" có chừa chỗ để chèn logo | PNG 1080×1080 | [05](05-goi-tai-tro-doanh-nghiep.md) | ☐ |
 | 23 | P2 | Video mở hộp linh kiện khi hàng Mỹ về | MP4 9:16 | [07](07-chuyen-linh-kien-noi-dung.md) | ☐ |
 
-## 5. Maker Day (Chủ nhật 13/12/2026, 40 học sinh)
-
-| # | Ưu tiên | Việc | Định dạng | Nội dung lấy từ | Xong |
-|---|:---:|---|---|---|:---:|
-| 24 | P2 | Google Form đăng ký Maker Day: thông tin học sinh, phụ huynh, ca, ảnh chuyển khoản, ô đồng ý cho chụp ảnh | Google Form | [08 §5](08-maker-day.md) | ☐ |
-| 25 | P2 | Poster mở đăng ký Maker Day (giá 79k/89k, 2 ca, QR form) | PNG 1080×1350 + bản in A3 dán ở trường | [08](08-maker-day.md) | ☐ |
-| 26 | P2 | Giấy chứng nhận "Nhà Sáng Chế Trẻ BIOBUZZ", in tên từng em | A4 ngang, giấy C300 | [08 §2](08-maker-day.md) | ☐ |
-| 27 | P2 | Name-tag đeo cổ (40 cái) | 9×5,5 cm | [08 §2](08-maker-day.md) | ☐ |
-| 28 | P2 | Sticker pack tặng kèm (4 hình), chỉ để tặng, không bán | Vinyl die-cut | [08](08-maker-day.md) | ☐ |
-| 29 | P2 | Tờ hướng dẫn thực hành A4 gập đôi (lắp mạch Arduino, khối lệnh) | PDF A4 | [08 §2](08-maker-day.md) | ☐ |
-| 30 | P2 | Phiếu đồng ý cho chụp ảnh / dùng dữ liệu (học sinh dưới 16 tuổi) | PDF A4 | [10 §7](10-support-thanh-toan-phap-ly.md) | ☐ |
-| 31 | P2 | Backdrop chụp ảnh 2×3 m (nếu đủ ngân sách) | In bạt | [R3](research/R3-ops-merch-events.md) | ☐ |
-
-## 6. Giải đấu (dự kiến cuối T1 – T2/2027)
+## 5. Giải đấu (dự kiến cuối T1 – T2/2027)
 
 | # | Ưu tiên | Việc | Định dạng | Nội dung lấy từ | Xong |
 |---|:---:|---|---|---|:---:|
@@ -89,7 +75,7 @@ Spec chi tiết từng ấn phẩm (bố cục, chữ trên ảnh, kịch bản 
 | 34 | P2 | Standee khu pit: đội + nhà tài trợ | Standee cuốn 80×200 cm | [R3](research/R3-ops-merch-events.md) | ☐ |
 | 35 | P2 | Engineering Portfolio (hồ sơ kỹ thuật nộp ban giám khảo) | PDF/in A4 | [13](13-lo-trinh-phan-cong-kpi-rui-ro.md) | ☐ |
 
-## 7. Sau mùa giải
+## 6. Sau mùa giải
 
 | # | Ưu tiên | Việc | Định dạng | Nội dung lấy từ | Xong |
 |---|:---:|---|---|---|:---:|

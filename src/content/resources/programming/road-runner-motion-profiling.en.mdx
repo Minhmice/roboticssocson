@@ -1,0 +1,80 @@
+## Smooth Trajectory Generation with Road Runner and Splines
+
+Road Runner is the premier open-source motion profiling and trajectory generation library designed for FIRST Tech Challenge (FTC) robotics. Rather than executing disjointed stop-and-turn linear waypoints, Road Runner computes `C^2`-continuous quintic Hermite splines paired with trapezoidal or s-curve kinematic profiles. This enables holonomic Mecanum drivetrains to traverse continuous compound curves while rotating independently, dramatically cutting autonomous cycle times and eliminating wheel slippage caused by aggressive acceleration jerks.
+
+![Cubic and quintic spline interpolation through control points](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Cubic_spline_curve_with_control_points.svg/640px-Cubic_spline_curve_with_control_points.svg.png)
+
+### Core Kinematic Primitives: Splines and Trajectory Profiles
+
+A production trajectory in Road Runner synthesizes two distinct layers: geometric path planning (spatial layout) and kinematic velocity profiling (temporal execution):
+
+| Primitive | Mathematical Definition | Typical Method Signature |
+| --- | --- | --- |
+| `Pose2d` | 2D position `(x, y)` in inches coupled with orientation heading `\theta` in radians | `new Pose2d(x, y, Math.toRadians(heading))` |
+| `Vector2d` | Pure planar translational coordinate `(x, y)` on the field plane | `new Vector2d(x, y)` |
+| `splineTo` | Traces a spline path where the robot heading remains strictly tangent to the curve | `trajectoryBuilder.splineTo(...)` |
+| `splineToLinearHeading` | Spline translation combined with decoupled linear heading interpolation | `trajectoryBuilder.splineToLinearHeading(...)` |
+| Motion Constraints | Kinematic boundaries on maximum linear velocity (`MAX_VEL`) and acceleration (`MAX_ACCEL`) | `TrajectoryVelocityConstraint` |
+
+The standard FTC field coordinate frame used in Road Runner places `+X` pointing forward from the audience wall, `+Y` pointing leftward, and zero heading aligned with the positive `X`-axis (counterclockwise rotation corresponds to positive angles).
+
+### Complete FTC Java Implementation: Building and Executing Splines
+
+The following autonomous routine configures an initial robot starting pose, synthesizes chained spline trajectories with intermediate heading reorientations, and executes the sequence via `SampleMecanumDrive`:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+
+@Autonomous(name = "Road Runner Spline Auto", group = "Autonomous")
+public class RoadRunnerSplineAuto extends LinearOpMode {
+    @Override
+    public void runOpMode() {
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
+        // Define starting position and orientation on the field (inches, radians)
+        Pose2d startPose = new Pose2d(12.0, -60.0, Math.toRadians(90.0));
+        drive.setPoseEstimate(startPose);
+
+        // Pre-build trajectory segments during the initialization phase
+        Trajectory traj1 = drive.trajectoryBuilder(startPose)
+                .splineTo(new Vector2d(24.0, -36.0), Math.toRadians(45.0))
+                .splineToSplineHeading(new Pose2d(48.0, -12.0, Math.toRadians(0.0)), Math.toRadians(0.0))
+                .build();
+
+        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+                .back(20.0)
+                .splineToLinearHeading(new Pose2d(12.0, -12.0, Math.toRadians(180.0)), Math.toRadians(180.0))
+                .build();
+
+        telemetry.addData("Road Runner", "Trajectories Compiled - Ready");
+        telemetry.update();
+
+        waitForStart();
+
+        if (isStopRequested()) return;
+
+        // Execute first spline sequence
+        drive.followTrajectory(traj1);
+
+        // Mechanism actuation pause (can be substituted with non-blocking FSM)
+        sleep(500);
+
+        // Follow return segment
+        drive.followTrajectory(traj2);
+    }
+}
+```
+
+### Tuning Workflow and Critical Edge Cases
+
+- **Dead-Wheel Odometry Prerequisites**: Road Runner relies fundamentally on accurate real-time localization. Before constructing complex spline paths, complete the official tuning suite in order: `DriveVelocityPIDTuner`, `StraightTest`, `TurnTest`, and `LocalizationTest`.
+- **Tangent Vector Collinearity**: In spline chaining, the exit tangent of the preceding waypoint must align reasonably with the entry tangent of the subsequent point. Supplying antiparallel (`180^\circ` opposed) tangents forces severe inflection cusps or triggers trajectory builder solver exceptions.
+- **Localized Velocity Gating**: In confined field zones (such as navigating through stage trusses or aligning with backdrop scoring slots), inject custom `TrajectoryVelocityConstraint` overrides to decelerate the robot to `20 - 30` in/s without altering global maximum constraints.
+- **Closed-Loop Follower Gains**: Tune `TranslationalPIDF` and `HeadingPIDF` gains incrementally. Insufficient proportional gain causes path lagging during rapid turns, while excessive gain induces high-frequency chassis oscillation and motor heating.

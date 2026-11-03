@@ -1,0 +1,46 @@
+## Ổ đỡ trục và kẹp định vị trong robot
+
+Hệ thống truyền động robot dựa vào trục để truyền mô-men từ động cơ đến bánh xe, tay gắp hoặc bộ cuốn dây. Nếu chọn sai loại ổ đỡ hoặc cố định trục không chuẩn, cơ cấu sẽ rung lắc, mòn nhanh, trượt góc hoặc kẹt cơ khí trong quá trình thi đấu.
+
+![Mặt cắt ổ bi rãnh sâu](https://commons.wikimedia.org/wiki/Special:FilePath/Deep_groove_ball_bearing.svg)
+
+### Phân loại ổ đỡ phổ biến
+
+Trong cơ cấu robot cỡ vừa như FTC hoặc FRC, ổ bi và bạc lót là hai lựa chọn chính tùy theo tải trọng và tốc độ vòng quay:
+
+| Loại ổ đỡ | Đặc tính kỹ thuật | Ứng dụng tiêu biểu | Lưu ý vận hành |
+| --- | --- | --- | --- |
+| Ổ bi rãnh sâu (Radial Ball Bearing) | Chịu lực hướng tâm tốt, ma sát lăn rất thấp | Trục bánh xe, trục hộp số, con lăn trung gian | Kém chịu lực dọc trục lớn; cần vòng chặn khi trục có lực đẩy |
+| Ổ bi có gờ viền (Flanged Bearing) | Có vành gờ ngoài giúp định vị thẳng hàng trên tấm khung | Vách nhôm hộp số, tấm thành chassis tấm đôi | Vành gờ tự định vị vào mặt tấm khung; dễ lắp và căn cản trôi trục |
+| Ổ bi chặn (Thrust Bearing) | Chuyên chịu lực nén dọc trục | Chân đế tay nâng, cơ cấu vít me xoay góc | Không dùng đơn độc để đỡ lực hướng tâm; kết hợp cùng ổ bi rãnh |
+| Bạc trượt đồng / polymer (Bushing) | Kết cấu đặc không bi, chịu tải sốc lớn | Tay xoay biên độ ngắn, khớp kẹp mở chậm | Ma sát cao hơn ổ bi; cần tra mỡ định kỳ hoặc dùng vật liệu tự bôi trơn |
+
+### Kẹp trục so với vít chí
+
+Cố định bánh răng, pulley hoặc khớp xoay lên trục quyết định độ tin cậy truyền lực. Hai phương pháp chính thường dùng là vít chí (set screw) và kẹp siết (clamping hub/collar).
+
+#### Nhược điểm của vít chí
+
+Vít chí chỉ tác dụng lực ép tập trung vào một điểm nhỏ trên trục tròn hoặc mặt vát chữ D (D-shaft). Dưới mô-men xoắn giật liên tục từ động cơ đảo chiều, vít chí thường bị lỏng ren, tạo vết xước lõm làm biến dạng bề mặt trục và gây rơ góc (backlash) lớn. Tháo lắp trục có vết hằn do vít chí thường gây kẹt khi rút qua vòng trong của ổ bi.
+
+#### Ưu thế của bộ kẹp siết (Clamping Hub)
+
+Khớp kẹp ôm 360 độ quanh chu vi trục bằng lực ép đàn hồi của bu-lông siết. Khi siết đúng lực quy định, áp lực phân bố đều, không làm biến dạng bề mặt trục và triệt tiêu gần như hoàn toàn độ rơ góc. Đối với trục lục giác tiêu chuẩn (5mm hex hoặc 1/2" hex trong FRC, 6mm / 8mm Rex trong goBILDA), cơ cấu kẹp siết chống trượt cả về phương dọc trục lẫn chiều xoay.
+
+```
+Mô hình lực siết trên bề mặt trục:
+
+[ Vít chí ]                [ Kẹp siết Collar ]
+      ↓  (Lực điểm)             ↓↓↓↓  (Lực ép ôm 360°)
+  +-------+                  +=========+
+  | Trục  | (Gây vết lõm)    |  Trục   | (Phân bố đều, không xước)
+  +-------+                  +=========+
+```
+
+### Dung sai lắp ghép và căn chặn trục
+
+Để ổ đỡ hoạt động êm ái và kéo dài tuổi thọ, việc kiểm soát dung sai gia công tấm vách và phương pháp giữ trục là bắt buộc:
+
+- **Dung sai ép (Press fit) và dung sai trượt (Slip fit):** Lỗ đặt ổ bi trên tấm nhôm khung nên dùng dung sai chuyển tiếp nhẹ hoặc ép nhẹ (khoảng +0.00 đến +0.02 mm) để ca ngoài không bị xoay tròn trong vỏ. Vòng trong ổ bi nên lắp trượt nhẹ (slip fit) trên trục để việc tháo lắp bảo trì không làm vỡ rãnh bi.
+- **Căn lót dọc trục (Shimming):** Luôn dùng long đền căn (shim washer) tì trực tiếp vào vòng trong (inner race) của ổ bi. Tuyệt đối không để vòng đệm hoặc mặt kẹp ép chạm vào vành chắn bảo vệ (shield) hoặc ca ngoài (outer race), vì sẽ gây bó cứng ổ bi.
+- **Khóa chuyển vị dọc trục:** Dùng vòng kẹp hai mảnh (two-piece clamping collar) hoặc rãnh phe cài (circlip/retaining ring) ở hai đầu đoạn trục để triệt tiêu độ rơ dọc (axial play) của bánh xe và con lăn.

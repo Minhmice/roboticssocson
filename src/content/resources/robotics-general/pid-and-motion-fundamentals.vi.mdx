@@ -1,0 +1,32 @@
+Bộ điều khiển PID biến sai số đo được thành lệnh cho cơ cấu chấp hành. Trong robot, PID có thể giữ hướng, điều khiển góc tay máy hoặc bám vận tốc truyền động; nhưng PID không sửa được cảm biến sai, cơ cấu lỏng, động cơ bão hòa hay đơn vị không nhất quán.
+
+![Encoder Through Bore đo phản hồi vòng kín chuyển động](https://cdn11.bigcommerce.com/s-t3eo8vwp22/images/stencil/1500x1500/products/404/1487/Through_Bore_Encoder_Both_Shots_Sml__30025.1574098624.png?c=2)
+
+## Mô hình vòng kín
+
+Mỗi chu kỳ, định nghĩa sai số `e = target - measurement`. Thành phần tỉ lệ phản ứng với sai số hiện tại, tích phân cộng dồn sai số kéo dài, còn vi phân phản ứng với tốc độ thay đổi sai số. Một dạng rời rạc thực tế:
+
+```text
+integral += e * dt
+derivative = (e - previousError) / dt
+output = kP * e + kI * integral + kD * derivative + feedforward
+```
+
+Dùng chu kỳ lấy mẫu cố định, đã đo, cho `dt`; đặt lại hoặc khởi tạo trạng thái khi bắt đầu chế độ. Giới hạn output trong dải hợp lệ của cơ cấu. Khi động cơ đã chạm giới hạn, tích phân thêm không tạo thêm lực. Đóng băng hoặc hồi tính tích phân khi bão hòa (anti-windup), và đặt lại khi target hoặc chế độ cơ cấu đổi nếu sai số tích lũy không còn ý nghĩa.
+
+| Thành phần | Đáp ứng hữu ích | Lỗi thường gặp khi quá lớn |
+| --- | --- | --- |
+| `kP` | Sửa sai số vị trí hoặc vận tốc | Dao động, kêu, dòng cao |
+| `kI` | Xóa sai lệch tĩnh do ma sát | Vọt lố chậm, windup |
+| `kD` | Tạo giảm chấn và dự đoán biến thiên | Khuếch đại nhiễu, giật |
+| Feedforward | Cấp trước lực cho trọng lực, ma sát hoặc vận tốc | Mô hình sai tạo lệch cố định |
+
+## Tuning theo thứ tự an toàn
+
+Bắt đầu với `kI = 0` và `kD = 0`. Xác nhận chiều encoder, đơn vị target, quy ước dấu, giới hạn output và nút dừng khẩn cấp. Tăng `kP` đến khi đáp ứng hữu ích nhưng không dao động liên tục. Thêm lượng nhỏ đạo hàm nếu cơ cấu rung; lọc vận tốc đo thay vì vi phân trực tiếp vị trí nhiễu. Chỉ thêm tích phân đủ để xóa sai số tĩnh lặp lại, sau đó kiểm tra bão hòa và hồi phục. Tuning khi robot được giữ chắc hoặc bánh nâng khỏi sàn, giữ người tránh xa thanh chuyển động.
+
+## Chuyển động và đơn vị
+
+Lệnh vị trí không được nhảy vượt quá vận tốc và gia tốc an toàn của cơ cấu. Dùng profile hình thang hoặc tam giác để tạo target vị trí và vận tốc có thể đạt, rồi cho bộ điều khiển bám theo. Đổi số đếm encoder sang đơn vị cơ cấu một lần tại biên phần cứng; bên trong bộ điều khiển phải nhất quán radian, mét, giây hoặc độ trên giây. Tính đến tỉ số truyền, bán kính bánh, chiều dấu và độ phân giải encoder.
+
+Ghi target, measurement, error, output, điện áp pin và chu kỳ vòng lặp. Đồ thị thường phân biệt nhiễu cảm biến, độ rơ, sụt áp và gain sai nhanh hơn đoán mò. Thử lại với tải thật: bộ điều khiển chạy tốt khi không tải có thể bão hòa hoặc dao động khi trọng lực và quán tính đổi.

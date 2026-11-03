@@ -1,0 +1,59 @@
+## Battery Maintenance and Internal Resistance Monitoring in Robotics
+
+The electrical power distribution system is the lifeblood of competitive mobile robotics. During simultaneous drivetrain acceleration, intake actuation, or motor stalling, instantaneous current draw can spike to 30A to 60A across the main bus. If battery condition has degraded, severe voltage sag triggers brownout protections on the central robot controller, resetting microprocessors and stranding the robot dead on the field.
+
+![Battery testing and impedance measurement](https://commons.wikimedia.org/wiki/Special:FilePath/Multimeter_measuring_resistance.jpg)
+
+### Fundamentals of Internal Resistance (IR)
+
+Every electrochemical battery cell exhibits an intrinsic internal resistance, denoted as `R_int` (measured in milliohms, `m\Omega`). When an operating load draws current `I` from the battery, Ohm's law dictates an immediate terminal voltage drop:
+
+
+```text
+V_{terminal} = V_{oc} - (I \times R_{int})
+```
+
+
+Where:
+- `V_terminal`: Actual operating voltage delivered to the robot distribution hub.
+- `V_oc`: Open-circuit voltage measured across the battery terminals with no load.
+- `I`: Instantaneous aggregate load current drawn by gearmotors and servos.
+- `R_int`: Total internal resistance of the battery pack (combining electrochemical cells, internal spot welds, wiring leads, and connector terminals).
+
+When battery internal resistance rises due to cycle aging, improper storage, or damaged cells, high-current maneuvers cause terminal voltage to plummet below the minimum operating threshold of modern robotic control hubs (typically 7.0V - 8.0V on 12V architectures). A multimeter reading open-circuit voltage will falsely report a "fully charged" 13.5V pack that collapses under load.
+
+### Battery Health Matrix Across Chemistries
+
+The table below outlines health and retirement benchmarks across standard 12V NiMH packs (FTC competition standard) and multi-cell LiPo/LiFePO4 battery platforms:
+
+| Chemistry & Configuration | Full / Nominal Voltage | Healthy Pack IR (`m\Omega`) | Warning Threshold (`m\Omega`) | Retirement Threshold (`m\Omega`) | Primary Failure Symptom |
+| --- | --- | --- | --- | --- | --- |
+| 10-Cell NiMH (12.0V 3000mAh) | 14.2V / 12.0V | 70 - 110 `m\Omega` | 150 - 200 `m\Omega` | > 250 `m\Omega` | Control hub brownout on full-throttle drive initiation |
+| 3S LiPo (11.1V 2200-5000mAh) | 12.6V / 11.1V | < 5 `m\Omega` / cell | 15 - 20 `m\Omega` / cell | > 25 `m\Omega` / cell | Physical cell swelling (puffing), extreme heat after 2-minute cycle |
+| 4S LiFePO4 (12.8V 3000mAh) | 14.4V / 12.8V | 8 - 15 `m\Omega` / cell | 25 - 35 `m\Omega` / cell | > 45 `m\Omega` / cell | Premature capacity cutoff; unable to sustain sustained 25A continuous draw |
+
+```
+Equivalent Circuit Model of Battery Under Dynamic Load:
+
+   +----------------- Pack Boundary -----------------+
+   |                                                 |
+  (+)----[ Ideal Voltage Voc ]----[ Internal R_int ]-(-)
+   |                                                 |
+   +-------------------------------------------------+
+                            |
+                   Transient Current I (30A - 50A)
+                            ↓
+                Terminal Drop = I × R_int
+```
+
+### Accurate Impedance Measurement Techniques
+
+- **Four-Wire Kelvin Sensing:** Standard digital multimeters pass current through the same test leads used to measure voltage, introducing lead resistance into the reading. Dedicated battery analyzers and precision balance chargers use four-wire Kelvin connections: two wires inject a high-frequency AC or pulsed DC excitation current, while two independent high-impedance sense leads measure the exact voltage drop across the terminal posts, isolating true battery IR down to single-milliohm accuracy.
+- **Dynamic Load Testing:** Connect the battery to a commercial computerized battery analyzer (such as a West Mountain Radio CBA) or perform a controlled bench stall test while logging real-time telemetry. A healthy pack drops no more than 1.5V to 2.2V under a 25A step load.
+
+### Battery Maintenance and Fleet Longevity Protocols
+
+1. **Controlled Charge Rates:** For NiMH competition packs, charge at conservative rates between 0.5C and 0.8C (1.5A to 2.4A for a 3000mAh pack) using precision negative delta-V (`\Delta V`) or temperature cutoff algorithms (`dT/dt`). Rapid charging at 2C overheats cells and crystalizes internal separator membranes.
+2. **Connector Contact Inspection:** Regularly inspect Anderson Powerpole or XT30/XT60 connectors. Arcing during connection, mechanical insertion wear, or loose crimps can easily inject an additional 40 to 80 `m\Omega` of external parasitic resistance into the main power circuit.
+3. **Proper Storage Charge:** Never store lithium packs fully charged or fully depleted. Bring LiPo cells to their nominal storage voltage (~3.80V to 3.85V per cell) before placing them into fireproof safety bags at stable room temperature.
+4. **Historical Logging:** Label every battery pack with a permanent tracking ID. Record initial baseline internal resistance when brand new, and log monthly impedance measurements. Demote degrading packs to low-draw bench prototyping, reserving only low-IR packs for tournament match play.

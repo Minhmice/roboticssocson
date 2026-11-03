@@ -1,0 +1,32 @@
+Mechanical fasteners turn separate plates, brackets, and tubes into a load path. Good robot structure depends less on bolt count than on joint preload, bearing area, thread engagement, and resistance to loosening.
+
+![goBILDA Viper-Slide linear slide hardware used in a robot structure](https://cdn11.bigcommerce.com/s-eem7ijc77k/product_images/uploaded_images/2500-series-steel-viper-slides-lifestyle.min.jpg)
+
+## Thread and grade selection
+
+Metric coarse threads are the normal choice for aluminum robot frames. M3, M4, and M5 are common in REV-style extrusion and sheet-metal assemblies. Coarse threads tolerate dirt and provide more thread depth per turn; fine threads offer smaller pitch adjustment but are easier to damage in thin material. Match bolt, nut, and tap nominal diameter and pitch. Never force an M4 × 0.7 screw into an M4 × 0.5 hole.
+
+Property classes describe metric bolt strength. Class 8.8 has approximately 800 MPa nominal tensile strength and 0.8 yield ratio; 10.9 is stronger but less forgiving of over-tightening. Stainless A2-70 resists corrosion, but its lower strength and galling risk matter. Grade markings apply to the fastener, not automatically to an unmarked nut.
+
+| Joint condition | Practical choice | Reason |
+| --- | --- | --- |
+| Aluminum extrusion, removable | 8.8 socket-head bolt and steel T-nut | High preload with serviceable threads |
+| Thin sheet, no rear access | Rivet nut or clinch nut | Captive internal thread |
+| Pivot or rotating link | Shoulder bolt with spacer/bushing | Smooth bearing surface, controlled play |
+| High vibration | Class 8.8 bolt, prevailing-torque nut or threadlocker | Maintains clamp force |
+
+## Joint design and preload
+
+A bolted joint should clamp parts together so friction carries most shear. Use a washer when a head or nut could pull through soft aluminum. Keep threads out of the shear plane when possible; use an unthreaded shank through the joint. Provide enough engagement: about 1 diameter in steel and 1.5–2 diameters in aluminum when tapping directly. A nut should show at least one full thread beyond the bolt, without excessive protrusion near moving mechanisms.
+
+Tighten gradually in a cross pattern on plates. Torque tables assume clean, dry threads; oil or threadlocker changes clamp load. Use medium-strength removable threadlocker on metal threads only, and let it cure before match testing. Do not use threadlocker as a substitute for missing threads, a damaged joint, or a loose bearing fit.
+
+## Inspection checklist
+
+* Check that every structural fastener has the intended diameter and pitch.
+* Look for crushed tube walls, elongated holes, fretting dust, and cracked washers.
+* Mark critical fasteners with a paint witness line after final torque.
+* Recheck joints after the first drive session and after any hard impact.
+* Replace rounded heads, stretched bolts, stripped T-nuts, and any fastener exposed to severe bending.
+
+For FTC-style robots, design access around a hex key or nut driver. A joint that cannot be inspected between matches is a maintenance risk. Record torque assumptions and hardware grade in the build log so another student can rebuild the same joint safely.

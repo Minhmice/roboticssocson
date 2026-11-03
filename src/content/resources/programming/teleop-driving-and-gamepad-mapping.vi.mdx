@@ -1,0 +1,156 @@
+## Điều khiển TeleOp và thuật toán lái Mecanum định hướng sân đấu
+
+Trong phần thi điều khiển bằng tay (TeleOp) của FIRST Tech Challenge, việc tối ưu hóa cảm giác lái của người điều khiển đóng vai trò quyết định tốc độ và độ chính xác khi ghi điểm. Chế độ lái định hướng sân đấu (Field-Centric Mecanum Drive) cho phép robot di chuyển theo hướng gạt cần của tay cầm bất kể robot đang quay mặt về hướng nào.
+
+![Nguyên lý chuyển động bánh xe Mecanum](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Mecanum_wheel_concept.svg/800px-Mecanum_wheel_concept.svg.png)
+
+### Xử lý tín hiệu tay cầm: Vùng chết và đường cong phi tuyến
+
+Các cần gạt analog (thumbsticks) trên tay điều khiển thường có sai số hồi vị vật lý, tạo ra tín hiệu trôi (stick drift) khi thả tay. Ngoài ra, quan hệ tuyến tính giữa độ gạt cần và tốc độ động cơ khiến việc căn chỉnh vị trí tinh vi ở dải tốc độ thấp rất khó khăn.
+
+```text
+[Tín hiệu gạt thô (-1.0 đến +1.0)]
+               │
+               ▼
+   [Bộ lọc Deadzone (|raw| < 0.05 => 0.0)]
+               │
+               ▼
+ [Đường cong phi tuyến: output = raw³ hoặc raw × |raw|]
+               │
+               ▼
+[Tín hiệu mượt mà cấp cho bộ giải động học Mecanum]
+```
+
+Phương pháp làm mịn phổ biến là sử dụng hàm bậc 3 hoặc hàm mũ:
+
+```java
+public static double applyDeadzoneAndCurve(double input, double deadzone) {
+    if (Math.abs(input) < deadzone) {
+        return 0.0;
+    }
+    // Sử dụng đường cong hàm mũ bậc ba để duy trì độ nhạy cao ở dải công suất thấp
+    return Math.pow(input, 3);
+}
+```
+
+### Thuật toán chuyển đổi hệ tọa độ sân đấu (Field-Centric Kinematics)
+
+Trong hệ quy chiếu robot (Robot-Centric), đẩy cần tới luôn làm robot chạy thẳng về phía mũi xe. Trong hệ quy chiếu sân đấu (Field-Centric), đẩy cần tới luôn đưa robot tiến về phía đối diện của sân đấu, giúp người lái không cần phải liên tục đảo ngược tư duy không gian khi robot quay đầu.
+
+Góc quay la bàn của robot được đọc từ cảm biến IMU tích hợp trong REV Control Hub (`\theta`). Tín hiệu điều khiển ngang (`x`) và dọc (`y`) được quay một góc `-\theta` theo ma trận xoay 2 chiều:
+
+
+```text
+\begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} \cos(-\theta) & -\sin(-\theta) \\ \sin(-\theta) & \cos(-\theta) \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}
+```
+
+
+Sau khi tính toán `x'` và `y'`, công suất cho 4 động cơ dẫn động độc lập được tổng hợp từ ba thành phần: tịnh tiến dọc (`y'`), tịnh tiến ngang (`x'`), và tốc độ quay quanh trục (`rx`):
+
+- Bánh trước trái (Front Left): `FL = y' + x' + rx`
+- Bánh sau trái (Back Left): `BL = y' - x' + rx`
+- Bánh trước phải (Front Right): `FR = y' - x' - rx`
+- Bánh sau phải (Back Right): `BR = y' + x' - rx`
+
+### Chuẩn hóa công suất động cơ (Power Normalization)
+
+Khi người lái vừa đẩy cần di chuyển vừa bẻ lái quay xe đồng thời, tổng đại số của các thành phần có thể vượt quá giới hạn `1.0`. Nếu chỉ đơn giản cắt gọn (clamping), robot sẽ bị méo hướng di chuyển và mất khả năng rẽ. Thuật toán chuẩn hóa tỷ lệ tìm giá trị lớn nhất trong 4 bánh và chia đều cho toàn bộ:
+
+```java
+double maxPower = Math.max(Math.abs(fl), Math.max(Math.abs(bl), Math.max(Math.abs(fr), Math.abs(br))));
+if (maxPower > 1.0) {
+    fl /= maxPower;
+    bl /= maxPower;
+    fr /= maxPower;
+    br /= maxPower;
+}
+```
+
+### Triển khai hoàn chỉnh trong LinearOpMode
+
+Mã nguồn mẫu dưới đây thiết lập bộ khung điều khiển Mecanum Field-Centric sẵn sàng vận hành trên robot FTC:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.IMU;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
+@TeleOp(name = "TeleOp: Mecanum Dinh Huong San Dau", group = "TeleOp")
+public class FieldCentricMecanumTeleOp extends LinearOpMode {
+    @Override
+    public void runOpMode() {
+        DcMotor frontLeft = hardwareMap.get(DcMotor.class, "front_left");
+        DcMotor backLeft = hardwareMap.get(DcMotor.class, "back_left");
+        DcMotor frontRight = hardwareMap.get(DcMotor.class, "front_right");
+        DcMotor backRight = hardwareMap.get(DcMotor.class, "back_right");
+
+        // Đảo chiều các động cơ bên trái do cấu hình hộp số đối xứng
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        backRight.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        // Cấu hình hướng lắp đặt của cảm biến IMU trên khung robot
+        IMU imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+        ));
+        imu.initialize(parameters);
+
+        telemetry.addData("Trang Thai", "Khoi tao hoan tat. San sang.");
+        telemetry.update();
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+            // Lấy tín hiệu tay cầm (trục Y của cần gạt mặc định bị ngược dấu trong Android)
+            double y = -gamepad1.left_stick_y;
+            double x = gamepad1.left_stick_x * 1.1; // Hệ số nhân 1.1 bù trượt ngang của bánh Mecanum
+            double rx = gamepad1.right_stick_x;
+
+            // Nút Options / Back để thiết lập lại góc 0 độ khi robot bị lệch
+            if (gamepad1.options) {
+                imu.resetYaw();
+            }
+
+            double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+            // Xoay vector điều khiển ngược theo góc hiện tại của robot
+            double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+            double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+
+            // Tính toán công suất từng bánh
+            double flPower = rotY + rotX + rx;
+            double blPower = rotY - rotX + rx;
+            double frPower = rotY - rotX - rx;
+            double brPower = rotY + rotX - rx;
+
+            // Chuẩn hóa công suất nếu vượt ngưỡng 1.0
+            double max = Math.max(Math.abs(flPower), Math.max(Math.abs(blPower),
+                    Math.max(Math.abs(frPower), Math.abs(brPower))));
+
+            if (max > 1.0) {
+                flPower /= max;
+                blPower /= max;
+                frPower /= max;
+                brPower /= max;
+            }
+
+            frontLeft.setPower(flPower);
+            backLeft.setPower(blPower);
+            frontRight.setPower(frPower);
+            backRight.setPower(brPower);
+
+            telemetry.addData("Goc La Ban (Deg)", Math.toDegrees(botHeading));
+            telemetry.update();
+        }
+    }
+}
+```

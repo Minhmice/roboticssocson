@@ -1,0 +1,58 @@
+## The Role of Quantitative Scouting in FTC
+
+Scouting in the FIRST Tech Challenge is not merely casual observation from the stands; it is the structured collection, normalization, and statistical analysis of field data. A robust scouting operation serves two tactical objectives:
+1. **Qualification Match Pre-planning:** Identifying synergy, cycle paths, and spatial bottlenecks between two alliance partners before stepping onto the playing field.
+2. **Playoff Alliance Selection Picklist Architecture:** Constructing an empirical picklist based on verified scoring rates, eliminating recency bias and subjective guesswork.
+
+![FTC Driver Station controller setup](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/FIRST_Tech_Challenge_%E2%80%93_Parts_%E2%80%93_Driver_station_with_2_controllers.jpg/1280px-FIRST_Tech_Challenge_%E2%80%93_Parts_%E2%80%93_Driver_station_with_2_controllers.jpg)
+
+---
+
+## Quantitative Scouting Metrics and Data Collection Form
+
+A standardized scouting sheet separates gameplay into distinct game periods and isolates key mechanical and operational attributes:
+
+| Category | Primary Metric | Calculation / Tracking Method | Strategic Significance |
+| :--- | :--- | :--- | :--- |
+| **Autonomous** | Pre-load & Spike Success Rate | `(Successful Scored Pre-loads / Total Match Attempts) * 100%` | Validates computer vision reliability and dead-reckoning odometry accuracy |
+| **Autonomous** | Parking / Navigation Consistency | Discrete point value achieved per match | Confirms ability to avoid colliding with alliance partners during transit |
+| **TeleOp** | Scoring Cycle Time | `Total TeleOp Active Driving Time (seconds) / Valid Elements Scored` | Reflects intake reliability, driver dexterity, and outtake velocity |
+| **TeleOp** | Element Drop & Miss Frequency | `Dropped Elements / (Acquired Elements + Dropped Elements)` | Highlights grip stability under violent lateral acceleration |
+| **Endgame** | Rigging Hang / Suspension Speed | Suspension level achieved and seconds elapsed to lock mechanism | Establishes critical point deltas in the final 30 seconds of the match |
+| **Discipline** | Penalty Propensity | Minor and Major penalty points conceded per match | Filters out high-scoring teams whose foul points negate net alliance margin |
+
+---
+
+## Data Analysis & Component Offensive Power Rating (cOPR)
+
+To isolate individual team contributions within a two-team alliance, teams construct a system of linear equations modeling Offensive Power Rating (OPR):
+
+```
+[Match 1]: Team_A + Team_B = Alliance_1_Score
+[Match 2]: Team_A + Team_C = Alliance_2_Score
+...
+[Match N]: Team_X + Team_Y = Alliance_N_Score
+```
+
+Because total OPR can be skewed by opponent penalty points or partner disconnects, advanced scouts compute **Component OPR (cOPR)** by breaking match totals into separate vectors for Autonomous scoring, TeleOp cycle output, and Endgame suspension points.
+
+Operational consistency is evaluated using the standard deviation (`\sigma`) of TeleOp cycle counts:
+- `\sigma < 1.5`: High reliability, predictable cycle output, low mechanical failure risk.
+- `\sigma > 4.0`: High variance, frequently prone to jammed intakes, loose belt tension, or software disconnects.
+
+---
+
+## Pre-Match Alliance Coordination and Game Strategy
+
+Fifteen minutes prior to match queuing, the Drive Coach must meet with the alliance partner to establish concrete operational boundaries:
+
+1. **Autonomous Trajectory De-confliction:**
+   - Map tile-by-tile coordinate vectors for both robots during the 30-second autonomous window.
+   - If paths overlap in the central depot or scoring backdrop, the team with the lower autonomous cOPR executes a secondary failsafe script (safe park only).
+
+2. **TeleOp Traffic Lane Allocation:**
+   - Designate one robot to the exterior perimeter corridor and the other to the interior lane.
+   - Right-of-Way Rule: The loaded robot returning to the scoring target maintains absolute right-of-way over the empty robot traveling to retrieve game elements.
+
+3. **Emergency Contingency Protocols:**
+   - In the event of partner disconnection or mechanical stall in the field corridor, the active robot immediately shifts to solo cycling without attempting hazardous pushes that could cause entanglement penalties.

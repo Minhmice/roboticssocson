@@ -17,7 +17,6 @@
 | Gói tài trợ | **3M · 5M · 10M · 25M + hiện vật quy đổi 1:1** |
 | Tỷ giá dùng | 25.800 ₫/USD |
 
-Maker Day là nguồn thu tự tạo, bán vé trước, nằm ngoài mục tiêu 33.975.000 ₫.
 
 ## Mục lục
 
@@ -29,7 +28,6 @@ flowchart LR
   subgraph Tiền["Mô hình tiền"]
     F04[04 Ngân sách delta] --> F05[05 Gói doanh nghiệp]
     F04 --> F06[06 Mission cộng đồng]
-    F04 --> F08[08 Maker Day]
   end
   subgraph Bán["Bán & tiếp cận"]
     F07[07 Nội dung] --> F09[09 Sales kit] --> F11[11 CRM]
@@ -49,7 +47,6 @@ flowchart LR
 | 05 | [05-goi-tai-tro-doanh-nghiep.md](05-goi-tai-tro-doanh-nghiep.md) | 4 gói tài trợ, hiện vật, thứ tự tiếp cận |
 | 06 | [06-mission-gay-quy-cong-dong.md](06-mission-gay-quy-cong-dong.md) | 4 mission phần cứng + quỹ dự phòng, tracker, CTA |
 | 07 | [07-chuyen-linh-kien-noi-dung.md](07-chuyen-linh-kien-noi-dung.md) | Các series nội dung, lịch 8 tuần, quảng cáo |
-| 08 | [08-maker-day.md](08-maker-day.md) | Maker Day: tự cấp vốn bằng tiền vé |
 | 09 | [09-sales-kit.md](09-sales-kit.md) | One-pager, deck, email, kịch bản gọi điện, grant |
 | 10 | [10-support-thanh-toan-phap-ly.md](10-support-thanh-toan-phap-ly.md) | Hướng dẫn pháp lý, thỏa thuận 3 bên, VietQR, NĐ 13/2023, `/support` |
 | 11 | [11-crm-prospect.md](11-crm-prospect.md) | Cấu trúc CRM, 53 prospect, pipeline grant |

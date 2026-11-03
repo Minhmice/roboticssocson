@@ -1,0 +1,36 @@
+## FTC Match Structure & Alliance Scoring Strategy
+
+An official FIRST Tech Challenge (FTC) match spans exactly 2 minutes and 30 seconds of high-intensity competition between two opposing alliances (Red Alliance vs. Blue Alliance), with each alliance composed of two distinct team robots. Maximizing alliance score demands far more than raw mechanism velocity; it requires a deep technical grasp of match flow phases, disciplined cycle time budgeting, symbiotic alliance communication, and ruthless penalty avoidance.
+
+![Robotics competition match arena with robots and drive teams](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80)
+
+### Chronological Match Breakdown & Phase Objectives
+
+FTC matches are orchestrated automatically by the tournament Field Control System (FCS), following a strict chronological progression:
+
+```text
+[ 0:00 - 0:30 ] ────────► [ 0:30 - 0:38 ] ────────► [ 0:38 - 2:08 ] ────────► [ 2:08 - 2:38 ]
+Autonomous Period          Field Transition           TeleOp Period              Endgame Period
+(Pre-programmed - 30s)     (Referee Pause ~8s)        (Driver-Controlled - 90s)  (High-Value Bonus - 30s)
+```
+
+| Match Phase | Duration | Operational Constraints | Strategic Core Objective |
+| --- | --- | --- | --- |
+| **Autonomous** | 30 Seconds | Pre-programmed sensor feedback, computer vision & odometry | Secure baseline autonomous bonus, score preload elements, park accurately |
+| **Field Transition** | ~8 Seconds | Hands off gamepads; field referees audit positions | Maintain stable arm posture, select TeleOp OpMode on Driver Station |
+| **TeleOp (Driver)** | 90 Seconds | Dual gamepads input active; manual robot piloting | Execute rapid scoring cycles, supply alliance partners, control field traffic |
+| **Endgame** | Final 30 Seconds | Sub-phase of TeleOp; specialized tasks unlocked | High-elevation hanging/pull-up, drone launch, specialized parking bonuses |
+
+### Cycle Time Budgeting and Alliance Field Synchronization
+
+In competitive TeleOp, overall alliance scoring is governed by total completed cycles. Every cycle consists of four distinct operational legs: **Acquisition -> Field Transit -> Alignment & Scoring -> Return Transit**:
+1. **Zonal Partitioning**: Both alliance teams must delineate clear operating boundaries prior to match queuing. One robot should dominate close-proximity rapid cycling, while the alliance partner executes long-range element feeding or dedicated placement.
+2. **Traffic Bottleneck Mitigation**: Driving paths through field arches, trusses, or perimeter choke points must follow agreed-upon flow rules (e.g., clockwise transit loops) to eliminate head-on gridlock between alliance partners.
+3. **Endgame Cutoff Discipline**: The Drive Coach must enforce a strict point of no return. Never initiate a fresh intake cycle with under 12–15 seconds on the match timer. Transitioning immediately to the climb structure ensures secure latching before the terminal buzzer sounds.
+
+### Rule Compliance and Penalty Mitigation
+
+A single Major Penalty (30 penalty points gifted to the opposing alliance) can erase the point advantage built during an entire Autonomous phase:
+- **Strict Possession Limits**: Enforce strict hardware or software limit interlocks. Never herd, push, or contain more game elements than allowed by season rules (typically 1 or 2 items). Optical sensors inside the intake should actively disable rollers when full capacity is reached.
+- **Opponent Protected Zones**: Avoid contact with opponent robots when they are stationed inside designated protected field boundaries (such as scoring backdrops or submersible zones).
+- **Post-Buzzer Inaction**: All motor and servo pulse trains must cease instantly upon the conclusion of match sound effects. Continued mechanism operation incurs severe penalty assessments or disqualification of Endgame scoring tasks.

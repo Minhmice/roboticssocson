@@ -82,4 +82,4 @@ Quy chuẩn chung để mọi poster và video nhìn như cùng một đội là
 
 `#RoboticsSocSon #FTC39256 #BuildTheNextRobot #BIOBUZZ #FIRSTTechChallenge`
 
-Thêm 1–2 tag theo bài: `#ChuyenLinhKien` `#MakerDay` `#STEMVietnam`.
+Thêm 1–2 tag theo bài: `#ChuyenLinhKien` `#LabDiaries` `#STEMVietnam`.

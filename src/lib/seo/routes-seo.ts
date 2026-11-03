@@ -36,26 +36,28 @@ export const homeSeo: Record<Locale, RouteSeo> = {
 
 export const fundraisingSeo: Record<Locale, RouteSeo> = {
   vi: {
-    title: "Gây quỹ mùa giải 2025-2026 | Robotics Sóc Sơn",
+    title: "Gây quỹ mùa giải 2026–2027 | Robotics Sóc Sơn",
     description:
-      "Cùng hỗ trợ đội Robotics Sóc Sơn chuẩn bị cho giải đấu FIRST Tech Challenge với ngân sách minh bạch từng hạng mục.",
+      "Đồng hành cùng đội FTC #39256 Robotics Sóc Sơn trong mùa BIOBUZZ thuộc FIRST CANOPY với ngân sách phần cứng minh bạch 33.975.000₫.",
     canonicalPath: "/fundraising",
     keywords: [
       "gây quỹ robotics sóc sơn",
-      "ủng hộ robotics",
+      "BIOBUZZ",
+      "FIRST CANOPY",
       "tài trợ FTC",
       "STEM Sóc Sơn",
       "Robotics Sóc Sơn fundraising",
     ],
   },
   en: {
-    title: "Season 2025-2026 Fundraising | Robotics Sóc Sơn",
+    title: "2026–2027 Season Fundraising | Robotics Sóc Sơn",
     description:
-      "Support Robotics Sóc Sơn as we prepare for the FIRST Tech Challenge with transparent itemized budget allocations.",
+      "Support Robotics Sóc Sơn FTC Team #39256 for BIOBUZZ in FIRST CANOPY with a transparent 33,975,000₫ hardware budget.",
     canonicalPath: "/fundraising",
     keywords: [
       "Robotics Soc Son fundraising",
-      "support robotics",
+      "BIOBUZZ",
+      "FIRST CANOPY",
       "FTC sponsorship",
       "STEM Soc Son",
       "Robotics Soc Son",

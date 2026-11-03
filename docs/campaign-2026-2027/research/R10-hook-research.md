@@ -31,7 +31,7 @@ Theo nghiên cứu phân tích 1.238 video hàng đầu của **Ames Create**:
 - Chỉ 1% mở đầu bằng câu hỏi thông thường chung chung.
 
 ### 1.3. Ngưỡng cắt "Xem thêm" (See More Fold) trên Facebook Feed
-Đối với bài viết chữ và carousel (P01–P06, C01), "3 giây đầu" tương ứng với **1–2 dòng đầu tiên trước khi bài viết bị ẩn sau nút "... Xem thêm"**:
+Đối với bài viết chữ và carousel (P01–P05, C01), "3 giây đầu" tương ứng với **1–2 dòng đầu tiên trước khi bài viết bị ẩn sau nút "... Xem thêm"**:
 - Theo dữ liệu đo lường giao diện di động của **TypeCount (2026)** và **PostTruncate (2026)**, phiên bản Facebook Mobile App chỉ hiển thị từ **150 đến 200 ký tự đầu tiên** (khoảng 2 dòng trên màn hình điện thoại 6.1–6.7 inch) trước khi xuất hiện liên kết `... Xem thêm`.
 - Người dùng lướt News Feed với tốc độ trung bình 1,7 giây/bài viết. Nếu dòng mở đầu không chứa được: (1) một sự thật gây sửng sốt, (2) một con số cụ thể, hoặc (3) câu hỏi nghịch lý, họ sẽ không bao giờ bấm vào "Xem thêm" hay xem các slide tiếp theo của carousel.
 
@@ -169,7 +169,7 @@ Theo cẩm nang chính thức của **LearnFRC (2026)** (*Videography & Editing,
 
 ## 5. Ngân Hàng Hook Tiếng Việt Toàn Diện (56 Câu Hook Cho Chiến Dịch)
 
-Toàn bộ các câu hook dưới đây được thiết kế riêng cho chiến dịch **BUILD THE NEXT ROBOT**, tuân thủ nghiêm ngặt các sự thật chuẩn hóa từ `03-thanh-tich-chuan-hoa.md` và `00-README.md` (tổng ngân sách 33.975.000 ₫, mốc 1 17.546.000 ₫ trước 20/11, mốc 2 trước 05/12, thứ hạng 36/38, Top 4 VRC, Top 8 VORC, Á quân Motions In Fire, 11 linh kiện, Maker Day 79k/89k).
+Toàn bộ các câu hook dưới đây được thiết kế riêng cho chiến dịch **BUILD THE NEXT ROBOT**, tuân thủ nghiêm ngặt các sự thật chuẩn hóa từ `03-thanh-tich-chuan-hoa.md` và `00-README.md` (tổng ngân sách 33.975.000 ₫, mốc 1 17.546.000 ₫ trước 20/11, mốc 2 trước 05/12, thứ hạng 36/38, Top 4 VRC, Top 8 VORC, Á quân Motions In Fire, 11 linh kiện).
 
 ```mermaid
 mindmap
@@ -190,11 +190,11 @@ mindmap
       Nếu không làm robot
     V04 Nhật Ký Build Log
       Unboxing thùng hàng Mỹ
-      Recap 40 em Maker Day
+      Chế tạo tại phòng Lab
       Robot lăn bánh đầu tiên
       30 giây tự hành
     Posters & Captions
-      Cover P01 P03 P04 P05 P06
+      Cover P01 P03 P04 P05
       Dòng đầu trước Xem thêm C01
 ```
 
@@ -263,10 +263,6 @@ mindmap
 37. **[Cảm giác chạm đồ thật]:** "Cảm giác tận tay bóc seal bộ não Control Hub trị giá 11,7 triệu đồng do cộng đồng ủng hộ."
 38. **[Trách nhiệm từng đồng]:** "Mỗi con ốc trong chiếc thùng này được mua bằng sự tin tưởng của 50 nhà hảo tâm."
 
-#### Recap Maker Day (T3 15/12)
-39. **[Không khí sự kiện]:** "Tiếng reo hò làm rung chuyển phòng đa năng: Khi các em nhỏ tiểu học lần đầu lái robot đối kháng!"
-40. **[Thử thách đối kháng]:** "Liệu một học sinh lớp 5 có thể đánh bại được robot tự hành của các anh chị cấp 3?"
-41. **[Tác động cộng đồng]:** "40 nhà sáng chế nhí và một ngày Chủ nhật không điện thoại, không trò chơi điện tử."
 
 #### Robot lăn bánh đầu tiên (CN 20/12)
 42. **[Khoảnh khắc vỡ òa]:** "Sau 45 ngày trên bản vẽ, khung gầm robot BIOBUZZ đã chính thức lăn những mét đầu tiên!"
@@ -278,13 +274,12 @@ mindmap
 46. **[Khoảnh khắc nín thở]:** "Một centimet lệch góc quay là toàn bộ chương trình tự hành bị hủy hoại hoàn toàn."
 47. **[Phục thù 36/38]:** "Khắc phục triệt để thất bại năm ngoái: Đây là 30 giây tự hành chính xác tuyệt đối của #39256."
 
-### 5.5. Nhóm Posters — Tiêu Đề Ảnh Bìa Carousel & Feed (P01–P06)
+### 5.5. Nhóm Posters — Tiêu Đề Ảnh Bìa Carousel & Feed (P01–P05)
 *Quy chuẩn: Dưới 10 từ, font Inter Black 120–140px, tương phản mạnh trên nền trắng viền xám thép.*
 48. **[P01 Phát động 05/11]:** "BUILD THE NEXT ROBOT: 11 LINH KIỆN ĐỂ ROBOT RA SÂN"
 49. **[P03 Chuyện linh kiện]:** "30 GIÂY TỰ HÀNH: ROBOT NGHĨ BẰNG GÌ?"
 50. **[P04 Tiến độ quỹ tuần]:** "TIẾN ĐỘ QUỸ TUẦN N: ĐÃ ĐẠT X% MỤC TIÊU"
 51. **[P05 Thành tích 08/11]:** "4 NĂM · 5 GIẢI ĐẤU · 1 LẦN THẤT BẠI ĐỂ LÀM LẠI"
-52. **[P06 Maker Day 24/11]:** "CAN YOU BEAT THE ROBOT? THỬ TÀI ĐẤU ROBOT THẬT"
 
 ### 5.6. Nhóm Captions C01 — Dòng Đầu Tiên Trước Nút "Xem Thêm" (Mobile Facebook Feed)
 *Quy chuẩn: Dưới 120 ký tự, ngắt dòng dứt khoát trước khi bị cắt bởi giao diện mobile.*
@@ -376,7 +371,7 @@ sequenceDiagram
     Story-->>Lab: Khán giả chọn Hook có tương tác cao hơn (A vs B)
     Lab->>Reels: BƯỚC 2: Xuất bản Reel chính thức với Hook chiến thắng
     Reels-->>Lab: Theo dõi 3-Second Video Plays & Hold Rate trên Meta Suite
-    opt Nếu bài được duyệt Boost (P06 / V04)
+    opt Nếu bài được duyệt Boost (V04)
         Lab->>Meta: BƯỚC 3: Chạy A/B Test 100k VNĐ với 2 Video Thumbnails/Hook
         Meta-->>Lab: Báo cáo Cost per 3-Second Play rẻ nhất
     end
@@ -397,7 +392,7 @@ sequenceDiagram
   - Định dạng nào có Hold Rate cao hơn sẽ được áp dụng cho toàn bộ chuỗi video Build Log (V04) trong tháng 12.
 
 #### Bước 3: Thử nghiệm Micro-Boost có kiểm soát (Paid Ad Split Test)
-- Theo kế hoạch tại `07-chuyen-linh-kien-noi-dung.md` §6, chiến dịch có ngân sách quảng cáo mồi 600.000 ₫ (P06 Maker Day 350.000 ₫ và V04 Robot chạy lần đầu 250.000 ₫):
+- Theo kế hoạch tại `07-chuyen-linh-kien-noi-dung.md` §6, chiến dịch có ngân sách quảng cáo mồi 250.000 ₫ (V04 Robot chạy lần đầu 250.000 ₫):
   - Khi chạy chiến dịch V04 (250.000 ₫ trong 3 ngày), tạo 2 nhóm quảng cáo (Ad Set A và Ad Set B), mỗi nhóm 50.000 ₫ trong 24 giờ đầu.
   - **Biến thể A:** Giây 0–3 mở đầu bằng cảnh robot phóng đi kèm âm thanh bánh xe.
   - **Biến thể B:** Giây 0–3 mở đầu bằng học sinh cầm linh kiện nói câu thách thức.
@@ -471,5 +466,4 @@ Dưới đây là các chỉnh sửa hành động cụ thể (Actionable Edits)
 31. `docs/campaign-2026-2027/01-thong-diep-dinh-vi.md` (Thông điệp cốt lõi & chân dung đối tượng).
 32. `docs/campaign-2026-2027/03-thanh-tich-chuan-hoa.md` (Hồ sơ thành tích chuẩn hóa & giải trình 36/38).
 33. `docs/campaign-2026-2027/07-chuyen-linh-kien-noi-dung.md` (5 tuyến nội dung & kế hoạch ads).
-34. `docs/campaign-2026-2027/08-maker-day.md` (Kế hoạch sự kiện trải nghiệm Maker Day).
 35. `docs/campaign-2026-2027/social/` (Hệ thống kịch bản V01–V04, poster P01–P08, caption C01–C02).

@@ -1,0 +1,95 @@
+## Computer Vision with AprilTags in FTC
+
+AprilTags are 2D fiducial markers designed specifically for robust camera detection and precise 3D spatial pose estimation. In FIRST Tech Challenge (FTC) competitions, official AprilTags are positioned at known ground-truth coordinates across arena perimeter walls and game scoring elements (such as the Backdrop). By decoding tag homography, a standard USB webcam can resolve relative translation vectors and spatial orientations with high repeatability.
+
+![Standard AprilTag 36h11 fiducial marker](https://commons.wikimedia.org/wiki/Special:FilePath/Tag36h11.svg)
+
+### Coordinate Frames and Camera Intrinsic Calibration
+
+AprilTag pose estimation projects 2D image pixel coordinates into metric 3D camera coordinates using the camera intrinsic matrix (focal lengths `f_x, f_y` and principal point offsets `c_x, c_y`):
+
+| Parameter | Symbol | Interpretation in FTC VisionPortal |
+| --- | --- | --- |
+| Range | `r` | Direct Euclidean distance from camera optical center to tag center (inches or cm) |
+| Bearing | `\beta` | Horizontal angle between camera boresight and tag line-of-sight (degrees, positive to the right) |
+| Elevation | `\gamma` | Vertical elevation angle between camera optical horizon and tag center (degrees) |
+| Yaw | `\psi` | Relative rotational heading of the tag plane relative to the camera sensor plane |
+
+In the standard FTC coordinate convention, `+X` points rightward relative to the camera frame, `+Y` points straight forward along the camera view vector, and `+Z` points upward. Physical camera mounting offsets relative to the robot chassis center of rotation must be accounted for using coordinate frame transformations.
+
+### Complete FTC Java Implementation: VisionPortal and Pose Extraction
+
+The modern FTC SDK architecture provides the multi-threaded `AprilTagProcessor` and `VisionPortal` abstractions. Vision processing operates on dedicated background worker threads without starving the main OpMode loop:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import java.util.List;
+
+@TeleOp(name = "AprilTag Vision Pipeline", group = "Vision")
+public class AprilTagVisionPipeline extends LinearOpMode {
+    private AprilTagProcessor aprilTag;
+    private VisionPortal visionPortal;
+
+    @Override
+    public void runOpMode() {
+        initAprilTag();
+
+        telemetry.addData("Camera Status", "Initialized - Ready for Start");
+        telemetry.update();
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+            List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+            telemetry.addData("# Tags Detected", currentDetections.size());
+
+            for (AprilTagDetection detection : currentDetections) {
+                if (detection.metadata != null) {
+                    telemetry.addLine(String.format("\n==== Tag ID %d: %s ====", 
+                            detection.id, detection.metadata.name));
+                    telemetry.addLine(String.format("XYZ (inch): %6.2f %6.2f %6.2f",
+                            detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
+                    telemetry.addLine(String.format("Range/Bearing: %6.2f inch, %6.2f deg",
+                            detection.ftcPose.range, detection.ftcPose.bearing));
+                    telemetry.addLine(String.format("Yaw/Pitch/Roll: %6.1f %6.1f %6.1f deg",
+                            detection.ftcPose.yaw, detection.ftcPose.pitch, detection.ftcPose.roll));
+                } else {
+                    telemetry.addLine(String.format("Unknown Tag ID %d (No Metadata)", detection.id));
+                }
+            }
+
+            telemetry.update();
+            sleep(20);
+        }
+
+        visionPortal.close();
+    }
+
+    private void initAprilTag() {
+        aprilTag = new AprilTagProcessor.Builder()
+                .setDrawAxes(true)
+                .setDrawCubeProjection(true)
+                .setDrawTagOutline(true)
+                .build();
+
+        VisionPortal.Builder builder = new VisionPortal.Builder();
+        builder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));
+        builder.addProcessor(aprilTag);
+        visionPortal = builder.build();
+    }
+}
+```
+
+### Filtering Heuristics and Practical Robustness
+
+- **Motion Blur Reduction**: Configure manual shutter exposure and sensor gain via `ExposureControl` to limit exposure time below 8–10 ms. Auto-exposure during rapid chassis rotation causes severe frame smearing and loss of corner detection.
+- **Trust-Region Gating**: Restrict pose updates to tag detections within acceptable operational envelopes (e.g., `r < 40` inches and `|\psi| < 45^\circ`). At grazing angles and long ranges, pixel quantization errors exponentially degrade 3D position estimates.
+- **Sensor Fusion (Complementary or Kalman Filter)**: Merge high-frequency, low-latency dead-wheel odometry with absolute global position fixes from AprilTag measurements. Odometry eliminates instantaneous frame jitter, while periodic AprilTag updates eliminate accumulated dead-reckoning drift.
+- **Arena Ambient Lighting**: Competition venues exhibit unpredictable lighting, shadows, and high-frequency LED arena spotlights. Calibrate gain and white balance profiles on-site during designated field inspection windows.

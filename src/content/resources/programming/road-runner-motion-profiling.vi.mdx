@@ -1,0 +1,80 @@
+## Quỹ đạo mượt mà với Road Runner và Spline
+
+Road Runner là thư viện điều hướng quỹ đạo (trajectory generation) và theo dõi chuyển động (motion profiling) mã nguồn mở hàng đầu dành cho robot FIRST Tech Challenge (FTC). Khác với các lệnh di chuyển thẳng thô sơ ngắt quãng, Road Runner tính toán các đường cong bậc năm (quintic splines) liên tục về cả vận tốc và gia tốc. Nhờ đó, robot Mecanum di chuyển liên tục qua nhiều điểm chốt mà không cần dừng lại xoay góc, giảm đáng kể thời gian chu kỳ tự hành và hiện tượng trượt bánh do giật tải (jerk).
+
+![Đường cong spline nội suy qua các điểm điều khiển](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Cubic_spline_curve_with_control_points.svg/640px-Cubic_spline_curve_with_control_points.svg.png)
+
+### Khái niệm cốt lõi: Spline và Motion Profile
+
+Một quỹ đạo di chuyển chuẩn trong Road Runner kết hợp hai yếu tố: hình học không gian (đường dẫn hình học) và động học thời gian (phân bổ vận tốc - gia tốc):
+
+| Khái niệm | Ý nghĩa kỹ thuật | Hàm thực thi tiêu biểu |
+| --- | --- | --- |
+| `Pose2d` | Vị trí `(x, y)` tính bằng inch và góc hướng `\theta` (heading) tính bằng radian | `new Pose2d(x, y, Math.toRadians(heading))` |
+| `Vector2d` | Tọa độ tịnh tiến thuần túy `(x, y)` trên mặt phẳng sân | `new Vector2d(x, y)` |
+| `splineTo` | Bám theo đường cong spline với góc hướng tiếp tuyến với quỹ đạo | `trajectoryBuilder.splineTo(...)` |
+| `splineToLinearHeading` | Tịnh tiến theo đường cong đồng thời xoay góc hướng nội suy tuyến tính | `trajectoryBuilder.splineToLinearHeading(...)` |
+| Giới hạn động học | Ràng buộc vận tốc tối đa (`MAX_VEL`) và gia tốc tối đa (`MAX_ACCEL`) | `TrajectoryVelocityConstraint` |
+
+Hệ tọa độ sân thi đấu FTC trong Road Runner quy ước: trục `+X` hướng từ giữa sân về phía khán đài, trục `+Y` hướng sang trái, và góc xoay `0` radian dọc theo chiều dương trục `X` (ngược chiều kim đồng hồ là dương).
+
+### Mã nguồn FTC Java: Xây dựng và Thực thi Quỹ đạo Spline
+
+Ví dụ thực tế dưới đây minh họa việc khởi tạo vị trí xuất phát, xây dựng chuỗi quỹ đạo phức tạp kết hợp lấy mẫu vật và thả điểm, sử dụng `SampleMecanumDrive`:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+
+@Autonomous(name = "Road Runner Spline Auto", group = "Autonomous")
+public class RoadRunnerSplineAuto extends LinearOpMode {
+    @Override
+    public void runOpMode() {
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
+        // Đặt tọa độ xuất phát ban đầu của robot (inch, rad)
+        Pose2d startPose = new Pose2d(12.0, -60.0, Math.toRadians(90.0));
+        drive.setPoseEstimate(startPose);
+
+        // Xây dựng chuỗi quỹ đạo nội suy spline
+        Trajectory traj1 = drive.trajectoryBuilder(startPose)
+                .splineTo(new Vector2d(24.0, -36.0), Math.toRadians(45.0))
+                .splineToSplineHeading(new Pose2d(48.0, -12.0, Math.toRadians(0.0)), Math.toRadians(0.0))
+                .build();
+
+        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+                .back(20.0)
+                .splineToLinearHeading(new Pose2d(12.0, -12.0, Math.toRadians(180.0)), Math.toRadians(180.0))
+                .build();
+
+        telemetry.addData("Road Runner", "Trajectories Compiled - Ready");
+        telemetry.update();
+
+        waitForStart();
+
+        if (isStopRequested()) return;
+
+        // Bám quỹ đạo đoạn 1
+        drive.followTrajectory(traj1);
+
+        // Chờ xử lý cơ cấu nâng (hoặc tích hợp FSM không chặn)
+        sleep(500);
+
+        // Bám quỹ đạo trở về đoạn 2
+        drive.followTrajectory(traj2);
+    }
+}
+```
+
+### Quy trình Tuning và lưu ý quan trọng
+
+- **Hiệu chuẩn Odometry 3 bánh (Three-Wheel Odometry)**: Road Runner đạt độ chính xác tối ưu khi đi cùng cụm bánh đo độc lập. Phải chạy các bước chuẩn hóa: `DriveVelocityPIDTuner`, `StraightTest`, `TurnTest`, và `LocalizationTest` trước khi thiết lập spline phức tạp.
+- **Tiếp tuyến góc (Tangent Angle)**: Khi nối các đoạn `splineTo`, tham số `endTangent` của đoạn trước phải khớp hướng với vector tiếp tuyến của đoạn kế tiếp. Nếu góc tiếp tuyến ngược hướng `180^\circ`, thuật toán sẽ buộc robot bẻ cua gắt bất thường hoặc báo lỗi đường cong không hợp lệ.
+- **Biên dạng giới hạn (Constraint Overrides)**: Trong các khu vực chật hẹp gần khu vực lấy mẫu hoặc cổng giàn (Truss), nên giới hạn vận tốc xuống `25 - 30` in/s bằng cách truyền bộ ràng buộc cụ thể vào builder để tránh va chạm.
+- **Bộ theo dõi đóng (Follower PID)**: Luôn tinh chỉnh các hệ số `k_P, k_I, k_D` của bộ điều khiển `TranslationalPIDF` và `HeadingPIDF` để robot triệt tiêu sai số bám vệt mà không bị rung giật (oscillations).

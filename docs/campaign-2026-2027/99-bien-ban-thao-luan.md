@@ -23,7 +23,7 @@ flowchart TD
 | STT | Vấn đề | Quyết định tại thời điểm ghi nhận | Trạng thái sau quyết định chủ dự án 28/10/2026 |
 |:---:|---|---|---|
 | **01** | Cơ cấu gói tài trợ & SME | Cơ cấu ban đầu đã bị **thay thế hoàn toàn bởi Quyết định 8** | Chỉ còn 3M, 5M, 10M, 25M + hiện vật |
-| **02** | Vốn mồi Maker Day | Loại vốn mồi khỏi quỹ tài trợ; hoạt động dùng bán vé trước | **Giữ nguyên nguyên tắc:** Earned Revenue nằm ngoài mục tiêu 33.975.000 ₫ |
+| **02** | Vốn mồi Maker Day | Loại vốn mồi khỏi quỹ tài trợ; hoạt động dùng bán vé trước | **Đã hủy 29/10/2026 theo quyết định chủ dự án** (hủy toàn bộ sự kiện Maker Day, không bán vé, không triển khai) |
 | **03** | Pháp lý quyền lợi tài trợ & FIRST | Ký Thỏa thuận 3 bên; dùng quyền lợi tri ân STEM; logo tuân thủ FIRST | Còn hiệu lực; doanh nghiệp cần chứng từ kế toán xử lý qua trường theo 10 |
 | **04** | Tiến độ gom đơn linh kiện Mỹ | Giải ngân 2 đợt; đợt 1 mua Hub + Slide, đợt 2 mua phần còn lại | **Cập nhật bởi Quyết định 8:** Đợt 1 ≥ 17.546.000 ₫; Đợt 2 hoàn tất 33.975.000 ₫ trước 05/12/2026 |
 | **05** | Mã định danh đội | Khóa chính thức FTC #39256 cho mùa 2026–2027 | Còn hiệu lực |
@@ -40,10 +40,8 @@ flowchart TD
 - Gói hiện vật kỹ thuật quy đổi 1:1 theo hóa đơn hoặc giá thị trường hợp pháp.
 - Cơ cấu gói ban đầu bị **superseded** bởi Quyết định 8.
 
-### Quyết định 2: Maker Day — phần còn hiệu lực
-- Không đưa vốn mồi Maker Day vào mục tiêu vận động.
-- Maker Day thu vé trước. Doanh thu tự tạo nằm ngoài mục tiêu **33.975.000 ₫** và tự cấp vốn cho chính hoạt động đó (phần bán hàng lưu niệm đã bị hủy theo Quyết định 9).
-- Phần mục tiêu ngân sách trong Quyết định 2 cũ được **thay thế bởi Quyết định 8**; chỉ giữ nguyên cơ chế tự cấp vốn nêu trên.
+### Quyết định 2: Maker Day — Đã hủy 29/10/2026 theo quyết định chủ dự án
+- Kế hoạch tổ chức Maker Day và mô hình bán vé tự cấp vốn đã hủy 29/10/2026 theo quyết định chủ dự án. Toàn bộ tài liệu 08, ấn phẩm poster, biểu mẫu và nội dung liên quan đến Maker Day không triển khai.
 
 ### Quyết định 3: Pháp lý quyền lợi tài trợ
 - Dùng Thỏa thuận tài trợ 3 bên (Doanh nghiệp - Trường THPT Sóc Sơn - CLB Robotics Sóc Sơn).
@@ -72,11 +70,11 @@ flowchart TD
 - **11 linh kiện phần cứng landed:** **30.975.000 ₫**.
 - **Quỹ dự phòng kỹ thuật & tỷ giá:** **3.000.000 ₫**; mục đích: tỷ giá, cước pin/motor, thay thế hỏng hóc.
 - **Công thức:** `30.975.000 + 3.000.000 = 33.975.000 ₫`.
-- **Mục tiêu công khai:** **33.975.000 ₫**, không gồm vật tư prototype, chi phí vận hành, nguồn thu Maker Day hoặc chi phí Championship.
+- **Mục tiêu công khai:** **33.975.000 ₫**, không gồm vật tư prototype, chi phí vận hành hoặc chi phí Championship.
 
 ### Quyết định 9: Bỏ bán merch (860 follower, MOQ 30 áo, lãi ~84k/áo ⇒ tối đa ~2,5M, tốn công Media) — chủ dự án 28/10/2026
 - Bỏ bán merch (860 follower, MOQ 30 áo, lãi ~84k/áo ⇒ tối đa ~2,5M, tốn công Media) — chủ dự án 28/10/2026.
-- Giữ sticker pack DUY NHẤT làm quà tặng miễn phí trong Maker Day (đã tính trong chi phí vé).
+- Kế hoạch Maker Day đã hủy 29/10/2026 theo quyết định chủ dự án nên không sản xuất sticker pack.
 ---
 
 ## KIỂM TRA SỐ HỌC TOÀN DIỆN

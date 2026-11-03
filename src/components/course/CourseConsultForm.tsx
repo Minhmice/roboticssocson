@@ -281,7 +281,7 @@ export function CourseConsultForm() {
       });
     }, 50);
     return () => window.clearTimeout(t);
-  }, [status, hiddenPairs, router]);
+  }, [status, hiddenPairs, router, locale]);
 
   const setField = <K extends keyof CourseConsultFormValues>(
     key: K,

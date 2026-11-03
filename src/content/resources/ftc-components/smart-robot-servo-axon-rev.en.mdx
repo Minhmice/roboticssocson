@@ -1,0 +1,24 @@
+## How smart servos differ
+
+REV Smart Robot Servo and many Axon servos use familiar PWM control while integrating their own position sensing and control electronics. That internal feedback lets a positional servo regulate its output shaft, but it does not mean the FTC controller can read the actual angle. Capabilities vary by exact model and configuration: confirm supported modes, voltage, range, and programming method in its documentation. Internal feedback does not create unlimited torque or remove the need for sound mechanical alignment.
+
+![REV Smart Robot Servo](https://1166281274-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-ME3KPEhFI6-MDoP9nZD%2Fuploads%2F2uiEneemY8Vpss9vxmV7%2Fimage.png?alt=media&token=6f589d60-cbf4-481d-84ac-efc970493915)
+
+### Communication and use comparison
+
+| Property | PWM servo | Smart servo | Design meaning |
+| --- | --- | --- | --- |
+| Command | Pulse width | Pulse width on REV SRS and many Axon models | Confirm the exact control mode |
+| Feedback | Usually not exposed | Internal position feedback; external reporting varies | Do not assume readable angle |
+| Configuration | Model-dependent | Programmable modes and limits on supported models | Record each servo's setup |
+| Power wiring | Signal, V+ and GND | Connector and current needs vary by model | Check polarity and supply rating |
+
+Read the datasheet for the exact model before wiring. Axon and REV products can differ in connector, voltage, angle range, speed, and programming procedure; “smart” does not guarantee compatible settings. Use a servo supply with enough current and wiring rated for the load. A startup voltage drop can cause erratic behavior or reset control electronics. Follow current FTC rules and the hub manufacturer's instructions when choosing power distribution.
+
+### Alignment and control
+
+Install the horn at the mechanism's neutral mechanical position before commanding an angle. Set software limits inside the hard-stop range so gears are not forced against a stop. Low speed and acceleration near an endpoint reduce impact; for high-inertia loads, use a motion profile or state-based control instead of an abrupt angle step. Log commanded positions and any feedback actually exposed by the hardware. If motion stops, check supply, connections, configuration, and mechanical binding before replacing the servo.
+
+### Load testing and service
+
+Evaluate torque at the horn, not only a vendor's advertised stall number. Test holding at several angles, measure temperature after repeated cycles, and watch for backlash. A mechanical latch should locate or retain a mechanism, not force the servo to hold a heavy load continuously. Secure cables against twisting, protect connectors from impacts, and record firmware versions in the robot build log. Disconnect power before removing a horn or clearing a jam.

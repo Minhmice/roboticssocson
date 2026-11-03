@@ -1,0 +1,127 @@
+## Finite State Machine (FSM) Architecture for Robotic Subsystems
+
+In competitive robotics programming, invoking blocking calls such as `Thread.sleep()` or waiting inside synchronous `while` loops severely degrades system responsiveness. Blocking delays lock the control thread, causing gamepad packet timeouts, stalling chassis odometry tracking, and preventing concurrent subsystem control. Finite State Machines (FSMs) eliminate blocking operations by partitioning complex workflows into discrete, non-blocking states, allowing the main OpMode loop to sustain a deterministic 50–100Hz execution rate.
+
+![Finite state machine state transition diagram](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Finite_state_machine_example_with_comments.svg/640px-Finite_state_machine_example_with_comments.svg.png)
+
+### Architectural Components of Subsystem FSMs
+
+A production-grade FSM managing an articulated manipulator (such as an elevator lift or claw wrist) comprises four foundational elements:
+
+| Component | Engineering Role | Concrete FTC Implementation |
+| --- | --- | --- |
+| State Enumeration (`enum State`) | Strongly-typed exhaustive catalog of operational modes | `IDLE`, `LIFT_EXTENDING`, `CLAW_DEPOSITING`, `CLAW_RESETTING`, `LIFT_RETRACTING` |
+| State Variable | Pointer storing the currently active lifecycle state | `private LiftState currentState = LiftState.IDLE;` |
+| Transition Guards | Boolean predicates governing when state transitions occur | Sensor triggers, encoder tolerance checks, or `timer.seconds() > threshold` |
+| State Actions | Low-latency hardware commands executed per loop iteration | Setting target positions, motor powers, or servo angles |
+
+### Complete FTC Java Implementation: Non-Blocking Elevator FSM
+
+The following implementation demonstrates an asynchronous enum-based state machine leveraging `ElapsedTime` timers and closed-loop motor feedback, suitable for both TeleOp and Autonomous routines:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+@TeleOp(name = "Non-Blocking FSM Subsystem", group = "Architecture")
+public class FsmSubsystemOpMode extends OpMode {
+    public enum LiftState {
+        IDLE,
+        LIFT_EXTENDING,
+        CLAW_DEPOSITING,
+        CLAW_RESETTING,
+        LIFT_RETRACTING
+    }
+
+    private LiftState currentState = LiftState.IDLE;
+    private ElapsedTime stateTimer = new ElapsedTime();
+
+    private DcMotor liftMotor;
+    private Servo clawServo;
+
+    private static final int LIFT_TARGET_HIGH = 1800;
+    private static final int LIFT_TARGET_DOWN = 10;
+    private static final double CLAW_CLOSED_POS = 0.8;
+    private static final double CLAW_OPEN_POS = 0.2;
+
+    @Override
+    public void init() {
+        liftMotor = hardwareMap.get(DcMotor.class, "lift_motor");
+        clawServo = hardwareMap.get(Servo.class, "claw_servo");
+
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setTargetPosition(LIFT_TARGET_DOWN);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftMotor.setPower(1.0);
+
+        clawServo.setPosition(CLAW_CLOSED_POS);
+    }
+
+    @Override
+    public void loop() {
+        switch (currentState) {
+            case IDLE:
+                // Trigger scoring sequence upon button press
+                if (gamepad1.a) {
+                    liftMotor.setTargetPosition(LIFT_TARGET_HIGH);
+                    liftMotor.setPower(1.0);
+                    stateTimer.reset();
+                    currentState = LiftState.LIFT_EXTENDING;
+                }
+                break;
+
+            case LIFT_EXTENDING:
+                // Transition guard: Target tolerance reached OR safety timeout triggered
+                if (Math.abs(liftMotor.getCurrentPosition() - LIFT_TARGET_HIGH) < 30 || stateTimer.seconds() > 2.5) {
+                    clawServo.setPosition(CLAW_OPEN_POS);
+                    stateTimer.reset();
+                    currentState = LiftState.CLAW_DEPOSITING;
+                }
+                break;
+
+            case CLAW_DEPOSITING:
+                // Non-blocking dwell: Allow 0.4s for servo to reach release position
+                if (stateTimer.seconds() > 0.4) {
+                    clawServo.setPosition(CLAW_CLOSED_POS);
+                    stateTimer.reset();
+                    currentState = LiftState.CLAW_RESETTING;
+                }
+                break;
+
+            case CLAW_RESETTING:
+                // Ensure claw clears mechanical interference before lift drops
+                if (stateTimer.seconds() > 0.2) {
+                    liftMotor.setTargetPosition(LIFT_TARGET_DOWN);
+                    liftMotor.setPower(0.8);
+                    stateTimer.reset();
+                    currentState = LiftState.LIFT_RETRACTING;
+                }
+                break;
+
+            case LIFT_RETRACTING:
+                // Transition back to IDLE when elevator reaches baseline height
+                if (Math.abs(liftMotor.getCurrentPosition() - LIFT_TARGET_DOWN) < 30 || stateTimer.seconds() > 2.0) {
+                    currentState = LiftState.IDLE;
+                }
+                break;
+        }
+
+        // Drivetrain teleop control runs concurrently in the same loop without hesitation
+        telemetry.addData("Current State", currentState);
+        telemetry.addData("Lift Position", liftMotor.getCurrentPosition());
+        telemetry.addData("State Elapsed (s)", stateTimer.seconds());
+    }
+}
+```
+
+### Fault Tolerance and Design Principles
+
+- **Fail-Safe Timeout Guards**: Never assume hardware limit switches or optical sensors will trigger reliably under match conditions. Every transitional state must include an upper-bound time limit (`stateTimer.seconds() > SAFETY_TIMEOUT`) to prevent the FSM from permanently wedging.
+- **Explicit Emergency Overrides**: Provide dedicated manual interrupt bindings (such as `gamepad1.b` or `gamepad2.back`) that instantaneously reset `currentState = LiftState.IDLE` and zero out motor power if mechanical binding occurs.
+- **Subsystem Decoupling**: Encapsulate independent mechanisms (e.g., chassis drivetrain, intake spinner, horizontal slides, vertical elevator) into dedicated, self-contained FSM classes. Avoid monolithic God-classes with hundreds of mixed states.
+- **Telemetry Observability**: Stream state transitions and dwell times to Driver Station Telemetry to isolate timing bottlenecks and verify state transitions during match practice.

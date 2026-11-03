@@ -1,0 +1,41 @@
+## Hướng dẫn xây dựng Sổ tay Kỹ thuật (Engineering Portfolio) 15 trang
+
+Trong hệ thống giải thưởng FIRST Tech Challenge (FTC), Sổ tay Kỹ thuật (Engineering Portfolio) là tài liệu quan trọng nhất quyết định cơ hội đạt các giải thưởng danh giá như Inspire Award, Think Award, Innovate Award hay Design Award. Ban giám khảo chỉ có từ 5 đến 10 phút để rà soát toàn bộ tài liệu của mỗi đội, do đó việc tổ chức nội dung cô đọng, giàu số liệu thực chứng và tuân thủ giới hạn 15 trang là yếu tố sống còn.
+
+![Sổ tay kỹ thuật phác thảo mô hình CAD và quy trình thiết kế](https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80)
+
+### Cấu trúc phân bổ 15 trang theo chuẩn Rubric
+
+FIRST quy định giới hạn nghiêm ngặt: bất kỳ trang nội dung nào vượt quá trang số 15 sẽ bị giám khảo bỏ qua không xem xét. Để tối ưu hóa điểm số trên mọi hạng mục giải thưởng, cấu trúc trang khuyến nghị bao gồm:
+
+```text
+[Trang 1]      Tổng quan đội, cơ cấu thành viên & Mục tiêu mùa giải
+[Trang 2-8]    Quy trình Thiết kế Kỹ thuật (EDP) cho từng cụm cơ cấu (Drivetrain, Intake, Lift, End-Effector)
+[Trang 9-11]   Kiến trúc Phần mềm, Thuật toán Tự hành & Hệ thống Điều khiển (Control Award)
+[Trang 12-13]  Hoạt động Lan tỏa Cộng đồng (Outreach) & Kết nối Chuyên gia STEM (Connect & Motivate)
+[Trang 14-15]  Kế hoạch Tài chính, Quản lý Rủi ro & Tính Bền vững của Đội thi (Business Plan)
+```
+
+| Phân vùng nội dung | Số trang gợi ý | Mục tiêu thuyết phục Ban Giám khảo | Bằng chứng bắt buộc |
+| --- | --- | --- | --- |
+| **Hồ sơ đội thi (Team Identity)** | 1 trang | Thể hiện bản sắc, tinh thần Gracious Professionalism | Danh sách thành viên, phân công vai trò, mục tiêu cốt lõi |
+| **Thiết kế Cơ khí (Mechanical EDP)** | 6 – 7 trang | Chứng minh tư duy lặp (iterative design) và thử nghiệm | Ảnh dựng CAD, bảng so sánh phương án, đồ thị kiểm tra tải |
+| **Phần mềm & Tự hành (Software)** | 2 – 3 trang | Làm rõ thuật toán điều khiển và tự động hóa | Sơ đồ máy trạng thái (state machine), đồ thị PIDF, vision pipeline |
+| **Outreach & Kết nối chuyên gia** | 2 trang | Đo lường tác động xã hội thực tế | Số lượng người tiếp cận, phản hồi hội thảo, tư vấn từ kỹ sư |
+| **Kinh doanh & Bền vững** | 2 trang | Chứng minh khả năng duy trì đội lâu dài | Bảng cân đối thu chi, kế hoạch tìm kiếm nhà tài trợ |
+
+### Nguyên tắc thể hiện Quy trình Thiết kế Kỹ thuật (Engineering Design Process)
+
+Ban giám khảo không tìm kiếm một bản mô tả robot hoàn hảo ngay từ đầu; họ tìm kiếm bằng chứng về **quá trình học hỏi từ sai lầm**:
+1. **Công thức 4 bước cho mỗi cơ cấu**: Với mỗi hệ thống (ví dụ: tay nâng Linear Slide), trình bày rõ:
+   - **Xác định bài toán**: Yêu cầu về chiều cao nâng, tải trọng nâng và thời gian chu kỳ.
+   - **Thử nghiệm ban đầu (Prototyping V1)**: Bản vẽ phác thảo, mẫu cắt laser gỗ/in 3D đầu tiên.
+   - **Phân tích thất bại (Failure Analysis)**: Lý do cơ cấu V1 bị kẹt dây hoặc võng ray khi tải nặng.
+   - **Cải tiến hoàn thiện (Iteration V2/V3)**: Sử dụng nhôm định hình, bạc đạn đôi, kết quả đo kiểm thực tế so với mục tiêu đề ra.
+2. **Trực quan hóa bằng số liệu cụ thể**: Thay vì viết *"Robot gắp mẫu rất nhanh"*, hãy ghi *"Thời gian chu kỳ gắp mẫu giảm từ 2.4s (V1 - servo tiêu chuẩn) xuống còn 0.45s (V3 - ngàm TPU Shore 95A kết hợp cảm biến khoảng cách ToF)"*.
+
+### Kỹ thuật trình bày thị giác và kiểm tra trước khi nộp
+
+- **Mật độ thông tin thông minh**: Sử dụng các hộp ghi chú (callout box), nhãn chỉ dẫn trực tiếp trên ảnh chụp CAD 3D thay vì các đoạn văn dài dòng.
+- **Tính nhất quán về thị giác**: Duy trì một bảng màu thương hiệu (brand color palette), kích thước chữ tối thiểu 10pt để giám khảo dễ đọc trong điều kiện ánh sáng phòng thi.
+- **Kiểm tra giới hạn trang nghiêm ngặt**: Đảm bảo tệp PDF xuất ra có đúng 15 trang nội dung (kèm 1 trang bìa nếu quy định mùa giải cho phép). Đặt thông tin số hiệu đội (Team Number) và tên đội ở đầu trang (header) của từng trang đơn lẻ.

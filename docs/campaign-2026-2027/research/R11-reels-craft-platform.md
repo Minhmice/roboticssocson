@@ -64,7 +64,7 @@ Không có con số pixel duy nhất được Meta/TikTok công bố cho mọi m
 
 - Meta có Special Ad Category cho **social issues, elections, politics**; quảng cáo vấn đề xã hội yêu cầu authorization và “Paid for by” disclaimer ở nơi áp dụng. Meta mô tả social issues là vấn đề gây tranh luận, có thể ảnh hưởng dư luận/chính sách; một chiến dịch mua linh kiện robot học sinh **không tự động** thuộc nhóm này. [Meta Help](https://www.facebook.com/business/help/214754279118974), [Meta Help](https://www.facebook.com/business/help/167836590566506), truy cập 28/10/2026.
 - Nếu ad có nút **Donate Now**, Meta yêu cầu tổ chức từ thiện đăng ký đủ điều kiện; tài khoản cá nhân chuyển khoản cho đội không nên gắn nhãn nonprofit/charity khi chưa có tư cách đó. [Meta Help](https://vi-vn.facebook.com/business/help/621765098354751), truy cập 28/10/2026.
-- Boost P06 Maker Day và V04 robot chạy là lựa chọn ít rủi ro hơn boost bài nêu STK. Tuy nhiên P06 bán vé 79.000/89.000 ₫ và V04 có QR/“còn thiếu”: vẫn phải kiểm tra Ads Manager policy, quyền nhạc, landing page, thông tin người nhận và khai báo đúng mục tiêu. Không hứa “được duyệt”.
+- Boost V04 robot chạy là lựa chọn ít rủi ro hơn boost bài nêu STK. Tuy nhiên V04 có thể có thông tin ủng hộ/“còn thiếu”: vẫn phải kiểm tra Ads Manager policy, quyền nhạc, landing page, thông tin tiếp nhận và khai báo đúng mục tiêu. Không hứa “được duyệt”.
 - Nếu nội dung bị phân loại social issue hoặc yêu cầu authorization, dừng boost, chụp lý do từ Ads Manager, dùng organic post/website thay thế; không né bằng cách đổi từ “quyên góp” thành từ gây hiểu lầm.
 
 ### 4.3 Facebook fundraiser tại Việt Nam
@@ -109,7 +109,7 @@ flowchart LR
 - **Slow motion:** quay 60/120fps đủ sáng cho va chạm, slide vươn, bánh Mecanum; không dùng slow-mo cho toàn video vì làm mất nhịp. Không cố tình phá linh kiện.
 - **POV/mount:** gắn điện thoại chắc bằng kẹp/strap, dây bảo hiểm; test rung và vùng nhìn; không đặt điện thoại vào vùng robot có thể kẹp/đâm; quay một take POV ngắn, rồi quay wide để người xem hiểu không gian.
 - **Âm thanh:** phỏng vấn cách mic 50 cm khi không có lav; quay room tone 5 giây; tiếng motor có thể là payoff nhưng không để át lời.
-- **An toàn/quyền:** xin đồng ý phụ huynh cho học sinh dưới 16 tuổi; Maker Day chỉ dùng mặt người có phiếu, người chưa đồng ý phải crop/blur như V04 đã nêu.
+- **An toàn/quyền:** xin đồng ý phụ huynh cho học sinh dưới 16 tuổi; mọi hình ảnh xuất bản phải có phiếu đồng ý theo quy định.
 
 ## 6. Đối chiếu bộ kit hiện tại — vi phạm / dùng thiếu và bản sửa
 
@@ -137,7 +137,7 @@ flowchart LR
 
 ### V04 — `social/videos/V04-build-log.md`
 
-- **Đang dùng tốt:** chỉ đăng sau khi sự việc xảy ra; điều kiện thực tế; consent Maker Day; các độ dài ngắn; có B-roll đa dạng.
+- **Đang dùng tốt:** chỉ đăng sau khi sự việc xảy ra; điều kiện thực tế; các độ dài ngắn; có B-roll đa dạng.
 - **Vi phạm/rủi ro:** mẫu unboxing ghi “Mua bằng 17.546.000 ₫ của X người ủng hộ” và “Còn thiếu Y ₫ · QR” trong 30s; nếu số chưa chốt hoặc tiền/đơn hàng chưa đối soát sẽ làm mất trust. **Sửa:** lấy số từ sổ đã nhận thật; chèn ngày snapshot; CTA một dòng cuối, QR không chạm đáy UI.
 - **Dùng thiếu:** #3 recap 45–60s chưa có hook/payoff/loop; #1–#5 chưa ghi shot list/cut points. **Sửa:** mở bằng khoảnh khắc điểm; 3 trạm = 3 beat; kết bằng robot/tiếng motor nối frame đầu; mỗi clip có bản 9:16 sạch.
 - **Rủi ro:** thùng DHL/FedEx, địa chỉ, nhãn vận chuyển hoặc mặt học sinh có thể lộ dữ liệu. **Sửa:** blur tracking/địa chỉ trước upload; quay nhãn đã che.
@@ -175,13 +175,7 @@ flowchart LR
 - **Dùng thiếu:** mỗi slide có nhiều chữ/số; thiếu video proof trong Reels. **Sửa:** companion 15–25s: huy chương/ảnh → một câu thành tích → hạng 36/38 → cảnh lab hiện tại → CTA theo dõi, không xin tiền ngay frame đầu.
 - **Rủi ro:** thành tích/đội code phải khớp nguồn chuẩn hóa; không dùng ảnh giải có quyền không rõ. Gắn source trong caption/slide cuối.
 
-### P06 — `social/posters/P06-maker-day.md`
-
-- **Dùng tốt:** 1080×1350, thông tin event/giá/ca/chỗ; boost địa phương có mục tiêu.
-- **Vi phạm/rủi ro:** QR form “chưa tạo” trong brief; không đăng/boost trước khi form, consent phụ huynh và payment flow hoạt động. **Sửa:** tạo/kiểm tra form, test QR bằng 2 máy; landing page nói rõ vé không tính vào quỹ 33.975.000 ₫.
-- **Dùng thiếu:** bản tĩnh nhiều chữ; TikTok/Reels cần demo robot 3–5s + ngày/ca/đối tượng + một CTA đăng ký. Không đặt QR ở vùng bottom.
-- **Quảng cáo:** nội dung bán vé không phải Donate; vẫn kiểm tra music, audience 15 km, age/children privacy, policy trước boost. Không dùng “Donate Now” nếu không phải nonprofit đủ điều kiện.
-
+### P06 — [Đã hủy theo quyết định chủ dự án ngày 29/10/2026]
 ### P07 — `social/posters/P07-cam-on.md`
 
 - **Dùng tốt:** che tên, chỉ ghi tổng tuần, duyệt logo/tên doanh nghiệp.
@@ -196,11 +190,11 @@ flowchart LR
 
 ### `social/02-lich-dang.md`
 
-- **Dùng tốt:** lịch 3 bài/tuần, có điều kiện sự kiện thật, giới hạn 2 bài có QR/tuần, chọn P06/V04 cho boost.
+- **Dùng tốt:** lịch 3 bài/tuần, có điều kiện sự kiện thật, giới hạn 2 bài có QR/tuần, chọn V04 cho boost.
 - **Dùng thiếu:** lịch nói “đăng Reels Facebook, sau đó đăng lại TikTok” nhưng không quy định master sạch, audio license, native caption, safe zone, preview và đo lường từng platform. **Sửa dòng 24 và mọi V02/V03/V04:** “upload file master sạch riêng; thêm audio native đúng license; không cross-post watermark; caption/CTA native”.
-- **Rủi ro:** lịch P06 ngày 24/11 nhưng form trong P06 chưa tạo; lịch V04 unboxing phụ thuộc hàng thật nên cần giữ điều kiện “chỉ khi đã đối soát”.
+- **Rủi ro:** lịch V04 unboxing phụ thuộc hàng thật nên cần giữ điều kiện “chỉ khi đã đối soát”.
 - **Dùng thiếu:** 19:30/11:30 là lịch nội bộ, chưa có bằng chứng là giờ tối ưu. Theo dõi 2–3 tuần bằng views, average watch time, shares, follows và QR/link clicks; không tuyên bố giờ đăng tốt nhất khi chưa có Page/Account Insights.
-- **Boost:** câu “Không boost bài xin tiền” là thận trọng, nhưng không thay thế policy check. P06 có bán vé; V04 vẫn có QR; kiểm tra từng creative, music rights và landing page trước gửi review.
+- **Boost:** câu “Không boost bài xin tiền” là thận trọng, nhưng không thay thế policy check. V04 có thể có QR; kiểm tra creative, music rights và landing page trước gửi review.
 
 ## 7. Bảng kiểm xuất bản
 
@@ -208,7 +202,7 @@ flowchart LR
 - [ ] Hook có chuyển động/ý cụ thể trong 0–2s; payoff chứng minh hook; CTA chỉ một hành động.
 - [ ] Chữ/subtitle không che mặt/robot; đọc được khi tắt tiếng; không nằm vùng UI/caption.
 - [ ] Số tiền, STK, QR, tên người nhận, URL và ngày snapshot đã kiểm tra hai người; QR quét từ hai điện thoại.
-- [ ] Chỉ dùng footage/ảnh có quyền; người dưới 16 tuổi/Maker Day có consent; blur địa chỉ/Sheet/nhãn vận chuyển.
+- [ ] Chỉ dùng footage/ảnh có quyền; người dưới 16 tuổi có consent; blur địa chỉ/Sheet/nhãn vận chuyển.
 - [ ] Nhạc có track ID/license: Meta Sound Collection cho FB/ads; TikTok CML/original cho TikTok; không dùng CapCut Music mặc định cho nội dung quảng bá Page.
 - [ ] Upload native mỗi nền tảng; preview sau upload; lưu URL, ngày, phiên bản caption và screenshot rights.
 - [ ] Sau 24–48h và 7 ngày, ghi views, watch time/average watch time, completion nếu có, shares, saves, comments, follows, link/QR clicks; tách organic/boosted.
@@ -224,10 +218,10 @@ flowchart LR
 7. **P03:** giữ carousel 1080×1350; companion V02 dùng footage đội tự quay, text ít; kiểm tra facts giá, thuế, luật thi đấu trước đăng.
 8. **P04:** tạo Reel tiến độ 8–12s từ số tiền đã đối soát; không lộ tên/STK/Sheet; bỏ QR ở bản “đã đủ”; không boost mặc định.
 9. **P05:** tạo Reel comeback 15–25s từ ảnh/footage có quyền; nguồn thành tích trong caption; CTA theo dõi, không mở đầu bằng xin tiền.
-10. **P06:** tạo Google Form trước 24/11, test QR hai máy, thêm consent phụ huynh; Reel demo robot + 1 CTA đăng ký; kiểm tra Ads Manager trước boost 350.000 ₫.
+10. **P06:** [Đã hủy].
 11. **P07:** Reel cảm ơn 10–15s dùng tổng tuần/mission + tay lắp; duyệt tên/logo/số tiền doanh nghiệp; không công khai người chưa đồng ý.
 12. **P08:** portrait → nhiệm vụ → câu nói 2–3s/người; giữ chữ lớp/role trong safe zone; không target/boost để lộ dữ liệu học sinh.
-13. **`02-lich-dang.md` dòng 24 và các dòng V02/V03/V04:** đổi “đăng lại TikTok” thành “upload master sạch riêng; audio native theo license; caption/CTA/safe-zone native; ghi Insights sau 24–48h/7 ngày”; thêm bước policy check trước hai boost.
+13. **`02-lich-dang.md` dòng 24 và các dòng V02/V03/V04:** đổi “đăng lại TikTok” thành “upload master sạch riêng; audio native theo license; caption/CTA/safe-zone native; ghi Insights sau 24–48h/7 ngày”; thêm bước policy check trước khi boost.
 
 ## Nguồn
 

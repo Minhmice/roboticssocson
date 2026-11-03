@@ -266,7 +266,7 @@ Căn cứ khoản 2 Điều 20 Nghị định 13/2023/NĐ-CP:
 - Khi phụ huynh hoặc học sinh rút lại sự đồng ý, CLB có nghĩa vụ gỡ bỏ hình ảnh đó khỏi các nền tảng trực tuyến trong vòng 72 giờ.
 
 #### 7.4. Bảo mật dữ liệu người ủng hộ và người đăng ký khóa học/workshop
-- **Thu thập dữ liệu tối thiểu:** Trên trang `/support` hoặc Google Form đăng ký khóa học STEM/Maker Day, chỉ thu thập các trường thông tin cần thiết nhất (Họ tên, Email, Số điện thoại liên hệ, Tổ chức/Đơn vị).
+- **Thu thập dữ liệu tối thiểu:** Trên trang `/support` hoặc Google Form tiếp nhận thông tin, chỉ thu thập các trường thông tin cần thiết nhất (Họ tên, Email, Số điện thoại liên hệ, Tổ chức/Đơn vị).
 - **Điều khoản bảo mật rõ ràng:** Form đăng ký phải có điều khoản cam kết: *"Thông tin của bạn chỉ được sử dụng cho mục đích xác nhận tài trợ/tổ chức khóa học và không bao giờ được chia sẻ cho bên thứ ba vì mục đích thương mại"* kèm checkbox đồng ý.
 - **Biện pháp kỹ thuật:** 
   - Phân quyền nghiêm ngặt file Google Sheets chứa thông tin nhà tài trợ và học viên (chỉ Trưởng ban đối ngoại và Giáo viên phụ trách được quyền truy cập).

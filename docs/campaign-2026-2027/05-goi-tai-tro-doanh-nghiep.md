@@ -13,7 +13,7 @@ flowchart TD
         
         T3["GÓI VÀNG (GOLD / BUILD PARTNER)<br>10.000.000 VNĐ (~$388 USD)<br>• Toàn bộ quyền lợi gói 5M<br>• Logo tiêu chuẩn trên ngực/lưng áo đấu<br>• Logo trên Standee/Backdrop hố Pit thi đấu<br>• Bảo trợ độc quyền 01 Mission linh kiện"]
         
-        T4["GÓI KIM CƯƠNG (DIAMOND / SEASON PARTNER)<br>25.000.000 VNĐ (~$969 USD)<br>• Toàn bộ quyền lợi gói 10M<br>• Logo nổi bật trên thân robot thi đấu (18x18 inch)<br>• Logo vị trí danh dự lớn nhất trên áo đấu<br>• Bảng vinh danh Maker Day & 02 Thẻ VIP Pit Lane"]
+        T4["GÓI KIM CƯƠNG (DIAMOND / SEASON PARTNER)<br>25.000.000 VNĐ (~$969 USD)<br>• Toàn bộ quyền lợi gói 10M<br>• Logo nổi bật trên thân robot thi đấu (18x18 inch)<br>• Logo vị trí danh dự lớn nhất trên áo đấu<br>• Kỷ niệm chương cơ khí & 02 Thẻ VIP Pit Lane"]
 
         T1 --> T2 --> T3 --> T4
     end
@@ -60,7 +60,6 @@ classDiagram
 | **Logo trên Áo Polo đồng phục đội thi** | — | Tay áo (nhỏ) | Ngực/Lưng áo (chuẩn) | Lưng áo (vị trí VIP) |
 | **Logo trên Standee & Backdrop Pit Lane Hòa Lạc** | — | Logo nhỏ | Logo tiêu chuẩn | Logo nổi bật |
 | **Logo trên Thân Robot thi đấu (chuẩn FIRST)** | — | — | — | **Có (Vị trí nổi bật)** |
-| **Bảng vinh danh tại Sự kiện Maker Day** | — | — | Tên bảng vàng | Đặt standee riêng |
 | **Thẻ VIP tham quan Pit Lane tại ĐH FPT Hòa Lạc** | — | — | — | 02 Thẻ VIP |
 | **Kỷ niệm chương mô hình Robot tri ân** | — | — | Kỷ niệm chương mica | Kỷ niệm chương cơ khí |
 

@@ -1,0 +1,170 @@
+## Actuators in FIRST Tech Challenge: DC Motors and Servos
+
+Electromechanical actuation in FIRST Tech Challenge centers around 12V DC brushed gearmotors and 5V pulse-width modulated (PWM) servomotors. Achieving rapid mechanical cycles and precise autonomous repeatability requires a rigorous understanding of planetary reduction ratios, torque-speed curves, encoder resolution, and servo electrical rail constraints.
+
+![Exploded view of planetary gearmotor and quadrature encoder assembly](https://docs.revrobotics.com/assets/images/hd-hex-motor-exploded.png)
+
+### Common FTC DC Gearmotor Platforms
+
+Modern FTC mechanisms leverage high-performance permanent magnet DC motors paired with planetary gearheads and integrated Hall-effect quadrature encoders.
+
+| Motor Family | Manufacturer | Nominal Voltage | Bare Motor Free Speed | Representative Gear Ratios | Encoder Architecture |
+|---|---|---:|---:|---|---|
+| Yellow Jacket 5202/5203 | goBILDA | 12V DC | 6,000 RPM | 3.7:1, 5.2:1, 13.7:1, 19.2:1, 26.9:1 | Dual-channel Hall (28 CPR base shaft) |
+| HD Hex Motor | REV Robotics | 12V DC | 6,000 RPM | UltraPlanetary modular cartridges (3:1, 4:1, 5:1) | Dual-channel Hall (28 CPR base shaft) |
+| Core Hex Motor | REV Robotics | 12V DC | 6,000 RPM | 72:1 integrated gearbox, 5mm hex bore | Dual-channel Hall (288 CPR output shaft) |
+| NeveRest Classic / Orbital | AndyMark | 12V DC | 6,600 RPM | 3.7:1, 19.2:1, 40:1, 60:1 spur/orbital | Optical or magnetic Hall (7 or 28 CPR) |
+
+### Governing Equations: Torque, Speed, Power, and Encoder CPR
+
+A permanent magnet DC motor produces an output torque `tau` that varies linearly with its rotational angular velocity `omega`:
+
+
+```text
+tau(omega) = tau_{stall} (1 - (omega / omega_{free)})
+```
+
+
+The mechanical power output `P_mech` delivered to the output shaft peaks at half of the free speed:
+
+
+```text
+P_{mech}(omega) = tau(omega) * omega
+```
+
+
+When coupling the motor to a planetary gearbox characterized by gear ratio `G` (`G > 1`) and mechanical transmission efficiency `eta` (typically `0.80 le eta le 0.90` across multi-stage planetary assemblies):
+
+
+```text
+tau_{out} = tau_{motor} * G * eta
+```
+
+
+
+```text
+omega_{out} = frac{omega_{motor}}{G}
+```
+
+
+Encoder resolution measured at the final gearbox output shaft depends directly on the base pulse generation rate and the reduction ratio:
+
+
+```text
+CPR_{out} = CPR_{base} * G
+```
+
+
+For example, a goBILDA 5202 series motor with a 19.2:1 planetary stage and a 28 CPR base Hall sensor yields:
+
+
+```text
+CPR_{out} = 28 * 19.2 = 537.6  counts per revolution
+```
+
+
+### Port Assignments and Physical Pinout Specifications
+
+The REV Control Hub and Expansion Hub isolate motor drive power from low-voltage encoder signal logic across distinct port types:
+
+1. **Motor Power Port (JST-VH 2-Pin):**
+   - High-current delivery up to 10A continuous / 20A peak trip.
+   - Reversing pin polarity reverses motor direction.
+2. **Encoder Port (JST-PH 4-Pin):**
+   - Pin 1 (Black/Brown): System Ground (GND)
+   - Pin 2 (Red): Regulated +3.3V DC logic supply
+   - Pin 3 (Yellow): Quadrature Channel A signal line
+   - Pin 4 (White/Blue): Quadrature Channel B signal line
+
+```text
+[Hub Motor Port: JST-VH]    Pin 1 (+) ──────── Motor Terminal (+)
+                             Pin 2 (-) ──────── Motor Terminal (-)
+
+[Hub Encoder Port: JST-PH]  Pin 1: GND  ────── Encoder Sensor Ground
+                             Pin 2: 3.3V ───── Encoder Logic Supply (+3.3V)
+                             Pin 3: Ch A ───── Hall Sensor Phase A
+                             Pin 4: Ch B ───── Hall Sensor Phase B
+```
+
+### Servomotor Architectures and PWM Signaling
+
+Standard servos decode pulse-width modulation signals dispatched at a nominal frequency of 50 Hz (20 ms period). The pulse duration dictates target angular orientation or rotational speed:
+
+- **Pulse Duration Bounds:** Standard FTC range spans `500,mus` (minimum angle, `0^circ`) to `2500,mus` (maximum angle, typically `180^circ` to `300^circ`).
+- **Connector Pinout (3-Pin 0.1" Header):**
+  - Pin 1 (Brown/Black): Ground
+  - Pin 2 (Red): +5V DC Supply Rail
+  - Pin 3 (Orange/White): PWM Control Signal
+
+| Servo Class | Operating Modes | Common Subsystem Applications | Stall Current Considerations |
+|---|---|---|---|
+| REV Smart Robot Servo (SRS) | Angular (180°/270°) & Continuous Rotation | Gripper pinch, dust flap deploy, intake feed | 2.0A stall limit at 5V |
+| goBILDA Dual Mode Servo | Standard (300°) & Continuous Rotation | Virtual four-bar wrists, linkage triggers | 2.5A peak stall demand |
+| Axon Mini / Max Servo | Brushless core, programmatic travel angles | High-speed coaxial swerve, rapid intakes | 3.5A – 4.0A peak current draw |
+
+*Electrical Power Rail Advisory:* Hub internal 5V servo regulators deliver 2A shared between each port pair (ports 0-1, 2-3, 4-5) with a maximum hub-wide cap of 5A. When high-torque mechanisms bind or multiple brushless servos actuate simultaneously, install an external **REV Servo Power Module (REV-11-1144)** wired directly to 12V battery power to supply up to 15A of clean 6V power.
+
+### Implementation Pattern: Closed-Loop Java OpMode
+
+The following FTC SDK routine illustrates how to configure an elevator motor with closed-loop positional targeting and active zero-power braking alongside a calibrated servo gripper:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
+
+@TeleOp(name = "Actuator Control Guide", group = "Guides")
+public class ActuatorControlGuide extends LinearOpMode {
+    private DcMotorEx liftMotor;
+    private Servo intakeServo;
+
+    @Override
+    public void runOpMode() {
+        liftMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
+        intakeServo = hardwareMap.get(Servo.class, "intakeServo");
+
+        // Establish motor initial configuration
+        liftMotor.setDirection(DcMotor.Direction.FORWARD);
+        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+            // Positional target control for vertical lift
+            if (gamepad1.dpad_up) {
+                liftMotor.setTargetPosition(1850);
+                liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                liftMotor.setPower(0.9);
+            } else if (gamepad1.dpad_down) {
+                liftMotor.setTargetPosition(10);
+                liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                liftMotor.setPower(0.4);
+            }
+
+            // Dual-position servo deployment
+            if (gamepad1.left_bumper) {
+                intakeServo.setPosition(0.15); // Stowed position
+            } else if (gamepad1.right_bumper) {
+                intakeServo.setPosition(0.85); // Deployed intake position
+            }
+
+            telemetry.addData("Lift Encoder Position", liftMotor.getCurrentPosition());
+            telemetry.addData("Lift Velocity (ticks/s)", liftMotor.getVelocity());
+            telemetry.addData("Servo Target Ratio", intakeServo.getPosition());
+            telemetry.update();
+        }
+    }
+}
+```
+
+### Diagnostic Field Procedures
+
+- **Motor Oscillates at Target:** The internal proportional coefficient `k_P` in the expansion hub's default `RUN_TO_POSITION` loop is too aggressive for high-inertia loads. Switch to custom software PIDF controllers or decrease motor maximum allowable power.
+- **Encoder Counts Remain Zero Under Rotation:** Inspect the 4-pin JST-PH connector seating. If pins 3 and 4 are disconnected or damaged, the hub cannot detect quadrature transitions.
+- **Servo Stutters or Drops Controller Connection:** Measure battery rail voltage during actuation. Severe voltage sag caused by unbuffered servo stall events will trigger micro-brownouts in the robot controller. Implement current limits or install an auxiliary servo power module.

@@ -26,8 +26,7 @@ flowchart LR
   D --> E[P03 Chuyện linh kiện x5]
   D --> F[V01 Video giới thiệu]
   E --> G[P04 Tiến độ quỹ - mỗi tuần]
-  G --> H[P06 Maker Day]
-  H --> I[V04 Recap Maker Day]
+  G --> I[V04 Build Log & Unboxing]
   G --> J[P07 Cảm ơn nhà tài trợ]
 ```
 
@@ -43,17 +42,16 @@ flowchart LR
 | [posters/P03-chuyen-linh-kien.md](posters/P03-chuyen-linh-kien.md) | Carousel 5 mission | 5 bộ | 08/11 → 01/12 |
 | [posters/P04-tien-do-quy.md](posters/P04-tien-do-quy.md) | Thanh tiến độ quỹ (mẫu lặp) | 1 mẫu | 08/11 |
 | [posters/P05-thanh-tich.md](posters/P05-thanh-tich.md) | Carousel "Đằng sau tấm huy chương" | 1 bộ | 08/11 |
-| [posters/P06-maker-day.md](posters/P06-maker-day.md) | Poster Maker Day + bản in A3 | 2 | 17/11 |
 | [posters/P07-cam-on.md](posters/P07-cam-on.md) | Mẫu cảm ơn nhà tài trợ & người ủng hộ | 2 mẫu | 15/11 |
 | [posters/P08-thanh-vien.md](posters/P08-thanh-vien.md) | Chân dung thành viên | 1 mẫu | 10/11 |
 | [videos/V01-gioi-thieu.md](videos/V01-gioi-thieu.md) | Reels giới thiệu chiến dịch 45s | 1 | 05/11 |
 | [videos/V02-chuyen-linh-kien.md](videos/V02-chuyen-linh-kien.md) | Reels 30s mỗi mission | 5 | theo P03 |
 | [videos/V03-hoc-sinh-lam-robot.md](videos/V03-hoc-sinh-lam-robot.md) | Phỏng vấn nhanh 3 câu | 3 | 15/11 → 06/12 |
-| [videos/V04-build-log.md](videos/V04-build-log.md) | Nhật ký chế tạo, unboxing, recap Maker Day | 5+ | 29/11 → 03/01 |
+| [videos/V04-build-log.md](videos/V04-build-log.md) | Nhật ký chế tạo, unboxing, chạy thử robot | 5 | 29/11 → 03/01 |
 | [captions/C01-ngan-hang-caption.md](captions/C01-ngan-hang-caption.md) | Caption dán sẵn cho từng bài | — | — |
 | [captions/C02-tra-loi-binh-luan.md](captions/C02-tra-loi-binh-luan.md) | Mẫu trả lời bình luận & inbox | — | — |
 
-Tổng: **khoảng 20 ảnh, 14 video ngắn**. Tất cả làm được bằng Canva và CapCut miễn phí.
+Tổng: **khoảng 18 ảnh, 14 video ngắn**. Tất cả làm được bằng Canva và CapCut miễn phí.
 
 ## Quy tắc chung
 

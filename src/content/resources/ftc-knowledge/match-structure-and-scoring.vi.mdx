@@ -1,0 +1,36 @@
+## Cấu trúc trận đấu FTC & Chiến thuật tối ưu điểm số liên minh
+
+Mỗi trận đấu chính thức trong giải FIRST Tech Challenge (FTC) diễn ra với thời lượng tổng cộng 2 phút 30 giây giữa hai liên minh (Liên minh Đỏ và Liên minh Xanh), mỗi liên minh bao gồm 2 đội robot. Để tối đa hóa điểm số và giành chiến thắng, các đội không chỉ dựa vào tốc độ cơ khí đơn thuần mà cần thấu hiểu sâu sắc cấu trúc các giai đoạn của trận đấu, sự phân chia vai trò trong liên minh và kỷ luật kiểm soát lỗi phạt (penalties).
+
+![Đấu trường thi đấu robotics FIRST Tech Challenge với các robot và liên minh](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80)
+
+### Phân kỳ thời gian trong một trận đấu tiêu chuẩn
+
+Trận đấu được điều khiển tự động bởi hệ thống Field Control System (FCS) với chuỗi thời gian cố định:
+
+```text
+[ 0:00 - 0:30 ] ────────► [ 0:30 - 0:38 ] ────────► [ 0:38 - 2:08 ] ────────► [ 2:08 - 2:38 ]
+Giai đoạn Tự động          Chuyển tiếp                Giai đoạn TeleOp           Giai đoạn Endgame
+(Autonomous - 30s)         (Tạm dừng 8s)              (Lái bằng tay - 90s)       (Giai đoạn Về đích - 30s)
+```
+
+| Giai đoạn | Thời lượng | Đặc điểm vận hành | Mục tiêu chiến thuật trọng tâm |
+| --- | --- | --- | --- |
+| **Autonomous** | 30 giây | Hoàn toàn tự hành bằng cảm biến, camera và odometry | Ghi điểm khởi động, xếp vật thể tiền định, đỗ đúng vùng quy định |
+| **Chuyển tiếp (Transition)** | ~8 giây | Trọng tài kiểm tra sân, người điều khiển cầm tay cầm | Giữ trạng thái cơ cấu ổn định, chuẩn bị tâm lý và chọn chế độ OpMode |
+| **TeleOp (Driver-Controlled)** | 90 giây | Điều khiển trực tiếp qua 2 Gamepad kết nối Driver Station | Thiết lập chu kỳ gom và ghi điểm liên tục (cycling), phối hợp né va chạm |
+| **Endgame** | 30 giây cuối | Vẫn thuộc TeleOp nhưng mở khóa các nhiệm vụ đặc biệt | Treo xà (hang/climb), bắn phần tử đặc biệt, đỗ robot vào vị trí thưởng |
+
+### Chiến thuật điều phối và phân bổ chu kỳ (Cycle Time Budgeting)
+
+Trong 90 giây TeleOp, điểm số liên minh được quyết định bởi số chu kỳ (cycles) hoàn thành. Mỗi chu kỳ gồm 4 bước: **Thu nhận mẫu -> Di chuyển qua sân -> Thao tác đặt điểm -> Quay trở lại trạm**:
+1. **Phân chia khu vực hoạt động (Zone Segregation)**: Hai robot trong liên minh phải thỏa thuận ranh giới di chuyển. Một robot tập trung vào chu kỳ ngắn tốc độ cao tại khu vực gần, robot còn lại đảm nhiệm việc gom vật thể từ xa hoặc tiếp tế (feeder/scorer split).
+2. **Triệt tiêu tắc nghẽn giao thông**: Đường di chuyển qua các cổng chắn hoặc nút thắt trên sân cần tuân thủ quy tắc "đi làn phải, về làn trái" đã thống nhất trước trận giữa hai người lái chính (Main Drivers).
+3. **Quyết định thời điểm bước vào Endgame**: Không bao giờ bắt đầu một chu kỳ mới nếu thời gian trận đấu còn dưới 12–15 giây. Người hướng dẫn chiến thuật (Drive Coach) phải thông báo đếm ngược rõ ràng để cả hai robot kịp chuyển sang vị trí treo xà hoặc hoàn thành nhiệm vụ đặc biệt trước khi còi mãn cuộc vang lên.
+
+### Kỷ luật phòng tránh điểm phạt (Penalties)
+
+Một lỗi phạt nặng (Major Penalty - 30 điểm) hoặc thẻ vàng có thể xóa sạch công sức ghi điểm của toàn bộ giai đoạn Autonomous:
+- **Kiểm soát số lượng phần tử sở hữu (Possession Limits)**: Tuyệt đối không giữ hoặc đẩy quá số lượng phần tử quy định trong luật thi đấu (thường là 1 hoặc 2 vật cùng lúc). Cần cài đặt cảm biến nhận diện trong lòng robot để khóa cơ cấu hút khi đã đủ số lượng.
+- **Không xâm phạm khu vực cấm của đối phương**: Tránh va chạm với robot đối thủ khi họ đang nằm hoàn toàn trong vùng bảo vệ (Submersible, Backdrop, hoặc Loading Zone).
+- **Tránh can thiệp sau còi kết thúc**: Mọi chuyển động của động cơ phải dừng lại ngay khi âm thanh hết giờ vang lên; các thao tác điều khiển quá giờ đều bị phạt nặng hoặc hủy điểm Endgame.

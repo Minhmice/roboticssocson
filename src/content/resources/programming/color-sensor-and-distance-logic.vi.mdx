@@ -1,0 +1,90 @@
+## Cảm biến màu và logic khoảng cách trong FTC
+
+Nhận diện phần tử ghi điểm (pixel, nón hoặc mẫu game) đòi hỏi cảm biến quang học hoạt động ổn định dưới ánh sáng biến đổi của nhà thi đấu. Dữ liệu RGB thô thay đổi biên độ liên tục khi có bóng người hoặc đèn sân khấu chiếu vào. Chuyển đổi sang không gian màu HSV (Hue, Saturation, Value) kết hợp chặn ngưỡng khoảng cách (distance gating) giúp nhận diện chính xác và loại bỏ tín hiệu sai từ thảm thi đấu.
+
+![Mô-đun cảm biến màu quang học](https://commons.wikimedia.org/wiki/Special:FilePath/Color_sensor_board.jpg)
+
+### Lý do chọn HSV thay vì giá trị RGB thô
+
+Ánh sáng sân đấu thay đổi cường độ của cả ba kênh đỏ, lục và lam cùng lúc. Một vật màu vàng đặt dưới bóng râm có thể cho giá trị RGB thô thấp hơn nhiều so với khi đặt dưới đèn chiếu công suất lớn, khiến việc so sánh ngưỡng RGB cố định bị sai lệch. Không gian màu HSV phân tách rõ sắc độ và độ sáng:
+
+- **Hue (0° đến 360°):** Góc sắc độ biểu thị màu sắc cốt lõi của vật thể.
+- **Saturation (0.0 đến 1.0):** Độ bão hòa màu, phân biệt màu đậm với màu xám nhạt.
+- **Value (0.0 đến 1.0):** Độ sáng tổng thể của bề mặt phản xạ.
+
+| Màu mục tiêu | Khoảng góc Hue | Độ bão hòa tối thiểu | Ngưỡng khoảng cách |
+| --- | --- | --- | --- |
+| Mẫu màu vàng | 45° – 65° | `> 0.50` | `< 3.5 cm` |
+| Mẫu màu xanh dương | 200° – 240° | `> 0.45` | `< 3.5 cm` |
+| Mẫu màu đỏ | `> 335°` hoặc `< 25°` (vùng lặp) | `> 0.50` | `< 3.5 cm` |
+| Khoang nạp rỗng | Bất kỳ | Bất kỳ | `> 5.0 cm` |
+
+Góc Hue là vòng tròn khép kín 360°, trong đó màu đỏ nằm vắt ngang qua mốc 0°. Đoạn mã nhận diện màu đỏ bắt buộc phải kiểm tra hai khoảng rời nhau bằng toán tử logic OR (`hue >= 335.0 || hue <= 25.0`), không thể so sánh bằng một bất đẳng thức kép thông thường.
+
+### Cài đặt bộ lọc khoảng cách và chống rung tín hiệu (debouncing)
+
+Cảm biến REV Color Sensor v3 tích hợp mảng quang đi-ốt RGB và cảm biến khoảng cách hồng ngoại tầm ngắn qua giao thức I2C. Để loại bỏ hiện tượng nháy trạng thái khi vật thể đi vào cửa nạp, cần áp dụng bộ lọc khoảng cách kết hợp đếm chu kỳ xác nhận liên tiếp:
+
+```java
+public class IntakeSensorSubsystem {
+    private final NormalizedColorSensor colorSensor;
+    private final DistanceSensor distanceSensor;
+    private int consecutiveValidFrames = 0;
+    private static final int CONFIRM_THRESHOLD = 3;
+
+    public enum ElementColor { NONE, RED, BLUE, YELLOW }
+
+    public ElementColor detectElement() {
+        double distanceCm = distanceSensor.getDistance(DistanceUnit.CM);
+
+        // Chặn khoảng cách: bỏ qua vật ở xa hoặc phản xạ từ thảm sân
+        if (Double.isNaN(distanceCm) || distanceCm > 3.5) {
+            consecutiveValidFrames = 0;
+            return ElementColor.NONE;
+        }
+
+        NormalizedRGBA rgba = colorSensor.getNormalizedColors();
+        float[] hsv = new float[3];
+        Color.RGBToHSV(
+            (int) (rgba.red * 255),
+            (int) (rgba.green * 255),
+            (int) (rgba.blue * 255),
+            hsv
+        );
+
+        float hue = hsv[0];
+        float sat = hsv[1];
+        ElementColor candidate = ElementColor.NONE;
+
+        if (sat > 0.45f) {
+            if (hue >= 45.0f && hue <= 65.0f) {
+                candidate = ElementColor.YELLOW;
+            } else if (hue >= 200.0f && hue <= 240.0f) {
+                candidate = ElementColor.BLUE;
+            } else if (hue >= 335.0f || hue <= 25.0f) {
+                candidate = ElementColor.RED;
+            }
+        }
+
+        // Bộ lọc hysteresis: xác nhận trạng thái ổn định qua nhiều chu kỳ
+        if (candidate != ElementColor.NONE) {
+            consecutiveValidFrames++;
+            if (consecutiveValidFrames >= CONFIRM_THRESHOLD) {
+                return candidate;
+            }
+        } else {
+            consecutiveValidFrames = 0;
+        }
+
+        return ElementColor.NONE;
+    }
+}
+```
+
+### Hiệu chuẩn thực tế và chống nhiễu quang học
+
+Để đảm bảo tỷ lệ nhận diện cao trong trận đấu, áp dụng các nguyên tắc lắp đặt:
+
+- **Lắp nắp che quang học (shroud):** In 3D hốc chắn ánh sáng bao quanh thấu kính cảm biến để ngăn ánh đèn sân khấu chiếu xiên trực tiếp vào bộ phận thu quang.
+- **Hiệu chuẩn ngưỡng thực tế:** Đo đạc mẫu game thật của mùa giải trên sân tập với đèn LED của cảm biến bật sáng, ghi lại ngưỡng dải màu thực tế thay vì dùng lý thuyết sách vở.
+- **Tối ưu băng thông bus I2C:** Đọc cảm biến màu I2C quá dày có thể làm nghẽn chu kỳ điều khiển động cơ. Giới hạn tần số đọc cảm biến ở mức 20–40 Hz hoặc xử lý trong luồng bất đồng bộ.

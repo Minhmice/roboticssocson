@@ -1,0 +1,43 @@
+## 12V Power Distribution & Battery Harnessing: FTC Electrical Safety Standards
+
+Electrical power distribution is the mission-critical foundation of any competitive FIRST Tech Challenge (FTC) robot. A well-engineered electrical harness must reliably deliver transient peak currents between 20A and 40A to four drivetrain gearmotors and heavy manipulator mechanisms without inducing brownout resets, while satisfying rigorous Robot Inspection safety requirements.
+
+![Industrial electrical wiring, terminals, and power distribution hardware](https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80)
+
+### Power Distribution Architecture & Approved Components
+
+FTC rules mandate using exactly one approved 12V nominal NiMH battery pack (or approved equivalent chemistry). Electrical current flows from the battery pack through an integrated 20A inline fuse and an accessible main power switch before energizing the REV Control Hub, which cascades 12V DC power to a secondary REV Expansion Hub via XT30 connectors.
+
+```text
+12V NiMH Battery ── 20A Inline Fuse ── Main Switch ── REV Control Hub (XT30 In)
+                                                      ├─ Drivetrain DC Motors (x4)
+                                                      ├─ 5V Servo Ports / Smart Servos
+                                                      ├─ Digital / I2C / Analog Sensors
+                                                      └─ REV Expansion Hub (XT30 Out ── XT30 In)
+```
+
+| Component | Engineering Recommendation | Safety & Compliance Function |
+| --- | --- | --- |
+| Main Power Wires | High-strand silicone copper wire (AWG 14) | Handles thermal spikes, offers tight bend radius, minimizes resistance |
+| Battery Connectors | Anderson Powerpole (15A/45A) or XT30 | Must be ratcheting-crimped with retention clips installed |
+| Circuit Protection | 20A automotive blade or cartridge fuse | Inspect fuse housing integrity and continuity before official inspection |
+| Main Power Switch | REV Main Switch or approved rotary switch | Rigidly mounted, immediately accessible to field referees, marked ON/OFF |
+
+### Root Causes of Voltage Brownouts and Mitigation Strategies
+
+During aggressive maneuvers, rapid direction reversals, or mechanism stalls, motor current draw surges violently. If the supply voltage at the Control Hub input terminals drops below 7.5V–8.0V:
+- The internal Android Single Board Computer (SBC) triggers an emergency shutdown or reboot cycle.
+- Wi-Fi Direct or REV 9-Axis communication disconnects from the Driver Station, leaving the robot stranded dead on the field for 30–60 seconds.
+
+Key mitigation practices:
+- **Minimize Total Loop Resistance**: Eliminate twist-and-tape joints or low-grade push terminals. Every connection must use certified crimp connectors or dual heat-shrunk solder joints.
+- **Shorten Wiring Lengths**: Keep the high-current wire run between battery terminals, the main power switch, and the primary Hub under 25–30 cm.
+- **Dedicated Daisy-Chain Run**: Power the secondary Expansion Hub through a direct AWG 16 silicone XT30 cable instead of splicing auxiliary loads into the main battery leads.
+- **Software Slew-Rate Limiting**: Apply software acceleration ramping on drivetrain DC motors to prevent simultaneous stall-current draws during sudden stick inputs.
+
+### Pre-Match Electrical Inspection Protocol
+
+1. Verify open-circuit battery voltage with a digital multimeter (DMM): only load batteries measuring between 13.2V and 13.8V onto the robot.
+2. Confirm positive mechanical locking on all XT30 connectors and verify Anderson Powerpole retention clips are fully engaged.
+3. Perform a physical tug-and-wiggle check along the primary power harness while the robot is energized to detect intermittent wire fractures or loose spade lugs.
+4. Fasten the battery enclosure with dual high-tensile velcro straps to ensure zero battery displacement during aggressive field collisions.

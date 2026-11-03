@@ -63,6 +63,7 @@ export function CopyContactLink({
 }: CopyContactLinkProps) {
   const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
+  const [open, setOpen] = useState(false);
   const styles = variantStyles[variant];
   const useStackedRow = variant === "stacked";
   const animateUnderline = rowHover && useStackedRow;
@@ -76,6 +77,7 @@ export function CopyContactLink({
     const ok = await copyToClipboard(copyValue);
     if (!ok) return;
     setCopied(true);
+    setOpen(false);
     window.setTimeout(() => setCopied(false), 1800);
   }, [copyValue]);
 
@@ -131,7 +133,12 @@ export function CopyContactLink({
 
   return (
     <TooltipProvider delayDuration={520}>
-      <Tooltip open={copied ? false : undefined}>
+      <Tooltip
+        open={!copied && open}
+        onOpenChange={(nextOpen) => {
+          setOpen(copied ? false : nextOpen);
+        }}
+      >
         <TooltipTrigger asChild>
           <button
             type="button"

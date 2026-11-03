@@ -1,0 +1,127 @@
+## Kiến trúc Máy trạng thái hữu hạn (FSM) trong điều khiển Robot
+
+Trong lập trình robot thi đấu, việc dùng các hàm chờ đồng bộ (`Thread.sleep()` hoặc vòng lặp `while` chặn luồng) là nguyên nhân hàng đầu khiến robot phản hồi chậm, mất kết nối tay cầm hoặc không thể xử lý đồng thời nhiều cơ cấu. Máy trạng thái hữu hạn (Finite State Machine - FSM) giải quyết triệt để vấn đề này bằng cách chia quy trình hoạt động phức tạp thành các trạng thái rời rạc, không chặn (non-blocking), cho phép vòng lặp OpMode duy trì tần số quét 50–100Hz ổn định.
+
+![Sơ đồ chuyển trạng thái của máy trạng thái hữu hạn FSM](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Finite_state_machine_example_with_comments.svg/640px-Finite_state_machine_example_with_comments.svg.png)
+
+### Cấu trúc cốt lõi của một FSM hướng cơ cấu
+
+Mỗi chu trình FSM cho một cơ cấu con (như cụm tay gắp hoặc thang nâng) bao gồm 4 thành phần chính:
+
+| Thành phần | Vai trò kỹ thuật | Ví dụ minh họa trong FTC |
+| --- | --- | --- |
+| Tập trạng thái (`enum State`) | Danh sách định danh hữu hạn các giai đoạn hoạt động | `IDLE`, `INTAKING`, `LIFTING`, `DEPOSITING`, `RETRACTING` |
+| Biến trạng thái hiện tại | Lưu trữ trạng thái robot đang thực thi | `private LiftState currentState = LiftState.IDLE;` |
+| Điều kiện chuyển tiếp (Guard) | Điều kiện kích hoạt chuyển từ trạng thái này sang trạng thái khác | Cảm biến màu phát hiện mẫu, encoder chạm ngưỡng, hoặc `timer > 1.2s` |
+| Hành vi trạng thái (Action) | Lệnh cấp điện áp motor hoặc vị trí servo trong vòng quét | `liftMotor.setTargetPosition(HIGH_JUNCTION);` |
+
+### Mã nguồn FTC Java: Điều khiển Thang nâng bằng Enum FSM
+
+Dưới đây là một bộ điều khiển FSM phi đồng bộ mẫu, kết hợp giám sát thời gian (`ElapsedTime`) và cảm biến vị trí, sẵn sàng chạy trong cả chế độ TeleOp và Autonomous:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+@TeleOp(name = "Non-Blocking FSM Subsystem", group = "Architecture")
+public class FsmSubsystemOpMode extends OpMode {
+    public enum LiftState {
+        IDLE,
+        LIFT_EXTENDING,
+        CLAW_DEPOSITING,
+        CLAW_RESETTING,
+        LIFT_RETRACTING
+    }
+
+    private LiftState currentState = LiftState.IDLE;
+    private ElapsedTime stateTimer = new ElapsedTime();
+
+    private DcMotor liftMotor;
+    private Servo clawServo;
+
+    private static final int LIFT_TARGET_HIGH = 1800;
+    private static final int LIFT_TARGET_DOWN = 10;
+    private static final double CLAW_CLOSED_POS = 0.8;
+    private static final double CLAW_OPEN_POS = 0.2;
+
+    @Override
+    public void init() {
+        liftMotor = hardwareMap.get(DcMotor.class, "lift_motor");
+        clawServo = hardwareMap.get(Servo.class, "claw_servo");
+
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setTargetPosition(LIFT_TARGET_DOWN);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftMotor.setPower(1.0);
+
+        clawServo.setPosition(CLAW_CLOSED_POS);
+    }
+
+    @Override
+    public void loop() {
+        switch (currentState) {
+            case IDLE:
+                // Kích hoạt chu trình khi tài xế nhấn phím A
+                if (gamepad1.a) {
+                    liftMotor.setTargetPosition(LIFT_TARGET_HIGH);
+                    liftMotor.setPower(1.0);
+                    stateTimer.reset();
+                    currentState = LiftState.LIFT_EXTENDING;
+                }
+                break;
+
+            case LIFT_EXTENDING:
+                // Điều kiện chuyển: Motor đạt gần vị trí đích hoặc quá timeout 2.5s
+                if (Math.abs(liftMotor.getCurrentPosition() - LIFT_TARGET_HIGH) < 30 || stateTimer.seconds() > 2.5) {
+                    clawServo.setPosition(CLAW_OPEN_POS);
+                    stateTimer.reset();
+                    currentState = LiftState.CLAW_DEPOSITING;
+                }
+                break;
+
+            case CLAW_DEPOSITING:
+                // Chờ 0.4s để cơ cấu servo nhả hoàn toàn mẫu vật
+                if (stateTimer.seconds() > 0.4) {
+                    clawServo.setPosition(CLAW_CLOSED_POS);
+                    stateTimer.reset();
+                    currentState = LiftState.CLAW_RESETTING;
+                }
+                break;
+
+            case CLAW_RESETTING:
+                // Chờ servo đóng lại trước khi thu thang xuống để tránh vướng cơ khí
+                if (stateTimer.seconds() > 0.2) {
+                    liftMotor.setTargetPosition(LIFT_TARGET_DOWN);
+                    liftMotor.setPower(0.8);
+                    stateTimer.reset();
+                    currentState = LiftState.LIFT_RETRACTING;
+                }
+                break;
+
+            case LIFT_RETRACTING:
+                // Thang đã thu về gần vị trí đáy
+                if (Math.abs(liftMotor.getCurrentPosition() - LIFT_TARGET_DOWN) < 30 || stateTimer.seconds() > 2.0) {
+                    currentState = LiftState.IDLE;
+                }
+                break;
+        }
+
+        // Khung gầm vẫn nhận lệnh lái liên tục mà không bị đơ
+        telemetry.addData("Current State", currentState);
+        telemetry.addData("Lift Position", liftMotor.getCurrentPosition());
+        telemetry.addData("State Elapsed (s)", stateTimer.seconds());
+    }
+}
+```
+
+### Nguyên tắc thiết kế an toàn và xử lý sự cố
+
+- **Cơ chế Timeout Guard cho mọi trạng thái**: Không bao giờ phụ thuộc 100% vào cảm biến tiệm cận hoặc công tắc hành trình cơ khí. Luôn thêm điều kiện `stateTimer.seconds() > MAX_TIMEOUT` để tránh tình trạng kẹt trạng thái vĩnh viễn khi cảm biến lỏng dây.
+- **Nút can thiệp khẩn cấp (Emergency Override)**: Luôn lập trình phím nóng (ví dụ `gamepad1.b`) để cưỡng bức gán `currentState = LiftState.IDLE` và ngắt nguồn cơ cấu khi phát hiện kẹt cơ cấu bất thường.
+- **Tách biệt quyền kiểm soát (Subsystem Isolation)**: Mỗi hệ thống vật lý độc lập (khung gầm, thang nâng, ống nạp mẫu) nên sở hữu một FSM riêng biệt. Không gộp chung toàn bộ robot vào một enum khổng lồ để duy trì tính module hóa và dễ gỡ lỗi.
+- **Tính khả suy (Telemetry Transparency)**: Xuất trạng thái hiện tại và thời gian lưu trạng thái ra Driver Station để người điều khiển và kỹ sư lập trình dễ dàng quan sát điểm nghẽn trong quá trình thi đấu.

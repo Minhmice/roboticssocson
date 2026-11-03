@@ -23,7 +23,7 @@ graph TD
         B1["Ban Kỹ thuật Cơ khí<br>(Thiết kế CAD 3D, gia công, lắp ráp ray trượt & gầm)"]
         B2["Ban Lập trình & Điều khiển<br>(Java SDK, OpenCV thị giác, Autonomous 30s)"]
         B3["Ban Đối ngoại & Gây quỹ<br>(Vận hành Sales Kit, CRM 53 DN, chăm sóc Nhà tài trợ)"]
-        B4["Ban Truyền thông & Sự kiện<br>(Quản trị Fanpage, Video unbox, Maker Day)"]
+        B4["Ban Truyền thông & Sự kiện<br>(Quản trị Fanpage, Video unbox, sự kiện CLB)"]
         B5["Phụ trách Kỹ thuật Web /support<br>(Giao diện trang quyên góp, tích hợp form & webhook)"]
     end
 
@@ -65,7 +65,6 @@ graph TD
 | Phụ trách Biên tập & Bài viết (Copywriter) | Viết bài 5 tuyến nội dung chiến dịch | `07` | Trần Tuệ Minh | Học sinh | |
 | Phụ trách Media, Nhiếp ảnh & Video | Quay dựng video POV, phóng sự unbox, chụp ảnh tư liệu Lab | `07` | Trần Tuệ Minh | Học sinh | |
 | Phụ trách Đội Thuyết trình / Engineering Portfolio | Chuẩn bị hồ sơ kỹ thuật, thuyết trình trước giám khảo và phối hợp đón tiếp đối tác tại Pit | `09`, `13` | Trần Tuệ Minh | Học sinh | |
-| Phụ trách Sự kiện Maker Day | Lên kịch bản, quản lý vé, chuẩn bị kit và điều phối các trạm | `08`, `13` | Trần Tuệ Minh | Học sinh | |
 | Phụ trách Kỹ thuật Web /support | Quản trị trang `/support`, cấu hình form và tích hợp webhook | `02`, `10` | Trần Tuệ Minh | Học sinh | |
 | **NGƯỜI PHỤ TRÁCH TỪNG LINH KIỆN TRONG BOM (THEO CSV)** | | | | | |
 | REV Control Hub (`FTC-CTRL-01`) | Đặt hàng REV Robotics Mỹ, nghiệm thu kỹ thuật và nạp hệ điều hành | `04`, `06` | Nguyễn Minh | Trưởng nhóm | |

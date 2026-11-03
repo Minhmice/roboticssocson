@@ -1,0 +1,28 @@
+## Ray trượt tạo tầm với
+
+Linear slide biến chuyển động quay của motor thành chuyển động tịnh tiến để nâng cơ cấu ghi điểm hoặc đưa tay tới vùng làm việc. Một bộ gồm ray cố định, các tầng trượt, puly, dây kéo và tang cuốn. Chọn ray dựa trên hành trình, độ cứng khi vươn hết cỡ và tải lệch tâm, không chỉ dựa trên tải tĩnh danh nghĩa. Khi lắp, hai bên phải song song; ray bị xoắn có thể kẹt ngay cả khi motor đủ mô-men.
+
+![Ray trượt tuyến tính goBILDA Viper-Slide](https://cdn11.bigcommerce.com/s-eem7ijc77k/product_images/uploaded_images/2500-series-steel-viper-slides-lifestyle.min.jpg)
+
+### Chọn kiểu mắc dây
+
+| Kiểu | Cách chuyển động | Lợi thế | Điểm đánh đổi |
+| --- | --- | --- | --- |
+| Cascade | Các tầng chuyển động gần như đồng thời | Nhanh, gọn | Dây và đường đi phức tạp |
+| Continuous | Một tầng đi trước, kéo tầng tiếp theo | Dễ hiểu, dễ bảo trì | Phân bố tốc độ và tải khác nhau |
+| Một tầng | Tang cuốn kéo trực tiếp bàn trượt | Ít chi tiết, dễ hiệu chỉnh | Hành trình hạn chế |
+
+Với cascade, cố định dây vào khung và luồn qua puly trên các tầng theo sơ đồ của bộ ray; thay đổi điểm neo sẽ thay đổi chiều và tỷ số hành trình. Với continuous, kiểm tra từng tầng chạy đúng thứ tự trước khi nối motor. Dù chọn kiểu nào, có phương án thu hồi chủ động hoặc dây đối ứng để hạ ổn định; đừng dựa hoàn toàn vào trọng lực khi cơ cấu có thể nghiêng.
+
+### Tính lực và chọn motor
+
+Bắt đầu từ lực nâng tĩnh `F = m × g`; cộng tải ma sát và hệ số an toàn phù hợp. Mô-men tối thiểu tại tang xấp xỉ `τ = F × r / η`, với `r` là bán kính cuốn hiệu dụng và `η` là hiệu suất truyền động. Nếu nhiều lớp dây chồng lên nhau, `r` tăng khi cuốn: tốc độ tăng nhưng lực kéo giảm, làm thay đổi tải motor. Tang rộng đủ cho một lớp dây giúp hành vi dễ dự đoán hơn. Dùng hộp số để cân bằng tốc độ với mô-men và kiểm tra motor theo thời gian làm việc thực, không chỉ mô-men kẹt.
+
+### Lắp ráp, giới hạn và bảo trì
+
+1. Gá ray song song, trượt bằng tay trên toàn hành trình trước khi lắp dây.
+2. Làm nhẵn cạnh puly, tránh dây cọ nhôm; cố định đầu dây bằng nút hoặc kẹp phù hợp và đánh dấu vị trí để phát hiện trượt.
+3. Căng đều hai bên, sau đó nâng tải thấp ở công suất nhỏ; đo độ lệch và điều chỉnh trước khi chạy nhanh.
+4. Lắp điểm chặn cơ khí và cảm biến home; đặt soft limit trong phần mềm theo encoder, nhưng không coi soft limit là thay thế cho điểm chặn.
+
+Kiểm tra dây sờn, vít puly lỏng và độ rơ sau mỗi buổi tập. Giữ tay ngoài vùng kẹp, ngắt nguồn trước khi bảo trì và hạ tải an toàn trước khi tháo dây. Nếu một bên chạy chậm, dừng ngay: tiếp tục cấp điện có thể xoắn ray hoặc làm đứt dây.

@@ -1,0 +1,28 @@
+## Slides for controlled reach
+
+A linear slide converts motor rotation into translation for a scoring lift or an arm that reaches into a workspace. A typical assembly has a fixed rail, moving stages, pulleys, a cable, and a winding drum. Select rails for travel, fully extended stiffness, and off-axis loading—not only for a static load rating. Both sides must remain parallel; a twisted rail can bind even when the motor has enough torque.
+
+![goBILDA Viper-Slide linear slides](https://cdn11.bigcommerce.com/s-eem7ijc77k/product_images/uploaded_images/2500-series-steel-viper-slides-lifestyle.min.jpg)
+
+### Rigging choices
+
+| Style | Motion model | Advantage | Trade-off |
+| --- | --- | --- | --- |
+| Cascade | Stages move nearly together | Fast and compact | Complex cable paths |
+| Continuous | One stage leads and pulls the next | Easy to understand and service | Different stage speed/load distribution |
+| Single stage | Drum pulls one carriage directly | Few parts, simple tuning | Limited travel |
+
+For a cascade, anchor the cable to the frame and route it over pulleys on each stage according to the slide manufacturer's diagram. Changing an anchor point changes direction and travel ratio. For a continuous rig, verify each stage's order before attaching the motor. Either style needs a positive recovery method or counteracting cable so descent remains controlled; do not depend entirely on gravity when the mechanism can tilt.
+
+### Force and motor sizing
+
+Start with static lift force `F = m × g`, then add friction and a suitable safety factor. Approximate minimum drum torque as `τ = F × r / η`, where `r` is effective winding radius and `η` is transmission efficiency. If cable layers overlap, `r` grows while winding: speed rises but pulling force falls, changing motor load during a stroke. A drum wide enough for one cable layer gives more predictable behavior. Use gearing to balance speed and torque, and check the motor over its real duty cycle rather than only its stall torque.
+
+### Assembly, limits, and service
+
+1. Mount rails parallel and hand-slide the carriage through its complete travel before adding cable.
+2. Deburr pulley edges, keep cable away from sharp aluminum, secure each end with a suitable clamp or knot, and mark the cable to detect creep.
+3. Equalize both sides, then lift a light load at low power; measure skew and correct it before high-speed testing.
+4. Add mechanical stops and a home sensor. Set software soft limits from encoder position, but never treat a soft limit as a mechanical stop replacement.
+
+Inspect frayed cable, loose pulley fasteners, and play after every practice session. Keep hands out of pinch zones, disconnect power before service, and lower loads safely before removing cable. If one side moves slower, stop immediately: continuing to power the slide can twist rails or snap the cable.

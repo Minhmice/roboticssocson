@@ -1,0 +1,32 @@
+## Điều khiển PIDF cho cơ cấu FTC
+
+Bộ điều khiển giữ vị trí tay nâng hoặc bám vận tốc khi tải thay đổi. Bộ bù trước (feedforward) dự đoán công suất động cơ cần; vòng phản hồi (feedback) bù sai số còn lại. Chỉ tinh chỉnh sau khi khử rơ cáp xích, kiểm tra chiều encoder và đặt giới hạn cơ khí an toàn. Luôn kê đỡ tay nâng trước khi chạy thử để tránh rơi tự do.
+
+![Động cơ điện và hộp số](https://commons.wikimedia.org/wiki/Special:FilePath/DC_motor_with_gearbox.jpg)
+
+### Mô hình và đơn vị tính
+
+Với bài toán bám vận tốc, phương trình điều khiển thường dùng: `u = kS × sign(vTarget) + kV × vTarget + kA × aTarget + kP × error + kI × integral + kD × errorRate`. Trong đó `u` là công suất cấp động cơ [-1.0, 1.0], `error = vTarget - vMeasured`. Vận tốc và gia tốc phải cùng hệ đơn vị đếm encoder theo giây. Với vòng lặp vị trí, thay bằng sai số vị trí và tốc độ thay đổi sai số. Tay nâng thẳng đứng cần thêm hệ số trọng trường tĩnh `kG`; tay quay góc cần `kG × cos(theta)`. Không dùng chéo hệ số PID giữa các cơ cấu hoặc các tỷ số truyền khác nhau.
+
+| Thành phần | Mục đích chính | Hiện tượng khi đặt quá lớn |
+| --- | --- | --- |
+| `kS` | Thắng ma sát tĩnh ban đầu | Giật cục quanh điểm dừng |
+| `kV`, `kA` | Dự đoán tải theo vận tốc và gia tốc | Quá đà (overshoot) hoặc bão hòa sớm |
+| `kP`, `kI`, `kD` | Bù sai số hiện tại, tích lũy và tốc độ sai lệch | Dao động mạnh, windup hoặc nhiễu giật |
+
+### Cài đặt và quy trình tinh chỉnh
+
+Đoạn mã mẫu giả định chu kỳ `dt` tính bằng giây và vận tốc tính theo xung encoder/giây. Luôn khởi tạo giá trị đo vòng lặp trước và đặt lại tích phân khi tắt cơ cấu. Giới hạn chống tràn tích phân (anti-windup) là bắt buộc trong thực tế.
+
+```java
+double error = targetVelocity - measuredVelocity;
+integral = Math.max(-integralLimit, Math.min(integralLimit, integral + error * dt));
+double derivative = (measuredVelocity - previousVelocity) / dt;
+double staticPower = Math.abs(targetVelocity) > 1e-6 ? Math.copySign(kS, targetVelocity) : 0;
+double command = staticPower + kV * targetVelocity + kA * targetAcceleration
+        + kP * error + kI * integral - kD * derivative;
+motor.setPower(Math.max(-1.0, Math.min(1.0, command)));
+previousVelocity = measuredVelocity;
+```
+
+Chỉ tính toán khi `dt > 0`; vi phân theo số đo thực tế giúp triệt tiêu xung nhọn khi đổi mục tiêu đột ngột. Đặt `kI = 0`, `kD = 0` ban đầu. Tăng dần công suất tĩnh để tìm `kS` nhỏ nhất làm trục chuyển động. Tìm `kV` từ vận tốc ổn định và `kA` qua bài thử tăng tốc. Tăng dần `kP` đến khi bám sát mục tiêu mà không sinh dao động duy trì. Thêm `kD` để dập dao động và chỉ bổ sung `kI` rất nhỏ nếu còn sai số xác lập. Vẽ đồ thị mục tiêu, vận tốc thực, điện áp pin và công suất động cơ. Khi pin sụt áp, hệ số điều khiển có thể lệch; kiểm tra lại ở điện áp thi đấu thực tế.

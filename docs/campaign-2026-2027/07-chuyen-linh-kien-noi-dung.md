@@ -8,7 +8,7 @@ Tài liệu này xác lập chiến lược truyền thông đa kênh, 5 tuyến
 
 Chiến dịch truyền thông đóng vai trò phễu chuyển đổi nhận thức thành đóng góp tài chính và hiện vật, chia làm 3 giai đoạn:
 1. **Giai đoạn 1: Kích hoạt & Đóng quỹ Đợt 1 (05/11/2026 – 20/11/2026)** — Mục tiêu: Đạt tối thiểu 17.546.000 VNĐ để kịp đặt hàng Control Hub & Viper Slide từ Mỹ trước 20/11/2026.
-2. **Giai đoạn 2: Tiến độ chế tạo & Lan tỏa cộng đồng (21/11/2026 – 05/12/2026)** — Mục tiêu: Cán mốc toàn diện 33.975.000 VNĐ (đủ 11 linh kiện BOM + Quỹ dự phòng), lấp đầy 40 suất vé Maker Day.
+2. **Giai đoạn 2: Tiến độ chế tạo & Lan tỏa cộng đồng (21/11/2026 – 05/12/2026)** — Mục tiêu: Cán mốc toàn diện 33.975.000 VNĐ (đủ 11 linh kiện BOM + Quỹ dự phòng), lan tỏa hình ảnh chế tạo robot của học sinh trường huyện.
 3. **Giai đoạn 3: Tăng tốc thi đấu & Vinh danh đối tác (06/12/2026 – VNCMP 2027)** — Mục tiêu: Hoàn thiện lắp ráp, nạp code OpenCV, vinh danh nhà tài trợ trên robot và áo đấu, tạo hiệu ứng cổ vũ cho đội tại FPT Hòa Lạc.
 
 ### Bảng KPI Truyền Thông Chiến Dịch
@@ -19,7 +19,6 @@ Chiến dịch truyền thông đóng vai trò phễu chuyển đổi nhận th�
 | **Lượt xem TikTok/Reels kỹ thuật** | chưa có số đo | **5.000 – 15.000 views/video viral** | TikTok Analytics |
 | **Tương tác trung bình bài viết (Engagements)** | 30 – 50 reactions | **150 – 300 reactions/post chính** | Fanpage Insights |
 | **Lượt truy cập trang /support & Form** | chưa có số đo | **1.200+ unique clicks** | Bitly / UTM Link Tracker |
-| **Vé sự kiện Maker Day** | 0 | **40 vé bán hết (Sold out 2 ca)** | Google Form |
 | **Số lượt ủng hộ vi mô (Community)** | chưa có số đo | **≥ 50 lượt quét VietQR lẻ** | Sao kê tài khoản tiếp nhận |
 
 ---
@@ -31,15 +30,13 @@ graph TD
     A[Mạng xã hội: Facebook Post / TikTok / Reels] -->|Kích thích tò mò / Chạm cảm xúc| B(Landing Page /support & Fanpage CLB)
     B -->|Tùy chọn hành động| C{Phân loại đối tượng}
     
-    C -->|Phụ huynh / Học sinh địa phương| D[Đăng ký tham gia Maker Day]
     C -->|Cá nhân / Cựu học sinh / Yêu khoa học| E[Quét VietQR bảo trợ 1 chi tiết linh kiện]
     C -->|Doanh nghiệp KCN / Nhà tài trợ B2B| F[Tải Sales Kit & Liên hệ BGH / Ban Đối ngoại]
     
-    D --> G[Earned Revenue: Tự chủ tài chính ngoài mục tiêu vận động]
     E --> H[Quỹ phần cứng & dự phòng: 33.975.000đ]
     F --> I[Gói Tài trợ Bạc/Vàng/Kim Cương: 3M - 5M - 10M - 25M]
     
-    H & I & G --> J[Robot Hoàn Thiện & Đội Tuyển Tranh Tài FTC VN]
+    H & I --> J[Robot Hoàn Thiện & Đội Tuyển Tranh Tài FTC VN]
     J -->|Nội dung thực tế thi đấu| A
 ```
 
@@ -90,11 +87,11 @@ graph TD
 | Tuần | Mốc thời gian | Trọng tâm giai đoạn | Bài 1 (Thứ 3 — 19:30) | Bài 2 (Thứ 5 — 19:30) | Bài 3 (Chủ Nhật — 11:30 hoặc 20:00) |
 |:---:|---|---|---|---|---|
 | **W1** | 05/11 – 11/11/2026 | **Phát Động Chiến Dịch & Tuyên Bố Sứ Mệnh** | **Công bố chiến dịch:** "BUILD THE NEXT ROBOT" — THPT Sóc Sơn quay trở lại FTC 2026–2027 với mã đội #39256. | **Chuyện linh kiện (Ep 1):** Vì sao robot cần "Bộ não" REV Control Hub 11.7 triệu? Bóc tách Mission 1. | **Đằng sau tấm huy chương:** Từ phòng thí nghiệm trường làng đến Á quân Motions In Fire. Bắt đầu nhận ủng hộ. |
-| **W2** | 12/11 – 18/11/2026 | **Công Bố Hoạt Động Trải Nghiệm & Thúc Đẩy M1** | **Hậu trường chuẩn bị Maker Day:** Giới thiệu workshop "Can You Beat the Robot?" cho học sinh THCS. | **Chuyện linh kiện (Ep 2):** Cánh tay trượt Viper Slide 4 tầng — Vươn cao 1m2 để giải bài toán BIOBUZZ. | **Học sinh cấp 3 làm robot:** Phỏng vấn Driver chính của đội — Áp lực 2 phút 30 giây trên sàn đấu. |
-| **W3** | 19/11 – 25/11/2026 | **Đóng Quỹ Đợt 1 (Mốc ≥ 17.5M)** | **Cập nhật tiến độ quỹ:** Đạt mốc đặt hàng Đợt 1! Cảm ơn các nhà hảo tâm đầu tiên. Phát lệnh đặt Control Hub & Viper Slide. | **Mở bán vé Maker Day:** "Can You Beat the Robot?" — Ngày hội trải nghiệm STEM cho học sinh Sóc Sơn. | **Spotlight Đối Tác:** Vinh danh Nhà tài trợ Bạc/Vàng đầu tiên đồng hành cùng Mission 1 & 2. |
-| **W4** | 26/11 – 02/12/2026 | **Chốt Toàn Bộ Mục Tiêu (Mốc 33.975M)** | **Chuyện linh kiện (Ep 3 & 4):** Bánh Mecanum đa hướng và Pin 12V an toàn. Hoàn thành 100% BOM linh kiện. | **Nhắc hạn đăng ký Maker Day:** Đếm ngược các suất vé cuối cùng cho học sinh trải nghiệm. | **Tiến độ chế tạo:** Bản vẽ CAD hoàn thiện — Những thông số kỹ thuật đầu tiên được gửi đi cắt laser. |
-| **W5** | 03/12 – 09/12/2026 | **Hậu Trường Chế Tạo & Chốt Danh Sách Maker Day** | **Lab Diaries (Tập 1):** Những tấm nhôm đầu tiên về xưởng — Học sinh THPT tự tay khoan, dũa chi tiết. | **Thông báo Maker Day:** Đã lấp đầy 80% số ghế! Hé lộ các thử thách đối kháng với robot. | **Spotlight Đối tác In-kind:** Lời cảm ơn xưởng cơ khí chính xác tại KCN Nội Bài/Quang Minh tài trợ cắt laser. |
-| **W6** | 10/12 – 16/12/2026 | **Tổ Chức Maker Day (Chủ Nhật 13/12/2026)** | **Tiến độ chế tạo:** Unboxing kiện hàng REV & goBILDA cập bến Sóc Sơn sau 14 ngày bay từ Mỹ. | **Không khí ngày hội Maker Day:** Học sinh hào hứng điều khiển robot đối kháng và nhận sticker BioBuzz. | **Recap Sự kiện Maker Day:** Ảnh và video 40 học sinh trải nghiệm đấu robot tại THPT Sóc Sơn ngày 13/12/2026. |
+| **W2** | 12/11 – 18/11/2026 | **Đẩy Mạnh Vận Động Đợt 1 & Thúc Đẩy M1** | **Lab Diaries (Tập 1):** Khởi động thiết kế CAD 3D và chuẩn bị đặt hàng linh kiện đợt 1. | **Chuyện linh kiện (Ep 2):** Cánh tay trượt Viper Slide 4 tầng — Vươn cao 1m2 để giải bài toán BIOBUZZ. | **Học sinh cấp 3 làm robot:** Phỏng vấn Driver chính của đội — Áp lực 2 phút 30 giây trên sàn đấu. |
+| **W3** | 19/11 – 25/11/2026 | **Đóng Quỹ Đợt 1 (Mốc ≥ 17.5M)** | **Cập nhật tiến độ quỹ:** Đạt mốc đặt hàng Đợt 1! Cảm ơn các nhà hảo tâm đầu tiên. Phát lệnh đặt Control Hub & Viper Slide. | **Lab Diaries (Tập 2):** Gia công thử nghiệm cơ cấu lấy mẫu tại phòng Lab THPT Sóc Sơn. | **Spotlight Đối Tác:** Vinh danh Nhà tài trợ Bạc/Vàng đầu tiên đồng hành cùng Mission 1 & 2. |
+| **W4** | 26/11 – 02/12/2026 | **Chốt Toàn Bộ Mục Tiêu (Mốc 33.975M)** | **Chuyện linh kiện (Ep 3 & 4):** Bánh Mecanum đa hướng và Pin 12V an toàn. Hoàn thành 100% BOM linh kiện. | **Lab Diaries (Tập 3):** Hoàn thiện bản vẽ khung gầm và gửi gia công cắt laser nhôm. | **Tiến độ chế tạo:** Bản vẽ CAD hoàn thiện — Những thông số kỹ thuật đầu tiên được gửi đi cắt laser. |
+| **W5** | 03/12 – 09/12/2026 | **Hậu Trường Chế Tạo & Mốc Về Đích 05/12** | **Lab Diaries (Tập 4):** Những tấm nhôm đầu tiên về xưởng — Học sinh THPT tự tay khoan, dũa chi tiết. | **Cập nhật tiến độ quỹ đợt 2:** Hoàn tất mục tiêu 33.975.000đ, sẵn sàng đón linh kiện Mỹ. | **Spotlight Đối tác In-kind:** Lời cảm ơn xưởng cơ khí chính xác tại KCN Nội Bài/Quang Minh tài trợ cắt laser. |
+| **W6** | 10/12 – 16/12/2026 | **Tiếp Nhận Linh Kiện & Lắp Ráp Khung Xe** | **Tiến độ chế tạo:** Unboxing kiện hàng REV & goBILDA cập bến Sóc Sơn sau 14 ngày bay từ Mỹ. | **Lab Diaries (Tập 5):** Bắt đầu lắp cụm khung gầm Mecanum và động cơ Yellow Jacket. | **Spotlight Đối Tác:** Cảm ơn các cá nhân và đơn vị đồng hành cùng Mission 3 & 4. |
 | **W7** | 17/12 – 23/12/2026 | **Chạy Thử Nghiệm Sân & Vinh Danh Doanh Nghiệp** | **Tiến độ chế tạo (First Movement):** Video khung gầm robot di chuyển những mét đầu tiên trên sân tập. | **Công bố các gói tài trợ Vàng & Kim Cương:** Giới thiệu logo các doanh nghiệp trên thân robot thi đấu. | **Đằng sau tấm huy chương:** Lời cảm ơn từ Ban Giám hiệu THPT Sóc Sơn và Hội Phụ huynh. |
 | **W8** | 24/12 – 30/12/2026 | **Tối Ưu Tự Hành & Hoàn Thành Mục Tiêu 33.975M** | **Chế độ Tự hành (Autonomous):** Camera Logitech C920 nhận diện mẫu vật BioBuzz và thuật toán PID căn góc. | **Tổng kết chặng 1 chiến dịch:** Báo cáo công khai tài chính — 100% minh bạch từng khoản chi 11 linh kiện và dự phòng. | **Sẵn sàng ra đấu trường:** Toàn đội mặc đồng phục mới chụp ảnh bên robot hoàn thiện, hướng tới VNCMP 2027. |
 
@@ -145,43 +142,34 @@ Mỗi lượt chia sẻ bài viết này là một bước tiến đưa học si
 
 ---
 
-### C. Mẫu Bài Đăng 2: Mở Đăng Ký Maker Day (Caption Template — Maker Day)
+### C. Mẫu Bài Đăng 2: Cập Nhật Tiến Độ Phòng Lab (Caption Template — Lab Diaries)
 
 ```text
-[CHÍNH THỨC MỞ ĐĂNG KÝ: MAKER DAY "CAN YOU BEAT THE ROBOT?"] 🤖🏁
+[NHẬT KÝ PHÒNG LAB #39256: NHỮNG MẢNH GHÉP ĐẦU TIÊN CẬP BẾN] 🤖🛠️
 
-Bạn có muốn một lần trực tiếp cầm tay điều khiển robot thi đấu quốc tế FIRST Tech Challenge, hay tự tay lập trình mạch điện tử thông minh?
+Từ những bản vẽ 3D trên máy tính đến từng thanh nhôm, con ốc thật tại phòng thực hành THPT Sóc Sơn!
 
-Robotics Sóc Sơn chính thức mở cổng đăng ký Ngày Hội Trải Nghiệm STEM: "Can You Beat the Robot?" dành riêng cho học sinh Tiểu học và THCS huyện Sóc Sơn!
+Đội tuyển đang khẩn trương hoàn thiện các công đoạn lắp ráp khung gầm và căn chỉnh cơ cấu nâng hạ chuẩn bị cho giải đấu FIRST Tech Challenge Vietnam mùa giải BIOBUZZ™.
 
-🔥 THÔNG TIN SỰ KIỆN:
-- Thời gian: Chủ Nhật, 13/12/2026 (Ca sáng: 08:30–11:00 | Ca chiều: 14:00–16:30)
-- Địa điểm: Trường THPT Sóc Sơn (Phù Lỗ, Sóc Sơn, Hà Nội)
-- Quy mô: Giới hạn 40 học sinh (20 em/ca) để bảo đảm chất lượng thực hành
-- Quà tặng: 100% người tham gia nhận Giấy chứng nhận "Nhà Sáng Chế Trẻ BIOBUZZ" và bộ Sticker Pack BioBuzz độc quyền!
+Mỗi đóng góp của Quý thầy cô, cựu học sinh và các nhà tài trợ chính là nguồn trợ lực lớn giúp đội hoàn thiện cỗ máy đại diện cho trường huyện bước ra đấu trường lớn.
 
-🎟️ GIÁ VÉ TRẢI NGHIỆM:
-- Early Bird (đăng ký sớm): 79.000 VNĐ / vé
-- Tiêu chuẩn: 89.000 VNĐ / vé (Đã bao gồm kit thực hành, tea-break và quà lưu niệm)
+👉 THEO DÕI TIẾN ĐỘ & ỦNG HỘ CHIẾN DỊCH TẠI: https://roboticssocson.com/support
+Tài khoản tiếp nhận: TRAN TUE MINH · STK: 0962969817 · MB Bank
 
-👉 ĐĂNG KÝ NGAY TẠI: https://roboticssocson.com/support
-Tài khoản nhận vé: TRAN TUE MINH · STK: 0962969817 · MB Bank · QR: assets/placeholder.jpg
-
-#RoboticsSocSon #MakerDay #CanYouBeatTheRobot #BuildTheNextRobot #STEMVietnam
+#RoboticsSocSon #FTC39256 #BuildTheNextRobot #LabDiaries #STEMVietnam
 ```
 
 ---
 
-## 6. Kế Hoạch Phân Bổ Ngân Sách Paid Ads Tối Ưu (600.000 VNĐ)
+## 6. Kế Hoạch Phân Bổ Ngân Sách Paid Ads Tối Ưu (250.000 VNĐ)
 
-Căn cứ dữ liệu nghiên cứu thị trường R3, tổng ngân sách quảng cáo mạng xã hội được khống chế ở mức **600.000 VNĐ** do ban truyền thông tự chủ đối ứng ngoài ngân sách vận động công khai, chia làm 2 đợt chạy boost bài viết có chủ đích cao, tuyệt đối không rải ngân sách dàn trải.
+Căn cứ dữ liệu nghiên cứu thị trường R3, tổng ngân sách quảng cáo mạng xã hội được khống chế ở mức **250.000 VNĐ** do ban truyền thông tự chủ đối ứng ngoài ngân sách vận động công khai, tập trung vào 01 đợt chạy boost video có chủ đích cao, tuyệt đối không rải ngân sách dàn trải.
 
 ### Bảng Phân Bổ Kế Hoạch Chạy Ads
 
 | Đợt chạy | Ngân sách | Thời gian | Bài viết mục tiêu | Mục tiêu chiến dịch (Objective) | Thiết lập đối tượng (Targeting) | Kỳ vọng kết quả (Expected KPIs) |
 |---|:---:|---|---|---|---|---|
-| **Đợt 1** | **350.000 VNĐ** | 15/11 – 18/11/2026 (4 ngày) | Bài công bố mở bán vé sự kiện Maker Day | Chuyển đổi tương tác tin nhắn / Lượt bấm link Form đăng ký | - Địa lý: Bán kính 15km quanh THPT Sóc Sơn.<br>- Độ tuổi: 32 – 50 (Phụ huynh có con học cấp 1, 2, 3) và 15 – 18 (Học sinh cấp 3).<br>- Sở thích: Giáo dục, STEM, Khoa học công nghệ, Hoạt động ngoại khóa. | - Tiếp cận (Reach): 12.000 – 16.000 người.<br>- Lượt nhấp link (Clicks): 180 – 250 clicks (CPC ~1.400đ).<br>- Giúp bán hết 40 vé Maker Day sớm. |
-| **Đợt 2** | **250.000 VNĐ** | 18/12 – 21/12/2026 (3 ngày) | Video ngắn POV: Robot Sóc Sơn lần đầu chuyển động trên sân tập | Lượt xem video (ThruPlay) / Tăng nhận diện thương hiệu đội tuyển | - Địa lý: Huyện Sóc Sơn, Mê Linh, Đông Anh, TP. Phúc Yên.<br>- Độ tuổi: 18 – 45 (Sinh viên, kỹ sư, phụ huynh, người đi làm).<br>- Hành vi: Tương tác trang công nghệ, kỹ thuật ô tô, chế tạo máy. | - Lượt xem 3s: 15.000 – 20.000 views (CPM ~16.000đ).<br>- Thu hút 3 – 5 lời mời liên hệ hợp tác tài trợ doanh nghiệp B2B. |
+| **Đợt 1** | **250.000 VNĐ** | 18/12 – 21/12/2026 (3 ngày) | Video ngắn POV: Robot Sóc Sơn lần đầu chuyển động trên sân tập | Lượt xem video (ThruPlay) / Tăng nhận diện thương hiệu đội tuyển | - Địa lý: Huyện Sóc Sơn, Mê Linh, Đông Anh, TP. Phúc Yên.<br>- Độ tuổi: 18 – 45 (Sinh viên, kỹ sư, phụ huynh, người đi làm).<br>- Hành vi: Tương tác trang công nghệ, kỹ thuật ô tô, chế tạo máy. | - Lượt xem 3s: 15.000 – 20.000 views (CPM ~16.000đ).<br>- Thu hút 3 – 5 lời mời liên hệ hợp tác tài trợ doanh nghiệp B2B. |
 
 ---
 
@@ -210,7 +198,7 @@ sequenceDiagram
 
 ## Nguồn Tham Chiếu
 - `docs/campaign-2026-2027/research/R1-season-team.md` (Mã đội FTC #39256, lịch trình mùa giải FTC BIOBUZZ 2026–2027, thành tích đội).
-- `docs/campaign-2026-2027/research/R3-ops-merch-events.md` (Benchmark giá vé workshop Maker Day, benchmark CPM/CPC Facebook/TikTok Ads).
+- `docs/campaign-2026-2027/research/R3-ops-merch-events.md` (Benchmark chi phí vận hành, benchmark CPM/CPC Facebook/TikTok Ads).
 - `docs/campaign-2026-2027/research/R5-sponsors-benchmarks.md` (Benchmark social media các CLB robotics học sinh tại Việt Nam).
 - `docs/campaign-2026-2027/04-ngan-sach-delta.md` (Dự toán chi phí 11 linh kiện và quỹ dự phòng: 33.975.000 VNĐ).
 - `docs/campaign-2026-2027/14-phan-cong-nhan-su.md` (Phân công nhân sự phụ trách truyền thông và điều phối nội dung).

@@ -49,14 +49,14 @@ Bước vào mùa giải quốc tế **FIRST Tech Challenge 2026–2027 (BIOBUZZ
 - **"BUILD THE NEXT ROBOT":** Lời kêu gọi hành động trực diện, dứt khoát. Đó là hành trình lắp ráp cỗ máy thi đấu mùa mới BIOBUZZ, nhưng sâu xa hơn là xây dựng thế hệ con người mới — thế hệ trẻ Việt Nam tự tin, làm chủ khoa học kỹ thuật và sẵn sàng hội nhập.
 - **"Mỗi mảnh ghép, một bước tiến":** 
   - Về mặt kỹ thuật: Mỗi con ốc, thanh ray Viper Slide, động cơ Yellow Jacket hay bộ não Control Hub đều là một mắt xích đưa robot hoàn thiện.
-  - Về mặt cộng đồng: Mỗi lượt ủng hộ 50.000đ của cựu học sinh, mỗi chiếc vé Maker Day của một em nhỏ hay mỗi khoản tài trợ 10–50 triệu của doanh nghiệp đều là một mảnh ghép niềm tin, cùng nâng bước học sinh Sóc Sơn vươn ra đấu trường quốc tế.
+  - Về mặt cộng đồng: Mỗi lượt ủng hộ 50.000đ của cựu học sinh, mỗi lời động viên của người dân địa phương hay mỗi khoản tài trợ 10–50 triệu của doanh nghiệp đều là một mảnh ghép niềm tin, cùng nâng bước học sinh Sóc Sơn vươn ra đấu trường quốc tế.
 
 ### 2.2. Ba trụ cột thông điệp (Three Core Pillars)
 
 | Trụ cột | Tên gọi | Thông điệp cốt lõi | Bằng chứng kiểm chứng (Reasons to Believe) |
 |:---:|---|---|---|
 | **01** | **Bản lĩnh trường huyện — Khát vọng toàn cầu** | Xuất phát điểm không quyết định giới hạn. Ý chí bền bỉ và tinh thần tự lực là lợi thế cạnh tranh lớn nhất. | - Đạt **Hạng 4 toàn quốc** VRC 2023 (vượt qua 66 đội).<br>- Lọt **Top 8 toàn quốc** VORC 2024.<br>- Giành **Á quân** Motions In Fire 2025.<br>- Duy trì liên tục 3 mùa giải FTC với các mã #28762, #33518 và chính thức mang mã **#39256** mùa 2026–2027. |
-| **02** | **Công nghệ chuẩn mực — Tác động bền vững** | Không chỉ chơi robot, chúng tôi làm chủ quy trình kỹ thuật chuẩn công nghiệp và cam kết phụng sự cộng đồng. | - Hệ thống điều khiển REV Control Hub, cơ cấu nâng hạ Viper Slide 4 tầng, thị giác máy tính Autonomous C920.<br>- **83%** học sinh tham gia FIRST tiếp tục học đại học khối ngành STEM, **63%** làm việc trong lĩnh vực STEM (*Nghiên cứu 10 năm Đại học Brandeis*).<br>- Tổ chức Maker Day truyền cảm hứng STEM cho hàng trăm học sinh địa phương. |
+| **02** | **Công nghệ chuẩn mực — Tác động bền vững** | Không chỉ chơi robot, chúng tôi làm chủ quy trình kỹ thuật chuẩn công nghiệp và cam kết phụng sự cộng đồng. | - Hệ thống điều khiển REV Control Hub, cơ cấu nâng hạ Viper Slide 4 tầng, thị giác máy tính Autonomous C920.<br>- **83%** học sinh tham gia FIRST tiếp tục học đại học khối ngành STEM, **63%** làm việc trong lĩnh vực STEM (*Nghiên cứu 10 năm Đại học Brandeis*).<br>- Lan tỏa phong trào nghiên cứu khoa học và khát vọng công nghệ tới học sinh địa phương. |
 | **03** | **Trách nhiệm môi trường — Hành động vì sự sống** | Cùng FIRST giải quyết bài toán lớn của thời đại: Bảo vệ đa dạng sinh học và hệ sinh thái tự nhiên. | - Mùa giải **BIOBUZZ™ presented by RTX** mô phỏng hành vi thu thập phấn hoa và bảo vệ tổ ong mật.<br>- Ứng dụng tư duy giải thuật tự hành để lan tỏa thông điệp bảo vệ hệ sinh thái rừng Sóc Sơn và môi trường Thủ đô. |
 
 ---
@@ -93,7 +93,7 @@ Không cam chịu ranh giới "học sinh trường huyện", Robotics Sóc Sơn
 Mùa giải quốc tế BIOBUZZ đặt ra thử thách kỹ thuật khắt khe chưa từng có: Robot phải di chuyển đa hướng 360 độ, vươn cao tháp nâng gắp phấn hoa và nhận diện vật thể tự hành bằng camera trong 30 giây đầu trận. Đội đã tái sử dụng tối đa khung gầm cũ, nhưng đang đối mặt với "điểm nghẽn sống còn": Danh mục linh kiện delta nhập khẩu chính ngạch từ Mỹ trị giá **30.975.000 VNĐ** (REV Control Hub, ray trượt Viper Slide, pin và động cơ). Nếu không có phần cứng này, cỗ máy không thể vận hành và giấc mơ thi đấu sẽ khép lại.
 
 ### Hồi 4: Lời kêu gọi — "Mỗi mảnh ghép, một bước tiến"
-Để vượt qua điểm nghẽn, đội không trông chờ thụ động mà chủ động phát động chiến dịch gây quỹ. Chúng tôi chia nhỏ chiếc robot thành 4 Mission rõ ràng để cộng đồng cùng đóng góp; chúng tôi mở các lớp trải nghiệm Maker Day tự làm ra giá trị; chúng tôi mang hồ sơ minh bạch đến các doanh nghiệp để đề xuất hợp tác đầu tư nhân tài.
+Để vượt qua điểm nghẽn, đội không trông chờ thụ động mà chủ động phát động chiến dịch gây quỹ. Chúng tôi chia nhỏ chiếc robot thành 4 Mission rõ ràng để cộng đồng cùng đóng góp; chúng tôi tối ưu nguồn lực sẵn có để tự làm ra giá trị; chúng tôi mang hồ sơ minh bạch đến các doanh nghiệp để đề xuất hợp tác đầu tư nhân tài.
 
 ### Hồi 5: Khát vọng ghi danh trên đấu trường thế giới
 Mỗi sự chung tay hôm nay là một mảnh ghép tiếp sức để cỗ máy hoàn thiện và lăn bánh trên sân đấu FPT Hòa Lạc vào tháng 2/2027.

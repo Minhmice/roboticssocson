@@ -1,4 +1,3 @@
-import { Inter } from "next/font/google";
 import { Suspense, type ReactNode } from "react";
 import "@/app/globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
@@ -9,11 +8,6 @@ import { getBootLoaderPreloadScript } from "@/lib/boot-loader";
 import type { Locale } from "@/lib/i18n/locales";
 import { loadMessages } from "@/lib/i18n/messages";
 
-const inter = Inter({
-  subsets: ["latin", "vietnamese"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 /**
  * Shared `<html>` shell for every root layout. Loads exactly one dictionary on the
@@ -37,6 +31,8 @@ export async function RootShell({
       suppressHydrationWarning
     >
       {bootPreload ? (
+        // The pre-paint boot gate belongs in the App Router root document head.
+        // eslint-disable-next-line @next/next/no-head-element
         <head>
           <script
             id="rbs-boot-gate"
@@ -44,7 +40,10 @@ export async function RootShell({
           />
         </head>
       ) : null}
-      <body className={`${inter.variable} antialiased overflow-x-clip`}>
+      <body
+        className="antialiased overflow-x-clip"
+        suppressHydrationWarning
+      >
         <LanguageProvider locale={locale} messages={messages}>
           <Analytics />
           <Suspense fallback={null}>

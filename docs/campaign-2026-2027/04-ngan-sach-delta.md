@@ -91,7 +91,6 @@ $$\text{Mục tiêu Gây quỹ Công khai} = \text{Phần cứng cốt lõi (11 
 
 $$\text{Mục tiêu} = 30.975.000\text{ VNĐ} + 3.000.000\text{ VNĐ} = \mathbf{33.975.000\text{ VNĐ}}$$
 
-*Lưu ý về hoạt động ngoài mục tiêu:* Maker Day được tự cấp vốn bằng tiền vé, không nằm trong mục tiêu gây quỹ 33.975.000 VNĐ.
 *Fact giải đấu:* FTC Vietnam trao 02 suất dự FIRST Championship (Houston, 28/04–01/05/2027) theo điểm Advancement; mùa gần nhất 2 suất thuộc đội giải Nhất Inspire Award và đội trưởng Liên minh Vô địch (R8). Nguồn: `docs/campaign-2026-2027/research/R1-season-team.md`.
 
 ---

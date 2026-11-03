@@ -1,0 +1,59 @@
+## Git version control for robotics teams
+
+Robotics development combines rapid hardware modifications, autonomous sensor tuning, and multiple programmers editing the same codebase. Without strict version control, untested driver controls overwrite working autonomous modes hours before matches. A structured Git workflow guarantees safe experimentation, clear code provenance, and instant rollback capability in the pit.
+
+![Version control and code review interface](https://commons.wikimedia.org/wiki/Special:FilePath/Git_icon.svg)
+
+### FTC repository structure and `.gitignore`
+
+Android Studio generates gigabytes of cached indexes, binary build artifacts, and machine-specific SDK paths. Committing these files leads to massive repository bloat and continuous merge collisions across team laptops. Ensure your `.gitignore` contains critical exclusions before making your initial commit:
+
+```text
+# Android Studio and Gradle caches
+.gradle/
+build/
+*/build/
+*.iml
+.idea/
+
+# Machine-specific SDK paths and keys
+local.properties
+.DS_Store
+*.apk
+captures/
+```
+
+Never commit `local.properties`. Each team member's computer has an independent Android SDK install directory. Committing this file breaks the build pipeline on every other workstation.
+
+### Branching workflow for FTC seasons
+
+Directly committing to the `main` branch during a competition pit session frequently leads to robot failures on the field. Structure team branches around verification gates:
+
+| Branch type | Naming convention | Purpose and rules |
+| --- | --- | --- |
+| Production / Stable | `main` | Tested code ready for match execution; protected from direct push |
+| Feature / Subsystem | `feat/intake-pid` | Isolated subsystem development and new autonomous paths |
+| Competition Tag | `tag: v1.0-regional` | Read-only freeze marking code used at an official tournament |
+| Hotfix / Emergency | `hotfix/drive-invert` | Minimal surgical fixes tested on the pit practice field |
+
+Create a branch for every discrete mechanism, test changes thoroughly with the physical robot, and open a Pull Request for peer review before merging into `main`.
+
+### Critical terminal commands for pit emergencies
+
+During high-pressure match rounds, quick and accurate Git commands prevent code panic:
+
+```bash
+# Stash incomplete experimental edits before field queueing
+git stash push -m "experimental auto tuning"
+
+# Revert working tree to the latest verified competition commit
+git reset --hard HEAD
+
+# Recover previously stashed experiments after the match
+git stash pop
+
+# Inspect the exact diff applied between two commits
+git diff HEAD~1 HEAD TeamCode/src/main/java/org/firstinspires/ftc/teamcode/
+```
+
+Adopt atomic commits with descriptive prefixes such as `feat:`, `fix:`, and `tune:`. When an autonomous routine fails unexpectedly, `git log` and `git bisect` quickly pinpoint the exact constant adjustment or logic branch responsible for the regression.

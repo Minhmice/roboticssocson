@@ -1,0 +1,32 @@
+A PID controller turns measured error into actuator command. In a robot, it can hold heading, regulate arm angle, or track a drivetrain velocity, but it cannot compensate for a bad sensor, loose mechanism, saturated motor, or incorrect units.
+
+![Optical through-bore encoder for closed-loop motion feedback](https://cdn11.bigcommerce.com/s-t3eo8vwp22/images/stencil/1500x1500/products/404/1487/Through_Bore_Encoder_Both_Shots_Sml__30025.1574098624.png?c=2)
+
+## Closed-loop model
+
+At each sample, define error as `e = target - measurement`. A proportional term reacts to present error, an integral term accumulates persistent error, and a derivative term reacts to error change. One practical discrete form is:
+
+```text
+integral += e * dt
+derivative = (e - previousError) / dt
+output = kP * e + kI * integral + kD * derivative + feedforward
+```
+
+Use a fixed, measured sample period `dt`; reset or initialize state when a mode starts. The output must be clamped to the legal actuator range. If the motor is already at its limit, extra integral cannot create more force. Freeze or back-calculate the integrator while saturated (anti-windup), and reset it when the target or mechanism mode changes if accumulated error is no longer meaningful.
+
+| Term | Useful response | Typical failure when too large |
+| --- | --- | --- |
+| `kP` | Corrects position or velocity error | Oscillation, buzzing, excessive current |
+| `kI` | Removes steady bias such as friction | Slow overshoot, windup |
+| `kD` | Adds damping and anticipates change | Noise amplification, twitching |
+| Feedforward | Supplies known gravity, friction, or velocity effort | Wrong model causes consistent bias |
+
+## Tune in a safe order
+
+Start with `kI = 0` and `kD = 0`. Confirm encoder direction, target units, sign convention, output limits, and emergency stop. Increase `kP` until response is useful but not continuously oscillatory. Add a small derivative term if the mechanism rings; filter measured velocity rather than differentiating noisy position directly. Add only enough integral to remove repeatable static error, then test saturation and recovery. Tune with the robot restrained or wheels lifted, and keep people clear of moving links.
+
+## Motion and units
+
+A position command should not jump beyond the mechanism's safe speed and acceleration. Use a trapezoidal or triangular motion profile to generate a reachable position and velocity target, then let the controller follow it. Convert encoder counts to mechanism units once at the hardware boundary; keep radians, meters, seconds, or degrees per second consistent throughout the controller. Account for gear ratio, wheel radius, sign, and encoder resolution.
+
+Log target, measurement, error, output, battery voltage, and loop period. A plot often distinguishes sensor noise, mechanical backlash, voltage sag, and bad gains faster than guesswork. Re-test with the real payload: a controller that works unloaded may saturate or oscillate when gravity and inertia change.

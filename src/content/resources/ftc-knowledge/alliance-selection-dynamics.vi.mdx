@@ -1,0 +1,57 @@
+## Quy trình và luật chọn liên minh trong FTC
+
+Sau khi kết thúc các trận đấu vòng loại (Qualification Matches), 4 đội có thứ hạng cao nhất sẽ trở thành Đội trưởng liên minh (Alliance Captains 1 đến 4). Buổi chọn liên minh (Alliance Selection) diễn ra trước vòng loại trực tiếp (Playoff Matches) và là thời điểm mang tính quyết định đến ngôi vô địch của giải đấu.
+
+Luật chọn liên minh FTC tuân theo các quy định nghiêm ngặt:
+1. **Thứ tự gọi:** Đội trưởng 1 (Hạng 1) gọi đầu tiên, sau đó đến Đội trưởng 2, 3 và 4.
+2. **Quy tắc từ chối (Decline Rule):** Nếu Đội B được Đội A mời nhưng từ chối, Đội B không thể được bất kỳ liên minh nào khác mời sau đó. Đội B chỉ có thể tiếp tục thi đấu nếu bản thân họ đủ điều kiện trở thành Đội trưởng liên minh.
+3. **Đôn hạng (Slide-up):** Nếu một đội trong Top 4 nhận lời gia nhập liên minh của đội có thứ hạng cao hơn, đội xếp thứ 5 sẽ được đôn lên làm Đội trưởng liên minh thứ 4.
+
+![Sân thi đấu FIRST Tech Challenge chuẩn bị cho các trận đấu liên minh](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/First-tech-challenge-bowled-over-playing-field.jpg/1280px-First-tech-challenge-bowled-over-playing-field.jpg)
+
+---
+
+## Cấu trúc danh sách lựa chọn thực nghiệm (Empirical Picklist)
+
+Đội thi có chiến thuật không bao giờ bước lên bục chọn liên minh mà không chuẩn bị sẵn một danh sách Picklist được xếp hạng từ 1 đến N dựa trên số liệu scouting. Tiêu chí chọn đồng minh cần tập trung vào **tính bổ trợ cơ học (Complementarity)** thay vì chỉ nhìn vào điểm tổng:
+
+| Tiêu chí đánh giá | Trọng số | Chỉ số phân tích | Mục tiêu liên minh đạt được |
+| :--- | :--- | :--- | :--- |
+| **Tính tương thích tự hành** | 30% | Tọa độ xuất phát và lộ trình ghi điểm độc lập | Cả 2 robot cùng chạy tự hành mà không va chạm, tối đa hóa điểm 30 giây đầu |
+| **Tốc độ chu kỳ TeleOp** | 35% | Số chu kỳ trung bình / trận đấu | Khả năng duy trì nhịp độ ghi điểm liên tục khi bị đối thủ kèm chặt |
+| **Độ tin cậy của cơ cấu treo** | 20% | Thời gian hoàn tất Endgame (dưới 15 giây) | Đảm bảo trọn vẹn điểm số cuối trận mà không gặp rủi ro kẹt cơ khí |
+| **Khả năng phòng thủ và chống va chạm** | 15% | Khối lượng robot, độ bám bánh xe Mecanum/Traction | Khả năng cản phá chu kỳ ghi điểm của liên minh đối phương hoặc trụ vững khi bị ép |
+
+---
+
+## Ma trận quyết định và kịch bản dự phòng (Contingency Tree)
+
+Khi bạn là Đội trưởng số 1, kịch bản lý tưởng là mời Đội trưởng số 2 để tạo thành "siêu liên minh". Tuy nhiên, nếu Đội số 2 từ chối vì muốn tự lập liên minh riêng hoặc Đội trưởng số 1 không muốn chọn Đội số 2, cây quyết định cần được kích hoạt tức thì:
+
+```
+                      [Đội trưởng Liên minh 1]
+                                 │
+                 Mời Đội số 2? ──┼── Không (Chọn Đội bổ trợ cao nhất)
+                                 │
+           ┌─────────────────────┴─────────────────────┐
+           ▼                                           ▼
+      [Đồng ý]                                     [Từ chối]
+ ┌─────────────────┐                       ┌─────────────────────────┐
+ │ Siêu liên minh  │                       │ Đội 2 bị khóa nhận lời  │
+ │ Hình thành      │                       │ Chuyển sang Mục 1 Picklist│
+ └─────────────────┘                       └─────────────────────────┘
+```
+
+Trước khi bước vào buổi lễ chọn liên minh, Trưởng nhóm chiến thuật (Strategy Lead) cần trực tiếp ghé thăm Pit của các ứng viên tiềm năng trong danh sách Top 5 để kiểm tra ba yếu tố:
+- **Tình trạng pin và động cơ:** Xác định xem đội bạn có đủ pin sạc đầy (trên 13.5V) cho loạt trận Playoff hay không.
+- **Tâm lý thi đấu của Driver:** Khả năng giữ bình tĩnh và phối hợp nhịp nhàng theo chiến thuật của Drive Coach.
+- **Mã nguồn tự hành dự phòng:** Đồng minh có sẵn các chương trình tự hành thay thế (left side, right side, delay 5s) hay không.
+
+---
+
+## 4 Sai lầm chí mạng cần tránh trong Alliance Selection
+
+1. **Chọn theo cảm tính bạn bè:** Chọn một đội quen biết dù robot của họ hay bị ngắt kết nối hoặc cơ cấu kẹp mẫu vật không ổn định.
+2. **Xung đột không gian ghi điểm:** Chọn hai robot đều bắt buộc phải chiếm cùng một góc sân hẹp để thả mẫu vật, khiến cả hai cản đường nhau suốt trận TeleOp.
+3. **Không tính đến chiến thuật kèm người (Defense):** Ở các vòng đấu bán kết và chung kết, các liên minh đối thủ thường cắt cử một robot chuyên cản phá. Nếu liên minh của bạn gồm 2 robot có trọng tâm cao, dễ lật hoặc dễ bị đẩy, nguy cơ thua trận là rất lớn.
+4. **Bối rối khi bị từ chối:** Không chuẩn bị sẵn phương án khi mục tiêu số 1 từ chối lời mời, dẫn đến việc lúng túng gọi tên một đội có thứ hạng cao trên bảng xếp hạng nhưng lại không phù hợp với chiến thuật của mình.

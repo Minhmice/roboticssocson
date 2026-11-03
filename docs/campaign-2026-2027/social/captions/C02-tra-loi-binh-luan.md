@@ -9,8 +9,7 @@ flowchart TD
   B -->|Đã chuyển khoản| D[Mẫu 2 + ghi sổ cái]
   B -->|Nghi ngờ / hỏi minh bạch| E[Mẫu 3]
   B -->|Doanh nghiệp hỏi tài trợ| F[Mẫu 4 → chuyển Đối ngoại]
-  B -->|Hỏi Maker Day| G[Mẫu 5]
-  B -->|Spam / công kích| H[Ẩn, không trả lời]
+  B -->|Spam / công kích| G[Ẩn, không trả lời]
 ```
 
 ## Mẫu 1 — Hỏi cách ủng hộ
@@ -35,11 +34,7 @@ flowchart TD
 
 **Việc phải làm:** ghi doanh nghiệp vào CRM ([../../11-crm-prospect.md](../../11-crm-prospect.md)), gửi one-pager ([../../09-sales-kit.md](../../09-sales-kit.md)). Nếu doanh nghiệp cần chứng từ kế toán thì báo Ban Giám hiệu ([../../10-support-thanh-toan-phap-ly.md](../../10-support-thanh-toan-phap-ly.md)).
 
-## Mẫu 5 — Hỏi Maker Day
-
-> Dạ Maker Day diễn ra Chủ nhật 13/12 tại THPT Sóc Sơn, dành cho các bạn lớp 3–9, có 2 ca (8:30–11:00 và 14:00–16:30). Vé 79.000 ₫ nếu đăng ký trước 28/11, sau đó 89.000 ₫, đã gồm kit thực hành, bánh sữa, giấy chứng nhận và sticker. Phụ huynh đăng ký giúp con tại: [link Google Form] ạ.
-
-## Mẫu 6 — Hỏi "sao không xin trường / nhà nước?"
+## Mẫu 5 — Hỏi "sao không xin trường / nhà nước?"
 
 > Dạ trường vẫn đang hỗ trợ đội về phòng lab và thủ tục ạ. Riêng linh kiện chuẩn thi đấu phải mua từ Mỹ, nên tụi mình chủ động gây quỹ thêm. Tiền chỉ dùng cho đúng 11 linh kiện, công khai từng khoản ạ.
 

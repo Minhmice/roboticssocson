@@ -1,0 +1,204 @@
+## Drivetrain Architectures and Kinematics in FIRST Tech Challenge
+
+The drivetrain chassis serves as the physical and mechanical foundation of an FTC robot, determining translational agility, pushing force, and trajectory precision during both 30-second autonomous and 2-minute teleoperated periods. Selecting the optimal drive architecture—Mecanum, Tank, or Coaxial Swerve—and mastering inverse kinematics and dead-wheel odometry algorithms is essential for elite match play.
+
+![Mecanum drive chassis kinematics and roller vector alignment](https://docs.revrobotics.com/assets/images/mecanum-wheel-drivetrain.png)
+
+### Comparative Analysis of FTC Drivetrain Configurations
+
+Drivetrain configurations present distinct engineering trade-offs regarding mechanical complexity, friction characteristics, and software control overhead:
+
+| Drivetrain Type | Holonomic Mobility | Drive Actuator Count | Traction & Pushing Force | Mechanical Complexity | Software & Tuning Difficulty | Primary Match Application |
+|---|---|---|---|---|---|---|
+| Mecanum Drive | Yes (Omnidirectional translation & rotation) | 4 independent planetary motors | Moderate (Susceptible to lateral defensive pushing) | Low (Direct axle mounting to gearboxes) | Moderate (Standard Mecanum kinematic model) | Standard FTC baseline; excels at agile cycling and scoring alignment |
+| Tank / Skid-Steer | No (Non-holonomic; forward, reverse, tank turn) | 2, 4, or 6 gearmotors | Very High (High-durometer roughtop or rubber tread) | Minimal (Spur gears or timing belt pulleys) | Low (Direct differential drive control) | Defense-heavy matches, obstacle traversal, heavy chassis designs |
+| Coaxial Swerve | Yes (Independent steering angle & drive velocity per pod) | 4 drive + 4 steer (Brushless or Smart Servos) | High (Treaded wheels with active steering vectoring) | Extreme (Bevel gear differentials, slip rings/continuous wiring) | High (Individual pod azimuth PID + vector field odometry) | Cutting-edge high-resource teams seeking uncompromised traction and maneuverability |
+| 3 / 4-Wheel Omni | Yes (90° perpendicular passive rollers) | 3 or 4 motors | Low (Low lateral resistance) | Low | Moderate | Ultra-lightweight chassis requiring rapid circular agility |
+
+*Crucial Mecanum Roller Geometry:* Mecanum wheels must be installed in an **"X-Pattern" configuration when viewed from top-down**. The contact rollers touching the mat floor must angle inward toward the geometric center of the robot. If accidentally mounted in an "O-Pattern", the lateral force vectors cancel destructively, eliminating strafing capability.
+
+### Mecanum Inverse Kinematics Formulation
+
+To command a robot with longitudinal velocity `v_x`, lateral velocity `v_y`, and angular yaw rate `omega_z` (rad/s) in the robot coordinate frame, target wheel surface linear velocities are computed through the classic kinematic matrix:
+
+
+```text
+v_{FL} = v_x - v_y - omega_z (L_x + L_y)
+```
+
+
+
+```text
+v_{FR} = v_x + v_y + omega_z (L_x + L_y)
+```
+
+
+
+```text
+v_{BL} = v_x + v_y - omega_z (L_x + L_y)
+```
+
+
+
+```text
+v_{BR} = v_x - v_y + omega_z (L_x + L_y)
+```
+
+
+Where:
+- `L_x`: Longitudinal half-track distance from chassis centroid to wheel axle centers (m).
+- `L_y`: Lateral half-track distance from chassis centroid to wheel contact centerlines (m).
+- `v_FL, v_FR, v_BL, v_BR`: Commanded linear velocity targets for Front-Left, Front-Right, Back-Left, and Back-Right wheels.
+
+#### Power Saturation Normalization
+During compound maneuvers (strafing while rotating under full forward throttle), individual wheel commands can exceed the hardware ceiling `[-1.0, 1.0]`. Normalizing against the maximum component preserves heading vectors and avoids unpredictable trajectory distortion:
+
+
+```text
+v_{max} = max(|v_{FL}|, |v_{FR}|, |v_{BL}|, |v_{BR}|, 1.0)
+```
+
+
+
+```text
+v_i' = (v_i / v_{max)} quad forall i in {FL, FR, BL, BR}
+```
+
+
+### Field-Centric Coordinate Frame Transformation
+
+Field-centric drive control decouples joystick directions from chassis rotation, allowing operators to drive relative to the field perimeter regardless of where the robot intake points. Raw gamepad joystick inputs (`J_x, J_y`) are rotated into the robot coordinate frame using current IMU yaw angle `theta`:
+
+
+```text
+v_x = J_x cos(-theta) - J_y sin(-theta)
+```
+
+
+
+```text
+v_y = J_x sin(-theta) + J_y cos(-theta)
+```
+
+
+### Dead-Wheel Odometry Kinematics
+
+Because Mecanum passive rollers experience intermittent slippage during aggressive accelerations, drive motor encoders cannot provide deterministic pose tracking for autonomous routines. FTC teams implement **3-wheel unpowered dead-wheel odometry pods** pressed into the soft foam tiles via sprung suspensions.
+
+```text
+       ┌─────────── Front Chassis Frame ───────────┐
+       │                                           │
+  Left Dead Wheel (L)                     Right Dead Wheel (R)
+       │                                           │
+       │         Perpendicular Dead Wheel (C)      │
+       └───────────────────────────────────────────┘
+```
+
+Pose updates across discrete sample intervals `Delta t` follow arc-length approximations:
+
+
+```text
+Delta theta = (Delta L - Delta R / B)
+```
+
+
+
+```text
+Delta y_{local} = (Delta L + Delta R / 2)
+```
+
+
+
+```text
+Delta x_{local} = Delta C - D_{perp} * Delta theta
+```
+
+
+Where:
+- `B`: Track width between left and right tracking wheels (calibrated in mm).
+- `D_perp`: Perpendicular displacement from robot center of rotation to the transverse tracking wheel.
+- `Delta L, Delta R, Delta C`: Incremental linear arc displacements reported by high-resolution encoders (such as REV Through-Bore Encoders).
+
+### Complete Java Implementation: Field-Centric Mecanum Controller
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.IMU;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
+@TeleOp(name = "Field-Centric Mecanum Controller", group = "Guides")
+public class FieldCentricMecanumController extends LinearOpMode {
+    @Override
+    public void runOpMode() {
+        DcMotorEx motorFL = hardwareMap.get(DcMotorEx.class, "motorFL");
+        DcMotorEx motorFR = hardwareMap.get(DcMotorEx.class, "motorFR");
+        DcMotorEx motorBL = hardwareMap.get(DcMotorEx.class, "motorBL");
+        DcMotorEx motorBR = hardwareMap.get(DcMotorEx.class, "motorBR");
+
+        // Reverse left motors to align positive power with forward chassis motion
+        motorFL.setDirection(DcMotor.Direction.REVERSE);
+        motorBL.setDirection(DcMotor.Direction.REVERSE);
+        motorFR.setDirection(DcMotor.Direction.FORWARD);
+        motorBR.setDirection(DcMotor.Direction.FORWARD);
+
+        // Active electromagnetic braking for immediate stopping
+        motorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        IMU imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters imuConfig = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+        imu.initialize(imuConfig);
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+            double y = -gamepad1.left_stick_y; // Invert joystick Y convention
+            double x = gamepad1.left_stick_x * 1.1; // Counteract lateral roller drag
+            double rx = gamepad1.right_stick_x;
+
+            if (gamepad1.guide || gamepad1.options) {
+                imu.resetYaw();
+            }
+
+            double headingRadians = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+            // Vector rotation into robot-centric frame
+            double rotX = x * Math.cos(-headingRadians) - y * Math.sin(-headingRadians);
+            double rotY = x * Math.sin(-headingRadians) + y * Math.cos(-headingRadians);
+
+            // Mecanum inverse kinematics calculation
+            double maxComponent = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1.0);
+            double flPower = (rotY + rotX + rx) / maxComponent;
+            double blPower = (rotY - rotX + rx) / maxComponent;
+            double frPower = (rotY - rotX - rx) / maxComponent;
+            double brPower = (rotY + rotX - rx) / maxComponent;
+
+            motorFL.setPower(flPower);
+            motorBL.setPower(blPower);
+            motorFR.setPower(frPower);
+            motorBR.setPower(brPower);
+
+            telemetry.addData("Heading Angle (Deg)", Math.toDegrees(headingRadians));
+            telemetry.addData("FL / FR Power", "%.2f / %.2f", flPower, frPower);
+            telemetry.addData("BL / BR Power", "%.2f / %.2f", blPower, brPower);
+            telemetry.update();
+        }
+    }
+}
+```
+
+### Diagnostic Field Procedures and Maintenance
+
+- **Unwanted Turning Drift While Driving Straight:** Calculate the physical Center of Mass (CoM). If the battery pack or heavy lift arm biases weight heavily toward one side, the high-normal-force wheels exhibit greater tractive resistance, causing yaw deflection. Counterbalance the chassis or implement closed-loop gyro heading lock in software.
+- **Odometry Tracking Wheel Bounce:** Foam tiles compress under robot weight. Ensure tracking pods use constant-force springs calibrated between 2.0 N and 3.0 N. Excessive spring force lifts the chassis off the floor, whereas insufficient preload causes the wheel to lose contact during rapid direction reversals.
+- **Drivetrain Sluggishness Under Low Battery:** Monitor internal battery sensor logs. If battery voltage drops under 10.5V, high current draw during 4-motor acceleration pushes the hub toward brownout cutoffs. Replace battery packs every 2–3 match cycles.

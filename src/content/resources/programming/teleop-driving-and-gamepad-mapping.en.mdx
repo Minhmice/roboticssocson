@@ -1,0 +1,154 @@
+## Field-Centric Mecanum Drivetrain and Gamepad Mapping
+
+In the manual control period (TeleOp) of FIRST Tech Challenge, responsive and predictable driver control directly determines cycle speed and scoring accuracy. A field-centric Mecanum drive decouples driver commands from robot heading: pushing the left stick away from the driver drives the robot toward the opposing alliance wall, regardless of current robot rotation.
+
+![Mecanum wheel kinematics and roller orientation](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Mecanum_wheel_concept.svg/800px-Mecanum_wheel_concept.svg.png)
+
+### Signal Conditioning: Deadbands and Polynomial Curves
+
+Analog thumbstick potentiometers frequently suffer from mechanical centering tolerances, causing non-zero floating values (stick drift) when released. Furthermore, standard linear mappings make fine alignment at low velocities difficult.
+
+```text
+[Raw Joystick Input (-1.0 to +1.0)]
+               │
+               ▼
+   [Deadzone Clamp (|raw| < 0.05 => 0.0)]
+               │
+               ▼
+ [Exponential Shaping: output = raw³ or raw × |raw|]
+               │
+               ▼
+[Conditioned Drive Vector to Mecanum Solver]
+```
+
+Implementing deadbands combined with cubic curve response provides tactile precision around origin while reserving full authority at maximum stick deflection:
+
+```java
+public static double filterJoystickInput(double input, double deadband) {
+    if (Math.abs(input) < deadband) {
+        return 0.0;
+    }
+    // Cubic response preserves sign while dampening sensitivity near zero
+    return Math.pow(input, 3);
+}
+```
+
+### Coordinate Frame Transformation (Field-Centric Kinematics)
+
+In a robot-centric control scheme, translational vectors correlate directly to chassis geometry. Field-centric mode rotates translation vector `[x, y]^T` opposite to current robot heading angle `\theta` measured by the REV Control Hub internal Inertial Measurement Unit (IMU):
+
+
+```text
+\begin{bmatrix} x' \\ y' \end{bmatrix} = \begin{bmatrix} \cos(-\theta) & -\sin(-\theta) \\ \sin(-\theta) & \cos(-\theta) \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix}
+```
+
+
+Once rotated into field reference frame coordinates `x'` (strafing) and `y'` (forward translation), individual wheel velocities for a standard rectangular chassis with 45-degree rollers are computed by superimposing translational and rotational components (`rx`):
+
+- Front Left Wheel: `FL = y' + x' + rx`
+- Back Left Wheel: `BL = y' - x' + rx`
+- Front Right Wheel: `FR = y' - x' - rx`
+- Back Right Wheel: `BR = y' + x' - rx`
+
+### Power Normalization
+
+When translation and rotation vectors combine simultaneously, raw motor power sums can exceed `1.0`. Simple value clamping truncates rotational authority and causes path deviation. Proportionally scaling down all motor powers by the maximum absolute output preserves steering dynamics:
+
+```java
+double maxPower = Math.max(Math.abs(fl), Math.max(Math.abs(bl), Math.max(Math.abs(fr), Math.abs(br))));
+if (maxPower > 1.0) {
+    fl /= maxPower;
+    bl /= maxPower;
+    fr /= maxPower;
+    br /= maxPower;
+}
+```
+
+### Complete TeleOp LinearOpMode Implementation
+
+The complete OpMode below initializes the universal REV IMU interface and executes field-centric drive calculations in real time:
+
+```java
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.IMU;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
+@TeleOp(name = "Field-Centric Mecanum TeleOp", group = "TeleOp")
+public class FieldCentricMecanumTeleOp extends LinearOpMode {
+    @Override
+    public void runOpMode() {
+        DcMotor frontLeftMotor = hardwareMap.get(DcMotor.class, "front_left");
+        DcMotor backLeftMotor = hardwareMap.get(DcMotor.class, "back_left");
+        DcMotor frontRightMotor = hardwareMap.get(DcMotor.class, "front_right");
+        DcMotor backRightMotor = hardwareMap.get(DcMotor.class, "back_right");
+
+        // Reverse left drivetrain motors to account for opposite facing gearboxes
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        // Configure REV Control Hub IMU orientation
+        IMU imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+        ));
+        imu.initialize(parameters);
+
+        telemetry.addData("Status", "Hardware configured. Awaiting driver start command.");
+        telemetry.update();
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+            // Read joystick values (Android Y-axis is inverted by default)
+            double y = -gamepad1.left_stick_y;
+            double x = gamepad1.left_stick_x * 1.1; // Counteract empirical sideways roller slip
+            double rx = gamepad1.right_stick_x;
+
+            // Recalibrate heading zero reference on demand
+            if (gamepad1.options) {
+                imu.resetYaw();
+            }
+
+            double robotHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+            // Rotate input vector by negative robot heading angle
+            double rotX = x * Math.cos(-robotHeading) - y * Math.sin(-robotHeading);
+            double rotY = x * Math.sin(-robotHeading) + y * Math.cos(-robotHeading);
+
+            // Compute raw individual wheel powers
+            double frontLeftPower = rotY + rotX + rx;
+            double backLeftPower = rotY - rotX + rx;
+            double frontRightPower = rotY - rotX - rx;
+            double backRightPower = rotY + rotX - rx;
+
+            // Normalize motor power if any wheel power exceeds maximum threshold
+            double maxMagnitude = Math.max(Math.abs(frontLeftPower), Math.max(Math.abs(backLeftPower),
+                    Math.max(Math.abs(frontRightPower), Math.abs(backRightPower))));
+
+            if (maxMagnitude > 1.0) {
+                frontLeftPower /= maxMagnitude;
+                backLeftPower /= maxMagnitude;
+                frontRightPower /= maxMagnitude;
+                backRightPower /= maxMagnitude;
+            }
+
+            frontLeftMotor.setPower(frontLeftPower);
+            backLeftMotor.setPower(backLeftPower);
+            frontRightMotor.setPower(frontRightPower);
+            backRightMotor.setPower(backRightPower);
+
+            telemetry.addData("Heading Angle (deg)", Math.toDegrees(robotHeading));
+            telemetry.update();
+        }
+    }
+}
+```
